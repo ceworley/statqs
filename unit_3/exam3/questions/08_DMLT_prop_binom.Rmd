@@ -1,0 +1,130 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+
+p = round(runif(1,0.3,0.7),2)
+mu = p
+sigma = sqrt(p*(1-p))
+ns = sample(6:10,4)^2
+
+n3 = ns[1]
+p3 = runif(1,0.002,0.998)
+se3 = signif(sigma/sqrt(n3),5)
+set3 = signif(sigma*sqrt(n3),5)
+z3 = round(qnorm(p3),2)
+x3 = round(n3*mu+z3*set3)+0.5
+phat3 = round(x3/n3,4)
+z3 = round((phat3-mu)/se3,2)
+p3 = round(pnorm(z3),4)
+t3 = paste0("If $n=",n3,"$, what is the probability that the sample proportion ($\\hat{p}$) is less than ",phat3,"? In other words, if $n=",n3,"$, determine $P\\left(\\overline{X}<",phat3,"\\right)$.",
+            "In other words, if $n=",n3,"$, determine $P\\left(\\hat{p}<",phat3,"\\right)$.")
+ex3 = paste0("Identify the boundary.",
+             "$$\\hat{p}=",phat3,"$$",
+             "Calculate the standard error (of proportion sampling)",
+             "$$\\text{SE} = \\frac{\\sigma}{\\sqrt{n}}= \\sqrt{\\frac{p(1-p)}{n}} =  ",se3,"$$",
+             "Get the z score.",
+             "$$z=\\frac{\\hat{p}-\\mu}{\\text{SE}}=",z3,"$$",
+             "With $z$-table, determine $P(Z<",z3,")=",p3,"$")
+
+
+
+n4 = ns[2]
+p4 = runif(1,0.002,0.998)
+se4 = signif(sigma/sqrt(n4),5)
+set4 = signif(sigma*sqrt(n4),5)
+z4 = round(qnorm(p4),2)
+x4 = round(n4*mu+z4*set4)+0.5
+phat4 = round(x4/n4,4)
+z4 = round((phat4-mu)/se4,2)
+p4 = round(pnorm(z4),4)
+r4 = round(1-p4,4)
+t4 = paste0("If $n=",n4,"$, what is the probability that the sample proportion ($\\hat{p}$) is more than ",phat4,"? In other words, if $n=",n4,"$, determine $P\\left(\\overline{X}>",phat4,"\\right)$.",
+            "In other words, if $n=",n4,"$, determine $P\\left(\\hat{p}>",phat4,"\\right)$.")
+ex4 = paste0("Identify the boundary.",
+             "$$\\hat{p}=",phat4,"$$",
+             "Calculate the standard error (of proportion sampling)",
+             "$$\\text{SE} = \\frac{\\sigma}{\\sqrt{n}}=\\sqrt{\\frac{p(1-p)}{n}} =",se4,"$$",
+             "Get the z score.",
+             "$$z=\\frac{\\hat{p}-\\mu}{\\text{SE}}=",z4,"$$",
+             "With $z$-table, determine $P(Z>",z4,")=",r4,"$")
+
+n5 = ns[3]
+p5 = runif(1,0.002,0.998)
+se5 = signif(sigma*sqrt(n5),5)
+z5 = round(qnorm(p5),2)
+x5 = round(n5*mu+z5*se5)+0.5
+z5 = round((x5-n5*mu)/se5,2)
+p5 = round(pnorm(z5),4)
+t5 = paste0("If $n=",n5,"$, what is the chance the number of successes is less than ",x5,"?",
+  " In other words, if $n=",n5,"$, determine $P\\left(\\sum X <",x5,"\\right)$")
+ex5 = paste0("Identify the boundary.",
+             "$$\\sum x=",x5,"$$",
+             "Calculate the standard error (of total)",
+             "$$\\text{SE} = \\sigma\\sqrt{n}=\\sqrt{np(1-p)} =",se5,"$$",
+             "Get the z score.",
+             "$$z=\\frac{\\sum x-n\\mu}{\\text{SE}}=",z5,"$$",
+             "With $z$-table, determine $P(Z<",z5,")=",p5,"$")
+
+n6 = ns[4]
+p6 = runif(1,0.002,0.998)
+se6 = signif(sigma*sqrt(n6),5)
+z6 = round(qnorm(p6),2)
+x6 = round(n6*mu+z6*se6)-0.5
+z6 = round((x6-n6*mu)/se6,2)
+p6 = round(pnorm(z6),4)
+r6 = round(1-p6,4)
+t6 = paste0("If $n=",n6,"$, what is the chance the number of successes is more than ",x6,"?",
+  " In other words, if $n=",n6,"$, determine $P\\left(\\sum X >",x6,"\\right)$")
+ex6 = paste0("Identify the boundary.",
+             "$$\\sum x=",x6,"$$",
+             "Calculate the standard error (of total)",
+             "$$\\text{SE} = \\sigma\\sqrt{n}=\\sqrt{np(1-p)} =",se6,"$$",
+             "Get the z score.",
+             "$$z=\\frac{\\sum x-n\\mu}{\\text{SE}}=",z6,"$$",
+             "With $z$-table, determine $P(Z>",z6,")=",r6,"$")
+
+qs = c(t3,t4,t5,t6)
+ex = c(ex3,ex4,ex5,ex6)
+ans = c(p3,r4,p5,r6)
+qord = sample(1:4,4)
+```
+
+Question
+========
+
+In some game, each trial has chance $p=`r p`$ of success. In other words, $X$ is a [random Bernoulli variable](https://en.wikipedia.org/wiki/Bernoulli_distribution){target="blank"} with parameter $p=`r p`$. To determine the following probabilities, use the de Moivre–Laplace theorem (normal approximation). I have already done the [continuity correction](https://en.wikipedia.org/wiki/Continuity_correction){target="blank"} by setting the boundaries.
+
+Answerlist
+--------
+* `r qs[qord[1]]`
+* `r qs[qord[2]]`
+* `r qs[qord[3]]`
+* `r qs[qord[4]]`
+
+
+
+Solution
+========
+
+You could first determine the mean and standard deviation of the Bernoulli variable $X$.
+
+$$\mu = p = `r mu`$$
+$$\sigma = \sqrt{p(1-p)} = `r signif(sigma,6)`$$
+
+Answerlist
+--------
+* `r ex[qord[1]]`
+* `r ex[qord[2]]`
+* `r ex[qord[3]]`
+* `r ex[qord[4]]`
+
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num
+exsolution: `r paste(ans[qord],collapse="|")`
+exname: DMLT prop binom
+extol: 0.01
+exextra[numwidth,numeric]: 6

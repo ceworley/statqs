@@ -1,0 +1,165 @@
+---
+title: "Simulating Archery to Exhibit the Central Limit Theorem"
+output:
+  html_notebook:
+    code_folding: hide
+---
+
+To exemplify the [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem){target="blank"}, we will simulate archery. In archery, an archer shoots arrows at a target. Each arrow scores an integer value between 0 through 10, with 10 points for a bullseye and lesser points determined by a series of concentric rings.
+
+```{r bullseye,fig.width=6,fig.height=6,echo=F}
+makebullseye = function(){
+  x = cos(2*seq(0,pi,length.out=1000)*pi)
+  y = sin(2*seq(0,pi,length.out=1000)*pi)
+  plot(x,y,type="l",lwd=3,xlim=c(-1.1,1.1),ylim=c(-1.1,1.1),ann=F,axes=F)
+  lines(x=c(-1,1,1,-1,-1)*1.1,y=c(1,1,-1,-1,1)*1.1,lwd=4)
+  colors = c("yellow","yellow","red","red","blue","blue","grey20","grey20","white","white")
+  colors2 = lapply(colors, col2rgb)
+  linecolors = c(rep("black",6),"white",rep("black",3))
+  textcolors = c(rep("black",6),rep("white",2),rep("black",2))
+  for(i in 10:1){
+    x2 = x*i/10
+    y2 = y*i/10
+    polygon(x2[1:(length(x2)-1)],y2[1:(length(x2)-1)],col=colors[i],border=F)
+    lines(x2,y2,col=linecolors[i])
+    text((-i+0.5)/10,0,11-i,col=textcolors[i],cex=1.2)
+  }
+  #lines(x*0.5/10,y*0.5/10,col="grey50")
+  points(0,0,pch=20,cex=0.5)
+}
+par(mar=c(0,0,0,0))
+makebullseye()
+```
+
+I happen to shoot archery. Over a couple months, I've gathered enough data to have an accurate representation of my probability distribution. I use a simplified probability distribution here. Notice this distribution is not [normal](https://en.wikipedia.org/wiki/Normal_distribution){target="blank"}.
+
+```{r}
+X = 0:10
+P = c(0.01,0.01,0.01,0.03,0.04,0.05,0.10,0.15,0.20,0.20,0.20)
+barplot(P,
+        names.arg=lapply(X,toString),
+        ylab="Probability",
+        xlab="Score",
+        main="My probability distribution")
+```
+You might find it helpful to see this probability distribution as a spinner.
+```{r echo=F, fig.width=6,fig.height=6}
+theta = seq(0,2*pi,length.out=1000)
+par(mar=c(0,0,0,0))
+plot(sin(theta),cos(theta),type="l",xlim=c(-1.2,1.2),ylim=c(-1.2,1.2),axes=F,ann=F)
+Ps = c(0,cumsum(P))
+for(i in 1:11){
+  lines(c(0,sin(Ps[i]*2*pi)),c(0,cos(Ps[i]*2*pi)))
+  pmid = (Ps[i+1]+Ps[i])/2
+  text(0.9*sin(pmid*2*pi),0.9*cos(pmid*2*pi),X[i])
+}
+for(i in 1:10){
+  p = i/10
+  lines(c(1,1.1)*sin(p*2*pi),c(1,1.1)*cos(p*2*pi),lwd=2)
+}
+for(i in 1:20){
+  p = i/20
+  lines(c(1,1.05)*sin(p*2*pi),c(1,1.05)*cos(p*2*pi))
+}
+for(i in 1:100){
+  p = i/100
+  lines(c(1,1.02)*sin(p*2*pi),c(1,1.02)*cos(p*2*pi))
+}
+```
+
+
+The population mean ($\mu$) can be calculated by using a weighted average.
+```{r}
+mu = sum(X*P)
+```
+$$\mu = `r mu`$$
+
+The population standard deviation ($\sigma$) [can be calculated](https://en.wikipedia.org/wiki/Standard_deviation#Discrete_random_variable){target="blank"}.
+```{r}
+sigma = sqrt(sum( (X-mu)^2*P ))
+```
+$$\sigma = `r sigma` $$
+
+In archery competitions, it is common to shoot 72 arrows. We simulate me shooting 72 arrows, and report the sample mean, sample standard deviation, and sample total.
+```{r}
+set.seed(312)
+x = sample(X,72,replace=T,prob=P)
+cat(x)
+xbar = mean(x)
+s = sd(x)
+tot = sum(x)
+```
+$$\bar{x} = `r xbar` $$
+$$s = `r s`$$
+$$\sum x = `r tot` $$
+To visualize [the law of large numbers](https://en.wikipedia.org/wiki/Law_of_large_numbers){target="blank"}, I like to use [a running average](https://en.wikipedia.org/wiki/Moving_average#Cumulative_moving_average){target="blank"}.
+```{r}
+plot(1:72,cumsum(x)/1:72,type="l",ylab="running mean",xlab="number of arrows shot",main="Running mean, shooting 72 arrows")
+abline(h=mu,lty=2,col="red")
+```
+
+We can see that while the sample is small (few arrows have been shot), the running mean is more volatile, but as the sample size grows, the running mean smooths out and approaches the population mean (marked with a dotted line).
+
+Now, we repeat that process 100 times and plot all the running means overlaid.
+
+```{r collapse = TRUE }
+set.seed(312)
+reps = 100
+x2 = sample(X,72*reps,replace=T,prob=P)
+x2 = matrix(x2,ncol=72)
+plot(0,0,type="n",xlim=c(0,72),ylim=c(0,10),xlab="sample size (n)",ylab="mean",main="Running mean, shooting 72 arrows, repeated 100 times")
+for(i in 1:reps){
+  lines(1:72,cumsum(x2[i,])/1:72,col=rgb(0,0,0,0.5))
+}
+abline(h=mu,lty=2,col="red")
+lines(1:72,mu-2*sigma/sqrt(1:72),col="blue")
+text(68,mu-4*sigma/sqrt(72),expression(mu-2*sigma/sqrt(n)),col="blue")
+lines(1:72,mu+2*sigma/sqrt(1:72),col="green")
+text(68,mu+4*sigma/sqrt(72),expression(mu+2*sigma/sqrt(n)),col="green")
+```
+We see most means are in the interval of typical sample means.
+$$\text{interval of typical sample means} = \left(\mu-\frac{2\sigma}{\sqrt{n}}\,,\,\,\mu+\frac{2\sigma}{\sqrt{n}}\right)$$
+
+We can plot a histogram of the 100 means (only the final means with $n=72$). We can also plot the expected density described by the central limit theorem.
+```{r}
+means = apply(x2,1,mean)
+hist(means,freq=F)
+possibilities = seq(min(means),max(means),1/72)
+densities = dnorm(possibilities,mu,sigma/sqrt(72))
+lines(possibilities,densities,col="red")
+```
+
+To clarify, we are looking at 100 means, where each mean is of 72 shots. The central limit theorem will be seen more clearly if we increase 100 to a larger number (like 100,000). We expect the means to be centered around $\mu=`r mu`$ and have a [standard error](https://en.wikipedia.org/wiki/Standard_error){target="blank"} equal to $$\text{SEM}=\frac{\sigma}{\sqrt{n}} = \frac{`r sigma`}{\sqrt{72}} = `r sigma/sqrt(72)`$$
+```{r collapse = TRUE }
+set.seed(123456)
+reps = 100000
+x3 = sample(X,72*reps,replace=T,prob=P)
+x3 = matrix(x3,ncol=72)
+means = apply(x3,1,mean)
+possibilities = seq(min(means),max(means),1/72)
+hist(means,freq=F,main="100000 repetitions of finding mean of 72 shots",
+     breaks=seq(min(means)-1/72/2, max(means)+1/72/2, 1/72))
+SEM3 = sigma/sqrt(72)
+densities = dnorm(possibilities,mu,SEM3)
+lines(possibilities,densities,col="red")
+```
+The red curve is a normal distribution with mean `r mu` and standard deviation `r SEM3`.
+
+If we increase the number of arrows in each repetition, the standard error will decrease. For example, each repetition could require 400 arrows. Then, we predict the means will have a standard error equal to
+$$\text{SEM} = \frac{`r sigma`}{\sqrt{400}} = `r sigma/sqrt(400)` $$
+
+```{r collapse = TRUE }
+set.seed(1236)
+reps = 10000
+x4 = sample(X,400*reps,replace=T,prob=P)
+x4 = matrix(x4,ncol=400)
+means = apply(x4,1,mean)
+hist(means,freq=F,main="10000 repetitions of finding mean of 400 shots")
+possibilities = seq(min(means),max(means),1/400)
+SEM4 = sigma/sqrt(400)
+densities = dnorm(possibilities,mu,SEM)
+lines(possibilities,densities,col="red")
+```
+Indeed, we see the means have less spread now. The normal distribution with mean `r mu` and standard deviation `r sigma/sqrt(400)` accurately predicts the density.
+
+In summary, we see that [the sampling distribution](https://en.wikipedia.org/wiki/Sampling_distribution){target="blank"} is approximately normal even though the probability distribution was not normal. We also saw the standard error correctly predicted the spread of sample means.

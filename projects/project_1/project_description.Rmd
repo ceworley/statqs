@@ -1,0 +1,196 @@
+---
+title: "First Project - Extra Credit Version"
+output: html_notebook
+---
+
+You will choose a population from which to sample. You will repeatedly sample from this population and report the results.
+
+You will choose a well-characterized population (random number generator) to sample from. Here, well-characterized means you know the population mean and population standard deviation.
+
+Some possible populations are dice, a spinner, a deck of cards, a lottery machine (numbers in a hat), or (probably easiest) a computer's random number generation. We will want [independent identically distributed](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables){target="blank"} random numbers. This means if you use cards or a lottery machine, then you need to replace the number into the pile and reshuffle before drawing again.
+
+Before sampling, you will first calculate the following parameters of your population:
+
+* population mean
+* population standard deviation
+* expected total of 5 measurements
+* standard error of totals of 5 measurements
+* expected mean of 5 measurements
+* [standard error of means](https://en.wikipedia.org/wiki/Standard_error){target="blank"} of 5 measurements
+
+Then, we will see how we would estimate those 6 parameters by sampling, using 20 repetitions for each estimate. We will compare each estimate with actual parameter by calculating the [relative difference](https://en.wikipedia.org/wiki/Relative_change_and_difference){target="blank"}.
+$$\text{relative difference} = \frac{\text{estimate}-\text{parameter}}{\text{parameter}} $$
+
+You will need a total of 100 (from $20\times 5$) measurements. Then,
+
+* Summarize the first 20 measurements by producing
+  * the sample mean (and appropriate relative difference)
+  * sample standard deviation (and appropriate relative difference)
+  * a histogram of the first 20 measurements
+* Split 100 measurements into 20 groups of 5. For each group, determine the total. With those totals, produce
+  * the mean of the totals (and appropriate relative difference)
+  * the standard deviation of the totals (and appropriate relative difference)
+  * a histogram of the 20 totals
+* Split the 100 measurements into the same 20 groups of 5. For each group, determine the mean. With those means, produce
+  * the mean of the means (and appropriate relative difference)
+  * the standard deviation of the means (and appropriate relative difference)
+  * a histogram of the 20 means
+
+## Step 1: pick a population
+
+You need to pick a random number generator whose population mean and population standard deviation are known. 
+
+
+| Population (distribution) | Example in R | Mean ($\mu$) | Standard deviation ($\sigma$) |
+|:---:|:---:|:---:|:---:|
+| Dice (discrete uniform from 1 to $N$)| `sample(1:8,n=100,replace=T)` | $$\frac{N+1}{2}$$ | $$\sqrt{\frac{N^2-1}{12}}$$|
+| [Discrete uniform](https://en.wikipedia.org/wiki/Discrete_uniform_distribution){target="blank"} from $A$ to $B$ | `sample(30:60,n=100,replace=T)`| $$\frac{A+B}{2}$$ | $$\sqrt{\frac{(B-A+1)^2-1}{12}}$$ |
+| Bernoulli distribution (0s and 1s with weighted coin, $p$ chance of 1) | `1*(runif(100)>0.6)` | $p$|$\sqrt{p(1-p)}$|
+
+
+
+The general formulas are provided here (but easier, more specific formulas are provided later).
+
+[Mean of discrete population (general formula)]((https://en.wikipedia.org/wiki/Mean#Mean_of_a_probability_distribution){target="blank"}) with [probability function](https://en.wikipedia.org/wiki/Probability_mass_function){target="blank"} $\mathbb{P}[x]$:
+$$\mu = \sum x \cdot \mathbb{P}[x] $$
+[Standard deviation of discrete population (general formula)](https://en.wikipedia.org/wiki/Standard_deviation#Discrete_random_variable){target="blank"}:
+$$\sigma = \sqrt{\sum \mathbb{P}[x] \cdot (x-\mu)^2} $$
+[Mean of continuous population (general formula)]((https://en.wikipedia.org/wiki/Mean#Mean_of_a_probability_distribution){target="blank"}) with [density function](https://en.wikipedia.org/wiki/Probability_density_function){target="blank"} $f[x]$:
+$$\mu = \int_{-\infty}^\infty x \cdot f[x] \cdot \text{d}x $$
+[Standard deviation of continuous population (general formula)](https://en.wikipedia.org/wiki/Standard_deviation#Continuous_random_variable){target="blank"}:
+$$\sigma = \sqrt{\int f[x] \cdot (x-\mu)^2 \cdot \text{d}x} $$
+
+In this class, you will be expected to use those discrete general formulas (but not the continuous versions). For this project, you will only need to use the general discrete formulas if you make a spinner with unequally sized regions (or use a computer to mimic a spinner with unequally sized regions).
+
+### Dice
+
+Rolling a die is equivalent to a special case of the [discrete uniform distribution](https://en.wikipedia.org/wiki/Discrete_uniform_distribution){target="blank"}. If a die has $N$ sides labeled 1 through $N$, then the following formulas will calculate the population mean and population standard deviation.
+$$\mu_{\text{dice}} = \frac{N+1}{2} $$
+$$\sigma_{\text{dice}} = \sqrt{\frac{N^2-1}{12}} $$
+So, for example, if you have an 8-sided die.
+$$\mu_{\text{eight-sided-die}} = \frac{8+1}{2} = 4.5 $$
+$$\sigma_{\text{eight-sided-die}} = \sqrt{\frac{8^2-1}{12}} = `r sqrt((8^2-1)/12)` \approx `r round(sqrt((8^2-1)/12),3)` $$
+
+### Lottery machine, cards, or spinner with equally-sized regions
+
+If you have $N$ equally-likely outcomes ($x_1, x_2, \dots , x_N$), then
+
+$$\mu = \frac{\sum x}{N} $$
+$$\sigma = \sqrt{\frac{\sum (x-\mu)^2}{N}} $$
+Notice we do **not** use [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction){target="blank"} for the population. In your deck, there can be repeats. For example, your deck (population) could have the following cards (ignoring suits):
+$$1,1,5,7,8,8$$
+Then,
+$$\mu = \frac{1+1+5+7+8+8}{6} = 5 $$
+and
+$$\sigma = \sqrt{\frac{(1-5)^2+(1-5)^2+(5-5)^2+(7-5)^2+(8-5)^2+(8-5)^2}{6}} = 3$$
+
+### Common continuous distributions
+
+#### Standard uniform
+
+The [standard uniform distribution](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)#Standard_uniform){target="blank"} generates numbers between 0 and 1. Any spreadsheet will produce standard uniform values with the [`RAND()`](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_RAND_function){target="blank"} function. In R, you can use the [`runif()` function](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/Uniform){target="blank"}.
+
+#### Uniform
+
+A [continuous uniform distribution](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)){target="blank"} is often a fundamental component to a computer's capabilities. 
+
+In most spreadsheets, you can use [`RANDBETWEEN(bottom; top)`](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_RANDBETWEEN_function){target="blank"}. 
+
+
+
+
+
+
+
+
+
+
+
+
+## Other
+
+
+If you use a lottery machine (numbers in a hat) or cards, remember you need to replace the number and reshuffle after each draw to get [independent identically distributed](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables){target="blank"} numbers.
+
+
+
+
+
+
+
+## Dice
+
+Rolling a die is equivalent to a special case of the [discrete uniform distribution](https://en.wikipedia.org/wiki/Discrete_uniform_distribution){target="blank"}. If a die has $N$ sides labeled 1 through $N$, then the following formulas will calculate the population mean and population standard deviation.
+$$\mu_{\text{dice}} = \frac{N+1}{2} $$
+$$\sigma_{\text{dice}} = \sqrt{\frac{N^2-1}{12}} $$
+So, for example, if you have an 8-sided die.
+$$\mu_{\text{eight-sided-die}} = \frac{8+1}{2} = 4.5 $$
+$$\sigma_{\text{eight-sided-die}} = \sqrt{\frac{8^2-1}{12}} = `r sqrt((8^2-1)/12)` \approx `r round(sqrt((8^2-1)/12),3)` $$
+
+### Lottery machine, cards, or spinner with equally-sized regions
+
+If you have $N$ equally-likely outcomes ($x_1, x_2, \dots , x_N$), then
+
+$$\mu = \frac{\sum x}{N} $$
+$$\sigma = \sqrt{\frac{\sum (x-\mu)^2}{N}} $$
+Notice we do **not** use [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction){target="blank"} for the population. In your deck, there can be repeats. For example, your deck (population) could have the following cards (ignoring suits):
+$$1,1,5,7,8,8$$
+Then,
+$$\mu = \frac{1+1+5+7+8+8}{6} = 5 $$
+and
+$$\sigma = \sqrt{\frac{(1-5)^2+(1-5)^2+(5-5)^2+(7-5)^2+(8-5)^2+(8-5)^2}{6}} = 3$$
+
+### Common continuous distributions
+
+#### Standard uniform
+
+The [standard uniform distribution](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)#Standard_uniform){target="blank"} generates numbers between 0 and 1. Any spreadsheet will produce standard uniform values with the [`RAND()`](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_RAND_function){target="blank"} function. In R, you can use the [`runif()` function](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/Uniform){target="blank"}.
+
+#### Uniform
+
+A [continuous uniform distribution](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous)){target="blank"} is often a fundamental component to a computer's capabilities. 
+
+In most spreadsheets, you can use [`RANDBETWEEN(bottom; top)`](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_RANDBETWEEN_function){target="blank"}. 
+
+
+
+
+
+
+
+
+
+
+
+
+## Other
+
+
+If you use a lottery machine (numbers in a hat) or cards, remember you need to replace the number and reshuffle after each draw to get [independent identically distributed](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables){target="blank"} numbers.
+
+
+
+
+
+
+You will choose a well-characterized population ([random number generator](https://en.wikipedia.org/wiki/Random_number_generation){target="blank"}) to sample from. Here, well-characterized means you know the population mean and population standard deviation.
+
+Some possible populations are dice, a spinner, a deck of cards, a lottery machine (numbers in a hat), or (probably easiest) a computer's random number generation. We will want [independent identically distributed](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables){target="blank"} random numbers. This means if you use cards or a lottery machine, then you need to replace the number into the pile and reshuffle before drawing again.
+
+Before sampling, you will first calculate the following parameters of your population:
+
+* population mean
+* population standard deviation
+
+Then, we will sample from the population, using a sample size of at least 20. We will compare each estimate with actual parameter by calculating the [relative difference](https://en.wikipedia.org/wiki/Relative_change_and_difference){target="blank"}.
+$$\text{relative difference} = \frac{\text{estimate}-\text{parameter}}{\text{parameter}} $$
+
+You will need at least 20 measurements. Then,
+
+* Summarize the measurements by producing the following:
+  * the sample mean (and appropriate relative difference)
+  * sample standard deviation (and appropriate relative difference)
+  * a relative frequency distribution and/or histogram of the measurements
+
+
+

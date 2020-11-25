@@ -1,0 +1,126 @@
+---
+title: "First project example: monthly average time when commuting by bike"
+output: html_notebook
+---
+
+### Impetus
+
+When a population is sampled, the sample's mean and standard deviation are often used as estimators for the population mean and standard deviation. These estimates tend to be close, but not exact. It is useful to explore this concept by simulating the process with a random-number generator. 
+
+I wanted the randomly-generated numbers to represent something I care about. One of my greatest passions is bicycling; I rarely use any other form of transportation. I am mildly embarrassed to admit that I currently alternate between 5 different bicycles. I've noticed that the amount of time to commute from home to BHCC depends on which bicycle I ride. I've listed the approximate timings below.
+
+|    Bike     | Time to commute to BHCC |
+|:-----------:|:-----------------------:|
+| Track       |    20 minutes           |
+| Touring     |    25 minutes           |
+| Beater      |    27 minutes           |
+| Mountain    |    30 minutes           |
+| Folding     |    30 minutes           |
+
+In real life, I prefer to commute with my track bike when the weather is nice and my beater in rain or snow. However, I wanted to simulate a month (~20 days of commutes) where I randomly select a bike such that each bike is equally likely each day. So I decided to have my random-number generator be equally likely to select those 5 possibilities. This is equivalent to a lottery machine with 5 balls, labeled 20, 25, 27, 30, and 30, and where the balls are replaced after each draw.
+
+### Population parameters
+
+The mean and standard deviation of a lottery machine are easy to calculate.
+$$\mu = \frac{\sum X}{N} = \frac{20+25+27+30+30}{5} = 26.4 $$
+
+$$\sigma = \sqrt{\frac{\sum(X-\mu)^2}{N}} = \sqrt{\frac{(20-26.4)^2+(25-26.4)^2+(27-26.4)^2+(30-26.4)^2+(30-26.4)^2}{5}} = 3.72  $$
+
+```{r}
+X = c(20,25,27,30,30)
+N = length(X)
+mu = sum(X)/N
+sigma = sqrt(sum((X-mu)^2)/N)
+sprintf("mu=%f   sigma=%f",mu,sigma)
+```
+
+### Sampling method
+
+I wanted to generate the numbers mechanically, and I did not have any dice or playing cards, so I decided to write those 5 numbers on small squares of paper and place those pieces into a jar. I made sure the squares were all as equally sized as possible, folded once, and did my best to not bend the pieces in any other way. These precautions were to make sure I was equally likely to pick each piece of paper. After each number was randomly picked, the number was put back into the jar, and the jar was shaken vigorously to reshuffle. This replacement and reshuffling was important for getting independent and identically distributed random numbers. This process led to the following sequence of numbers.
+
+```{r echo=F}
+set.seed(123) #makes the 20 draws stable between document renderings
+n = 20
+x = sample(X,n,T)
+```
+
+`r paste(x,collapse=", ")`
+
+## Sample statistics
+
+I calculated the sample mean and sample standard deviation (with Bessel's correction).
+
+```{r}
+x = c(27, 27, 25, 25, 27, 30, 30, 20, 25, 27, 30, 27, 27, 20, 30, 20, 20, 30, 27, 25)
+n = length(x)
+xbar = mean(x)
+s = sd(x)
+sprintf("xbar=%f   s=%f",xbar,s)
+```
+$$\bar{x} = `r xbar` $$
+$$s = `r s` $$
+
+So, in my simulated month of commuting, I had an average commute time of `r round(xbar,2)` minutes with a standard deviation of `r round(s,2)` minutes. 
+
+### Comparing sample statistics to population parameters
+
+If the population parameters ($\mu$ and $\sigma$) had been unknown, then these sample statistics ($\bar{x}$ and $s$) would be our "best-guess" estimators of the population parameters. Our example demonstrates that these estimators tend to be near, but not exactly equal to the true values. This idea could be shown with relative differences.
+$$\text{relative difference of means} = \frac{\bar{x}-\mu}{\mu} = `r (xbar-mu)/mu` $$
+$$\text{relative difference of StDevs} = \frac{s-\sigma}{\sigma} = `r (s-sigma)/sigma` $$
+
+So, in this case, our mean estimator would have been about 1% off and our standard deviation estimator would have been about 5% off. This seems like it would be pretty typical to me. 
+
+### Standard score
+
+We get a more precise idea of typicalness of $\bar{x}$ by calculating it's $z$-score. 
+```{r}
+z = (xbar-mu)/(sigma/sqrt(n))
+```
+
+$$z = \frac{\bar{x}-\mu}{\sigma/\sqrt{n}} = \frac{`r xbar`-`r mu`}{`r sigma`/ \sqrt{`r n`} } = `r z` $$
+
+Because this $z$-score is between -2 and 2, we think the sample mean is indeed quite typical.
+
+### Conclusion
+
+In summary, we showed an example that illustrates how sample statistics tend to be near, but not exactly equal to, their corresponding population parameters. In my simulation, my month's average commute was `r xbar` minutes, which was a little under the population average of `r mu` minutes. It would be interesting to run this simulation more times, to get an idea of how much variability happens in a monthly average. It would also be interesting to repeatedly run the simulation with a larger sample size to mimic yearly averages. I would expect these yearly averages to typically be closer to `r mu` minutes than the monthly averages (see [law of large numbers](https://en.wikipedia.org/wiki/Law_of_large_numbers){target="blank"}).
+
+### Extra credit
+
+I decided to use a computer to run the monthly simulation 10000 times.
+
+```{r}
+data = sample(X,size=20*10000,replace=TRUE)
+data = matrix(data,ncol=20)
+xbars = apply(data,1,mean)
+hist(xbars)
+mean(xbars)
+sd(xbars)
+```
+
+We see the monthly averages are indeed centered around `r mu` minutes, with a standard deviation of `r sd(xbars)`. This standard deviation of sample means is a very important concept (that we will learn about later in the course). This empirical standard deviation of sample means should approach the [standard error](https://en.wikipedia.org/wiki/Standard_error){target="blank"}.
+
+$$\text{standard error} = \text{SE} = \frac{\sigma}{\sqrt{n}} = \frac{`r sigma`}{\sqrt{`r n`}} = `r sigma/sqrt(n)` $$
+
+Indeed, the two values are quite close.
+
+Let's see how this changes with yearly average. In a year, I commute to BHCC about 200 times.
+
+```{r}
+data2 = sample(X,size=200*10000,replace=TRUE)
+data2 = matrix(data2,ncol=200)
+xbars2 = apply(data2,1,mean)
+hist(xbars2)
+mean(xbars2)
+sd(xbars2)
+```
+
+And, again, we can see that the standard deviation of sample means is near the standard error.
+
+$$\text{standard error} = \text{SE} = \frac{\sigma}{\sqrt{n}} = \frac{`r sigma`}{\sqrt{`r 200`}} = `r sigma/sqrt(200)` $$
+
+The yearly averages are still centered around $\mu=`r mu`$, however they have a smaller spread because their sample size is larger. 
+
+In this extra credit, we have investigated the spread of sample means. The concept of standard error was shown to predict the spread of sample means. We saw that a larger sample size resulted in a smaller spread of sample means. This can be seen in the formula for standard error because $n$ is in the denominator.
+
+

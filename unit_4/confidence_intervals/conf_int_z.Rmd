@@ -1,0 +1,47 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+
+xbar = round(runif(1,10,100),1)
+s = round(runif(1,xbar/6,xbar/3),1)
+n = sample(40:300,1)
+
+LB = xbar-2*s/sqrt(n)
+UB = xbar+2*s/sqrt(n)
+```
+
+Question
+========
+
+A scientist has weighed `r n` specimens of a newly discovered organism. Those weights have a *sample mean* of $\bar{x} =`r xbar`$ grams and a sample standard deviation of $s=`r s`$ grams. The scientist hopes to construct a 95% **confidence interval** of the organism's *population mean* ($\mu$). This is to report an interval that helps indicate the scientist's uncertainty due to only weighing `r n` specimens.
+
+The scientist will later consult a statistician for a more precise method, but for now she will use a quick method to estimate the 95% confidence interval:
+$$\bar{x}\pm \frac{2s}{\sqrt{n}} $$
+
+Your answers will have a tolerance of 0.1 grams.
+
+Answerlist
+--------
+* Determine the lower boundary of the condidence interval by using $\bar{x}-\frac{2s}{\sqrt{n}}$.
+* Determine the upper boundary of the condidence interval by using $\bar{x}+\frac{2s}{\sqrt{n}}$.
+
+
+Solution
+========
+
+Plug the numbers into the expressions.
+
+Answerlist
+--------
+* Lower bound = $~`r xbar`-2(`r s`)/\sqrt{`r n`} ~=~ `r LB`$
+* Upper bound = $~`r xbar`+2(`r s`)/\sqrt{`r n`} ~=~ `r UB`$
+
+
+Meta-information
+================
+extype: cloze
+exsolution: `r LB`|`r UB`
+exclozetype: num|num
+exname: confidence interval
+extol: 0.1
+

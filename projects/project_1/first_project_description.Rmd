@@ -1,0 +1,157 @@
+---
+title: "First Project"
+output:
+  html_notebook:
+    toc: yes
+  pdf_document:
+    toc: yes
+---
+
+## Background
+
+When we estimate a population's mean and standard deviation by using a sample's mean and standard deviation, the estimates are typically close to - but not exactly equal to - the actual population's parameters. You're goal is to show this with an example.
+
+In research, we often encounter data that contains randomness.  For example, when testing a medicine, some patients survive and others die whether or not the medicine is administered. This randomness can be simulated with a random-number generator.
+
+In statistics, we will think of the random-number generator as the "population". This is because we often focus on a specific random-number generating process: a [simple random sample](https://en.wikipedia.org/wiki/Simple_random_sample){target="blank"} (with replacement) from a population. 
+
+Research often involves describing a population based on a relatively small sample. For example, a scientist may want to characterize the weight of a new species of tree frog. That scientist cannot capture all of those tree frogs. Instead, that scientist tries to collect a simple random sample of those tree frogs. Then, based on the sample, the scientist [infers](https://en.wikipedia.org/wiki/Statistical_inference){target="blank"} knowledge about the population. A basic inference is to report a "best guess" of the population's mean and standard deviation. That best guess is the sample's mean and standard deviation.
+
+We will simulate this process. However, unlike the scientist, we know the population exactly. This will allow us to explore how the best guesses are probably close, but not exact. An interested student might see (and report) what happens when they repeat this process or what happens when the sample size gets larger (these additions would make the paper better, but they are not requirements).
+
+## Outline
+
+* Choose a random-number generator (population) with identifiable mean and standard deviation.
+* Determine population mean.
+* Determine population standard deviation.
+* [Sample](https://en.wikipedia.org/wiki/Simple_random_sample){target="blank"} from the population ($n\ge 20$) with replacement to get [independent identically distributed](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables){target="blank"} random numbers.
+* Determine sample mean.
+* Determine sample standard deviation.
+* Compare the sample statistics to the population parameters.
+* Determine the $z$-score of the sample mean, and comment on its implication.
+
+You will **write a paper detailing your process**. You will describe which population you chose (and why, if there is an interesting reason). You will report the required values in a clear manner. Visualizations ([histograms](https://en.wikipedia.org/wiki/Histogram){target="blank"}, [density curves](https://en.wikipedia.org/wiki/Probability_density_function){target="blank"}, spinners, etc.) are helpful in clearly displaying the population and sample (but I'd also like the raw measurements). A [frequency distribution](https://en.wikipedia.org/wiki/Frequency_distribution){target="blank"} (as a table) could also be useful. You can also just use English to report the results.
+
+**Your intended audience is someone who knows statistics, but has not read the project description.** So, it is up to you to make it into a coherent report.
+
+To make it more interesting, you can repeat the simulation multiple times. You could also repeat the simulation with larger sample sizes. By using repetition and various sample sizes, you should see that larger samples tend to give better estimates. You could also repeat the simulation with a different population: one with a larger standard deviation will tend to have sample means farther away from population mean, but the $z$-scores of the means should still mostly be between -2 and 2.
+
+
+## Step 1: pick a population
+
+You need to pick a random number generator whose population mean and population standard deviation are known. If you plan to generate the numbers by hand, I would recommend dice, cards, or numbers in a hat (see lottery machine for formulas). You could also flip a coin (Bernoulli with $p=0.5$). In all these cases, you need to explain what you are doing to generate [independent identically distributed](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables){target="blank"} random numbers.
+
+If you plan to generate the numbers with a computer, see below for commands to generate your values. Please do not use an example exactly as written. So, do not choose a normal distribution with mean of 40 and standard deviation of 3. You will need to include the commands you used in your report.
+
+
+| Population (distribution) | Mean ($\mu$) | Standard deviation ($\sigma$) | Example | Generate in R | Generate in spreadsheet |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| Dice (discrete uniform from 1 to $N$)| $$\mu=\frac{N+1}{2}$$ | $$\sigma=\sqrt{\frac{N^2-1}{12}}$$| $$N=6$$  $$\mu=\frac{6+1}{2}=3.5$$ $$\sigma=\sqrt{\frac{6^2-1}{12}}=`r round(sqrt((6^2-1)/12),3)`$$|`sample(1:6,size=20,replace=TRUE)`| `=ceiling(rand()*6)`|
+| [Discrete uniform](https://en.wikipedia.org/wiki/Discrete_uniform_distribution){target="blank"} from $A$ to $B$ | $$\mu=\frac{A+B}{2}$$ | $$\sigma=\sqrt{\frac{(B-A+1)^2-1}{12}}$$ | $$A=30$$ $$B=50$$  $$\mu=\frac{30+50}{2}=40$$ $$\sigma = \sqrt{\frac{(50-30+1)^2-1}{12}} = `r round(sqrt(((50-30+1)^2-1)/12),3)` $$| `sample(30:50,size=20,replace=TRUE)` | `=randbetween(30,50)` |
+| [Bernoulli distribution](https://en.wikipedia.org/wiki/Bernoulli_distribution){target="blank"} (0s and 1s with weighted coin, $p$ chance of 1)  | $\mu=p$|$\sigma=\sqrt{p(1-p)}$| $$p=0.6$$  $$\mu=0.6$$ $$\sigma=\sqrt{0.6(1-0.6)}=`r sqrt(0.6*0.4)`$$|`sample(0:1,20,T,prob=c(0.4,0.6))`|`=if(rand()<0.6,1,0)`|
+| [Normal distribution](https://en.wikipedia.org/wiki/Normal_distribution){target="blank"} | $\mu$ | $\sigma$ | $$\mu=40$$ $$\sigma=3$$|  `rnorm(n=20,mean=40,sd=3)` | `=NORM.INV(RAND(),40,3)`|
+| [Geometric distribution](https://en.wikipedia.org/wiki/Geometric_distribution){target="blank"} with parameter $p$ | $$\mu=\frac{1-p}{p}$$ | $$\sigma=\sqrt{\frac{1-p}{p^2}}$$ | $$p=0.4$$ $$\mu=\frac{1-0.4}{0.4}=1.5$$ $$\sigma = \sqrt{\frac{1-0.4}{0.4^2}} = `r sqrt((1-0.4)/0.4^2)`$$ |`rgeom(20,0.4)` | `=ceiling(log(1-rand())/log(1-0.4))-1` |
+| [Lottery machine](https://en.wikipedia.org/wiki/Lottery_machine){target="blank"} with numbers $X_1, X_2,..., X_N$ | $$\mu=\frac{\sum\limits_{i=1}^{N} X_i}{N} $$ |  $$\sigma = \sqrt{\frac{\sum\limits_{i=1}^N(X_i-\mu)^2}{N}}$$ | $$\mathbf{X}=\{1,1,5,7,8,8\}$$ $$\mu=\frac{1+1+5+7+8+8}{6}=5$$ $$\sigma = \sqrt{\frac{(1-5)^2+(1-5)^2+(5-5)^2+(7-5)^2+(8-5)^2+(8-5)^2}{6}} = 3$$ | `sample(c(1,1,5,7,8,8),20,T)` | No easy way in spreadsheet |
+| [Discrete probability distribution](https://en.wikipedia.org/wiki/Probability_distribution#Discrete_probability_distribution){target="blank"} with numbers $X_1, X_2,..., X_N$ and probabilities $P_1, P_2,...,P_N$ |  $$\mu=\sum_{i=1}^N P_i \cdot X_i$$ |  $$\sigma=\sqrt{\sum_{i=1}^N P_i \cdot (X_i-\mu)^2}$$ | $$\mathbf{X}=\{1,5,7,8\}$$ $$\mathbf{P}=\left\{\frac{1}{3},\frac{1}{6},\frac{1}{6},\frac{1}{3}\right\}$$ $$\mu = \frac{1}{3}\cdot 1 + \frac{1}{6}\cdot 5 + \frac{1}{6}\cdot 7 + \frac{1}{3}\cdot 8 = 5$$ $$\sigma = \sqrt{\frac{1}{3}\cdot(1-5)^2 + \frac{1}{6}\cdot(5-5)^2 + \frac{1}{6}\cdot(7-5)^2 + \frac{1}{3}\cdot(8-5)^2}=3$$ | `sample(c(1,5,7,8),20,T,c(1/3,1/6,1/6,1/3))` | No easy way in spreadsheet |
+| [Exponential distribution](https://en.wikipedia.org/wiki/Exponential_distribution){target="blank"} with rate $\lambda$ | $$\mu=\frac{1}{\lambda}$$ | $$\sigma=\frac{1}{\lambda}$$ | $$\lambda=0.4$$ $$\mu=\frac{1}{0.4}=2.5$$ $$\sigma=\frac{1}{0.4}=2.5$$ | `rexp(20,0.4)` | `=-LN(1-RAND())/0.4`
+
+Other possibilities include:
+
+* [binomial](https://en.wikipedia.org/wiki/Binomial_distribution){target="blank"}
+  * [`rbinom(n,size,prob)`](https://www.rdocumentation.org/packages/stats/versions/3.3/topics/Binomial){target="blank"}
+* [poisson](https://en.wikipedia.org/wiki/Poisson_distribution){target="blank"}
+  * [`rpois(n,lambda)`](https://www.rdocumentation.org/packages/stats/versions/3.3/topics/Poisson){target="blank"}
+* [Student's t distribution](https://en.wikipedia.org/wiki/Student%27s_t-distribution){target="blank"}
+  * [`rt(n,df)`](https://www.rdocumentation.org/packages/stats/versions/3.1.1/topics/TDist){target="blank"}
+
+
+## Step 2: determine the population mean
+
+I have already supplied the formulas (in Step 1) to calculate most population means. The general formulas are listed here.
+
+* [Mean of discrete population (general formula)]((https://en.wikipedia.org/wiki/Mean#Mean_of_a_probability_distribution){target="blank"}) with [probability function](https://en.wikipedia.org/wiki/Probability_mass_function){target="blank"} $\mathbb{P}[x]$:
+$$\mu = \sum x \cdot \mathbb{P}[x] $$
+* [Mean of continuous population (general formula)]((https://en.wikipedia.org/wiki/Mean#Mean_of_a_probability_distribution){target="blank"}) with [density function](https://en.wikipedia.org/wiki/Probability_density_function){target="blank"} $f[x]$:
+$$\mu = \int_{-\infty}^\infty x \cdot f[x] \cdot \text{d}x $$
+
+## Step 3: determine the population standard deviation
+
+I have already supplied the formulas (in Step 1) to calculate most population standard deviations. The general formulas are listed here.
+
+* [Standard deviation of discrete population (general formula)](https://en.wikipedia.org/wiki/Standard_deviation#Discrete_random_variable){target="blank"}:
+$$\sigma = \sqrt{\sum \mathbb{P}[x] \cdot (x-\mu)^2} $$
+* [Standard deviation of continuous population (general formula)](https://en.wikipedia.org/wiki/Standard_deviation#Continuous_random_variable){target="blank"}:
+$$\sigma = \sqrt{\int f[x] \cdot (x-\mu)^2 \cdot \text{d}x} $$
+
+## Step 4: sample ($n\ge 20$) from the population
+
+If you are generating the sample by hand, I assume you are either rolling dice, pulling shuffled cards, or pulling numbers from a hat. Remember, we want [independent identically distributed](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables){target="blank"} data, so if you are using cards or numbers in a hat, make sure to replace the number and reshuffle after each pull. You need to describe your process unambiguously. Please include your raw data in the report.
+
+If you are generating the sample with a computer, look at Step 1 for the commands to generate the numbers. We want at least 20 measurements (our sample size should be at least 20). You will find it is easy to generate millions of measurements with a computer; please only report the raw data of about 20 measurements.
+
+## Step 5: calculate sample mean
+
+Let's say the sampling produces measurements $$x_1, x_2, ... , x_n$$. The sample mean ($\bar{x}$) is the sum over the sample size.
+$$\bar{x} = \frac{\sum\limits_{i=1}^n x_i}{n} $$
+
+## Step 6: calculate the sample standard deviation
+
+As you know, there are two different formulas for standard deviation: one without Bessel's correction and one with Bessel's correction. When calculating the sample standard deviation, you should usually use the Bessel correction. 
+$$s = \sqrt{\frac{\sum\limits_{i=1}^n (x_i-\mu)^2}{n-1}} $$
+However, if you chose a Bernoulli distribution, please do not use the Bessel correction (so divide by $n$ instead of $n-1$). 
+
+## Step 7: compare the sample statistics to the population parameters
+
+Discuss how closely the sample mean matches the population mean. Also discuss how closely the sample standard deviation matches the population standard deviation. You can use simple differences or [relative differences](https://en.wikipedia.org/wiki/Relative_change_and_difference){target="blank"}. I want you to express whether the differences seem strange or expected, based on your intuition.
+
+
+
+## Step 8: calculate a standard score of the sample mean
+
+Use this formula to calculate the standard score of the sample mean. We use $z$ for the standard score.
+$$z = \frac{\bar{x}-\mu}{\sigma/\sqrt{n}} $$
+
+The numerator represents the difference between the sample and population means. The denominator is called the [standard error of the mean](https://en.wikipedia.org/wiki/Standard_error){target="blank"}. 
+
+This standard score will typically follow the [standard normal](https://en.wikipedia.org/wiki/Normal_distribution#Definitions){target="blank"} distribution (as long as the sample size is large enough). Thus, we expect $z$ to be between -2 and 2. If your $z$-score is outside -2 to 2, something strange has happened. If you $z$-score is outside -3 to 3, something very strange has happened. If your $z$-score is between -2 and 2, you got a typical result. Please comment whether you sample mean is typical, strange, or very strange (based on the above description).
+
+
+## Step 9 (optional): repeat, maybe with changes to sample size or population parameters
+
+Simulations can be very powerful, especially when they are repeated many times. This repetition gives a sense of the possibilities and their probabilities. A curious person would also want to see how these possibilities change when the simulation's parameters are tweaked. If you take this far enough, you might even exemplify the [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem){target="blank"}. That work would be reusable for the second project, which asks us to explain the central limit theorem and exemplify it with simulation.
+
+## Step 10 (optional): provide visualizations
+
+Histograms are easy to produce in R.
+
+```{r}
+x = rnorm(100)
+hist(x)
+```
+
+There are many options.
+```{r}
+x = sample(1:6,20,T)
+hist(x,breaks=seq(from=0.5,to=6.5,by=1),col="pink",main="20 rolls of a 6-sided die",ylab="frequency",xlab="number of pips")
+```
+
+
+Boxplots are also easy in R.
+
+```{r}
+x = rexp(100,0.2)
+boxplot(x,horizontal=T,main="An exponential distribution with rate=0.2\nproduced 100 measurements",xlab="x")
+```
+
+
+Some density curves are relatively easy to plot. The `dnorm`, `dexp`, `dgeom`,... functions are used.
+
+```{r}
+pop_mean = 20
+pop_sd = 4
+X = seq(8,32,length.out=1000)
+plot(X,dnorm(X,pop_mean,pop_sd),type="l",ylab="density",main="A normal density with mean=20 and sd=4")
+```
+
+I provide more example plots in my example projects.
+

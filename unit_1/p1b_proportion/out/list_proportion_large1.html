@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>list_proportion_large</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+
+<meta charset="UTF-8">
+
+</head>
+
+<body>
+<h2>list_proportion_large</h2>
+
+<ol>
+<li>
+<hr><h3>Question</h3>
+<p>Jordan is practicing <a href="https://en.wikipedia.org/wiki/Free_throw">free throws</a>. They have recorded the results of many free throws.</p>
+<pre><code>## Hit Hit Hit Miss Hit Miss Miss Hit Hit Hit Hit Hit Miss Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Miss Miss Hit Hit Hit Hit Hit Hit Hit Miss Miss Hit Hit Miss Hit Hit Miss Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Miss Hit Hit Hit Hit Hit Hit Hit Hit Hit</code></pre>
+<p>You can download the data as a csv: <a href="data:text/csv;base64,aSxoaXRfb3JfbWlzcwoxLEhpdAoyLEhpdAozLEhpdAo0LE1pc3MKNSxIaXQKNixNaXNzCjcsTWlzcwo4LEhpdAo5LEhpdAoxMCxIaXQKMTEsSGl0CjEyLEhpdAoxMyxNaXNzCjE0LEhpdAoxNSxIaXQKMTYsSGl0CjE3LEhpdAoxOCxIaXQKMTksSGl0CjIwLEhpdAoyMSxIaXQKMjIsSGl0CjIzLEhpdAoyNCxIaXQKMjUsSGl0CjI2LEhpdAoyNyxIaXQKMjgsSGl0CjI5LEhpdAozMCxIaXQKMzEsSGl0CjMyLEhpdAozMyxIaXQKMzQsSGl0CjM1LEhpdAozNixIaXQKMzcsSGl0CjM4LEhpdAozOSxIaXQKNDAsSGl0CjQxLEhpdAo0MixNaXNzCjQzLE1pc3MKNDQsSGl0CjQ1LEhpdAo0NixIaXQKNDcsSGl0CjQ4LEhpdAo0OSxIaXQKNTAsSGl0CjUxLE1pc3MKNTIsTWlzcwo1MyxIaXQKNTQsSGl0CjU1LE1pc3MKNTYsSGl0CjU3LEhpdAo1OCxNaXNzCjU5LEhpdAo2MCxIaXQKNjEsSGl0CjYyLEhpdAo2MyxIaXQKNjQsSGl0CjY1LEhpdAo2NixIaXQKNjcsSGl0CjY4LEhpdAo2OSxIaXQKNzAsSGl0CjcxLEhpdAo3MixIaXQKNzMsSGl0Cjc0LEhpdAo3NSxIaXQKNzYsSGl0Cjc3LEhpdAo3OCxNaXNzCjc5LEhpdAo4MCxIaXQKODEsSGl0CjgyLEhpdAo4MyxIaXQKODQsSGl0Cjg1LEhpdAo4NixIaXQKODcsSGl0Cg==" download="basketball_proportion.csv">basketball_proportion.csv</a>. The header and first four rows are shown below.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">i</th>
+<th align="center">hit_or_miss</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">Hit</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">Hit</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">Hit</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">Miss</td>
+</tr>
+<tr class="odd">
+<td align="center"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>⋮</mi><annotation encoding="application/x-tex">\vdots</annotation></semantics></math></td>
+<td align="center"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>⋮</mi><annotation encoding="application/x-tex">\vdots</annotation></semantics></math></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+<li>
+How many shots did Jordan attempt? (Evaluate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.)
+</li>
+<li>
+How many shots were successful? (Evaluate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mtext mathvariant="normal">s</mtext></msub><annotation encoding="application/x-tex">n_\text{s}</annotation></semantics></math>.)
+</li>
+<li>
+How many shots were failures? (Evaluate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mtext mathvariant="normal">f</mtext></msub><annotation encoding="application/x-tex">n_\text{f}</annotation></semantics></math>.)
+</li>
+<li>
+What proportion of Jordan’s shots were successful? (Evaluate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>p</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{p}</annotation></semantics></math>.)
+</li>
+<li>
+What proportion of Jordan’s shots were failures? (Evaluate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>q</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{q}</annotation></semantics></math>.)
+</li>
+</ol>
+<br/>
+<hr><hr><hr><h3>Solution</h3>
+<p>I recommend using either R or a spreadsheet.</p>
+<h2 id="using-r">Using R:</h2>
+<p>First, download the csv. Also, write the following script as save it as <code>basketball_proportion.r</code>. Put both files in the same directory (folder). Run the script.</p>
+<pre class="text"><code>mydata = read.csv(&quot;basketball_proportion.csv&quot;)
+x = mydata$hit_or_miss
+n = length(x)
+ns = sum(x==&quot;Hit&quot;)
+nf = sum(x==&quot;Miss&quot;)
+phat = ns/n
+qhat = nf/n
+cat(sprintf(&quot;n=%d, ns=%d, nf=%d, phat=%.4f, qhat=%.4f&quot;,n,ns,nf,phat,qhat))</code></pre>
+<pre><code>## n=87, ns=76, nf=11, phat=0.8736, qhat=0.1264</code></pre>
+<p>If you are using Rstudio, you may need to click <code>Session</code>, <code>Set Working Directory</code>, <code>Source File Location</code> while the script (<code>basketball_proportion.r</code>) is the open tab.</p>
+<h2 id="using-a-spreadsheet">Using a spreadsheet</h2>
+<p>First, if you scroll down, it should be clear there are 87 rows of data, because the last row has <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>87</mn></mrow><annotation encoding="application/x-tex">i=87</annotation></semantics></math>. In column C use <code>IF(B2="Hit",1,0)</code> and in column D use <code>IF(B2="Miss",1,0)</code>, and extend the formulas down, to get columns of 0s and 1s, then use <code>SUM(C2:C87)</code> and <code>SUM(D2:D87)</code> to get <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mi>s</mi></msub><annotation encoding="application/x-tex">n_s</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mi>f</mi></msub><annotation encoding="application/x-tex">n_f</annotation></semantics></math>. You can divide these by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> to determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>p</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{p}</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>q</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{q}</annotation></semantics></math>.</p>
+<p>You can see a solution CSV: <a href="data:text/csv;base64,aSxoaXRfb3JfbWlzcyxoaXRfb3JfbWlzcz1IaXQsaGl0X29yX21pc3M9TWlzcwoxLEhpdCwiPUlGKEIyPSIiSGl0IiIsMSwwKSIsIj1JRihCMj0iIk1pc3MiIiwxLDApIgoyLEhpdCwiPUlGKEIzPSIiSGl0IiIsMSwwKSIsIj1JRihCMz0iIk1pc3MiIiwxLDApIgozLEhpdCwiPUlGKEI0PSIiSGl0IiIsMSwwKSIsIj1JRihCND0iIk1pc3MiIiwxLDApIgo0LE1pc3MsIj1JRihCNT0iIkhpdCIiLDEsMCkiLCI9SUYoQjU9IiJNaXNzIiIsMSwwKSIKNSxIaXQsIj1JRihCNj0iIkhpdCIiLDEsMCkiLCI9SUYoQjY9IiJNaXNzIiIsMSwwKSIKNixNaXNzLCI9SUYoQjc9IiJIaXQiIiwxLDApIiwiPUlGKEI3PSIiTWlzcyIiLDEsMCkiCjcsTWlzcywiPUlGKEI4PSIiSGl0IiIsMSwwKSIsIj1JRihCOD0iIk1pc3MiIiwxLDApIgo4LEhpdCwiPUlGKEI5PSIiSGl0IiIsMSwwKSIsIj1JRihCOT0iIk1pc3MiIiwxLDApIgo5LEhpdCwiPUlGKEIxMD0iIkhpdCIiLDEsMCkiLCI9SUYoQjEwPSIiTWlzcyIiLDEsMCkiCjEwLEhpdCwiPUlGKEIxMT0iIkhpdCIiLDEsMCkiLCI9SUYoQjExPSIiTWlzcyIiLDEsMCkiCjExLEhpdCwiPUlGKEIxMj0iIkhpdCIiLDEsMCkiLCI9SUYoQjEyPSIiTWlzcyIiLDEsMCkiCjEyLEhpdCwiPUlGKEIxMz0iIkhpdCIiLDEsMCkiLCI9SUYoQjEzPSIiTWlzcyIiLDEsMCkiCjEzLE1pc3MsIj1JRihCMTQ9IiJIaXQiIiwxLDApIiwiPUlGKEIxND0iIk1pc3MiIiwxLDApIgoxNCxIaXQsIj1JRihCMTU9IiJIaXQiIiwxLDApIiwiPUlGKEIxNT0iIk1pc3MiIiwxLDApIgoxNSxIaXQsIj1JRihCMTY9IiJIaXQiIiwxLDApIiwiPUlGKEIxNj0iIk1pc3MiIiwxLDApIgoxNixIaXQsIj1JRihCMTc9IiJIaXQiIiwxLDApIiwiPUlGKEIxNz0iIk1pc3MiIiwxLDApIgoxNyxIaXQsIj1JRihCMTg9IiJIaXQiIiwxLDApIiwiPUlGKEIxOD0iIk1pc3MiIiwxLDApIgoxOCxIaXQsIj1JRihCMTk9IiJIaXQiIiwxLDApIiwiPUlGKEIxOT0iIk1pc3MiIiwxLDApIgoxOSxIaXQsIj1JRihCMjA9IiJIaXQiIiwxLDApIiwiPUlGKEIyMD0iIk1pc3MiIiwxLDApIgoyMCxIaXQsIj1JRihCMjE9IiJIaXQiIiwxLDApIiwiPUlGKEIyMT0iIk1pc3MiIiwxLDApIgoyMSxIaXQsIj1JRihCMjI9IiJIaXQiIiwxLDApIiwiPUlGKEIyMj0iIk1pc3MiIiwxLDApIgoyMixIaXQsIj1JRihCMjM9IiJIaXQiIiwxLDApIiwiPUlGKEIyMz0iIk1pc3MiIiwxLDApIgoyMyxIaXQsIj1JRihCMjQ9IiJIaXQiIiwxLDApIiwiPUlGKEIyND0iIk1pc3MiIiwxLDApIgoyNCxIaXQsIj1JRihCMjU9IiJIaXQiIiwxLDApIiwiPUlGKEIyNT0iIk1pc3MiIiwxLDApIgoyNSxIaXQsIj1JRihCMjY9IiJIaXQiIiwxLDApIiwiPUlGKEIyNj0iIk1pc3MiIiwxLDApIgoyNixIaXQsIj1JRihCMjc9IiJIaXQiIiwxLDApIiwiPUlGKEIyNz0iIk1pc3MiIiwxLDApIgoyNyxIaXQsIj1JRihCMjg9IiJIaXQiIiwxLDApIiwiPUlGKEIyOD0iIk1pc3MiIiwxLDApIgoyOCxIaXQsIj1JRihCMjk9IiJIaXQiIiwxLDApIiwiPUlGKEIyOT0iIk1pc3MiIiwxLDApIgoyOSxIaXQsIj1JRihCMzA9IiJIaXQiIiwxLDApIiwiPUlGKEIzMD0iIk1pc3MiIiwxLDApIgozMCxIaXQsIj1JRihCMzE9IiJIaXQiIiwxLDApIiwiPUlGKEIzMT0iIk1pc3MiIiwxLDApIgozMSxIaXQsIj1JRihCMzI9IiJIaXQiIiwxLDApIiwiPUlGKEIzMj0iIk1pc3MiIiwxLDApIgozMixIaXQsIj1JRihCMzM9IiJIaXQiIiwxLDApIiwiPUlGKEIzMz0iIk1pc3MiIiwxLDApIgozMyxIaXQsIj1JRihCMzQ9IiJIaXQiIiwxLDApIiwiPUlGKEIzND0iIk1pc3MiIiwxLDApIgozNCxIaXQsIj1JRihCMzU9IiJIaXQiIiwxLDApIiwiPUlGKEIzNT0iIk1pc3MiIiwxLDApIgozNSxIaXQsIj1JRihCMzY9IiJIaXQiIiwxLDApIiwiPUlGKEIzNj0iIk1pc3MiIiwxLDApIgozNixIaXQsIj1JRihCMzc9IiJIaXQiIiwxLDApIiwiPUlGKEIzNz0iIk1pc3MiIiwxLDApIgozNyxIaXQsIj1JRihCMzg9IiJIaXQiIiwxLDApIiwiPUlGKEIzOD0iIk1pc3MiIiwxLDApIgozOCxIaXQsIj1JRihCMzk9IiJIaXQiIiwxLDApIiwiPUlGKEIzOT0iIk1pc3MiIiwxLDApIgozOSxIaXQsIj1JRihCNDA9IiJIaXQiIiwxLDApIiwiPUlGKEI0MD0iIk1pc3MiIiwxLDApIgo0MCxIaXQsIj1JRihCNDE9IiJIaXQiIiwxLDApIiwiPUlGKEI0MT0iIk1pc3MiIiwxLDApIgo0MSxIaXQsIj1JRihCNDI9IiJIaXQiIiwxLDApIiwiPUlGKEI0Mj0iIk1pc3MiIiwxLDApIgo0MixNaXNzLCI9SUYoQjQzPSIiSGl0IiIsMSwwKSIsIj1JRihCNDM9IiJNaXNzIiIsMSwwKSIKNDMsTWlzcywiPUlGKEI0ND0iIkhpdCIiLDEsMCkiLCI9SUYoQjQ0PSIiTWlzcyIiLDEsMCkiCjQ0LEhpdCwiPUlGKEI0NT0iIkhpdCIiLDEsMCkiLCI9SUYoQjQ1PSIiTWlzcyIiLDEsMCkiCjQ1LEhpdCwiPUlGKEI0Nj0iIkhpdCIiLDEsMCkiLCI9SUYoQjQ2PSIiTWlzcyIiLDEsMCkiCjQ2LEhpdCwiPUlGKEI0Nz0iIkhpdCIiLDEsMCkiLCI9SUYoQjQ3PSIiTWlzcyIiLDEsMCkiCjQ3LEhpdCwiPUlGKEI0OD0iIkhpdCIiLDEsMCkiLCI9SUYoQjQ4PSIiTWlzcyIiLDEsMCkiCjQ4LEhpdCwiPUlGKEI0OT0iIkhpdCIiLDEsMCkiLCI9SUYoQjQ5PSIiTWlzcyIiLDEsMCkiCjQ5LEhpdCwiPUlGKEI1MD0iIkhpdCIiLDEsMCkiLCI9SUYoQjUwPSIiTWlzcyIiLDEsMCkiCjUwLEhpdCwiPUlGKEI1MT0iIkhpdCIiLDEsMCkiLCI9SUYoQjUxPSIiTWlzcyIiLDEsMCkiCjUxLE1pc3MsIj1JRihCNTI9IiJIaXQiIiwxLDApIiwiPUlGKEI1Mj0iIk1pc3MiIiwxLDApIgo1MixNaXNzLCI9SUYoQjUzPSIiSGl0IiIsMSwwKSIsIj1JRihCNTM9IiJNaXNzIiIsMSwwKSIKNTMsSGl0LCI9SUYoQjU0PSIiSGl0IiIsMSwwKSIsIj1JRihCNTQ9IiJNaXNzIiIsMSwwKSIKNTQsSGl0LCI9SUYoQjU1PSIiSGl0IiIsMSwwKSIsIj1JRihCNTU9IiJNaXNzIiIsMSwwKSIKNTUsTWlzcywiPUlGKEI1Nj0iIkhpdCIiLDEsMCkiLCI9SUYoQjU2PSIiTWlzcyIiLDEsMCkiCjU2LEhpdCwiPUlGKEI1Nz0iIkhpdCIiLDEsMCkiLCI9SUYoQjU3PSIiTWlzcyIiLDEsMCkiCjU3LEhpdCwiPUlGKEI1OD0iIkhpdCIiLDEsMCkiLCI9SUYoQjU4PSIiTWlzcyIiLDEsMCkiCjU4LE1pc3MsIj1JRihCNTk9IiJIaXQiIiwxLDApIiwiPUlGKEI1OT0iIk1pc3MiIiwxLDApIgo1OSxIaXQsIj1JRihCNjA9IiJIaXQiIiwxLDApIiwiPUlGKEI2MD0iIk1pc3MiIiwxLDApIgo2MCxIaXQsIj1JRihCNjE9IiJIaXQiIiwxLDApIiwiPUlGKEI2MT0iIk1pc3MiIiwxLDApIgo2MSxIaXQsIj1JRihCNjI9IiJIaXQiIiwxLDApIiwiPUlGKEI2Mj0iIk1pc3MiIiwxLDApIgo2MixIaXQsIj1JRihCNjM9IiJIaXQiIiwxLDApIiwiPUlGKEI2Mz0iIk1pc3MiIiwxLDApIgo2MyxIaXQsIj1JRihCNjQ9IiJIaXQiIiwxLDApIiwiPUlGKEI2ND0iIk1pc3MiIiwxLDApIgo2NCxIaXQsIj1JRihCNjU9IiJIaXQiIiwxLDApIiwiPUlGKEI2NT0iIk1pc3MiIiwxLDApIgo2NSxIaXQsIj1JRihCNjY9IiJIaXQiIiwxLDApIiwiPUlGKEI2Nj0iIk1pc3MiIiwxLDApIgo2NixIaXQsIj1JRihCNjc9IiJIaXQiIiwxLDApIiwiPUlGKEI2Nz0iIk1pc3MiIiwxLDApIgo2NyxIaXQsIj1JRihCNjg9IiJIaXQiIiwxLDApIiwiPUlGKEI2OD0iIk1pc3MiIiwxLDApIgo2OCxIaXQsIj1JRihCNjk9IiJIaXQiIiwxLDApIiwiPUlGKEI2OT0iIk1pc3MiIiwxLDApIgo2OSxIaXQsIj1JRihCNzA9IiJIaXQiIiwxLDApIiwiPUlGKEI3MD0iIk1pc3MiIiwxLDApIgo3MCxIaXQsIj1JRihCNzE9IiJIaXQiIiwxLDApIiwiPUlGKEI3MT0iIk1pc3MiIiwxLDApIgo3MSxIaXQsIj1JRihCNzI9IiJIaXQiIiwxLDApIiwiPUlGKEI3Mj0iIk1pc3MiIiwxLDApIgo3MixIaXQsIj1JRihCNzM9IiJIaXQiIiwxLDApIiwiPUlGKEI3Mz0iIk1pc3MiIiwxLDApIgo3MyxIaXQsIj1JRihCNzQ9IiJIaXQiIiwxLDApIiwiPUlGKEI3ND0iIk1pc3MiIiwxLDApIgo3NCxIaXQsIj1JRihCNzU9IiJIaXQiIiwxLDApIiwiPUlGKEI3NT0iIk1pc3MiIiwxLDApIgo3NSxIaXQsIj1JRihCNzY9IiJIaXQiIiwxLDApIiwiPUlGKEI3Nj0iIk1pc3MiIiwxLDApIgo3NixIaXQsIj1JRihCNzc9IiJIaXQiIiwxLDApIiwiPUlGKEI3Nz0iIk1pc3MiIiwxLDApIgo3NyxIaXQsIj1JRihCNzg9IiJIaXQiIiwxLDApIiwiPUlGKEI3OD0iIk1pc3MiIiwxLDApIgo3OCxNaXNzLCI9SUYoQjc5PSIiSGl0IiIsMSwwKSIsIj1JRihCNzk9IiJNaXNzIiIsMSwwKSIKNzksSGl0LCI9SUYoQjgwPSIiSGl0IiIsMSwwKSIsIj1JRihCODA9IiJNaXNzIiIsMSwwKSIKODAsSGl0LCI9SUYoQjgxPSIiSGl0IiIsMSwwKSIsIj1JRihCODE9IiJNaXNzIiIsMSwwKSIKODEsSGl0LCI9SUYoQjgyPSIiSGl0IiIsMSwwKSIsIj1JRihCODI9IiJNaXNzIiIsMSwwKSIKODIsSGl0LCI9SUYoQjgzPSIiSGl0IiIsMSwwKSIsIj1JRihCODM9IiJNaXNzIiIsMSwwKSIKODMsSGl0LCI9SUYoQjg0PSIiSGl0IiIsMSwwKSIsIj1JRihCODQ9IiJNaXNzIiIsMSwwKSIKODQsSGl0LCI9SUYoQjg1PSIiSGl0IiIsMSwwKSIsIj1JRihCODU9IiJNaXNzIiIsMSwwKSIKODUsSGl0LCI9SUYoQjg2PSIiSGl0IiIsMSwwKSIsIj1JRihCODY9IiJNaXNzIiIsMSwwKSIKODYsSGl0LCI9SUYoQjg3PSIiSGl0IiIsMSwwKSIsIj1JRihCODc9IiJNaXNzIiIsMSwwKSIKODcsSGl0LCI9SUYoQjg4PSIiSGl0IiIsMSwwKSIsIj1JRihCODg9IiJNaXNzIiIsMSwwKSIKLCwsCixuLHN1bSxzdW0KLD1jb3VudChBMjpBODgpLD1TVU0oQzI6Qzg4KSw9U1VNKEQyOkQ4OCkKLCxwIGhhdCxxIGhhdAosLD1DOTEvQjkxLD1EOTEvQjkxCg==" download="proportion_solution.csv">proportion_solution.csv</a>. Remember, you can hit <code>ctrl+~</code> to see the formulas. You may need to enlarge a cell if it shows <code>###</code>.</p>
+<br/>
+<ol type="a">
+<li>
+
+</li>
+<li>
+
+</li>
+<li>
+
+</li>
+<li>
+
+</li>
+<li>
+
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

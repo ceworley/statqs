@@ -1,0 +1,99 @@
+```{r data generation, echo = FALSE, results = "hide"}
+while(T){
+  n = sample(8:25,1)
+  x = sample(3:6,1)
+  ans = factorial(n)/factorial(n-x)/factorial(x)
+  if(ans < 1e8){
+    break
+  }
+}
+
+qn = sample(1:13,1)
+
+lto = function(l){
+  s = ''
+  if(length(l)==2){
+    s = paste(l[1],"and",l[2])
+  } else {
+    for(i in 1:(length(l)-1)){
+      s = paste(s,l[i],", ",sep="")
+    }
+    s = paste(s,"and",l[length(l)])
+  }
+  return(s)
+}
+
+if(qn == 1){
+  q = paste("From a set with",n,"elements, how many subsets with",x,"elements are possible? (A set is an orderless, nonrepeating collection of elements.)")
+} else if (qn == 2) {
+  q = paste("A team currently has",n,"players. The coach will choose",x,"players to cut from the team. How many possibilities does the coach need to consider?")
+} else if (qn == 3) {
+  q = paste("A team has",n,"players. The coach needs to pick",x,"starters. How many possibilities exist?")
+} else if (qn == 4) {
+  q = paste("A traveller is packing shirts. She has",n,"shirts to choose from, but will only bring",x,"shirts. How many possibilities exist?")
+} else if (qn == 5) {
+  q = paste("Wilbur will invite",x,"friends to a party. Wilbur has",n,"different friends he is considering inviting. How many possibilities exist?")
+} else if (qn == 6) {
+  q = paste("A company needs to select ",x," members to be on a committee. The company is considering a pool of ",n," applicants. How many possibilities exist?",sep="")
+} else if (qn == 7) {
+  q=paste("A deck has",n,"different cards. From that deck,",x,"cards are dealt into a player's hand. How many different hands are possible?")
+} else if (qn == 8) {
+  q=paste("A committee is judging the performances of ",n," different acrobats. The committee needs to assign ",x," equivalent prizes. How many ways could the committee assign the prizes?",sep="")
+} else if (qn == 9) {
+  q=paste("A designer is choosing a color pallette. There are",n,"colors available, but the designer will only choose",x,"colors for her pallette. How many pallettes are possible?")
+} else if (qn == 10) {
+  q=paste("A pizzeria has",n,"toppings available. Brenda will order a pizza with",x,"toppings. How many different pizzas is Brenda choosing between?")
+} else if (qn == 11) {
+  q=paste("Joe is shopping for shirts. Joe likes",n,"of the shirts, but will only buy",x,"of them. How many possibilities exist?")
+}  else if (qn == 12) {
+  zao = paste(c(rep("A",x),rep("B",n-x)),collapse="")
+  q = paste('How many unique ways can the letters in "', zao, '" be rearranged? (There are ',x,' As and ',n-x,' Bs.)',sep="")
+} else if (qn == 13) {
+  q = paste("There are ",n," dots drawn on the circumference of a circle. Patricia will choose ",x," of the dots to draw a simple ",x,"-sided polygon. How many different polygons are possible? (A simple polygon does not intersect itself. For each set of points on a circle, there is only one simple polygon.)",sep="")
+}
+
+sss = ''
+sss = paste(sss,n)
+for(i in (n-1):(n-x+1)){
+  sss = paste(sss,i,sep="\\cdot")
+}
+
+ss2 = ''
+ss2 = paste(ss2,x)
+for(i in (x-1):(1)){
+  ss2 = paste(ss2,i,sep="\\cdot")
+}
+
+options(scipen = 100)
+
+```
+
+Question
+========
+
+`r q`
+
+Solution
+========
+
+This scenario describes a combinations problem (order does not matter). We are considering the subsets of size `r x` from a set of size `r n`.
+
+$$\begin{aligned}
+{_nC_r} &= \frac{n!}{(n-r)! \cdot r!} \\\\
+n &= `r n` \\\\
+r &= `r x` \\\\
+{_{`r n`}C_{`r x`}} &= \frac{`r n`!}{(`r n`-`r x`)!\cdot `r x`! } \\\\
+&= \frac{`r n`!}{`r n-x`! \cdot `r x`!} \\\\
+&= \frac{`r sss`}{`r ss2`} \\\\
+&= `r ans`
+\end{aligned}$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r ans`
+exname: combinations
+extol: 0.01
+exextra[numwidth,numeric]: 10

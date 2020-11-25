@@ -1,0 +1,172 @@
+---
+title: "Project 1: Dice"
+output: 
+  html_notebook:
+    toc: true
+---
+
+## Goal
+
+It is common to estimate population parameters based on sample statistics. For example, a new medical treatment is initially tested on a small sample of patients, with the intention of estimating how the treatment would affect a much larger population. The metaphor of tasting a soup is useful. A chef can get a good idea of how the whole soup tastes based on a small spoonful, but sometimes that spoonful might not be perfectly representative of the rest of the soup. In this paper, I hope to exemplify how the sample statistics tend to be near their population parameters, but with some error.
+
+Most introductory statistical framework assumes each individual in a sample is selected by a [simple random process](https://en.wikipedia.org/wiki/Simple_random_sample){target="blank"} from a population so large that the measurements can be considered [independent and identically distributed](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables){target="blank"}. This assumption allows the statistician to model the measurements as all coming from the same [random-number generating procedure](https://en.wikipedia.org/wiki/Random_number_generation){target="blank"}.
+
+[Dice](https://en.wikipedia.org/wiki/Dice){target="blank"} are well-established random-number generators. In particular, the 6-sided die has been used for millennia, and almost always in the standard configuration of representing the integers 1 through 6 through pips (divots). When a fair die is marked in this way, its rolls should follow a [discrete-uniform distribution](https://en.wikipedia.org/wiki/Discrete_uniform_distribution){target="blank"}. 
+
+It is a little strange to think of a die as a population. A die has only 6 sides, but it can generate thousands of measurements. So it seems the sample is larger than the population. In this case, it could be helpful to imagine the die has all of its (potentially infinite) rolls [fated](https://en.wiktionary.org/wiki/fate){target="blank"}. This infinitely long list of rolls corresponds to the population. A sample is the 100-or-so rolls that I can roll in a reasonable amount of time.
+
+I will use a 6-sided die to represent a population with known mean and standard deviation. I will collect a sample of 50 rolls, with the presumption that the sample mean and sample standard deviation will be close, but not exactly equal, to the population parameters. I will then judge the presumption with relative differences and a standard score of the sample mean.
+
+When calculating the sample standard deviation, I will use [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction){target="blank"}. This is because I want to simulate a researcher who does not know the generator of the measurements. Thus, the researcher would consider the population's mean and standard deviation as independent and unknown. In this scenario, a typical researcher would apply Bessel's correction. 
+
+## Population mean
+
+A 6-sided die has the following probability distribution.
+
+| Outcome | Probability |
+|:-------:|:-----------:|
+|   1     |$\frac{1}{6}$|
+|   2     |$\frac{1}{6}$|
+|   3     |$\frac{1}{6}$|
+|   4     |$\frac{1}{6}$|
+|   5     |$\frac{1}{6}$|
+|   6     |$\frac{1}{6}$|
+
+```{r}
+outcome = 1:6
+prob = rep(1/6,6)
+```
+
+We can calculate the population mean (expected value) using [the general formula for mean of discrete distributions](https://en.wikipedia.org/wiki/Expected_value#Finite_case){target="blank"}, which states the mean is the sum of the products between the outcomes and probabilities. We use $\mu$ or `mu` to represent the population mean.
+$$\mu = \sum \text{outcome} \times \text{probability}$$
+So, for a 6-sided die, we see the population mean is 3.5 (and not 3 as many people would guess).
+$$\begin{align*}
+\mu &= (1)\left(\frac{1}{6}\right)+(2)\left(\frac{1}{6}\right)+(3)\left(\frac{1}{6}\right)+(4)\left(\frac{1}{6}\right)+(5)\left(\frac{1}{6}\right)+(6)\left(\frac{1}{6}\right)  \\\\
+&= \frac{1}{6}+\frac{2}{6}+\frac{3}{6}+\frac{4}{6}+\frac{5}{6}+\frac{6}{6} \\\\
+&= \frac{1+2+3+4+5+6}{6} \\\\
+&= \frac{21}{6} \\\\
+&= 3.5
+\end{align*}$$
+
+```{r}
+mu = sum(outcome*prob)
+```
+
+It should be mentioned there are other ways of determining the population mean of a standard die. For any fair dice labeled 1 through $b$, the population mean is simply the average of 1 and $b$. This is a specific case of [summing an arithmetic series](https://en.wikipedia.org/wiki/Arithmetic_progression){target="blank"}.
+
+$$\begin{align*}
+\mu_{\text{dice}} &= \frac{1+b}{2} \\\\
+&= \frac{1+6}{2} \\\\
+&= 3.5
+\end{align*}$$
+
+The above formula can also be considered a special case of the more general formula for determining the mean of a [discrete-uniform distribution](https://en.wikipedia.org/wiki/Discrete_uniform_distribution){target="blank"}.
+
+## Population standard deviation
+
+The [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation){target="blank"} is a common measure of spread (variation). It can be analogized to the simpler to comprehend [average absolute deviation](https://en.wikipedia.org/wiki/Average_absolute_deviation){target="blank"}. Its usefulness over average absolute deviation is clear when considering [algebra of random variables](https://en.wikipedia.org/wiki/Algebra_of_random_variables#Variance_algebra_for_random_variables){target="blank"} and [standard error](https://en.wikipedia.org/wiki/Standard_error){target="blank"}. Basically, it is easy to determine the standard deviation of the **sum of independent random variables** if you know the standard deviation of each random variable.
+
+The [general formula for population standard deviation of a discrete distribution](https://en.wikipedia.org/wiki/Standard_deviation#Discrete_random_variable){target="blank"} is hard to state unambiguously in natural language: the square root of the sum of the products between the probabilities and the squared differences between the outcomes and the population mean. Luckily, in math notation, the formula is more comprehensible. We use $\sigma$ or `sigma` to represent the population standard deviation.
+
+$$\sigma = \sqrt{\sum (\text{outcome}-\mu)^2 \times \text{probability}} $$
+
+We apply this general formula to our 6-sided die.
+
+$$\begin{align*}
+\sigma &= \sqrt{(1-3.5)^2\left(\frac{1}{6}\right)+(2-3.5)^2\left(\frac{1}{6}\right)+(3-3.5)^2\left(\frac{1}{6}\right)+(4-3.5)^2\left(\frac{1}{6}\right)+(5-3.5)^2\left(\frac{1}{6}\right)+(6-3.5)^2\left(\frac{1}{6}\right)}  \\\\
+&= \sqrt{\frac{2.5^2}{6}+\frac{1.5^2}{6}+\frac{0.5^2}{6}+\frac{0.5^2}{6}+\frac{1.5^2}{6}+\frac{2.5^2}{6}} \\\\
+&= \sqrt{\frac{2.5^2+1.5^2+0.5^2+0.5^2+1.5^2+2.5^2}{6}} \\\\
+&= \sqrt{\frac{17.5}{6}} \\\\
+&\approx 1.707825
+\end{align*}$$
+
+```{r}
+sigma = sqrt(sum((outcome-mu)^2*prob))
+```
+
+There is a simpler formula for determining the standard deviation of a discrete-uniform distribution from 1 to $b$.
+
+$$\begin{align*}
+\sigma_{\text{dice}} &= \sqrt{\frac{b^2-1}{12}} \\\\
+&= \sqrt{\frac{6^2-1}{12}} \\\\
+&\approx 1.707825
+\end{align*}$$
+
+## Sample
+
+To obtain the sample, I used 5 standard 6-sided dice and rolled them 10 times, giving a sample size of 50 ($n=50$) measurements. To maintain independence between rolls, I shook the dice for 5 seconds in my hands before throwing and threw the dice about a meter into a corner of a room. The raw data is provided here for reference.
+
+```{r echo=F}
+set.seed(123)
+x = sample(1:6,50,T)
+s = paste(unlist(apply(matrix(x,ncol=10),1,function(x) paste(x,collapse=" "))),collapse="\n")
+cat(s)
+```
+
+The raw data has been summarized with a histogram.
+
+```{r fig.width=6,fig.height=4}
+x = c(3,6,6,3,1,1,1,5,4,1,6,3,1,3,5,6,3,1,5,2,3,5,2,1,3,3,5,1,5,5,2,4,3,4,2,4,4,2,3,5,2,6,5,1,2,6,2,3,6,4)
+n = length(x)
+hist(x,
+     breaks=seq(0.5,6.5,1),
+     main="50 rolls of 6-sided dice",
+     xlab="Outcome",
+     col=rgb(0.8,0.4,0.6))
+```
+It is easy to believe this sample came from a uniform distribution, as the sample seems almost uniform. Of course, with the modestly sized sample, noticeable deviations are present.
+
+## Sample mean
+
+The sample mean ($\bar{x}$ or `xbar`) was found using the built-in `mean` function in R.
+
+```{r}
+xbar = mean(x)
+```
+$$\bar{x} = `r xbar` $$
+This sample mean is compared to the population mean with a relative difference.
+
+$$\text{relative difference of means} = \frac{\bar{x}-\mu}{\mu} $$
+```{r}
+(xbar-mu)/mu
+```
+Thus, the sample mean is about 3% less than the population mean --- pretty close.
+
+## Sample standard deviation
+
+The sample standard deviation ($s$ or `s`) was found using the built-in `sd` function in R. This built-in function uses Bessel's correction, which is appropriate because I am simulating a researcher who does not know precisely how this sample was generated (even though we know dice generated the sample). Because the sample size is pretty large (bigger than 20), the effect of Bessel's correction is quite small anyway.
+
+```{r}
+s = sd(x)
+```
+$$s = `r s` $$
+This sample standard deviation is compared to the population standard deviation with a relative difference.
+
+$$\text{relative difference of standard deviations} = \frac{s-\sigma}{\sigma} $$
+```{r}
+(s-sigma)/sigma
+```
+The sample standard deviation is only 0.4% lower than the population standard deviation --- very close.
+
+## Standard score of sample mean
+
+The [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem) tells us that if we repeated this simulation 10,000 times, getting a sample mean each time, those sample means would be (approximately) normally distributed. Those sample means would be centered around $\mu$, the population mean. And, those sample means would have a standard deviation very near to $\sigma/\sqrt{n}$, a quantity called the [standard error of the mean (SEM)](https://en.wikipedia.org/wiki/Standard_error){target="blank"}.  
+
+This leads to a very useful sample statistic: the standard score of the sample mean.
+$$z = \frac{\bar{x}-\mu}{\sigma/\sqrt{n}} $$
+As long as $n$ is large enough, and our sample comes from independent and identically distributed random variables, then we expect the standard scores to follow the [standard normal distribution](https://en.wikipedia.org/wiki/Normal_distribution#Standard_normal_distribution){target="blank"}.
+
+Here, it is useful to calculate $z$ to determine how unusual a sample mean is. If $z$ is between -2 and 2, we can think of the sample mean as typical. If $z$ is outside -3 to 3, something strange has happened.
+
+```{r}
+z = (xbar-mu) / (sigma/sqrt(n))
+z
+```
+
+So, we can consider this sample mean typical.
+
+## Summary
+
+We used 6-sided dice to represent a discrete-uniform population with mean $\mu=`r mu`$ and standard deviation $\sigma=`r round(sigma,3)`$. We took a sample of size $n=`r n`$, getting a sample mean $\bar{x}=`r round(xbar,3)`$ and a sample standard deviation $s=`r round(s,3)`$. This sample mean was only 3% lower than the population mean, and this sample standard deviation was only 0.04% lower than the population standard deviation. Thus, the sample was a good example of sample statistics being near their corresponding population parameters. The standard score of the sample mean $z=`r round(z,3)`$ indicated this sample mean was typical, because it was between -2 and 2.
+
+

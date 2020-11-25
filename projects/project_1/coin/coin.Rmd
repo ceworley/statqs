@@ -1,0 +1,8 @@
+---
+title: "Project 1: coin"
+output: 
+  html_notebook:
+    toc: true
+---
+
+### It is hard to imagine an unfair coin. If you spin a coin on a table, there will be noticable bias. However, it is very hard to make a coin biased when flipping in the air.

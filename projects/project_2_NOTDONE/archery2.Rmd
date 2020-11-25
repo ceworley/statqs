@@ -1,0 +1,38 @@
+---
+title: "Simulating Archery to Exhibit the Central Limit Theorem"
+output:
+  html_notebook:
+    code_folding: hide
+---
+
+* Pick a spinner, any spinner (simulate something?)
+* Calculate spinner average and spinner standard deviation
+* Pick a sample size (over 30)
+* Spin a sample, get the sample average or sample total
+* Calculate sampling distribution's average and standard deviation (standard error)
+* Repeat step 2 MANY times
+* Get average of the sample averages or sample totals
+* Get standard deviation of the sample averages or sample totals
+
+### Pick a spinner, any spinner
+
+### 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

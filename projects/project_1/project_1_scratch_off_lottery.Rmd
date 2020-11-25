@@ -1,0 +1,162 @@
+---
+title: "First project example: Lucky Dog Scratchoff Tickets"
+output: html_notebook
+---
+
+The Commonwealth of Massachusetts makes money from scratch-off tickets, an instant lottery sold in many convenience stores. Many people play these lotteries even though the [expected profit](https://en.wikipedia.org/wiki/Expected_value){target="blank"} is negative. Scratch-off tickets provide convenient examples of discrete probability distributions.
+
+In this paper, we will consider the [Lucky Dog](https://www.masslottery.com/games/lucky_dog_2020){target="blank"} tickets because I like dogs. I will simulate playing this lottery every day for a month (30 days). The prize structure is reported on [https://www.masslottery.com/games/lucky_dog_2020](https://www.masslottery.com/games/lucky_dog_2020){target="blank"}. It is reproduced here as written.
+
+| Prize Amount | Total Odds (1 in) | Total Prizes |
+|:------------:|:-----------------:|:------------:|
+|   $100,000   |     3,360,000.00  | 3            |
+|   $10,000    |     1,260,000.00  | 8            |
+|   $1,000     |     28,800.00     | 350          |
+|   $100       |     389.19        | 25,900       |
+|    $40       |          174.97   |    57,610    |
+|   $20        |          150.00   |    67,200    |
+|   $10        |        50         |    201,600   |
+|   $5         |        50         |    201,600   |
+|   $4         |      13.64        |    739,200   |
+|   $2         |      11.54        |    873,600   |
+
+The odds are based on the sale of 10,080,000 tickets. The cost of each ticket is $2.00. I will assume no ticket has multiple prizes. 
+
+A [probability distribution](https://en.wikipedia.org/wiki/Probability_distribution){target="blank"} is needed for the simulation. So, I need to calculate probabilities, and I need to account for all the possibilities (so I need to incorporate the tickets with no prize; the total of the probabilities must be 1.00). I also want to incorporate the cost of the ticket into the probability distribution (so I will subtract $2 from each prize).
+
+```{r}
+prizes = c(100000,10000,1000,100,40,20,10,5,4,2,0)
+counts = c(3,8,350,25900,57610,67200,201600,201600,739200,873600)
+total_count = 10080000
+counts = c(counts, total_count-sum(counts) )
+profits = prizes-2
+probs = counts/total_count
+lucky_dog = data.frame(profits,probs)
+knitr::kable(lucky_dog, align="cc")
+```
+
+Let's make sure the sum of the probabilities is 1.
+```{r}
+sum(probs)
+```
+
+We now have a probability distribution. Let's determine the population mean ($\mu$) and population standard deviation ($\sigma$). We can also call $\mu$ the [expected profit](https://en.wikipedia.org/wiki/Expected_value){target="blank"}.
+
+$$\mu = \sum X\cdot \mathbb{P} $$
+```{r}
+mu = sum(profits*probs)
+mu
+```
+
+The spread of the possible profits is quite large, so we can expect the standard deviation to be "large".
+
+$$\sigma = \sqrt{\sum (X-\mu)^2\cdot \mathbb{P}} $$
+```{r}
+sigma = sqrt(sum((profits-mu)^2*probs))
+sigma
+```
+
+### Simulate 30 days of play
+
+The `sample` function in R simulates 30 days of playing this lottery.
+
+```{r}
+set.seed(123)
+n = 30
+x = sample(profits,n,TRUE,probs)
+x
+```
+Let's determine the sample mean and sample standard deviation.
+```{r}
+xbar = mean(x)
+xbar
+```
+$$\bar{x} = `r xbar` $$
+Interesting, the average profit for that month was positive. I guess that seems surprising to me because the expected profit was negative. 
+
+```{r}
+s = sd(x)
+s
+```
+$$s = `r s` $$
+Interesting, the sample standard deviation is only about 1/7 of the population standard deviation. At first glance this is surpising, but actually, this is not surprising because we took a small sample from a strongly skewed distribution (the very large prizes have very low probabilities).
+
+### Standard score
+
+It is useful to calculate the standard score ($z$) of the sample mean. If the standard score is between -2 and 2, we think the sample mean is pretty typical.
+$$z = \frac{\bar{x}-\mu}{\frac{\sigma}{\sqrt{n}}}$$
+```{r}
+standard_error = sigma/sqrt(n)
+z = (xbar-mu)/standard_error
+z
+```
+This suggests that getting a positive profit over a month is not unusual (even though in the long run a positive profit is impossible). That may help explain why people play these lotteries.
+
+### Extra credit
+
+With only one month of simulation, playing Lucky Dog seems rewarding (that month had positive profit). Let's simulate 10,000 months.
+
+```{r}
+set.seed(12)
+reps = 10000
+n = 20
+data = sample(profits,size=n*reps,replace=TRUE,prob=probs)
+dat_mat = matrix(data,ncol=n)
+xbars = apply(dat_mat,1,mean)
+hist(xbars,freq=FALSE, breaks=floor(min(xbars)):ceiling(max(xbars)) ,ylab="relative frequency")
+```
+
+
+Approximately 80% of the months have a negative average profit (add the relative frequencies of 2 left-most bars).
+
+```{r}
+sum(xbars<0)/length(xbars)
+```
+
+We see the monthly averages indeed center around the population mean ($\mu=`r mu`$). So, in 10,000 months of play, the average profit is indeed negative. 
+```{r}
+mean(xbars)
+```
+
+And we see the standard deviation of the sample means is much less than the standard error. This is because the extreme profits have a very low probability. In fact,  in 10,000 simulated months, we never profited more than \$50, even though it is possible to profit approximately \$100,000.
+
+```{r}
+standard_error = sigma/sqrt(n)
+standard_error
+sd(xbars)
+```
+Usually, when repeatedly simulating $\bar{x}$, we expect the sample means to be normally distributed. This lottery has enough skew that our sample size would have to be much larger than 30 to achieve normally distributed sample means. 
+
+
+If we use a larger sample size, we should see normally distributed sample means, and the standard deviation of those sample means should approach the standard error. Let's use a sample size of 3,650 (playing every day for 10 years). We will simulate 10,000 decades' averages.
+
+```{r}
+set.seed(123)
+reps = 10000
+n = 3650
+data = sample(profits,size=n*reps,replace=TRUE,prob=probs)
+dat_mat = matrix(data,ncol=n)
+xbars = apply(dat_mat,1,mean)
+hist(xbars,breaks=1000)
+hist(xbars[xbars<1],freq=F)
+mean(xbars)
+sd(xbars)
+sigma/sqrt(n)
+```
+
+Indeed, we see these decade averages are approximately normally distributed, and their standard deviation is near the standard error. However, the low-prob/high-profit possibilities are still messing with the normal approximation. It seems some decades had an average (daily) profit of $27!
+```{r}
+max(xbars)
+```
+
+
+### Conclusion
+
+We have seen that a lottery's structure of very-high-profit/very-low-probability messes with our typical rules-of-thumb. In the first simulated month, we found the sample statistics did not seem to match the population parameters very closely (even with a typical $z$-score). In the extra credit, we saw the skewed population also messed with the estimated standard error, and produced a skewed [sampling distribution](https://en.wikipedia.org/wiki/Sampling_distribution){target="blank"}, even with a sample size of 3,650. However, we still saw that our simulations had averages that approached the population average when the repetitions were large enough, as the [Law of Large Numbers](https://en.wikipedia.org/wiki/Law_of_large_numbers){target="blank"} promises.
+
+
+
+
+
+
+

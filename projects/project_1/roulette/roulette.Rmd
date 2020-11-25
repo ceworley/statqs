@@ -1,0 +1,310 @@
+---
+title: "Project 1: Roulette"
+output: html_notebook
+---
+
+[Roulette](https://en.wikipedia.org/wiki/Roulette#Bet_odds_table){target="blank"} is an iconic game of chance, where gamblers bet on numbers selected by a ball rolling into a slot of a rotating wheel. There are various styles of wheels, but in the US the most common is the "double-zero wheel". 
+
+```{r echo=F, fig.width=5, fig.height=5}
+nums = "0-28-9-26-30-11-7-20-32-17-5-22-34-15-3-24-36-13-1-00-27-10-25-29-12-8-19-31-18-6-21-33-16-4-23-35-14-2"
+strings = unlist(strsplit(nums,"-"))
+ints = unlist(lapply(strings,strtoi))
+N = length(strings)
+theta = seq(0,2*pi,length.out=1000)
+plot(sin(theta),cos(theta),type="l",ann=F,axes=F)
+for(i in 1:N){
+  theta = seq((i-1)/N,i/N,length.out=100)*2*pi
+  x = ints[i]
+  if(x==0){
+    col = "green"
+  } else if(i%%2==1) {
+    col = "red"
+  } else {
+    col = "black"
+  }
+  polygon(c(0,sin(theta)),c(0,cos(theta)),col=col)
+}
+for(i in 1:N){
+  lines(c(0,sin(i/N*2*pi)),c(0,cos(i/N*2*pi)),col="gray")
+  itex = i-0.5
+  text(0.93*sin(itex/N*2*pi),0.93*cos(itex/N*2*pi),strings[i],srt=-itex/N*360,col="white",cex=1)
+}
+theta = seq(0,2*pi,length.out=1000)
+polygon(0.7*sin(theta),0.7*cos(theta),col="white")
+```
+
+The double-zero wheel has 38 slots. A gambler can choose [various categories](https://en.wikipedia.org/wiki/Roulette#Bet_odds_table){target="blank"} to bet on. In this paper, we will focus on two kinds of bets: straight-up and black. On a straight-up bet, the gambler chooses a specific number. On a black bet, the gambler bets on all black slots. 
+
+Our gambler bets $1.00 on each spin. In a day at the casino, our player makes 34 bets. This choice of 34 has two reasons: it is not used elsewhere in this paper to denote something else and it nearly maximizes the probability that a straight-up gambler will be ahead that day. (35 would maximize the chance a straight-up gambler would be ahead that day, but it also is the profit on a winning spin, so a reader may confuse the two.)
+
+### Straight-up probability distribution ($X$)
+
+We will use the random variable $X$ to represent a spin while betting \$1.00 straight-up. 
+When betting straight up, there is a 1/38 chance of profiting \$35.00 and a 37/38 chance of profiting -\$1.00. 
+
+| Profit |  Probability  |
+|:------:|:-------------:|
+|   -\$1 |$\frac{37}{38}$|
+| \$35   |$\frac{1}{38}$ |
+
+We calculate the population mean. This population mean is also called the [expected value](https://en.wikipedia.org/wiki/Expected_value){target="blank"} of the distribution.
+$$\mu = \sum \text{profit} \times \text{probability}$$
+```{r}
+profitX = c(-1, 35)
+probsX = c(37/38, 1/38)
+muX = sum(profitX * probsX)
+```
+
+We denote the straight-up population mean with $\mu_x$.
+$$\mu_x = `r muX`$$
+We calculate the straight-up population standard deviation.
+$$\sigma = \sqrt{\sum (\text{profit}-\mu)^2 \times \text{probability}}$$
+
+```{r}
+sigmaX = sqrt(sum((profitX-muX)^2 * probsX))
+```
+
+We denote the straight-up population standard deviation with with $\sigma_x$.
+$$\sigma_x = `r sigmaX`$$
+
+We simulate 34 spins of the wheel, betting straight up. We calculate the sample mean ($\bar{x}$) and sample standard deviation ($s_x$). 
+
+```{r, comment=""}
+set.seed(12345)
+x = sample(profitX,size=34,replace=T,prob=probsX)
+x
+xbar = mean(x)
+xbar
+```
+$$\bar{x} = `r xbar`$$
+
+```{r}
+sx = sd(x)
+sx
+```
+
+$$s_x = `r sx`$$
+
+We calculate the standard score of the sample mean ($z_{\bar{x}}$).
+
+$$z_{\bar{x}} = \frac{\bar{x}-\mu_x}{\sigma_x/\sqrt{n}}$$
+```{r}
+zxbar = (xbar-muX)/(sigmaX/sqrt(34))
+```
+
+$$z_{\bar{x}} = `r zxbar` $$
+
+Interestingly, in these 34 spins, the gambler has a positive profit: she only needs to hit her winning number once in 34 spins to be ahead. This distribution has a large standard deviation (compared to the mean), so it does not surprise me much to see a positive sample mean even though the population mean is negative. We see the standard score ($z_{\bar{x}}=`r zxbar`$) is between $-2$ and $2$, indicating this sample mean is not surprising.
+
+The sample standard deviation is near the population standard deviation, as seen with the [relative difference](https://en.wikipedia.org/wiki/Relative_change_and_difference){target="blank"} below. 
+```{r}
+(sx-sigmaX)/sigmaX
+```
+
+
+
+### Bet-on-black probability distribution ($Y$)
+
+When betting on black, there is a 18/38 chance of profiting $1.00 and a 20/38 chance of profiting -\$1.00.
+
+| Profit |  Probability  |
+|:------:|:-------------:|
+| -\$1   |$\frac{20}{38}$|
+| \$1    |$\frac{18}{38}$ |
+
+We calculate the population mean.
+```{r}
+profitY = c(-1, 1)
+probsY = c(20/38, 18/38)
+muY = sum(profitY * probsY)
+```
+
+$$\mu_y = `r muY`$$
+We calculate the population standard deviation.
+
+```{r}
+sigmaY = sqrt(sum((profitY-muY)^2 * probsY))
+```
+
+$$\sigma_y = `r sigmaY`$$
+
+
+We simulate 34 spins of the wheel, betting black.
+
+```{r, comment=""}
+set.seed(12345)
+y = sample(profitY,size=34,replace=T,prob=probsY)
+y
+ybar = mean(y)
+sy = sd(y)
+```
+$$\bar{y} = `r ybar`$$
+$$s_y = `r sy`$$
+
+The sample mean is about twice the population mean. This may seem distant, but I don't think it is that surprising given the relative sizes of $\mu_y$ and $\sigma_y$. The sample standard deviation is very close to the population standard deviation (about 1% away).
+```{r}
+(sy-sigmaY)/sigmaY
+```
+
+To measure typicalness of the sample mean, we calculate the standard score of the sample mean.
+
+```{r}
+zybar = (ybar-muY)/(sigmaY/sqrt(34))
+```
+$$z_{\bar{y}} = `r zybar`$$
+
+The standard score ($z_{\bar{y}}$) indicates the sample mean is typical, because it is within $-2$ to $2$.
+
+### Extra credit
+
+#### 30 years of 34 straight-up bets each day
+Let's imagine our gambler goes to the casino every day, betting straight-up 34 times  each day. Let's say the gambler does this for 10,000 days (about 30 years) and tracks each day's average profit per spin.
+
+```{r}
+set.seed(12345)
+x = sample(profitX,size=34*10000,replace=T,prob=probsX)
+x = matrix(x,ncol=34)
+xbars = apply(x,1,mean)
+hist(xbars,
+     xlab="Daily average profit ($/bet)",
+     main="Straight-up, 10000 days, 34 bets/day")
+mean(xbars)
+```
+
+In those 10,000 days, the gambler's average profit per spin is -$0.05, but it seems in more than half (about 60%) of the days she has a positive profit. This means that each day she is more likely than not to make a profit, but still overall she loses money. 
+
+```{r}
+sum(xbars>0)/length(xbars)
+```
+The standard deviation of the sample means matches the standard error closely.
+$$\text{standard error of }X = \sigma_{\bar{x}} =  \frac{\sigma_x}{\sqrt{n}} $$
+
+```{r}
+sd(xbars)
+sigmaX/sqrt(34)
+```
+
+
+#### 30 years of 34 black bets each day
+
+Let's imagine our gambler goes to the casino every day, betting black 34 times each day. Let's say the gambler does this for 10,000 days (about 30 years) and tracks each day's average profit per spin.
+
+```{r}
+set.seed(12345)
+y = sample(profitY,size=34*10000,replace=T,prob=probsY)
+y = matrix(y,ncol=34)
+ybars = apply(y,1,mean)
+hist(ybars,
+     xlab="Daily average profit ($/bet)",
+     main="Black, 10000 days, 34 bets/day")
+mean(ybars)
+```
+The profit of 10,000 years of betting black is basically equivalent to the profit of 10,000 years playing straight-up. Both strategies averaged `r round(muX,2)` \$/bet. 
+
+We investigate the spread of daily averages by calculating the standard deviation of the sample means.
+
+```{r}
+sd(ybars)
+```
+
+We notice this matches the appropriate standard error almost exactly.
+
+$$\text{standard error of }Y = \sigma_{\bar{y}} =  \frac{\sigma_y}{\sqrt{n}} $$
+
+```{r}
+sigmaY/sqrt(34)
+```
+
+Notice, there was higher spread in straight-up play ($\sigma_\bar{x} > \sigma_\bar{y}$). This can also be seen by comparing the two distributions of daily profits, here with a boxplot.
+
+```{r}
+boxplot(list(xbars,ybars),
+        horizontal=T,
+        names=c("Straight up","Black"),
+        main="Daily average ($/bet) from 10000 days, 34 bets/day")
+```
+
+
+It is interesting that betting black has fewer profitable days than betting straight up. 
+
+```{r}
+sum(ybars>0)/length(ybars)
+```
+
+When betting black, only 32% of days have positive profit (compared to 60% profitable days for straight-up). 
+
+### Comparing the two strategies
+
+In the long run, both strategies --- straight-up and black --- result in an average loss of $0.05 per bet. However, when betting 34 times a day, the straight-up strategy has positive daily profit 60% of days, whereas betting black has positive profit on only 32% of days.
+
+Betting straight up also seems more exciting, as there are some days the gambler more than sextuples their money (by hitting 6 times).
+
+```{r}
+max(xbars)
+(35*6-(34-6))/34
+```
+
+When this happens, the gambler gets to leave the casino with `r 35*6-(34-6)+34` dollars (after coming in with \$34).
+
+```{r}
+max(xbars)*34+34
+```
+
+In those 10000 days, black's best daily average profit was `r sprintf("%0.2f",round(max(ybars),2))` \$/bet which allowed the gambler to leave with \$`r max(ybars)*34+34`.
+```{r}
+max(ybars)
+max(ybars)*34+34
+```
+
+Of course, not all is rosy for the straight-up strategy. The worst outcome (losing all $34) is much more common, as it occurs 40% of the time.
+
+```{r}
+min(xbars)
+min(xbars)*34+34
+sum(xbars==min(xbars)) / length(xbars)
+```
+And in all 10000 days, the worst that happened to black strategy is a loss of `r round(min(ybars),2)` \$/bet, meaning the gambler always left the casino with at least $`r min(ybars)*34+34`.
+
+```{r}
+min(ybars)
+min(ybars)*34+34
+```
+
+Of course, it should be noted that both gamblers lost considerable money (about \$17000) over the 30 years. Even though both gamblers beat the expected profit (\$`r round(muX*340000,2)`).
+
+```{r}
+muX*340000
+sum(x)
+muY*340000
+sum(y)
+```
+
+You might wonder how unusual those total profits are. Calculate their standard scores. Notice the standard error of totals is different than the standard error of means. 
+
+`r options("scipen"=100)`
+
+$$z_{\sum x} = \frac{\sum x - n\mu_x}{\sqrt{n}\sigma_x} = \frac{`r sum(x)`-(340000)(-0.05)}{(\sqrt{340000})(`r round(sigmaX,2)`)} $$
+```{r}
+zsumx = (sum(x)-340000*muX)/(sqrt(340000)*sigmaX)
+zsumx
+```
+
+$$z_{\sum y} = \frac{\sum y - n\mu_y}{\sqrt{n}\sigma_y} = \frac{`r sum(y)`-(340000)(-0.05)}{(\sqrt{340000})(`r round(sigmaY,2)`)} $$
+
+```{r}
+zsumy = (sum(y)-340000*muY)/(sqrt(340000)*sigmaY)
+zsumy
+```
+
+We see both gamblers did better than the expected total: both $z_{\sum x}$ and $z_{\sum y}$ are positive. Both of the $z$-scores are between -2 and 2, so we think the overall profits are typical.
+
+### Conclusion
+
+We simulated a single day (34 bets) for each strategy. We saw that the sample statistics were "close" to their population parameters, but we saw the means were a bit confusing because the population standard deviation was large compared to the population mean, so we got a positive sample mean and a sample mean twice the (small negative) population mean.
+
+When we simulated 10,000 days of each strategy, we saw that both strategies had very similar overall losses. We also saw that the straight-up strategy gave more variability day by day, producing both bigger profits and bigger losses. The black strategy produced daily average profits that looked normally distributed, whereas the straight-up strategy gave daily average profits that were right skewed. If the number of bets each day was large enough, both strategies' daily profits would be normally distributed (see [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem){target="blank"}).
+
+In roulette there are many other types of bets. However, the two discussed here represent the most and least likely bets: other bets will fall between these two extremes. Pretty much all roulette bets have the same expected profit on a $1 bet (population mean = -0.05 dollars). They just differ in terms of their variability (population standard deviations). 
+
+And, just as a reminder, both strategies ended up losing a lot of money in the long run (about $17,000).
+ 
