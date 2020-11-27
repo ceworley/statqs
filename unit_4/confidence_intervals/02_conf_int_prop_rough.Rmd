@@ -20,17 +20,17 @@ UB = p+2*se
 Question
 ========
 
-A scientist has grown `r n` specimens under novel conditions and found that `r p*100`% of them survived (in other words $\hat{p}=`r p`$). The scientist hopes to construct a 95% **confidence interval** of the survival rate. This is to report an interval that helps indicate the scientist's uncertainty due to only growing `r n` specimens.
+A scientist has grown `r n` specimens under novel conditions and found that `r p*100`% of them survived (in other words $\hat{p}=`r p`$). The scientist hopes to construct a 95% [**confidence interval**](https://en.wikipedia.org/wiki/Confidence_interval){target="blank"} of the survival rate.
 
 The scientist will later consult a statistician for a more precise method, but for now she will use a quick method to estimate the 95% confidence interval:
 $$\hat{p}\pm 2\sqrt{\frac{\hat{p}(1-\hat{p})}{n}} $$
 
-Your answers will have a tolerance of 0.001.
+You can round answers to the nearest thousandth.
 
 Answerlist
 --------
-* Determine the lower boundary of the condidence interval by using $\hat{p}- 2\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$.
-* Determine the upper boundary of the condidence interval by using $\hat{p}+ 2\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$.
+* Determine the lower boundary of the confidence interval by using $\hat{p}- 2\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$.
+* Determine the upper boundary of the confidence interval by using $\hat{p}+ 2\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$.
 
 
 Solution

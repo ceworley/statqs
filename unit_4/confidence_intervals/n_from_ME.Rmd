@@ -16,7 +16,7 @@ n = round((2*s/me)^2)
 Question
 ========
 
-We can approximate a 95% confidence interval (where the 95% refers to how frequently the true population mean lands inside these intervals) by using $\bar{x}\pm \frac{2 s}{\sqrt{n}}$.
+We can approximate a 95% confidence interval (where the 95% refers to the confidence level: how frequently these intervals straddle the population mean) by using $\bar{x}\pm \frac{2 s}{\sqrt{n}}$.
 $$\text{lower boundary} = \bar{x}-\frac{2s}{\sqrt{n}}$$
 $$\text{upper boundary} = \bar{x}+\frac{2s}{\sqrt{n}}$$
 where $\bar{x}$ is the sample mean, $s$ is the sample standard deviation, and $n$ is the sample size. The 2 comes from the fact that 95% of normal measurements land within 2 standard deviations from the mean.
@@ -24,7 +24,7 @@ where $\bar{x}$ is the sample mean, $s$ is the sample standard deviation, and $n
 The quantity that we subtract from or add to the sample mean is called **the margin of error**.
 $$\text{margin of error} = \frac{2s}{\sqrt{n}}$$
 
-If we know $s$ will be approximately `r s`, and we want the margin of error to be approximately `r me`, then how large does the sample size need to be?
+When using a confidence level of 0.95, knowing $s$ will be approximately `r s`, and wanting the margin of error to be approximately `r me`, how large does the sample size need to be?
 
 You can round your answer to two significant digits.
 
