@@ -90,6 +90,9 @@ text(tmax-0.8,0.15,(1-gamma)/2,cex=2,col=rgb(0.2,0.2,0.5,1))
 
 Thus, we determine a left area.
 $$P(T<t^\star)=\gamma + \frac{1-\gamma}{2}= `r gamma`+`r (1-gamma)/2`=`r gamma+(1-gamma)/2`$$
+It should be mentioned the expression can be simplified.
+$$P(T<t^\star)= \frac{1}{2}+\frac{\gamma}{2}= 0.5+`r gamma/2`=`r gamma+(1-gamma)/2`$$
+
 
 ```{r left,fig.width=5,fig.height=3}
 par(mar=c(2,0,0,0))
@@ -197,7 +200,7 @@ s = s2
 n = n2
 gamma = gamma2
 df = n-1   # df is the degrees of freedom
-tstar = qt(gamma+(1-gamma)/2, df)
+tstar = qt(0.5+gamma/2, df)
 ME = tstar*s/sqrt(n)
 LB = xbar-ME
 UB = xbar+ME

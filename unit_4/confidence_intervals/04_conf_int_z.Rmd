@@ -90,6 +90,10 @@ text(2.5,0.15,(1-gamma)/2,cex=2,col=rgb(0.2,0.2,0.5,1))
 
 Determine a leftward area with boundary $z^\star$.
 $$P(Z<z^\star)=\gamma + \frac{1-\gamma}{2}= `r gamma`+`r (1-gamma)/2`=`r gamma+(1-gamma)/2`$$
+It should be mentioned the expression can be simplified.
+$$P(Z<z^\star)= \frac{1}{2}+\frac{\gamma}{2}= 0.5+`r gamma/2`=`r gamma+(1-gamma)/2`$$
+
+
 
 ```{r left,fig.width=5,fig.height=3}
 library(latex2exp)
