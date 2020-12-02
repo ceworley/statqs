@@ -36,7 +36,7 @@ In $n=`r n`$ trials, there were $n_\text{s}=`r suc`$ successes, so the sample pr
 
 To do this, you first determine $z^\star$ such that $P(|Z|<z^\star)=`r gamma`$. Then, evaluate $\hat{p}\pm z^\star\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$ to determine the boundaries of the confidence interval.
 
-(You can round your answers to the hundredths place.)
+(You can round answers to the hundredths place.)
 
 Answerlist
 --------

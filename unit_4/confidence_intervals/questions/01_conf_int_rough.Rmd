@@ -17,7 +17,7 @@ A scientist has weighed `r n` specimens of a newly discovered organism. Those we
 The scientist will later consult a statistician for a more precise method, but for now she will use a quick method to estimate the 95% confidence interval:
 $$\bar{x}\pm \frac{2s}{\sqrt{n}} $$
 
-Your answers will have a tolerance of 0.1 grams.
+(You can round to nearest 0.1 grams.)
 
 Answerlist
 --------

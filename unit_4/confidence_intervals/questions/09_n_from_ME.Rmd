@@ -34,13 +34,13 @@ Solution
 ========
 
 Do some algebra.
-$$ME = \frac{2s}{\sqrt{n}} $$
+$$\text{ME} = \frac{2s}{\sqrt{n}} $$
 Multiply both sides by $\sqrt{n}$.
-$$ME\sqrt{n} = 2s $$
-Divide both sides by $ME$.
-$$\sqrt{n} = \frac{2s}{ME} $$
+$$\text{ME}\sqrt{n} = 2s $$
+Divide both sides by $\text{ME}$.
+$$\sqrt{n} = \frac{2s}{\text{ME}} $$
 Square both sides.
-$$n  = \left(\frac{2s}{ME}\right)^2$$
+$$n  = \left(\frac{2s}{\text{ME}}\right)^2$$
 Plug in numbers.
 $$n  = \left(\frac{(2)(`r s`)}{`r me`}\right)^2$$
 Evaluate.

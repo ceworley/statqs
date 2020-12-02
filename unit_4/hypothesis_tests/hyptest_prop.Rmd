@@ -50,7 +50,7 @@ A scientist is investigating whether a chemical may effect the survival rate of 
 
 The scientist has only grown the organism under experimental conditions (with chemical) $n=`r n`$ times. In that sample, the survival rate is $\hat{p} = `r phat`$.
 
-The scientist wonders if this survival rate is significantly different from $p_0$. To do this, the scientist will determine the $p$-value. The $p$-value represents the probability of getting a sample proportion as far (or farther) from $p_0$ due to chance alone.
+The scientist wonders if this survival rate is significantly different from $p_0$. To investigate this, the scientist will determine the $p$-value. The $p$-value represents the probability of getting a sample proportion as far (or farther) from $p_0$ due to chance alone.
 $$p\text{-value} ~=~ P\left(\big|Z\big| > \frac{\big|\hat{p}-p_0\big|}{\sqrt{\frac{p_0(1-p_0)}{n}}} \right) $$
 
 It is common to compare the $p$-value to 0.05.

@@ -1,0 +1,7 @@
+I would like a library:
+	draw target
+	draw spinner
+	draw spreadsheet
+	make spreadsheet from uneven columns
+	
+can i not need \ after figures???

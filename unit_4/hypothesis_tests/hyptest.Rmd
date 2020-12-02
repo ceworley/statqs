@@ -49,7 +49,7 @@ A scientist is investigating whether a chemical may effect the growth of an orga
 
 The scientist has only grown the organism under experimental conditions (with chemical) $n=`r n`$ times. In that sample, the masses have a mean $\bar{x}=`r xbar`$.
 
-The scientist wonders if this sample mean is significantly different from $\mu_0$. To do this, the scientist will determine the $p$-value. The $p$-value represents the probability of getting a sample mean as far (or farther) from $\mu_0$ due to chance alone.
+The scientist wonders if this sample mean is significantly different from $\mu_0$. To investigate this, the scientist will determine the [$p$-value](https://en.wikipedia.org/wiki/P-value){target="blank"}. The $p$-value represents the probability of getting a sample mean as far (or farther) from $\mu_0$ due to chance alone.
 $$p\text{-value} ~=~ P\left(\big|Z\big| > \frac{\big|\bar{x}-\mu_0\big|}{\sigma_0/\sqrt{n}} \right) $$
 
 It is common to compare the $p$-value to 0.05.

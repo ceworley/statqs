@@ -1,0 +1,31 @@
+---
+title: "What is a confidence interval?"
+author: "Chad Worley"
+date: "12/1/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+A confidence interval is calculated from a sample, usually to represent a guess of the unknown population mean (or proportion).
+
+### Point estimate vs interval estimate
+
+It is easier to catch a fish with a net than a spear. It is easier to shoot a flying duck with a shotgun than a rifle. It is easier to identify an interval that contains the population mean than it is to determine the population mean exactly.
+
+Many people intuitively understand that a sample mean is a good guess of the population mean. However, it is better to give an interval, because the interval will indicate uncertainty. With a larger sample size, the interval can narrow, as there is less uncertainty.
+
+### Confidence interval
+
+A confidence interval has a confidence level, usually 95%. This means that if a scientist creates 100 confidence intervals (from 100 samples), about 95 of those intervals will contain their true population mean.
+
+
+
+
+
+
+
+
+

@@ -25,7 +25,7 @@ A scientist has grown `r n` specimens under novel conditions and found that `r p
 The scientist will later consult a statistician for a more precise method, but for now she will use a quick method to estimate the 95% confidence interval:
 $$\hat{p}\pm 2\sqrt{\frac{\hat{p}(1-\hat{p})}{n}} $$
 
-You can round answers to the nearest thousandth.
+(You can round answers to the nearest thousandth.)
 
 Answerlist
 --------

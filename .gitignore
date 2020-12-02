@@ -1,16 +1,16 @@
 # xml files can get quite large. These are rendered for importing questions to Moodle.
-.xml
+*.xml
 
 
 # History files
-.Rhistory
-.Rapp.history
+*.Rhistory
+*.Rapp.history
 
 # Session Data files
-.RData
+*.RData
 
 # User-specific files
-.Ruserdata
+*.Ruserdata
 
 # Example code in package build process
 *-Ex.R

@@ -111,6 +111,7 @@ draw_ss = function(df){
 
 draw_ss(csvdata[1:12,])
 ```
+\
 
 
 
@@ -133,15 +134,14 @@ print(data.frame(n,xbar,s,SE,tstar,ME,LB,UB,row.names=""))
 
 Answerlist
 --------
-* The sample size $n=`r n`$.
-* The sample mean $\bar{x}=\frac{\sum x}{n}=`r round(xbar,2)`$.
-* The sample standard deviation $s=\sqrt{\frac{\sum(x-\bar{x})^2}{n-1}}=`r round(s,2)`$.
-* The estimated standard error $\text{SE}=\frac{s}{\sqrt{n}}=\frac{`r round(s,2)`}{\sqrt{`r n`}}=`r round(SE,2)`$.
-* You can show, when $n=`r n`$, then $\text{df}=`r n-1`$, and $P(|T|<`r round(tstar,2)`)=`r gamma`$, so the boundary $t^\star=`r round(tstar,2)`$.
-* The estimate margin of error $\text{ME}=\frac{t^\star s}{\sqrt{n}}=\frac{(`r round(tstar,2)`)(`r round(s,2)`)}{\sqrt{`r n`}}=`r round(ME,2)`$.
-* The lower boundary of the confidence interval $\text{LB}=\bar{x}-\text{ME}=`r round(xbar,2)`-`r round(ME,2)`=`r round(LB,2)`$.
-* The upper boundary of the confidence interval $\text{UB}=\bar{x}+\text{ME}=`r round(xbar,2)`+`r round(ME,2)`=`r round(UB,2)`$.
-
+* The sample size $=n=`r n`$.
+* The sample mean $=\bar{x}=\frac{\sum x}{n}=`r round(xbar,2)`$.
+* The sample standard deviation $=s=\sqrt{\frac{\sum(x-\bar{x})^2}{n-1}}=`r round(s,2)`$.
+* The estimated standard error $=\text{SE}=\frac{s}{\sqrt{n}}=\frac{`r round(s,2)`}{\sqrt{`r n`}}=`r round(SE,2)`$.
+* You can show, when $n=`r n`$, then $\text{df}=`r n-1`$, and $P(|T|<`r round(tstar,2)`)=`r gamma`$, so the boundary $=t^\star=`r round(tstar,2)`$.
+* The estimated margin of error $=\text{ME}=\frac{t^\star s}{\sqrt{n}}=\frac{(`r round(tstar,2)`)(`r round(s,2)`)}{\sqrt{`r n`}}=`r round(ME,2)`$.
+* The lower boundary of the confidence interval $=\text{LB}=\bar{x}-\text{ME}=`r round(xbar,2)`-`r round(ME,2)`=`r round(LB,2)`$.
+* The upper boundary of the confidence interval $=\text{UB}=\bar{x}+\text{ME}=`r round(xbar,2)`+`r round(ME,2)`=`r round(UB,2)`$.
 
 
 Meta-information
