@@ -1,5 +1,5 @@
 # xml files can get quite large. These are rendered for importing questions to Moodle.
-.xml
+*.xml
 
 
 # History files
