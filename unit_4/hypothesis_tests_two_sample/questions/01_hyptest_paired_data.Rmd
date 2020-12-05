@@ -1,0 +1,58 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+
+w = read.csv("yob2019_w_header.txt",as.is=T)
+n = sample(10:20,1)
+names = sort(sample(w$name,n,replace=F,prob=w$freq))
+
+speeds = runif(n,3,13) #mph
+times = round(1/speeds*60*60)
+
+sigdel = runif(1,20,50)
+SEdel = sigdel/sqrt(n)
+MEdel = 2*SEdel
+mudel = sample(c(-MEdel,MEdel),1)
+del = rnorm(n,mudel,sigdel)
+times2 = round(times+del)
+
+x = data.frame(names,times,times2)
+colnames(x) = c("name","x1","x2")
+```
+
+Question
+========
+
+```{r CSS, echo = FALSE, results = "asis"}
+writeLines(readLines("bordered_table_style.html"))
+```
+
+A study asked participants to time a mile run (in seconds). After a month, the same participants timed another mile run. You are asked to perform a paired-data $t$ test to investigate whether fitness changed.
+
+```{r tab1, results="asis"}
+knitr::kable(x,format="html",table.attr='class="bordered-table"',
+             align = "lcc",row.names=F)
+```
+
+To do this, it can be helpful to first determine the list of differences.
+$$d_i = x_{2,i}-x_{1,i}$$
+
+Then, determine the mean ($\bar{d}$) and standard deviation ($s_d$) of the differences. The $t$ score is then calculated to determine the $p$-value.
+
+$$p\text{-value} = P\left(|T|>\frac{\overline{d}-0}{s_d\sqrt{n}}\right) $$
+
+
+Solution
+========
+
+
+
+Meta-information
+================
+extype: cloze
+exsolution: 10
+exclozetype: num
+exname: hypothesis test paired
+extol: 0
+exextra[numwidth,logical]: TRUE
+exextra[stringwidth,logical]: TRUE

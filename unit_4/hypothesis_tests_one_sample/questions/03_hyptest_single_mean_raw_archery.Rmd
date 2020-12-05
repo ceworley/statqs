@@ -40,7 +40,7 @@ Archie worries the horizontal aspect of her [sight](https://en.wikipedia.org/wik
 
 ### Result
 
-```{r,fig.width=5,fig.height=5}
+```{r bullseye,fig.width=5,fig.height=5}
 makebullseye = function(scale=1,axes=T){
   x = cos(2*seq(0,pi,length.out=1000)*pi)*scale
   y = sin(2*seq(0,pi,length.out=1000)*pi)*scale
@@ -65,7 +65,10 @@ mtext("vertical position, y (mm)",2,line=2)
 abline(v=seq(-300,300,25),lwd=1,lty=2)
 abline(h=seq(-300,300,25),lwd=1,lty=2)
 points(x,y,pch=20)
+```
+\
 
+```{r}
 write.csv(data.frame(x),"x_arrow.csv",row.names=F)
 ```
 
@@ -122,7 +125,7 @@ $$\bar{x} = `r signif(xbar,4)`$$
 $$s = `r signif(s,4)` $$
 Evaluate the $t$ statistic.
 
-$$t = \frac{|`r signif(xbar,4)`|}{(`r signif(s,4)`)/\sqrt{`r n`}} = `r round(t,2)` $$
+$$t = \frac{|`r signif(xbar,4)`-0|}{(`r signif(s,4)`)/\sqrt{`r n`}} = `r round(t,2)` $$
 Restate the $p$-value.
 $$p\text{-value} = P\left(|T|>`r round(t,2)`\right) $$
 Remember, the degree of freedom is one less than the sample size.

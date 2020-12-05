@@ -3,9 +3,10 @@ knitr::opts_chunk$set(echo = FALSE)
 options(scipen=100)
 
 while(T){
-  mu0 = round(runif(1,10,100),1)
-  sig0 = round(runif(1,mu0/6,mu0/3),1)
   n = sample(20:100,1)
+  suc = sample(1:(n-1),1)
+  p0 = round(suc/n,4)
+  se0 = sqrt(p0*(1-p0)/n)
   
   pval = 0.05+runif(1,0.01,0.04)*sample(c(-1,1),1)
   
@@ -14,8 +15,8 @@ while(T){
   
   z = zl*sample(c(-1,1),1)
   
-  xbar = round(mu0+sig0/sqrt(n)*z,2)
-  z = (xbar-mu0)/(sig0/sqrt(n))
+  phat = round(round((p0+z*se0)*n)/n,4)
+  z = (phat-p0)/se0
   zlo = floor(z*100)/100
   zhi = ceiling(z*100)/100
   
@@ -27,7 +28,7 @@ while(T){
   pvallo = 2*ltlo
   pvalhi = 2*lthi
   
-  if((pvallo < 0.05)==(pvalhi < 0.05) & (pvallo > 0.05)==(pvalhi > 0.05)){
+  if(abs(zlo)<3 & abs(zhi)<3 & abs(z)<3 & (pvallo < 0.05)==(pvalhi < 0.05) & (pvallo > 0.05)==(pvalhi > 0.05)){
     break
   }
 }
@@ -45,12 +46,12 @@ if(pval < 0.05){
 Question
 ========
 
-A scientist is investigating whether a chemical may effect the growth of an organism. Under the control conditions (no chemical), the organism grows to a mean mass of $\mu_0 = `r mu0`$ grams with a standard deviation of $\sigma_0 =`r sig0`$ grams. These values are known precisely because the organism has been grown under control conditions many many times.
+A scientist is investigating whether a chemical may effect the survival rate of an organism. Under the control conditions (no chemical), the organism has a survival rate of $p_0=`r p0`$. This value is known precisely because the organism has been grown under control conditions many many times.
 
-The scientist has only grown the organism under experimental conditions (with chemical) $n=`r n`$ times. In that sample, the masses have a mean $\bar{x}=`r xbar`$.
+The scientist has only grown the organism under experimental conditions (with chemical) $n=`r n`$ times. In that sample, the survival rate is $\hat{p} = `r phat`$.
 
-The scientist wonders if this sample mean is significantly different from $\mu_0$. To investigate this, the scientist will determine the [$p$-value](https://en.wikipedia.org/wiki/P-value){target="blank"}. The $p$-value represents the probability of getting a sample mean as far (or farther) from $\mu_0$ due to chance alone.
-$$p\text{-value} ~=~ P\left(\big|Z\big| > \frac{\big|\bar{x}-\mu_0\big|}{\sigma_0/\sqrt{n}} \right) $$
+The scientist wonders if this survival rate is significantly different from $p_0$. To investigate this, the scientist will determine the $p$-value. The $p$-value represents the probability of getting a sample proportion as far (or farther) from $p_0$ due to chance alone.
+$$p\text{-value} ~=~ P\left(\big|Z\big| > \frac{\big|\hat{p}-p_0\big|}{\sqrt{\frac{p_0(1-p_0)}{n}}} \right) $$
 
 It is common to compare the $p$-value to 0.05.
 
@@ -70,9 +71,9 @@ Solution
 
 We need to calculate the $p$-value.
 $$\begin{aligned}
-p\text{-value} &= P\left(\big|Z\big| > \frac{\big|\bar{x}-\mu_0\big|}{\sigma_0/\sqrt{n}} \right) \\\\
-&= P\left(\big|Z\big| > \frac{\big|`r xbar`-`r mu0`\big|}{`r sig0`/\sqrt{`r n`}} \right) \\\\
-&= P\left(\big|Z\big| > `r abs(xbar-mu0)/sig0*sqrt(n)` \right) \\\\
+p\text{-value} &= P\left(\big|Z\big| > \frac{\big|\hat{p}-p_0\big|}{\sqrt{\frac{p_0(1-p_0)}{n}}} \right) \\\\
+&= P\left(\big|Z\big| > \frac{\big|`r phat`-`r p0`\big|}{\sqrt{\frac{(`r p0`)(`r 1-p0`)}{`r n`}}} \right) \\\\
+&= P\left(\big|Z\big| > `r abs(z)` \right) \\\\
 &= `r pval`
 \end{aligned}$$
 
@@ -93,6 +94,7 @@ Meta-information
 extype: cloze
 exsolution: `r pval`|`r ans2`
 exclozetype: num|schoice
-exname: basic hypothesis test
+exname: basic hypothesis test prop
 extol: `r tol`
-
+exextra[numwidth,logical]: TRUE
+exextra[stringwidth,logical]: TRUE
