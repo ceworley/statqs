@@ -1,23 +1,34 @@
 ```{r data generation, echo = FALSE, results = "hide"}
 knitr::opts_chunk$set(echo = FALSE)
 options(scipen=100)
-
 w = read.csv("yob2019_w_header.txt",as.is=T)
 n = sample(10:20,1)
-names = sort(sample(w$name,n,replace=F,prob=w$freq))
-
+name = sort(sample(w$name,n,replace=F,prob=w$freq))
 speeds = runif(n,3,13) #mph
-times = round(1/speeds*60*60)
-
-sigdel = runif(1,20,50)
-SEdel = sigdel/sqrt(n)
-MEdel = 2*SEdel
-mudel = sample(c(-MEdel,MEdel),1)
-del = rnorm(n,mudel,sigdel)
-times2 = round(times+del)
-
-x = data.frame(names,times,times2)
+x1 = round(1/speeds*60*60)
+while(T){
+  sigd = runif(1,20,50)
+  SEd = sigd/sqrt(n)
+  MEd = 2*SEd
+  mud = sample(c(-MEd,MEd),1)
+  d = rnorm(n,mud,sigd)
+  x2 = round(x1+d)
+  t = abs(mean(d))/(sd(d)/sqrt(n))
+  cumulative = pt(t,n-1)
+  pval = 2*(1-cumulative)
+  if(pval<0.2 & pval>0.005 & abs(pval-0.05)>0.01){break}
+}
+x = data.frame(name,x1,x2)
 colnames(x) = c("name","x1","x2")
+write.csv(x,"run_times.csv",row.names=F)
+
+if(pval<0.05){
+  ans2="10"
+  s2="The $p$-value is less than 0.05, so the result is significant."
+} else {
+  ans2="01"
+  s2="The $p$-value is more than 0.05, so the result is NOT significant."
+}
 ```
 
 Question
@@ -27,32 +38,147 @@ Question
 writeLines(readLines("bordered_table_style.html"))
 ```
 
-A study asked participants to time a mile run (in seconds). After a month, the same participants timed another mile run. You are asked to perform a paired-data $t$ test to investigate whether fitness changed.
+A study asked individuals to time a mile run (in seconds). After a month, the same individuals timed another mile run. You are asked to perform a paired-data $t$ test to investigate whether fitness changed.
 
 ```{r tab1, results="asis"}
-knitr::kable(x,format="html",table.attr='class="bordered-table"',
-             align = "lcc",row.names=F)
+knitr::kable(x,format="html",table.attr='class="bordered-table"', align = "lcc",row.names=F)
 ```
+([download as  run_times.csv](run_times.csv){target="blank"})
 
-To do this, it can be helpful to first determine the list of differences.
+To do this, first determine the list of differences. For each individual, $i$, determine their difference $d_i$.
 $$d_i = x_{2,i}-x_{1,i}$$
 
 Then, determine the mean ($\bar{d}$) and standard deviation ($s_d$) of the differences. The $t$ score is then calculated to determine the $p$-value.
 
-$$p\text{-value} = P\left(|T|>\frac{\overline{d}-0}{s_d\sqrt{n}}\right) $$
+$$p\text{-value} = P\left(|T|>\frac{|\overline{d}-\mu_0|}{s_d/\sqrt{n}}\right) $$
+The null hypothesis predicts there is no change in fitness, so $\mu_0=0$. The alternative hypothesis predicts a change in fitness. The degree of freedom is one less than the number of individuals.
+ 
+##ANSWER1##
+
+Using a significance level of $\alpha=0.05$, is there a significant change in run times?
+
+##ANSWER2##
+
+Answerlist
+--------
+* Calculate the $p$-value.
+* Yes
+* No
 
 
 Solution
 ========
 
+You first need to determine a list of differences.
+
+```{r}
+y = data.frame(name,x1,x2,x2-x1)
+colnames(y) = c("name","x1","x2","d = x2-x1")
+knitr::kable(y,format="html",table.attr='class="bordered-table"', align = "lccc",row.names=F)
+```
+
+```{r}
+dbar = mean(d)
+sdd = sd(d)
+```
+
+Determine the sample size and degrees of freedom.
+$$n = `r n`$$
+$$\text{df} = `r n-1` $$
+Determine the sample mean of the differences.
+$$\bar{d} = \frac{\sum d}{n}= `r signif(dbar,4)`$$
+Determine the standard deviation of the differences. You probably do not want to do this by hand.
+$$s_d = \sqrt{\frac{\sum (d-\bar{d})^2}{n-1}} = `r signif(sdd,4)` $$
+Calculate the $t$-score.
+$$t = \frac{|\overline{d}-0|}{s_d/\sqrt{n}} = \frac{`r abs(signif(dbar,4))`}{`r signif(sdd,4)`\sqrt{`r n`}} = `r round(t,2)`$$
+Restate the $p$-value.
+$$p\text{-value} = P\left(|T|>`r round(t,2)`\right) $$
+I would recommend using a computer program to determine this $p$-value, like a [spreadsheet] or [R]. 
+
+$$p\text{-value} = `r signif(pval,2)` $$
+
+`r s2`
+
+### spreadsheet
+
+```{r}
+dss = character()
+for(i in 2:(n+1)){
+  dss = c(dss,sprintf("=C%d-B%d",i,i))
+}
+vn = c("n","df","dbar","sd","t",
+       "P(|T|>t)","p-value")
+vf = c("=COUNT(D2:D1000)","=G2-1",
+       "=AVERAGE(D2:D1000)",
+       "=STDEV(D2:D1000)","=ABS(G4)/(G5/SQRT(G2))",
+       "=T.DIST.2T(G6,G3,TRUE)","=G7")
+sp = rep("",n)
+vn = c(vn,rep("",n-length(vn)))
+vf = c(vf,rep("",n-length(vf)))
+ssol = data.frame(name,x1,x2,dss,sp,vn,vf)
+colnames(ssol) = c("name","x1","x2","d","","","")
+write.csv(ssol,"run_times_solution.csv",row.names=F)
+```
+
+The solution spreadsheet can be [downloaded as a csv](run_times_solution.csv){target="blank"}. The first 10 rows are shown below.
+
+```{r fig.height=5,fig.width=8}
+draw_ss = function(df,widths=rep(1,length(df[1,])+1)){
+  xline = c(0,cumsum(widths)/sum(widths))
+  nrow = length(df[,1])
+  ncol = length(df[1,])
+  xtex = (xline[2:(ncol+2)]+xline[1:(ncol+1)])/2
+  par(mar=c(0,0,0,0))
+  plot(0,0,type="n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+  hi = 1:((nrow+2)*2+1)
+  vi = 1:((ncol+1)*2+1)
+  hpos = seq(1,0,length.out=(nrow+2)*2+1)
+  vpos = seq(0,1,length.out=(ncol+1)*2+1)
+  hlin = hpos[hi%%2==1]
+  ytex = hpos[hi%%2==0]
+  vlin = vpos[vi%%2==1]
+  #xtex = vpos[vi%%2==0]
+  abline(h=hlin)
+  abline(h=hlin[2],lwd=3)
+  abline(v=xline)
+  abline(v=xline[2],lwd=3)
+  for(i in 2:(ncol+1)){
+    text(xtex[i],ytex[1],LETTERS[i-1],col=rgb(0.5,0.5,0.5))
+    text(xtex[i],ytex[2],colnames(df)[i-1])
+  }    
+  for(i in 2:(nrow+2)){
+    text(xtex[1],ytex[i],i-1,col=rgb(0.5,0.5,0.5))
+  }
+  for(i in 1:nrow){
+    for(j in 1:ncol){
+      text(xtex[j+1],ytex[i+2],df[i,j])
+    }
+  }
+}
+draw_ss(ssol[1:9,],c(0.4,1.5,0.5,0.5,1,0.3,.7,2))
+```
+\
+
+If your spreadsheet does not have `T.DIST.2T`, you can try `TDIST(G6,G3,2)`.
+
+### R
+
+Make/use a directory (folder) for this problem (paired-data $t$ test), and set the working directory accordingly. Save `run_times.csv` to your working directory. I would recommend saving the following script as `paired_data_hypothesis_test.r`, in the same directory.
+
+```{r solution, echo=T}
+table = read.csv("run_times.csv")
+x1 = table$x1
+x2 = table$x2
+t.test(x1,x2,paired=T)
+```
 
 
 Meta-information
 ================
 extype: cloze
-exsolution: 10
-exclozetype: num
+exsolution: `r pval`|`r ans2`
+exclozetype: num|schoice
 exname: hypothesis test paired
-extol: 0
+extol: 0.005|0
 exextra[numwidth,logical]: TRUE
 exextra[stringwidth,logical]: TRUE

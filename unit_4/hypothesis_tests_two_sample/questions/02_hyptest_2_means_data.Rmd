@@ -1,0 +1,43 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+n = sample(10:30,2)
+n1 = n[1]
+n2 = n[2]
+sigma1 = runif(1,5,50)
+sigma2 = sigma1*runif(1,0.7,1.3)
+se = sqrt(sigma1^2/n[1]+sigma2^2/n[2])
+me = 2*se
+mu1 = runif(1,200,600)
+mu2 = mu1+sample(c(-1,1),1)*me
+x1 = round(rnorm(n,mu1,sigma))
+x2 = round(rnorm(n,mu2,sigma))
+xbar1 = mean(x1)
+xbar2 = mean(x2)
+s1 = sd(x1)
+s2 = sd(x2)
+df = floor((s1^2/n1+s2^2/n2)^2/(s1^4/n1^2/(n1-1)+s2^4/n2^2/(n2-1)))
+```
+
+Question
+========
+
+A doctor runs a [controlled experiment](https://en.wikipedia.org/wiki/Randomized_controlled_trial){target="blank"}. The participants are randomly assigned to two groups: control and treatment. The participants in the control group are given a [placebo](https://en.wikipedia.org/wiki/Placebo-controlled_study){target="blank"}. The participants in the treatment group are given a drug.
+
+After a month, each participant's triglyceride level (in mg/dL) is measured. 
+
+
+Solution
+========
+
+
+
+Meta-information
+================
+extype: cloze
+exsolution: 10
+exclozetype: num
+exname: hypothesis test 2 means
+extol: 0.005|0
+exextra[numwidth,logical]: TRUE
+exextra[stringwidth,logical]: TRUE
