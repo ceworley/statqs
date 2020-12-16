@@ -1,0 +1,157 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(knitr)
+opts_chunk$set(echo = FALSE)
+options(scipen=100)
+
+gamma = sample(c(0.8,0.9,0.95,0.95,0.96,0.98,0.99),1)
+gamma2=gamma
+n = round(runif(1,7,20)^2)
+p = runif(1,0.20,0.80)
+x = (runif(n)<p)*1
+x2 = x
+phat = mean(x)
+zstar = round(qnorm(0.5+gamma/2),2)
+phatr = round(phat,3)
+zstarr = round(zstar,2)
+LB = phat-zstar*sqrt(phat*(1-phat)/n)
+UB = phat+zstar*sqrt(phat*(1-phat)/n)
+LBr = round(LB,3)
+UBr = round(UB,3)
+
+write.csv(data.frame(x),"freethrows.csv",row.names=F)
+
+default_source_hook <- knit_hooks$get('source')
+knit_hooks$set(source = function(x, options) {
+  x <- gsub('gamma2',paste0(gamma),x)
+  x <- gsub('x2',paste0(x2,collapse=", "),x)
+  default_source_hook(x, options)
+})
+```
+
+Question
+========
+
+A basketball player has decided to estimate her probability to score a [freethrow](https://en.wikipedia.org/wiki/Free_throw){target="blank"}. To do this, she shoots freethrows. If she scores, she records a "1". If she misses, she records a "0".
+
+The results are shown below and can be [downloaded as a csv](freethrows.csv){target="blank"}.
+
+```{r, comment=NA}
+cat(paste0(x,collapse=", "))
+```
+
+You are asked to determine a [confidence interval](https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval){target="blank"} using a given confidence level: $\gamma=`r gamma`$. To do this, you [determine](https://en.wikipedia.org/wiki/Confidence_interval#Basic_steps){target="blank"} $z^\star$ such that $P(|Z|<z^\star)=`r gamma`$. You also calculate the sample size and sample proportion. Then, you use the following formulas:
+$$\text{LB} = \hat{p}-z^\star \sqrt{\frac{\hat{p}(1-\hat{p})}{n}} $$
+$$\text{UB} = \hat{p}+z^\star \sqrt{\frac{\hat{p}(1-\hat{p})}{n}} $$
+
+
+Answerlist
+--------
+* Determine the lower boundary of the confidence interval
+* Determine the upper boundary of the confidence interval
+
+
+
+Solution
+========
+
+You should be able to determine that $P(|Z|<`r zstar`)=`r gamma`$, so $z^\star=`r zstar`$. Using a spreadsheet or R, you should determine that $n=`r n`$ and $\hat{p} = \frac{`r sum(x)`}{`r n`} = `r round(phat,3)`$. Then, use the given formulas.
+
+### R
+
+```{r, echo=T}
+gamma = gamma2
+zstar = qnorm(0.5+gamma/2)
+x = c(x2)
+n = length(x)
+phat = mean(x)
+LB = phat-zstar*sqrt(phat*(1-phat)/n)
+UB = phat+zstar*sqrt(phat*(1-phat)/n)
+print(data.frame(LB,UB,row.names=""))
+```
+
+### Spreadsheet
+
+```{r}
+spacer = rep("",n)
+variables = c("","gamma","cumulative","zstar","","n","phat","LB","UB",rep("",n-9))
+formulas = c("",paste(gamma),"=0.5+D2/2",
+             "=NORM.INV(D3,0,1)","",
+             "=COUNT(A2:A1000)",
+             "=SUM(A2:A1000)/D6",
+             "=D7-D4*SQRT(D7*(1-D7)/D6)",
+             "=D7+D4*SQRT(D7*(1-D7)/D6)",
+             rep("",n-9))
+sol = data.frame(x,spacer,variables,formulas)
+colnames(sol)=c("x","","variable","formula")
+
+write.csv(sol,"freethrowsol.csv",row.names=F)
+```
+
+You can [download a solution spreadsheet](freethrowsol.csv){target="blank"}.
+
+The first 10 lines are shown here:
+
+```{r, fig.width=6,fig.height=4}
+draw_ss = function(df,widths=rep(1,length(df[1,])+1)){
+  xline = c(0,cumsum(widths)/sum(widths))
+  nrow = length(df[,1])
+  ncol = length(df[1,])
+  xtex = (xline[2:(ncol+2)]+xline[1:(ncol+1)])/2
+  par(mar=c(0,0,0,0))
+  plot(0,0,type="n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+  hi = 1:((nrow+2)*2+1)
+  vi = 1:((ncol+1)*2+1)
+  hpos = seq(1,0,length.out=(nrow+2)*2+1)
+  vpos = seq(0,1,length.out=(ncol+1)*2+1)
+  hlin = hpos[hi%%2==1]
+  ytex = hpos[hi%%2==0]
+  vlin = vpos[vi%%2==1]
+  #xtex = vpos[vi%%2==0]
+  abline(h=hlin)
+  abline(h=hlin[2],lwd=3)
+  abline(v=xline)
+  abline(v=xline[2],lwd=3)
+  for(i in 2:(ncol+1)){
+    text(xtex[i],ytex[1],LETTERS[i-1],col=rgb(0.5,0.5,0.5))
+    text(xtex[i],ytex[2],colnames(df)[i-1])
+  }    
+  for(i in 2:(nrow+2)){
+    text(xtex[1],ytex[i],i-1,col=rgb(0.5,0.5,0.5))
+  }
+  for(i in 1:nrow){
+    for(j in 1:ncol){
+      text(xtex[j+1],ytex[i+2],df[i,j])
+    }
+  }
+}
+
+draw_ss(sol[1:9,],c(1,1,0.3,2,4))
+```
+\
+
+Answerlist
+--------
+* The lower boundary: 
+$$\begin{align}
+\text{LB} &= \hat{p}-z^\star\sqrt{\frac{\hat{p}(1-\hat{p})}{n}} \\
+&= (`r phatr`)-(`r zstarr`)\sqrt{\frac{(`r phatr`)(1-`r phatr`)}{`r n`}}\\
+&= `r LBr`
+\end{align}
+$$
+* The upper boundary: 
+$$\begin{align}
+\text{UB} &= \hat{p}+z^\star\sqrt{\frac{\hat{p}(1-\hat{p})}{n}} \\
+&= (`r phatr`)+(`r zstarr`)\sqrt{\frac{(`r phatr`)(1-`r phatr`)}{`r n`}}\\
+&= `r UBr`
+\end{align}
+$$
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num
+exsolution: `r LB`|`r UB`
+exname: confidence interval prop raw
+extol: 0.01
+exextra[numwidth,logical]: TRUE
+exextra[stringwidth,logical]: TRUE

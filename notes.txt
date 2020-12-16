@@ -22,11 +22,9 @@ or... I host my class as a Shiny??
 Moodle.
 
 
-
-
 But, I'd like a static site for sharing resources.
 
 
 
 
-
+https://en.wikipedia.org/wiki/Test_statistic#Common_test_statistics

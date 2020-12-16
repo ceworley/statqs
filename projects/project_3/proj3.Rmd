@@ -1,0 +1,75 @@
+---
+title: "Project 3"
+output: 
+  html_notebook:
+    toc: true
+---
+
+## Project description
+
+You will collect (or fabricate) raw data, and you will report this raw data. You will then determine a confidence interval and/or a $p$-value. You should also describe your procedure and discuss the results. 
+
+Please try to add some level of story to the data. I'd prefer if you "measured the weights of 50 frogs" than you "wrote down 50 random numbers".
+
+Please indicate whether the data is fabricated. If the data is fabricated, detail your procedure for fabricating the data. If you literally just pulled numbers from your head that you thought seemed reasonable, that is fine, just say so. You may also want to consider using a random number generator.
+
+## Suggestions and formulas
+
+You only need to collect one sample. The easiest option is to collect a single proportion or a single mean. However, if you feel inclined to do more, please do.
+
+### Single proportion
+
+* Take 100 freethrows (could be crumpled paper into wastebasket) and determine a confidence interval for your probability to make a freethrow.
+* Spin a coin on its edge 200 times and determine a confidence interval for the probability to land heads. (Please include identifying information about the coin: year, type)
+  * With a coin, it would make sense to also run a hypothesis test, with a null proportion of 0.5, to test whether the coin is fair.
+
+#### Confidence interval:
+$$\hat{p} \pm z^\star \sqrt{\frac{\hat{p}(1-\hat{p})}{n}} $$
+Use $z^\star = 1.96$ for a 95% confidence interval.
+
+#### Hypothesis testing:
+
+You can ignore the continuity correction.
+$$p\text{-value} \approx P\left(|Z|>\frac{|\hat{p}-p_0|}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}}\right)$$
+You can use the continuity correction.
+$$p\text{-value} \approx P\left(|Z|>\frac{n|\hat{p}-p_0|-0.5}{\sqrt{n\hat{p}(1-\hat{p})}}\right)$$
+
+### Single mean
+
+* Throw 100 darts, determine the sample average points per dart (and sample standard deviation), determine a confidence interval for long-run points per dart.
+* Weigh 30 shoes, determine the confidence interval for the average shoe weight.
+* Measure the lengths of 50 pine needles, determine the confidence interval for the average pine-needle length.
+* Roll a 6-sided die 100 times. Find a $p$-value indicating whether the die is fair (whether expected value is 3.5).
+
+#### Confidence interval:
+
+$$\bar{x}\pm \frac{t^\star s}{\sqrt{n}} $$
+
+For a 95% confidence interval, $t^\star \approx 2$, however its exact value depends on $n$.
+
+#### Hypothesis test
+
+$$p\text{-value} = P\left(|T|>\frac{|\bar{x}-\mu_0|}{s/\sqrt{n}}\right) $$
+
+### Two proportions
+
+* Throw 50 freethrows left-handed and 50 freethrows right-handed. Get a $p$-value indicating whether the chances are the same.
+* Flip a quarter 100 times starting heads up. Flip the same quarter 100 times starting tails up. Calculate a $p$-value indicating whether the chance of getting heads depends on the starting side.
+
+#### Hypothesis test (difference of proportions)
+
+Without continuity correction:
+$$p\text{-value} \approx P\left(|Z|>\frac{|\hat{p}_2-\hat{p}_1|}{\sqrt{\hat{p}(1-\hat{p})\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}}\right) $$
+where
+$$\hat{p} = \frac{n_1 \hat{p}_1 + n_2 \hat{p}_2}{n_1+n_2} $$
+
+### Two means
+
+* Have two people throw a heavy rock as far as they can 20 times each. Measure the distances. Is one person significantly better? Calculate the $p$-value.
+* Roll 2 dice 50 times each. Is one of the dice significantly better? Calculate the $p$-value.
+
+#### Hypothesis test (difference of means)
+
+Use [Welch's $t$ test](https://en.wikipedia.org/wiki/Welch%27s_t-test){target="blank"}. It is easiest to use a computer for this.
+
+

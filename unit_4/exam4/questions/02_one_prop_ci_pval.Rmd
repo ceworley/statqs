@@ -1,0 +1,106 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(knitr)
+opts_chunk$set(echo = FALSE)
+options(scipen=100)
+
+while(T){
+    p0 = round(runif(1,0.2,0.8),2)
+    n = round(runif(1,6,12)^2)
+    sigma = sqrt(p0*(1-p0))
+    se = sigma/sqrt(n)
+    gamma = 0.95
+    zstar = qnorm(0.5+gamma/2)
+    me = zstar*se
+    p = p0+sample(c(-1,1),1)*me
+    x = (runif(n)<p)*1
+    ns = sum(x)
+    zt1 = prop.test(ns,n,p0,correct=F)
+    zt2 = prop.test(ns,n,p0,correct=T)
+    bt = binom.test(ns,n,p0)
+    pval1 = zt1$p.value
+    pval2 = zt2$p.value
+    pval3 = bt$p.value
+    if(pval1<0.30 & pval1>0.005 & abs(pval1-0.05)>0.01 
+       & abs(pval2-0.05)>0.005 & abs(pval3-0.05)>0.005
+       & (pval1<0.05)==(pval2<0.05) &  (pval1<0.05)==(pval3<0.05)){break}
+}
+
+write.csv(data.frame(x),"data_one_prop.csv",row.names=F)
+
+if(pval1<0.05){
+  ans4="10"
+  s4="The p-value is less than 0.05, so the difference is significant."
+} else {
+  ans4="01"
+  s4="The p-value is more than 0.05, so the difference is NOT significant."
+}
+
+xrep = x
+default_source_hook <- knit_hooks$get('source')
+knit_hooks$set(source = function(y, options) {
+  y <- gsub('xrep',paste0(x,collapse=", "),y)
+  default_source_hook(y, options)
+})
+```
+
+Question
+========
+
+A scratch-off lottery is supposed provide a chance of `r p0` to win. You sampled some tickets, marking a win as "1" and a loss as "0".
+
+
+```{r datadump,comment=NA}
+rlen = 20
+xst = lapply(x,function(y){sprintf("%d",y)})
+nfilledrows = length(xst)%/%rlen
+nlast = length(xst)%%rlen
+s = ""
+if(nfilledrows>0){
+  for(i in 1:nfilledrows){
+    s = paste0(s,paste0(xst[((i-1)*rlen+1):(i*rlen)],collapse=", "),",\n")
+  }
+}
+if(nlast>0){
+  s = paste0(s,
+             paste0(xst[(nfilledrows*rlen+1):length(xst)],collapse=", "))
+}
+cat(s)
+```
+
+[Download data.](data_one_mean.csv){target="blank"}
+
+You are asked to determine a 95% confidence interval, calculate an appropriate $p$-value (using two-tail $z$ test), and state whether the filler needs adjustment using a significance level of 0.05.
+
+##ANSWER1##
+
+##ANSWER2##
+
+##ANSWER3##
+
+Does the filler need adjustment?
+
+##ANSWER4##
+
+Answerlist
+--------
+* Determine the lower boundary of the confidence interval.
+* Determine the upper boundary of the confidence interval.
+* Determine the $p$-value. You can make a continuity correction, but you don't have to.
+* Yes
+* No
+
+
+Solution
+========
+
+
+
+Meta-information
+================
+extype: cloze
+exsolution: 10
+exclozetype: num
+exname: one prop
+extol: 0
+exextra[numwidth,logical]: TRUE
+exextra[stringwidth,logical]: TRUE

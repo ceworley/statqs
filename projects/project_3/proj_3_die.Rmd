@@ -1,0 +1,51 @@
+---
+title: "Final Project Example: 20-sided die"
+author: "Chad Worley"
+date: "12/15/2020"
+output: pdf_document
+---
+
+```{r rolls, echo=F}
+set.seed(123)
+nrow = 10
+ncol = 10
+n = nrow*ncol
+x = sample(1:20,n,T)
+xrep = x
+
+
+xr2 = matrix(x,nrow=20)
+rowsr = apply(xr2,2,function(x){paste0(x,collapse=",")})
+
+default_source_hook <- knitr::knit_hooks$get('source')
+knitr::knit_hooks$set(source = function(xx, options) {
+  xx <- gsub('xrep',paste0(rowsr,collapse="\n      "),xx)
+  default_source_hook(xx, options)
+})
+```
+
+My friend gave me some 20-sided dice. She claimed some of those dice were weighted to give non-uniform distributions. To begin checking, I took one 20-sided die and rolled it `r n` times. The rolls are shown here:
+
+```{r showrolls, echo=F,comment=NA}
+x3 = lapply(x,function(xx){sprintf("%3d",xx)})
+x2 = matrix(x3,nrow=10)
+rows = apply(x2,1,function(x){paste0(x,collapse=" ")})
+cat(paste0(rows,collapse="\n"))
+```
+
+To determine the 95% confidence interval, I used R to run a $t$ test. This is because I didn't know the die's true standard deviation. 
+
+In R's `t.test` function, a $p$-value can also be calculated. If the die is fair, it should have a expected value of 10.5 (see [discrete uniform distribution](https://en.wikipedia.org/wiki/Discrete_uniform_distribution){target="blank"}). Thus, I used 10.5 as the null hypothesis's population mean.
+
+```{r}
+x = c(xrep)
+t.test(x,mu=10.5)
+```
+
+```{r echo=F}
+tt = t.test(x,mu=10.5)
+pval = tt$p.value
+CI = tt$conf.int
+```
+
+Thus, the 95% confidence interval suggests the die's expected value is between `r round(CI[1],2)` and `r round(CI[2],2)`. Notice this confidence interval straddles 10.5, so we do not have sufficient evidence to conclude this die is unfair (and, equivalently, the $p$-value is `r round(pval,2)`, which is larger than 0.05, so the sample mean is not significantly far from 10.5). 
