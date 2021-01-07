@@ -1,0 +1,97 @@
+```{r data generation, echo = FALSE, results = "hide"}
+while(T){
+  n = sample(8:25,1)
+  x = sample(2:5,1)
+  ans = factorial(n)/factorial(n-x)
+  if(ans < 1e8){
+    break
+  }
+}
+
+qn = sample(1:10,1)
+# qn = 1
+
+lto = function(l){
+  s = ''
+  if(length(l)==2){
+    s = paste(l[1],"and",l[2])
+  } else {
+    for(i in 1:(length(l)-1)){
+      s = paste(s,l[i],", ",sep="")
+    }
+    s = paste(s,"and",l[length(l)])
+  }
+  return(s)
+}
+
+if(qn == 1){
+  lets = c("B","C","D","E","F","G","H")
+  zao = paste(c(rep("A",n-x),lets[1:x]),collapse="")
+  q = paste('How many unique ways can the letters in "', zao, '" be rearranged? (There are ',n-x,' As.)',sep="")
+  # q = paste("From a set with",n,"elements, how many nonrepeating sequences of",x,"elements are possible?")
+} else if (qn == 2) {
+  q = paste("A team has",n,"players. The coach will give out",x,"different prizes to different players. How many ways could the coach do this?")
+} else if (qn == 3) {
+  q = paste("A basketball team has",n,"players. The coach needs to pick players to fill",x,"different positions. How many ways could the coach do this?")
+} else if (qn == 4) {
+  days = c("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
+  ds = days[1:x]
+  q = paste("An event planner hosts a different activity each day. The planner still needs to schedule activities for ",lto(ds),". The planner has ",n," different activities available to choose from. How many schedules are possible?",sep="")
+} else if (qn == 5) {
+  q = paste("A landscape architect has",x,"spots to plant",x,"different trees. The landscape architect has",n,"different trees available. How many configurations are possible?")
+} else if (qn == 6) {
+  poses = c("a president","a CFO","a vice president","a secretary","a manager")
+  ps = sample(poses,x)
+  q = paste("A company needs to select ",lto(ps),". Each position will be held by a different person. The company is considering the same pool of ",n," applicants for each position. How many configurations are possible?",sep="")
+} else if (qn == 7) {
+  q=paste("A lottery machine will select a sequence of",x,"different numbered marbles. The selection process begins with",n,"different numbered marbles to choose from. How many different sequences are possible?")
+} else if (qn == 8) {
+  prizes = c("1st prize","2nd prize","3rd prize","4th prize","5th prize")
+  ps = prizes[1:x]
+  q=paste("A committee is judging the performances of ",n," different acrobats. The committee needs to assign ",lto(ps),". How many ways could the committee assign the prizes?",sep="")
+} else if (qn == 9) {
+  obs = sample(c("frame","rims","cranks","fork","handlebars"),x)
+  q=paste("A bike designer is choosing different colors for the ",lto(obs),". There are ",n," colors available. How many color configurations are possible? (The same color can not be used twice.)",sep="")
+} else if (qn == 10) {
+  obs = sample(c("hat","shirt","pants","scarf","belt"),x)
+  q=paste("A human is choosing different colors for his ",lto(obs),". The same ",n," colors are available for each item. How many color configurations are possible? (The same color can not be used twice.)",sep="")
+}
+
+sss = ''
+sss = paste(sss,n)
+for(i in (n-1):(n-x+1)){
+  sss = paste(sss,i,sep="\\cdot")
+}
+
+options(scipen=100)
+```
+
+Question
+========
+
+`r q`
+
+Solution
+========
+
+This scenario describes a permutations problem (order matters). We are considering the nonrepeating sequences of size `r x` from a set of size `r n`.
+
+$$\begin{aligned}
+{_nP_r} &= \frac{n!}{(n-r)!} \\\\
+n &= `r n` \\\\
+r &= `r x` \\\\
+{_{`r n`}P_{`r x`}} &= \frac{`r n`!}{(`r n`-`r x`)! } \\\\
+&= \frac{`r n`!}{`r n-x`!} \\\\
+&= `r sss` \\\\
+&= `r ans`
+\end{aligned}$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r ans`
+exname: permutations
+extol: 0.01
+exextra[numwidth,numeric]: 10

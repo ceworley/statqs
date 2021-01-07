@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>make_frequency_distribution</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+
+<meta charset="UTF-8">
+
+</head>
+
+<body>
+<h2>make_frequency_distribution</h2>
+
+<ol>
+<li>
+<hr><h3>Question</h3>
+<p>A random procedure generated many measurements: <a href="data:text/csv;base64,ImkiLCJ4IgoxLDQxLjMwMDk4MDIwMjk2MQoyLDQ1LjI0MzA3NjQ1MDc5OTMKMyw0OS43MjAwMjAwNzk5MDUKNCw0Ni40Nzc2ODIzMDM3MjcKNSw0OS42NjMzMTkyOTEwMDkKNiw0OS45NzE1ODI5MjcwODQ0CjcsNDkuODcxNTAxMjg0MDA5Ngo4LDQ5LjE4NjYyNTE4NDQ2MzIKOSw0My44MTQyNzgwNjgyMzgKMTAsNDkuMDExMzgxMDA1NzYxMgoxMSw0OS4zMzM3Njk0Mjg5MzA3CjEyLDM1LjAzOTQ2NTc2MTQ2CjEzLDQ2LjE5MDQ1NjY2ODQyMzkKMTQsNDkuODAwNDk0MDE2OTEyOQoxNSw0My44MTcyOTQxMTA5NTI0CjE2LDQwLjM1NjA5NDM1MzM1OQoxNyw0MC4wMzE1NTE2MTQzODA0CjE4LDQ4LjgwNTAyNDU2MjQ2MDMKMTksNDkuNDgwMTA4ODM2OTM3MQoyMCw0NC4yODg0ODUyMjM1Nzg5CjIxLDQ5LjE5OTg2NTA5NTk2ODUKMjIsMzguNzc3MzA1MzU1OTk5MQoyMywzOS4wOTYxMDg4NTk5MDQ4CjI0LDI1LjY3MTgwMDU1NDE4NDQKMjUsNDQuMTg4OTgxODYxODI2MQoyNiw0OS45MzE2MzQwMjY4MTM5CjI3LDQ5Ljk5Mzc1NjY2NjQxMjgKMjgsMzIuNTQ0NTM0NzUxMDI3NwoyOSwzOS45MTYwNDY0NzcwOTc4CjMwLDQ4LjI3OTY1MzEwMDg4MwozMSw0Ny41Njg3MzAyNzMzODE3CjMyLDQ4LjA2MDUwOTQ5NjAyMTUKMzMsMjguODk4ODg2NTA2ODE3NwozNCwyNi43MTU4NTI1NDA3ODYxCjM1LDQ1LjYwMjk0ODY1MTA5NjIKMzYsNDQuODAyNzkxMjk2NzExNAozNyw0Ny4xMTE4NjU4ODM2MDI5CjM4LDQ3LjAyMTI1ODI1MTk1NTMKMzksNDkuODQzNTkwOTg5MjAzNwo0MCwzOC43ODcyNjUzMDQyNzMxCjQxLDQzLjQ1MjE0Njk1MjY0NzYKNDIsMzkuODI2Mzc2MzE1ODU3NAo0Myw0Ni43ODM3MjcyMjQ2OTk0CjQ0LDQ0Ljk0MDE3ODI0NTQ4NTYKNDUsMjcuODQwMTY2NjI3MjYzNAo0Niw0OS44NTYyNzM3NDMzMDc2CjQ3LDQ4LjAxMDA4ODM3Nzc2MzYKNDgsNDMuOTQ3OTc4ODQxMjk5Ngo0OSwzOS45MTMyNzU3MDUxNjMxCjUwLDM2LjEwOTM2Mjg0MzYyMDEKNTEsNDguOTU4MjMzNjc4MjExMwo1MiwzOS41Njk4MDk0MzA3MDA4CjUzLDQ3LjA0ODQ4NjAyMDM4NTEKNTQsMzYuODMyODA3MDE0MTM1OAo1NSw0My45ODUzMDkxMDg4MTk2CjU2LDQ0LjMyMjgzNTA1OTA3MzkKNTcsNDguMDMyNjAyOTc4MDc0MQo1OCw0OS45NzM3MDAxODkyNTE2CjU5LDQ0LjQ0NjM1NjI0MjI0Nwo2MCw0OC41NzA2NTM4NDEzNTk2CjYxLDQwLjY3NTExODAyNDU2NTQKNjIsNDIuNTUwODU5NjczOTA3OAo2Myw0Ny4zODczMTczOTM1NTUyCjY0LDQ5LjgyODE3ODA2Mjc1NjkKNjUsMzIuNzMwNDg0MTI4MzEyCjY2LDQxLjM3ODI5NDIyMTE3Mwo2Nyw0OS45Mjg3MjkxMTk1MTQ1CjY4LDQ5LjQ5NDUyODY4ODA1MTgKNjksMzcuOTczMDEwOTc2MTAwOQo3MCwzOS41OTc3MTc4NDQ0MTM5CjcxLDQ0LjM4MTI5ODY5Nzk3MjEKNzIsNDkuMzEzNjA5ODU2NzY1Mgo3Myw0My44ODUzNjQwOTM5MDc2Cjc0LDQ4LjEwMDA1ODYzNjc5NDcKNzUsNDkuOTk2MTIxODU4NTEzMQo3Niw0OC41OTQ5NTg0NDcxODQ4Cjc3LDMzLjA4NzMzNTAyOTQ2ODMKNzgsNDcuNDM0NzM1NTQxNzkzOAo3OSw0OS43NDk1MjcwNzk3NjM4CjgwLDQ5LjMxNTQ3MDY1ODE2MzMKODEsNDIuOTM5MDY2MDM5NzYxMQo4Miw0Ny4zMDE0MTQyODIxNTE1CjgzLDQ0LjQxMjEyMTE0NzQwOQo4NCw0MS4wMTkzNDExNTk4MzcyCjg1LDI5LjA1ODI1ODc2NDUzMwo4Niw0OS42MjE2MDk4ODE1NTgxCjg3LDM5LjAyOTg1NTQ0NjI2MzEKODgsNDguNzgyNTEzOTY2NDU1Mgo4OSw0OS45OTk4OTI3MjkwOTg3CjkwLDQ2LjQ4NjcwNzMxODg3NDYKOTEsMjQuMDUzOTc3NDE1NzAwOQo5Miw0OS42MDQ3NDYxMDA0NDg2CjkzLDQ5Ljk2MDI0NDQ1OTk5ODUKOTQsNDcuMjc0MzUzNTcwMDA4Mwo5NSw0NC45NDkwNDE5NTA4MDcyCjk2LDQ5Ljc4NTgxMDQ1NjA1NDYKOTcsNDQuNDUyNTEzNjQ1Mzc3OAo5OCw0My40MzMyNzE4MDMzNDM3Cjk5LDQ5LjEwODQ1NDEzODY1NQoxMDAsNDcuMzczNzM5MTA2NDUzNwoxMDEsMzMuNzQ0ODQ1MTQ5MDM2OAoxMDIsMzYuMzc3ODA0MTA2MzgzNQoxMDMsMjQuMDg1NjE0NzE0MTUyNQoxMDQsMjMuNDgzODc4NzMxMzU3MQoxMDUsNDguMDYzNTU2ODM2MDE2NAoxMDYsNDcuNTE1NzMxNjY5MjIyNQoxMDcsNDkuMTk2NjI1MzI2MzE1NgoxMDgsNDkuNjc4MTA3OTY2NzA3MQoxMDksNDYuNTAwNDY4MDIzNDM1NQoxMTAsNDkuODM5MjA2MTc3MjAxMQoxMTEsMjkuNjgzOTU3MjM5ODI3CjExMiw0OS4zNTc0NDkxNzMxNzcKMTEzLDQ3LjI3OTUxODQ1NTY5MzIKMTE0LDQ4LjA1NDQyODQ2OTc3MDEKMTE1LDM3LjI2NTQ3MjM4MzgxOAoxMTYsNDkuOTk4ODMwMDAzNDQ4NwoxMTcsNDkuMzM0NDM0MDkwNjk5NgoxMTgsMjEuMzQxMzQ1NzgxNDQ0CjExOSw0Ni44NTc5MTQxMzg3NTY1CjEyMCw0OC40NDA5NTYzMTExOTg3Cg==" download="make_freq_dist.csv">download data</a></p>
+<p>Please complete the <a href="https://en.wikipedia.org/wiki/Frequency_distribution" target="blank">frequency distribution</a> using breaks 20, 25, 30, 35, 40, 45, 50:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Interval</th>
+<th align="center">Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">20 to 25</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">25 to 30</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">30 to 35</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">35 to 40</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">40 to 45</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">45 to 50</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<hr><hr><hr><h3>Solution</h3>
+<p>You will want to use a computer to answer these questions.</p>
+<p>In a spreadsheet, open the data, add the breaks as a column; then, use the <a href="https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_FREQUENCY_function" target="blank"><code>FREQUENCY function</code></a>.</p>
+<p>In R, open the data and use the <a href="https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/hist"><code>hist</code></a> function. You supply the breaks and read the counts:</p>
+<pre class="text"><code>mydata = read.csv(&quot;make_freq_dist.csv&quot;)
+x = mydata$x
+myhist = hist(x,breaks=c(20,25,30,35,40,45,50))</code></pre>
+<pre class="text"><code>myhist$counts</code></pre>
+<pre><code>## [1]  4  6  4 15 25 66</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="center">interval</th>
+<th align="center">frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">20 to 25</td>
+<td align="center">4</td>
+</tr>
+<tr class="even">
+<td align="center">25 to 30</td>
+<td align="center">6</td>
+</tr>
+<tr class="odd">
+<td align="center">30 to 35</td>
+<td align="center">4</td>
+</tr>
+<tr class="even">
+<td align="center">35 to 40</td>
+<td align="center">15</td>
+</tr>
+<tr class="odd">
+<td align="center">40 to 45</td>
+<td align="center">25</td>
+</tr>
+<tr class="even">
+<td align="center">45 to 50</td>
+<td align="center">66</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+<li>
+
+</li>
+<li>
+
+</li>
+<li>
+
+</li>
+<li>
+
+</li>
+<li>
+
+</li>
+<li>
+
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

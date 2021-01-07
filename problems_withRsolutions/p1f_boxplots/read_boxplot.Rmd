@@ -1,0 +1,99 @@
+```{r,data,generation,echo=FALSE,results="hide",fig.show='hide'}
+while(T){
+  n = 25
+  beta1 = c(3,1,0.5,0.7,1.4)
+  beta2 = c(3,1,0.5,1.4,0.7)
+  type = sample(1:5,1)
+  bot = sample(c(10,20,30,40,50,60,70),1)
+  ran = sample(c(5,10,15,20,25,30),1)
+  x = round(rbeta(n,beta1[type],beta2[type])*ran+bot,1)
+  bp = boxplot(x,horizontal=T)
+  if(length(bp$out)==0 & sum(duplicated(bp$stats))==0){
+    break
+  }
+}
+
+xs = bp$stats
+
+s1 = sample(1:5,1)
+x1 = xs[s1]
+p1 = c(0,0.25,0.5,0.75,1)[s1] 
+
+s2 = sample(1:5,1)
+x2 = xs[s2]
+p2 = c(1,0.75,0.5,0.25,0)[s2] 
+
+s3 = sort(sample(1:5,2))
+x3 = xs[s3]
+p3 = c(0,0.25,0.5,0.75,1)[s3[2]]-c(0,0.25,0.5,0.75,1)[s3[1]]
+
+s4 = sort(sample(1:5,2))
+x4 = xs[s4]
+p4 = c(0,0.25,0.5,0.75,1)[s4[2]]-c(0,0.25,0.5,0.75,1)[s4[1]]
+c4 = mean(x4)
+r4 = diff(x4)/2
+
+s5 = sample(2:4,1)
+x5 = xs[s5]
+p5 = c(0,0.25,0.5,0.75,1)[s5] 
+
+s6 = sample(2:4,1)
+x6 = xs[s6]
+p6 = c(1,0.75,0.5,0.25,0)[s6] 
+
+```
+
+
+Question
+========
+
+A sample was taken from an unknown population. The values were organized into a [boxplot](https://en.wikipedia.org/wiki/Box_plot){target="blank"}.
+
+```{r echo=F,fig.width=6,fig.height=4}
+bp = boxplot(x,horizontal=T,range=0)
+for(stat in bp$stats){
+  text(stat,1.3,stat,srt=90)
+}
+```
+\
+
+For simplicity, assume no measurements lie on the hinges, median, or whisker tips (so we do not worry about inclusive vs. exclusive boundaries). This assumption is approximately true with a very large sample from a continuous distribution.
+ 
+Answerlist
+--------
+* What proportion of measurements are below `r x1`? $$\text{prop}[\mathbf{x}< `r x1`] = \text{?}$$
+* What proportion of measurements are above `r x2`? $$\text{prop}[\mathbf{x}> `r x2`] = \text{?}$$
+* What proportion of measurements are between `r x3[1]` and `r x3[2]`? $$\text{prop}[`r x3[1]`< \mathbf{x} < `r x3[2]`] = \text{?}$$
+* What proportion of measurements are closer than `r r4` units from `r c4`? $$\text{prop}[|\mathbf{x}-`r c4`|<`r r4`] = \text{?}$$
+* Determine boundary $b$ such that $\text{prop}[\mathbf{x}<b]=`r p5`$.
+* Determine boundary $b$ such that $\text{prop}[\mathbf{x}>b]=`r p6`$.
+* What is the range?
+* What is the interquartile range (IQR)?
+* What is the median?
+
+
+Solution
+========
+
+You need to know that each region (whisker or half-box) contains 25% of the measurements.
+
+Answerlist
+--------
+* `r p1`
+* `r p2`
+* `r p3`
+* `r p4`
+* `r x5`
+* `r x6`
+* Subtract min from max. $$`r round(xs[5],1)`-`r round(xs[1],1)` = `r round(xs[5]-xs[1],1)`$$
+* Subtract $Q_1$ from $Q_3$. $$`r round(xs[4],1)`-`r round(xs[2],1)` = `r round(xs[4]-xs[2],1)`$$
+* `r xs[3]`
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|num|num|num|num|num
+exsolution: `r p1`|`r p2`|`r p3`|`r p4`|`r x5`|`r x6`|`r round(xs[5]-xs[1],1)`|`r round(xs[4]-xs[2],1)`|`r xs[3]`
+exname: read_boxplot
+extol: 0
+exextra[numwidth]: 999.999

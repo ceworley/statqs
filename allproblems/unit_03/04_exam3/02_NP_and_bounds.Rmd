@@ -1,0 +1,121 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+
+mu = sample(seq(30,70,5),1)
+sig = sample(2:10,1)
+
+p1 = runif(1,0.002,0.998)
+z1 = round(qnorm(p1),1)
+x1 = round(mu+z1*sig,1)
+z1 = round((x1-mu)/sig,2)
+p1 = round(pnorm(z1),4)
+t1 = paste0("Determine $P(X<",x1,")$")
+tol1 = 0.01
+ex1 = paste0("Identify the boundary.",
+             "$$x=",x1,"$$",
+             "Get the z score.",
+             "$$z=\\frac{x-\\mu}{\\sigma}=",z1,"$$",
+             "With $z$-table, determine $P(Z<",z1,")=",p1,"$")
+
+p2 = runif(1,0.002,0.998)
+z2 = round(qnorm(p2),1)
+x2 = round(mu+z2*sig,1)
+z2 = round((x2-mu)/sig,2)
+p2 = round(pnorm(z2),4)
+r2 = round(1-p2,4)
+t2 = paste0("Determine $P(X>",x2,")$")
+tol2 = 0.01
+ex2 = paste0("Identify the boundary.",
+             "$$x=",x2,"$$",
+             "Get the z score.",
+             "$$z=\\frac{x-\\mu}{\\sigma}=",z2,"$$",
+             "With $z$-table, determine $P(Z>",z2,")=",r2,"$")
+
+p3 = runif(1,0.51,0.998)
+z3 = round(qnorm(p3),1)
+x3a = round(mu-z3*sig,1)
+x3b = round(mu+z3*sig,1)
+z3a = round((x3a-mu)/sig,2)
+z3b = round((x3b-mu)/sig,2)
+p3 = round(pnorm(z3b),4)
+c3 = round(2*(p3-0.5),4)
+t3 = paste0("Determine $P(",x3a,"<X<",x3b,")$")
+tol3 = 0.01
+ex3 = paste0("Identify the boundaries.",
+             "$$x_1=",x3a,"$$",
+             "$$x_2=",x3b,"$$",
+             "Get the z scores.",
+             "$$z_1=\\frac{x_1-\\mu}{\\sigma}=",z3a,"$$",
+             "$$z_2=\\frac{x_2-\\mu}{\\sigma}=",z3b,"$$",
+             "With $z$-table, determine $P(",z3a,"<Z<",z3b,")=",c3,"$")
+
+p4 = runif(1,0.002,0.998)
+z4 = round(qnorm(p4),1)
+x4 = round(mu+z4*sig,1)
+z4 = round((x4-mu)/sig,2)
+p4 = round(pnorm(z4),4)
+x4 = round(mu+z4*sig,2)
+t4 = paste0("Determine $x$ such that $P(X<x)=",p4,"$")
+tol4 = 0.1
+ex4 = paste0("Determine $z$ such that $P(Z<z)=",p4,"$.",
+             "$$z=",z4,"$$",
+             "Calculate the boundary $x$.",
+             "$$x=\\mu+z\\sigma=",x4,"$$")
+             
+
+p5 = runif(1,0.002,0.998)
+z5 = round(qnorm(p5),1)
+p5 = round(pnorm(z5),4)
+r5 = round(1-p5,4)
+x5 = round(mu+z5*sig,2)
+t5 = paste0("Determine $x$ such that $P(X>x)=",r5,"$")
+tol5 = 0.1
+ex5 = paste0("Determine $z$ such that $P(Z>z)=",p5,"$.",
+             "$$z=",z5,"$$",
+             "Calculate the boundary $x$.",
+             "$$x=\\mu+z\\sigma=",x5,"$$")
+
+qord = sample(1:5)
+ans = c(p1,r2,c3,x4,x5)
+qs = c(t1,t2,t3,t4,t5)
+tols = c(tol1,tol2,tol3,tol4,tol5)
+ex = c(ex1,ex2,ex3,ex4,ex5)
+```
+
+Question
+========
+
+Let random variable $X$ be normally distributed with mean $\mu=`r mu`$ and standard deviation $\sigma=`r sig`$.
+
+Answerlist
+--------
+* `r qs[qord[1]]`
+* `r qs[qord[2]]`
+* `r qs[qord[3]]`
+* `r qs[qord[4]]`
+* `r qs[qord[5]]`
+
+
+Solution
+========
+
+
+Answerlist
+--------
+* `r ex[qord[1]]`
+* `r ex[qord[2]]`
+* `r ex[qord[3]]`
+* `r ex[qord[4]]`
+* `r ex[qord[5]]`
+
+
+                                                                                                          
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|num
+exsolution: `r ans[qord[1]]`|`r ans[qord[2]]`|`r ans[qord[3]]`|`r ans[qord[4]]`|`r ans[qord[5]]`
+exname: Normal probs and bounds
+extol: `r tols[qord[1]]`|`r tols[qord[2]]`|`r tols[qord[3]]`|`r tols[qord[4]]`|`r tols[qord[5]]`
+exextra[numwidth,numeric]: 9
+exextra[stringwidth,numeric]: 5

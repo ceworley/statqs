@@ -1,0 +1,73 @@
+```{r,data,generation,echo=FALSE,results="hide"}
+type = sample(1:5,1,prob=c(0.1,0.1,0.1,0.35,0.35)) #uniform, bell, bimodal, skewright, skewleft
+n = 1000
+beta1 = c(1,5,0.2,0.5,2)[type]
+beta2 = c(1,5,0.2,2,0.5)[type]
+bottom = sample(seq(20,70,5),1)
+width = sample(seq(5,30,5),1)
+i = 1:n
+x = round(rbeta(n,beta1,beta2)*width+bottom,2)
+
+if(type < 4){
+  ans = "100"
+  wrd = "symmetric"
+  eq = "$\\text{mean} \\approx \\text{median}$"
+} else if(type == 4) {
+  ans = "010"
+  wrd = "skew-right"
+  eq = "$\\text{mean} > \\text{median}$"
+} else {
+  ans = "001"
+  wrd = "skew-left"
+  eq = "$\\text{mean} < \\text{median}$"
+}
+
+```
+
+
+Question
+========
+
+Depending on the type of distribution, we can make a strong claim regarding the mean and median.
+
+* Symmetric (bell, uniform, bimodal)
+  - $\text{mean} \approx \text{median}$
+* Skew-right
+  - $\text{mean} > \text{median}$
+* Skew-left
+  - $\text{mean} < \text{median}$
+
+A sample was gathered and visualized with a histogram.
+
+```{r, echo=F}
+hist(x)
+```
+\
+
+What claim can you make regarding the mean and median?
+
+Answerlist
+--------
+* $\text{mean} \approx \text{median}$
+* $\text{mean} > \text{median}$
+* $\text{mean} < \text{median}$
+
+
+Solution
+========
+
+The distribution is `r wrd`, so `r eq`.
+
+Answerlist
+--------
+* `r ans=="100"`
+* `r ans=="010"`
+* `r ans=="001"`
+
+Meta-information
+================
+extype: schoice
+exsolution: `r ans`
+exname: compare_mean_median
+extol: 0
+exextra[stringwidth]: 9

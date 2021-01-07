@@ -1,0 +1,143 @@
+```{r,data,generation,echo=FALSE,results="hide"}
+myseed = sample(10000:99999,1)
+set.seed(myseed)
+n = 10 #must be bigger than 8, or change xcom to replacement sampling with T
+f = sample(1:9,1)*10
+while(T){
+  x = sample(1:9,n,TRUE)+f
+  
+  b1 = sort(sample(0:9+0.5+f,2))  #boundaries
+  c1 = mean(b1) #center of boundaries
+  d1 = b1[2]-c1 #distance of boundaries from center
+  nb1 = sum(x>b1[1] & x<b1[2]) #number between
+  no1 = sum(x<b1[1] | x>b1[2]) #number outside
+  
+  b2 = sort(sample(0:9+0.5+f,2))  #boundaries
+  c2 = mean(b2) #center of boundaries
+  d2 = b2[2]-c2 #distance of boundaries from center
+  nb2 = sum(x>b2[1] & x<b2[2]) #number between
+  no2 = sum(x<b2[1] | x>b2[2]) #number outside
+  
+  b3 = sort(sample(0:9+0.5+f,2))  #boundaries
+  c3 = mean(b3) #center of boundaries
+  d3 = b3[2]-c3 #distance of boundaries from center
+  nb3 = sum(x>b3[1] & x<b3[2]) #number between
+  no3 = sum(x<b3[1] | x>b3[2]) #number outside
+  
+  b4 = sort(sample(0:9+0.5+f,2))  #boundaries
+  c4 = mean(b4) #center of boundaries
+  d4 = b4[2]-c4 #distance of boundaries from center
+  nb4 = sum(x>b4[1] & x<b4[2]) #number between
+  no4 = sum(x<b4[1] | x>b4[2]) #number outside
+
+  b5 = sort(sample(0:9+0.5+f,2))  #boundaries
+  c5 = mean(b5) #center of boundaries
+  d5 = b5[2]-c5 #distance of boundaries from center
+  nb5 = sum(x>b5[1] & x<b5[2]) #number between
+  no5 = sum(x<b5[1] | x>b5[2]) #number outside
+  nb5l = sum(x>(b5[1]+1) & x<(b5[2]-1))
+  nb5h = sum(x>(b5[1]-1) & x<(b5[2]+1))
+  
+  b6 = sort(sample(0:9+0.5+f,2))  #boundaries
+  c6 = mean(b6) #center of boundaries
+  d6 = b6[2]-c6 #distance of boundaries from center
+  nb6 = sum(x>b6[1] & x<b6[2]) #number between
+  no6 = sum(x<b6[1] | x>b6[2]) #number outside
+  nb6l = sum(x>(b6[1]+1) & x<(b6[2]-1))
+  nb6h = sum(x>(b6[1]-1) & x<(b6[2]+1))
+  
+  if(nb5 != nb5l & nb5 != nb5h & 2*d5==round(2*d5) & nb6 != nb6l & nb6 != nb6h & 2*d6==round(2*d6)){
+    if(d5==round(d5)){
+      wrdint5 = "an integer"
+    } else {
+      wrdint5 = "a half-integer"
+    }
+    if(d6==round(d6)){
+      wrdint6 = "an integer"
+    } else {
+      wrdint6 = "a half-integer"
+    }
+    break
+  }
+}
+
+if(d3 == 1){
+  wrd3 = "unit"
+} else {
+  wrd3 = "units"
+}
+
+if(d4 == 1){
+  wrd4 = "unit"
+} else {
+  wrd4 = "units"
+}
+
+i = 1:n
+```
+
+
+Question
+========
+
+A random procedure generated the following sample (sequence of measurements):
+
+$$\mathbf{x} = `r x` $$
+
+```{r echo=F}
+fn = paste0("list_counting_between_data_",myseed,".csv")
+write.csv(data.frame(i,x), file = fn, quote = FALSE, row.names = FALSE)
+```
+
+You can download the data as a CSV file (for importing into a spreadsheet or R): 
+[`r fn`](`r fn`)
+
+Answerlist
+--------
+* How many of the measurements are inside `r b1[1]` to `r b1[2]`? In other words, determine $\#[\mathbf{x}>`r b1[1]`\texttt{ AND } \mathbf{x}<`r b1[2]`]$. In other words, determine $\#[`r b1[1]`<\mathbf{x}<`r b1[2]`]$.
+* How many of the measurements are outside `r b2[1]` to `r b2[2]`? In other words, determine $\#[\mathbf{x}<`r b2[1]`\texttt{ OR } \mathbf{x}>`r b2[2]`]$. In other words, determine $\#[\texttt{NOT}(`r b2[1]`<\mathbf{x}<`r b2[2]`)]$.
+* How many of the measurements are closer than `r d3` `r wrd3` from `r c3`? In other words, determine $\#\left[\big|\mathbf{x}-`r c3`\big|<`r d3`\right]$.
+* How many of the measurements are farther than `r d4` `r wrd4` from `r c4`? In other words, determine $\#\left[\big|\mathbf{x}-`r c4`\big|>`r d4`\right]$.
+* Determine `r wrdint5` radius $r$ of an interval with center `r c5` such that $\#\left[\big|\mathbf{x}-`r c5`\big|<r\right] ~=~ `r nb5`$.
+* Determine `r wrdint6` radius $r$ of an interval with center `r c6` such that $\#\left[\big|\mathbf{x}-`r c6`\big|>r\right] ~=~ `r no6`$.
+
+
+Solution
+========
+
+First, it helps to sort the data.
+$$\text{sort}(\mathbf{x}) = `r sort(x)`$$
+
+You could use R to sort the data:
+
+```{r echo=FALSE,comment=NA}
+str1 = paste('sort(c(',paste(x,collapse=","),'))',collapse="")
+str2 = gsub(" ", "", str1, fixed = TRUE)
+cat(str2)
+```
+
+```{r echo=FALSE}
+sort(x)
+```
+
+You could also use a spreadsheet. Import the table into a spreadsheet. Then, highlight the column of measurements and use ``Sort`` function.
+
+
+Answerlist
+--------
+* There are `r nb1` measurements between `r b1[1]` and `r b1[2]`.
+* There are `r no2` measurements outside `r b2[1]` and `r b2[2]`.
+* There are `r nb3` measurements closer than `r d3` units from `r c3`. It might help to rephrase the problem as finding how many measurements are between `r b3[1]` and `r b3[2]`. These boundaries are found by subtracting `r d3` from `r c3` and adding `r d3` to `r c3`.
+* There are `r nb4` measurements farther than `r d4` units from `r c4`. It might help to rephrase the problem as finding how many measurements are outside `r b4[1]` and `r b4[2]`. These boundaries are found by subtracting `r d4` from `r c4` and adding `r d4` to `r c4`.
+* You can guess and check until you find `r wrdint5` that satisfies the equation. It turns out that $r = `r d5`$ satisfies the equation, because $\#\left[\big|\mathbf{x}-`r c5`\big|<`r d5`\right] ~=~ `r nb5`$.
+* You can guess and check until you find `r wrdint6` that satisfies the equation. It turns out that $r = `r d6`$ satisfies the equation, because $\#\left[\big|\mathbf{x}-`r c6`\big|>`r d6`\right] ~=~ `r no6`$.
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|num|num
+exsolution: `r nb1`|`r no2`|`r nb3`|`r no4`|`r d5`|`r d6`
+exname: list_counting_between
+extol: 0|0|0|0|0|0
+exextra[numwidth]: 999

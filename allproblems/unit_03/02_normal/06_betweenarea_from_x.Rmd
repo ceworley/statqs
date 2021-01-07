@@ -1,0 +1,97 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+while(T){
+  la = runif(2,0.002,0.998)
+  z = sort(round(qnorm(la),2))
+  mag = sample(-1:2,1)
+  mu = signif(sample(10:99,1)/10 * 10^mag,2)
+  sig = round(runif(1,mu/20,mu/3),-mag+1)
+  lets = strsplit("ABCDEFGHIJKMQRVWXY",split=NULL)
+  rvi = sample(1:length(lets[[1]]),size=1)
+  rv = lets[[1]][rvi]
+  xl = tolower(rv)
+  x = round(z*sig+mu,-mag+1)
+  x1 = x[1]
+  x2 = x[2]
+  z = (x-mu)/sig
+  z1 = z[1]
+  z2 = z[2]
+  la = round(pnorm(z),4)
+  
+  ba = la[2]-la[1]
+  if(sig != 0 & z1 == round(z1,2) & z2 == round(z2,2) & ba > 0.01){break}
+}
+```
+
+Question
+========
+Random variable $`r rv`$ is normally distributed with mean $\mu = `r mu`$ and standard deviation $\sigma = `r sig`$.
+$$`r rv` = \text{N}(`r mu`,\,`r sig`) $$
+Evaluate $P\left(`r x1` < X < `r x2`\right)$. In other words, what is the probability that $`r rv`$ is between $`r x1`$ and $`r x2`$?
+
+
+Solution
+========
+First, draw a sketch. We can label the $`r rv`$ axis by adding integer multiples of `r sig` to `r mu`. We know to shade the between $`r x1`$ and $`r x2`$ because those values satisfy the condition $`r x1` < X < `r x2`$. 
+
+```{r, fig.width=6, fig.height=3}
+par(mar=c(7,3,0,0))
+library(latex2exp)
+Z = seq(-3,3,0.001)
+plot(Z,dnorm(Z),type="l",xlim=c(-3,3),ylim=c(0,0.4),xlab="Z",ylab="density",axes=F,ann=F,lwd=3)
+axis(1,at=round(seq(-3,3,1),1),line=0)
+mtext("Z axis",1,0,at=-3.5)
+axis(1,at=round(seq(-3,3,1),1),labels=signif(seq(mu-3*sig,mu+3*sig,length.out=7),3),line=3)
+mtext(paste(rv,"axis",collapse=""),1,3,at=-3.5)
+abline(h=seq(0,0.4,0.05))
+for(zz in seq(-3,3,0.2)){
+  lines(c(zz,zz),c(0,0.4))
+}
+abline(h=0,lwd=3)
+axis(1,at=c(z1,z2),labels=c("",""),line=3)
+mtext(x1,1,4.9,at=z1)
+mtext(x2,1,4.9,at=z2)
+polygon(c(Z[Z>=z1 & Z<=z2],z2,z1),c(dnorm(Z[Z>=z1 & Z<=z2]),0,0),col=rgb(1,0.5,0.5,0.5))
+mtext("density",2,line=1)
+```
+\
+
+
+We calculate the $z$ values of the boundaries. Left boundary:
+$$\begin{aligned}
+z_1 &= \frac{x_1-\mu}{\sigma} \\\\
+&= \frac{`r x1`-`r mu`}{`r sig`} \\\\
+&= `r z1`
+\end{aligned}$$
+
+Right boundary:
+
+$$\begin{aligned}
+z_2 &= \frac{x_2-\mu}{\sigma} \\\\
+&= \frac{`r x2`-`r mu`}{`r sig`} \\\\
+&= `r z2`
+\end{aligned}$$
+
+We rephrase our problem into a **standard normal** probability problem:
+
+$$P\left(`r x1` < X < `r x2`\right) ~=~ P(`r z1`<Z<`r z2`)$$
+
+So, we just need to evaluate $P(`r z1`<Z<`r z2`)$.
+
+From here we have a formula that lets us use the $z$ table. (We practiced this part before.)
+$$\begin{aligned}
+P(z_1 < Z < z_2) &= P(Z<z_2) - P(Z<z1) \\
+P(`r z1`<Z<`r z2`) &= P(Z<`r z2`)-P(Z<`r z1`)\\
+&= `r la[2]`-`r la[1]` \\
+&= `r ba`
+\end{aligned}$$
+
+
+Meta-information
+================
+extype: num
+exsolution: `r ba`
+exname: Get centralarea from normal
+extol: 0.001
+
+

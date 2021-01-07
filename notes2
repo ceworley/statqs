@@ -1,0 +1,31 @@
+1a. Give: sample. 
+    Ask: # in interval, boundary to get #
+1b. Give: sample, FD intervals. 
+    Ask: frequencies
+1c. Give: FD. 
+    Ask: # in interval, boundary to get #
+1d. Give: histogram (w/ freqs) 
+    Ask: # in interval, boundary to get #
+1e. Give: circle graph (with 100 tickmarks, n=100)
+    Ask: # in interval, boundary to get #
+
+repeat with proportions
+
+identify distributions
+identify histogram
+
+get mean
+get median
+compare mean and median from histogram (skewed/symmetric)
+get mean of 0s and 1s (get proportion)
+
+
+
+
+template (1 shared question)
+practice (done one type at a time, infinite tries)
+quiz (category of questions at a time, infinite tries)
+exam (category of questions, finite tries)
+
+
+

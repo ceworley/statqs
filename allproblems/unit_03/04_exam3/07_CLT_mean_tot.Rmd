@@ -1,0 +1,142 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+mu = sample(seq(30,70,5),1)
+sigma = sample(2:10,1)
+
+p1 = runif(1,0.002,0.998)
+z1 = round(qnorm(p1),2)
+x1 = round(mu+z1*sigma,1)
+z1 = round((x1-mu)/sigma,2)
+p1 = round(pnorm(z1),4)
+t1 = paste0("Determine $P(X<",x1,")$")
+ex1 = paste0("Identify the boundary.",
+             "$$x=",x1,"$$",
+             "Get the z score.",
+             "$$z=\\frac{x-\\mu}{\\sigma}=",z1,"$$",
+             "With $z$-table, determine $P(Z<",z1,")=",p1,"$")
+
+p2 = runif(1,0.002,0.998)
+z2 = round(qnorm(p2),2)
+x2 = round(mu+z2*sigma,1)
+z2 = round((x2-mu)/sigma,2)
+p2 = round(pnorm(z2),4)
+r2 = round(1-p2,4)
+t2 = paste0("Determine $P(X>",x2,")$")
+ex2 = paste0("Identify the boundary.",
+             "$$x=",x2,"$$",
+             "Get the z score.",
+             "$$z=\\frac{x-\\mu}{\\sigma}=",z2,"$$",
+             "With $z$-table, determine $P(Z>",z2,")=",r2,"$")
+
+n3 = sample(5:12,1)^2
+p3 = runif(1,0.002,0.998)
+se3 = signif(sigma/sqrt(n3),5)
+z3 = round(qnorm(p3),2)
+x3 = round(mu+z3*se3,2)
+z3 = round((x3-mu)/se3,2)
+p3 = round(pnorm(z3),4)
+t3 = paste0("If $n=",n3,"$, determine $P\\left(\\overline{X}<",x3,"\\right)$")
+ex3 = paste0("Identify the boundary.",
+             "$$\\bar{x}=",x3,"$$",
+             "Calculate the standard error (of mean)",
+             "$$\\text{SE} = \\frac{\\sigma}{\\sqrt{n}}=",se3,"$$",
+             "Get the z score.",
+             "$$z=\\frac{\\bar{x}-\\mu}{\\text{SE}}=",z3,"$$",
+             "With $z$-table, determine $P(Z<",z3,")=",p3,"$")
+
+n4 = sample(5:12,1)^2
+p4 = runif(1,0.002,0.998)
+se4 = signif(sigma/sqrt(n4),5)
+z4 = round(qnorm(p4),2)
+x4 = round(mu+z4*se4,2)
+z4 = round((x4-mu)/se4,2)
+p4 = round(pnorm(z4),4)
+r4 = round(1-p4,4)
+t4 = paste0("If $n=",n4,"$, determine $P\\left(\\overline{X}>",x4,"\\right)$")
+ex4 = paste0("Identify the boundary.",
+             "$$\\bar{x}=",x4,"$$",
+             "Calculate the standard error (of mean)",
+             "$$\\text{SE} = \\frac{\\sigma}{\\sqrt{n}}=",se4,"$$",
+             "Get the z score.",
+             "$$z=\\frac{\\bar{x}-\\mu}{\\text{SE}}=",z4,"$$",
+             "With $z$-table, determine $P(Z>",z4,")=",r4,"$")
+
+n5 = sample(5:12,1)^2
+p5 = runif(1,0.002,0.998)
+se5 = signif(sigma*sqrt(n5),5)
+z5 = round(qnorm(p5),2)
+x5 = round(n5*mu+z5*se5)
+z5 = round((x5-n5*mu)/se5,2)
+p5 = round(pnorm(z5),4)
+t5 = paste0("If $n=",n5,"$, determine $P\\left(\\sum X <",x5,"\\right)$")
+ex5 = paste0("Identify the boundary.",
+             "$$\\sum x=",x5,"$$",
+             "Calculate the standard error (of total)",
+             "$$\\text{SE} = \\sigma\\sqrt{n}=",se5,"$$",
+             "Get the z score.",
+             "$$z=\\frac{\\sum x-n\\mu}{\\text{SE}}=",z5,"$$",
+             "With $z$-table, determine $P(Z<",z5,")=",p5,"$")
+
+n6 = sample(5:12,1)^2
+p6 = runif(1,0.002,0.998)
+se6 = signif(sigma*sqrt(n6),5)
+z6 = round(qnorm(p6),2)
+x6 = round(n6*mu+z6*se6)
+z6 = round((x6-n6*mu)/se6,2)
+p6 = round(pnorm(z6),4)
+r6 = round(1-p6,4)
+t6 = paste0("If $n=",n6,"$, determine $P\\left(\\sum X >",x6,"\\right)$")
+ex6 = paste0("Identify the boundary.",
+             "$$\\sum x=",x6,"$$",
+             "Calculate the standard error (of total)",
+             "$$\\text{SE} = \\sigma\\sqrt{n}=",se6,"$$",
+             "Get the z score.",
+             "$$z=\\frac{\\sum x-n\\mu}{\\text{SE}}=",z6,"$$",
+             "With $z$-table, determine $P(Z>",z6,")=",r6,"$")
+
+qs = c(t1,t2,t3,t4,t5,t6)
+ex = c(ex1,ex2,ex3,ex4,ex5,ex6)
+ans = c(p1,r2,p3,r4,p5,r6)
+qord = sample(1:6)
+```
+
+Question
+========
+
+Random variable $X$ is normally distributed with mean $\mu=`r mu`$ and standard deviation $\sigma=`r sigma`$.
+$$X \sim N(`r mu`, `r sigma`)$$
+
+Answerlist
+--------
+* `r qs[qord[1]]`
+* `r qs[qord[2]]`
+* `r qs[qord[3]]`
+* `r qs[qord[4]]`
+* `r qs[qord[5]]`
+* `r qs[qord[6]]`
+
+
+
+Solution
+========
+
+Answerlist
+--------
+* `r ex[qord[1]]`
+* `r ex[qord[2]]`
+* `r ex[qord[3]]`
+* `r ex[qord[4]]`
+* `r ex[qord[5]]`
+* `r ex[qord[6]]`
+
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|num|num
+exsolution: `r paste(ans[qord],collapse="|")`
+exname: CLT mean total
+extol: 0.01
+exextra[numwidth,numeric]: 6

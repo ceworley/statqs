@@ -1,0 +1,97 @@
+```{r,data,generation,echo=FALSE,results="hide"}
+type = sample(1:5,1) #uniform, bell, bimodal, skewright, skewleft
+n = sample(7:15,1)
+beta1 = c(1,5,0.2,0.5,2)[type]
+beta2 = c(1,5,0.2,2,0.5)[type]
+bottom = sample(seq(20,70,5),1)
+width = sample(seq(5,30,5),1)
+i = 1:n
+x = round(rbeta(n,beta1,beta2)*width+bottom,2)
+```
+
+
+Question
+========
+
+A sample was gathered. 
+
+$$\mathbf{x} = `r x` $$
+
+
+```{r echo=F}
+write.csv(data.frame(i,x),file="get_median.csv", quote = FALSE, row.names = FALSE)
+```
+
+You can download the data as a [CSV file](get_median.csv).
+
+Determine the sample [median](https://en.wikipedia.org/wiki/Median){target="blank"}. Please enter an exact answer.
+
+
+
+Solution
+========
+
+To determine the median by hand, you first sort the sample.
+$$\text{sort}(\mathbf{x})=`r sort(x)`$$
+If the sample size is odd, just find the number in the middle number (the $\frac{n+1}{2}$th value). If the sample size is even, determine the mean of the middle two numbers (the $\frac{n}{2}$th and $\left(\frac{n}{2}+1\right)$th values).
+
+
+```{r echo=F,fig.height=8,fig.width=6}
+sol = data.frame(i,x)
+sol = rbind(sol,c("",""),c("","median(x)"),c("",paste0("=median(B2:B",n+1,")",collapse="")))
+write.csv(sol,"median_solution.csv",row.names=F)
+draw_ss = function(df){
+  nrow = length(df[,1])
+  ncol = length(df[1,])
+  par(mar=c(0,0,0,0))
+  plot(0,0,type="n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+  hi = 1:((nrow+2)*2+1)
+  vi = 1:((ncol+1)*2+1)
+  hpos = seq(1,0,length.out=(nrow+2)*2+1)
+  vpos = seq(0,1,length.out=(ncol+1)*2+1)
+  hlin = hpos[hi%%2==1]
+  ytex = hpos[hi%%2==0]
+  vlin = vpos[vi%%2==1]
+  xtex = vpos[vi%%2==0]
+  abline(h=hlin)
+  abline(h=hlin[2],lwd=3)
+  abline(v=vlin)
+  abline(v=vlin[2],lwd=3)
+  for(i in 2:(ncol+1)){
+    text(xtex[i],ytex[1],LETTERS[i-1],col=rgb(0.5,0.5,0.5))
+    text(xtex[i],ytex[2],colnames(df)[i-1])
+  }    
+  for(i in 2:(nrow+2)){
+    text(xtex[1],ytex[i],i-1,col=rgb(0.5,0.5,0.5))
+  }
+  for(i in 1:nrow){
+    for(j in 1:ncol){
+      text(xtex[j+1],ytex[i+2],df[i,j])
+    }
+  }
+}
+
+draw_ss(sol)
+```
+\
+
+In a spreadsheet, you can use the [`MEDIAN` function](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_MEDIAN_function){target="blank"}. You can see a [solution spreadsheet here](median_solution.csv).
+
+In R, you can use the [`MEDIAN` function](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/median){target="blank"}.
+
+```{r}
+# First, get the csv into the working directory... then...
+data = read.csv("get_median.csv")
+x = data$x
+median(x)
+```
+
+
+
+Meta-information
+================
+extype: num
+exsolution: `r median(x)`
+exname: get_median
+extol: 0
+exextra[numwidth]: 999.999

@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>list_proportion_basic</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+
+<meta charset="UTF-8">
+
+</head>
+
+<body>
+<h2>list_proportion_basic</h2>
+
+<ol>
+<li>
+<hr><h3>Question</h3>
+<p>A <a href="https://en.wikipedia.org/wiki/Random_number_generation" target="blank">random procedure</a> generated the following sample (sequence of measurements):</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>=</mo><mn>18</mn><mo>,</mo><mn>13</mn><mo>,</mo><mn>17</mn><mo>,</mo><mn>17</mn><mo>,</mo><mn>19</mn><mo>,</mo><mn>16</mn><mo>,</mo><mn>14</mn><mo>,</mo><mn>15</mn><mo>,</mo><mn>10</mn><mo>,</mo><mn>11</mn></mrow><annotation encoding="application/x-tex">\mathbf{x} = 18, 13, 17, 17, 19, 16, 14, 15, 10, 11 </annotation></semantics></math></p>
+<p>You can download the data as a CSV file (for importing into a spreadsheet or R): <a href="data:text/csv;base64,aSx4CjEsMTgKMiwxMwozLDE3CjQsMTcKNSwxOQo2LDE2CjcsMTQKOCwxNQo5LDEwCjEwLDExCg==" download="list_counting_basic_data_34505.csv">list_counting_basic_data_34505.csv</a></p>
+<br/>
+<ol type="a">
+<li>
+What proportion of the measurements are less than 17? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>17</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&lt;17]</annotation></semantics></math>.
+</li>
+<li>
+What proportion of the measurements are less than or equal to 13? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>≤</mo><mn>13</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}\le13]</annotation></semantics></math>.
+</li>
+<li>
+What proportion of the measurements are greater than 18? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&gt;</mo><mn>18</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&gt;18]</annotation></semantics></math>.
+</li>
+<li>
+What proportion of the measurements are greater than or equal to 14? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>≥</mo><mn>14</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}\ge14]</annotation></semantics></math>.
+</li>
+<li>
+If the proportion of measurements less than <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><annotation encoding="application/x-tex">x_{\text{c}}</annotation></semantics></math> is 0.6, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><annotation encoding="application/x-tex">x_{\text{c}}</annotation></semantics></math> is a measurement from sample <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math>, then what is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><annotation encoding="application/x-tex">x_{\text{c}}</annotation></semantics></math>? In other words, determine a measurement <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><annotation encoding="application/x-tex">x_{\text{c}}</annotation></semantics></math> from sequence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math> such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.6</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&lt;x_{\text{c}}] = 0.6</annotation></semantics></math>.
+</li>
+<li>
+If the proportion of measurements less than or equal to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><annotation encoding="application/x-tex">x_{\text{c}}</annotation></semantics></math> is 0.2, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><annotation encoding="application/x-tex">x_{\text{c}}</annotation></semantics></math> is a measurement from sample <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math>, then what is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><annotation encoding="application/x-tex">x_{\text{c}}</annotation></semantics></math>? In other words, determine a measurement <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><annotation encoding="application/x-tex">x_{\text{c}}</annotation></semantics></math> from sequence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math> such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>≤</mo><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.2</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}\le x_{\text{c}}] = 0.2</annotation></semantics></math>.
+</li>
+<li>
+If the proportion of measurements greater than <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><annotation encoding="application/x-tex">x_{\text{c}}</annotation></semantics></math> is 0.9, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><annotation encoding="application/x-tex">x_{\text{c}}</annotation></semantics></math> is a measurement from sample <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math>, then what is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><annotation encoding="application/x-tex">x_{\text{c}}</annotation></semantics></math>? In other words, determine a measurement <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><annotation encoding="application/x-tex">x_{\text{c}}</annotation></semantics></math> from sequence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math> such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&gt;</mo><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.9</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&gt;x_{\text{c}}] = 0.9</annotation></semantics></math>.
+</li>
+<li>
+If the proportion of measurements greater than or equal to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><annotation encoding="application/x-tex">x_{\text{c}}</annotation></semantics></math> is 0.6, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><annotation encoding="application/x-tex">x_{\text{c}}</annotation></semantics></math> is a measurement from sample <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math>, then what is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><annotation encoding="application/x-tex">x_{\text{c}}</annotation></semantics></math>? In other words, determine a measurement <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><annotation encoding="application/x-tex">x_{\text{c}}</annotation></semantics></math> from sequence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math> such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>≥</mo><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.6</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}\ge x_{\text{c}}] = 0.6</annotation></semantics></math>.
+</li>
+</ol>
+<br/>
+<hr><hr><hr><h3>Solution</h3>
+<p>First, it helps to sort the data. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn><mo>,</mo><mn>11</mn><mo>,</mo><mn>13</mn><mo>,</mo><mn>14</mn><mo>,</mo><mn>15</mn><mo>,</mo><mn>16</mn><mo>,</mo><mn>17</mn><mo>,</mo><mn>17</mn><mo>,</mo><mn>18</mn><mo>,</mo><mn>19</mn></mrow><annotation encoding="application/x-tex">10, 11, 13, 14, 15, 16, 17, 17, 18, 19</annotation></semantics></math></p>
+<p>You could use R to sort the data:</p>
+<pre><code>sort(c(18,13,17,17,19,16,14,15,10,11))</code></pre>
+<pre><code>##  [1] 10 11 13 14 15 16 17 17 18 19</code></pre>
+<p>You could also use a spreadsheet. Import the table into a spreadsheet. Then, highlight the column of measurements and use <code>Sort</code> function.</p>
+<br/>
+<ol type="a">
+<li>
+The proportion of measurements less than 17 is 0.6. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>17</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.6</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&lt;17]=0.6</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements less than or equal to 13 is 0.3. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>≤</mo><mn>13</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.3</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}\le 13]=0.3</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements greater than 18 is 0.1. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&gt;</mo><mn>18</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.1</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&gt; 18]=0.1</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements greater than or equal to 14 is 0.7. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>≥</mo><mn>14</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.7</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}\ge 14]=0.7</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements less than 17 is 0.6. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>17</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.6</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&lt;17]=0.6</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements less than or equal to 11 is 0.2. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>≤</mo><mn>11</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.2</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}\le 11]=0.2</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements greater than 10 is 0.9. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&gt;</mo><mn>10</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.9</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&gt; 10]=0.9</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements greater than or equal to 15 is 0.6. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>≥</mo><mn>15</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.6</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}\ge 15]=0.6</annotation></semantics></math>
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

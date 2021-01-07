@@ -1,0 +1,126 @@
+```{r,data,generation,echo=FALSE,results="hide",fig.show='hide'}
+n = sample(c(50,100),1)
+i = 1:n
+type = sample(1:2,1)
+ns = c(6,8)[type]
+x = sample(1:ns,n,T)
+brks = 1:(ns+1)-0.5
+myhist = hist(x,breaks=brks)
+counts = myhist$counts
+ps = counts/n
+strdie = c("six","eight")[type]
+
+b1 = sample(brks[3:(length(brks)-1)],1)
+n1 = sum(x<b1)
+b2 = sample(brks[2:(length(brks)-2)],1)
+n2 = sum(x>b2)
+b3 = sort(sample(brks[2:(length(brks)-1)],2))
+c3 = mean(b3)
+r3 = (b3[2]-b3[1])/2
+n3 = sum(abs(x-c3)<r3)
+b4 = sort(sample(brks[2:(length(brks)-1)],2))
+c4 = mean(b4)
+r4 = (b4[2]-b4[1])/2
+n4 = sum(abs(x-c4)>r4)
+
+b5 = sample(brks[3:(length(brks)-1)],1)
+n5 = sum(x<b5)
+b6 = sample(brks[2:(length(brks)-2)],1)
+n6 = sum(x>b6)
+b7 = sort(sample(brks[2:(length(brks)-1)],2))
+c7 = mean(b7)
+r7 = (b7[2]-b7[1])/2
+if(r7==round(r7)){
+  wrd7 = "integer"
+} else {
+  wrd7 = "half-integer"
+}
+n7 = sum(abs(x-c7)<r7)
+b8 = sort(sample(brks[2:(length(brks)-1)],2))
+c8 = mean(b8)
+r8 = (b8[2]-b8[1])/2
+if(r8==round(r8)){
+  wrd8 = "integer"
+} else {
+  wrd8 = "half-integer"
+}
+n8 = sum(abs(x-c8)>r8)
+```
+
+
+Question
+========
+
+A standard `r strdie`-sided [die](https://en.wikipedia.org/wiki/Dice) was rolled `r n` times, and the results were organized into the [pie chart](https://en.wikipedia.org/wiki/Pie_chart){target="blank"} shown below. The outside of the circle marks the cumulative proportion.
+
+```{r echo=F,fig.width=6,fig.height=6}
+size = 1.2
+ps = counts/n
+cp = cumsum(c(0,ps,1))
+mids = (cp[2:(ns+1)]+cp[1:ns])/2
+par(mar=c(0,0,0,0))
+plot(0,0,type="n",xlim=c(-size,size),ylim=c(-size,size))
+th = seq(0,2*pi,length.out=1000)
+lines(cos(th),sin(th))
+for(a in cp){
+  lines(c(0,cos(a*2*pi)),c(0,sin(a*2*pi)))
+}
+lines(c(1,size),c(0,0),lwd=3)
+for(a in seq(0.1,0.9,0.1)){
+  lines(c(cos(a*2*pi),1.13*cos(a*2*pi)),c(sin(a*2*pi),1.13*sin(a*2*pi)))
+  text(1.19*cos(a*2*pi),1.19*sin(a*2*pi),a)
+}
+for(a in seq(0.05,0.95,0.1)){
+  lines(c(cos(a*2*pi),1.10*cos(a*2*pi)),c(sin(a*2*pi),1.10*sin(a*2*pi)))
+  text(1.16*cos(a*2*pi),1.16*sin(a*2*pi),a)
+}
+for(a in seq(0.01,0.99,0.01)){
+  lines(c(cos(a*2*pi),1.04*cos(a*2*pi)),c(sin(a*2*pi),1.04*sin(a*2*pi)))
+}
+for(i in 1:ns){
+  a = mids[i]
+  text(0.7*cos(a*2*pi),0.7*sin(a*2*pi),(1:n)[i])
+}
+text(1.15,0.04,0)
+text(1.15,-0.04,1)
+```
+\
+
+
+Answerlist
+--------
+* Evaluate $\text{prop}[\mathbf{x}<`r b1`]$.
+* Evaluate $\text{prop}[\mathbf{x}>`r b2`]$.
+* Evaluate $\text{prop}[|\mathbf{x}-`r c3`|<`r r3`]$.
+* Evaluate $\text{prop}[|\mathbf{x}-`r c4`|>`r r4`]$.
+* Evaluate half-integer boundary $b$ such that $\text{prop}[\mathbf{x}<b] = `r n5/n`$.
+* Evaluate half-integer boundary $b$ such that $\text{prop}[\mathbf{x}>b] = `r n6/n`$.
+* Evaluate `r wrd7` radius $r$ such that $\text{prop}[|\mathbf{x}-`r c7`|<r] = `r n7/n`$.
+* Evaluate `r wrd8` radius $r$ such that $\text{prop}[|\mathbf{x}-`r c8`|>r] = `r n8/n`$.
+
+
+Solution
+========
+
+The first 4 questions involve adding up relative frequencies of the indicated intervals. The last 4 questions can be done by guessing and checking until something works.
+
+Answerlist
+--------
+* The proportion of measurements less than `r b1` is `r n1/n`. $$\text{prop}[\mathbf{x}<`r b1`]=`r n1/n`$$
+* The proportion of measurements more than `r b2` is `r n2/n`. $$\text{prop}[\mathbf{x}>`r b2`]=`r n2/n`$$
+* The proportion of measurements closer than `r r3` units from `r c3` is `r n3/n`. $$\text{prop}[|\mathbf{x}-`r c3`|<`r r3`]=`r n3/n`$$
+* The proportion of measurements farther than `r r4` units from `r c4` is `r n4/n`. $$\text{prop}[|\mathbf{x}-`r c4`|>`r r4`]=`r n4/n`$$
+* The proportion of measurements less than `r b5` is `r n5/n`. $$\text{prop}[\mathbf{x}<`r b5`]=`r n5/n`$$
+* The proportion of measurements more than `r b6` is `r n6/n`. $$\text{prop}[\mathbf{x}>`r b6`]=`r n6/n`$$
+* The proportion of measurements closer than `r r7` units from `r c7` is `r n7/n`. $$\text{prop}[|\mathbf{x}-`r c7`|<`r r7`]=`r n7/n`$$
+* The proportion of measurements farther than `r r8` units from `r c8` is `r n8/n`. $$\text{prop}[|\mathbf{x}-`r c8`|>`r r8`]=`r n8/n`$$
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|num|num|num|num
+exsolution: `r n1/n`|`r n2/n`|`r n3/n`|`r n4/n`|`r b5`|`r b6`|`r r7`|`r r8`
+exname: read_circle_prop
+extol: 0
+exextra[numwidth,character]: 999.99

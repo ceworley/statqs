@@ -1,0 +1,98 @@
+```{r,data,generation,echo=FALSE,results="hide",fig.show='hide'}
+n = sample(c(30,40,50,60,70,80,90,100),1)
+i = 1:n
+type = sample(1:4,1)
+ns = c(6,8,10,12)[type]
+x = sample(1:ns,n,T)
+brks = 1:(ns+1)-0.5
+myhist = hist(x,breaks=brks)
+counts = myhist$counts
+strdie = c("six","eight","ten","twelve")[type]
+
+b1 = sample(brks[3:(length(brks)-1)],1)
+n1 = sum(x<b1)
+b2 = sample(brks[2:(length(brks)-2)],1)
+n2 = sum(x>b2)
+b3 = sort(sample(brks[2:(length(brks)-1)],2))
+c3 = mean(b3)
+r3 = (b3[2]-b3[1])/2
+n3 = sum(abs(x-c3)<r3)
+b4 = sort(sample(brks[2:(length(brks)-1)],2))
+c4 = mean(b4)
+r4 = (b4[2]-b4[1])/2
+n4 = sum(abs(x-c4)>r4)
+
+b5 = sample(brks[3:(length(brks)-1)],1)
+n5 = sum(x<b5)
+b6 = sample(brks[2:(length(brks)-2)],1)
+n6 = sum(x>b6)
+b7 = sort(sample(brks[2:(length(brks)-1)],2))
+c7 = mean(b7)
+r7 = (b7[2]-b7[1])/2
+if(r7==round(r7)){
+  wrd7 = "integer"
+} else {
+  wrd7 = "half-integer"
+}
+n7 = sum(abs(x-c7)<r7)
+b8 = sort(sample(brks[2:(length(brks)-1)],2))
+c8 = mean(b8)
+r8 = (b8[2]-b8[1])/2
+if(r8==round(r8)){
+  wrd8 = "integer"
+} else {
+  wrd8 = "half-integer"
+}
+n8 = sum(abs(x-c8)>r8)
+```
+
+
+Question
+========
+
+A standard `r strdie`-sided [die](https://en.wikipedia.org/wiki/Dice) was rolled `r n` times, and the results were organized into the [histogram](https://en.wikipedia.org/wiki/Histogram){target="blank"} shown below. In [dice notation](https://en.wikipedia.org/wiki/Dice_notation), we could say the results of `r n`d`r ns` were plotted as a histogram. (Pedantic sidenote: it is common to interpret `r n`d`r ns` as the SUM of `r n` rolls, but we will interpret `r n`d`r ns` as the LIST of `r n` rolls and use $\sum `r n`\text{d}`r ns`$ as the sum of `r n` rolls.)
+
+```{r echo=F}
+ylim = max(counts)*1.1
+hist(x,breaks=brks,labels = TRUE,ylim=c(0,ylim),xlim=c(0,ns+1))
+```
+\
+
+
+Answerlist
+--------
+* Evaluate $\#[\mathbf{x}<`r b1`]$.
+* Evaluate $\#[\mathbf{x}>`r b2`]$.
+* Evaluate $\#[|\mathbf{x}-`r c3`|<`r r3`]$.
+* Evaluate $\#[|\mathbf{x}-`r c4`|>`r r4`]$.
+* Evaluate half-integer boundary $b$ such that $\#[\mathbf{x}<b] = `r n5`$.
+* Evaluate half-integer boundary $b$ such that $\#[\mathbf{x}>b] = `r n6`$.
+* Evaluate `r wrd7` radius $r$ such that $\#[|\mathbf{x}-`r c7`|<r] = `r n7`$.
+* Evaluate `r wrd8` radius $r$ such that $\#[|\mathbf{x}-`r c8`|>r] = `r n8`$.
+
+
+Solution
+========
+
+The first 4 questions involve adding up frequencies of the indicated intervals. The last 4 questions can be done by guessing and checking until something works.
+
+Answerlist
+--------
+* There are `r n1` measurements less than `r b1`. So, $\#[\mathbf{x}<`r b1`]=`r n1`$.
+* There are `r n2` measurements more than `r b2`. So, $\#[\mathbf{x}>`r b2`]=`r n2`$.
+* There are `r n3` measurements closer than `r r3` units from `r c3`. So, $\#[|\mathbf{x}-`r c3`|<`r r3`]=`r n3`$.
+* There are `r n4` measurements further than `r r4` units from `r c4`. So, $\#[|\mathbf{x}-`r c4`|>`r r4`]=`r n4`$.
+* A boundary at $b=`r b5`$ has `r n5` measurements less than it. So, $\#[\mathbf{x}<`r b5`]=`r n5`$.
+* A boundary at $b=`r b6`$ has `r n6` measurements more than it. So, $\#[\mathbf{x}>`r b6`]=`r n6`$.
+* An interval with radius $r=`r r7`$ around center `r c7` contains `r n7` measurements. So, $\#[|\mathbf{x}-`r c7`|<`r r7`]=`r n7`$.
+* An interval with radius $r=`r r8`$ around center `r c8` excludes `r n8` measurements.  So, $\#[|\mathbf{x}-`r c8`|>`r r8`]=`r n8`$.
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|num|num|num|num
+exsolution: `r n1`|`r n2`|`r n3`|`r n4`|`r b5`|`r b6`|`r r7`|`r r8`
+exname: read_histogram_discrete
+extol: 0
+exextra[numwidth]: 999

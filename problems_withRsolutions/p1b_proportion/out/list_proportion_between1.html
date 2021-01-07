@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>list_proportion_between</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+
+<meta charset="UTF-8">
+
+</head>
+
+<body>
+<h2>list_proportion_between</h2>
+
+<ol>
+<li>
+<hr><h3>Question</h3>
+<p>The lengths (in centimeters) of 10 lizards were recorded.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>=</mo><mn>83</mn><mo>,</mo><mn>89</mn><mo>,</mo><mn>87</mn><mo>,</mo><mn>85</mn><mo>,</mo><mn>83</mn><mo>,</mo><mn>89</mn><mo>,</mo><mn>86</mn><mo>,</mo><mn>87</mn><mo>,</mo><mn>86</mn><mo>,</mo><mn>88</mn></mrow><annotation encoding="application/x-tex">\mathbf{x} = 83, 89, 87, 85, 83, 89, 86, 87, 86, 88 </annotation></semantics></math></p>
+<p>You can download the data as a CSV file (for importing into a spreadsheet or R): <a href="data:text/csv;base64,aSx4CjEsODMKMiw4OQozLDg3CjQsODUKNSw4Mwo2LDg5CjcsODYKOCw4Nwo5LDg2CjEwLDg4Cg==" download="lizard_data.csv">lizard_data.csv</a></p>
+<br/>
+<ol type="a">
+<li>
+What proportion of the measurements are inside 85.5 cm to 87.5 cm? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&gt;</mo><mn>85.5</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="monospace"> 𝙰𝙽𝙳 </mtext><mspace width="0.333em"></mspace></mrow><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>87.5</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&gt;85.5\texttt{ AND } \mathbf{x}&lt;87.5]</annotation></semantics></math>. In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mn>85.5</mn><mo>&lt;</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>87.5</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\text{prop}[85.5&lt;\mathbf{x}&lt;87.5]</annotation></semantics></math>.
+</li>
+<li>
+What proportion of the measurements are outside 80.5 cm to 85.5 cm? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>80.5</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="monospace"> 𝙾𝚁 </mtext><mspace width="0.333em"></mspace></mrow><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&gt;</mo><mn>85.5</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&lt;80.5\texttt{ OR } \mathbf{x}&gt;85.5]</annotation></semantics></math>. In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mtext mathvariant="monospace">𝙽𝙾𝚃</mtext><mo stretchy="false" form="prefix">(</mo><mn>80.5</mn><mo>&lt;</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>85.5</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\text{prop}[\texttt{NOT}(80.5&lt;\mathbf{x}&lt;85.5)]</annotation></semantics></math>.
+</li>
+<li>
+What proportion of the measurements are closer than 4.5 cm from 85 cm? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>85</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>4.5</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\text{prop}\left[\big|\mathbf{x}-85\big|&lt;4.5\right]</annotation></semantics></math>.
+</li>
+<li>
+What proportion of the measurements are farther than 0.5 cm from 83 cm? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>83</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mn>0.5</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\text{prop}\left[\big|\mathbf{x}-83\big|&gt;0.5\right]</annotation></semantics></math>.
+</li>
+<li>
+Determine a half-integer radius <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math> of an interval with center 83 cm such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>83</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mi>r</mi><mo stretchy="true" form="postfix">]</mo></mrow><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.3</mn></mrow><annotation encoding="application/x-tex">\text{prop}\left[\big|\mathbf{x}-83\big|&lt;r\right] ~=~ 0.3</annotation></semantics></math>.
+</li>
+<li>
+Determine an integer radius <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math> of an interval with center 87.5 cm such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>87.5</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mi>r</mi><mo stretchy="true" form="postfix">]</mo></mrow><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.7</mn></mrow><annotation encoding="application/x-tex">\text{prop}\left[\big|\mathbf{x}-87.5\big|&gt;r\right] ~=~ 0.7</annotation></semantics></math>.
+</li>
+</ol>
+<br/>
+<hr><hr><hr><h3>Solution</h3>
+<p>First, it helps to sort the data. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">sort</mtext><mo stretchy="false" form="prefix">(</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>83</mn><mo>,</mo><mn>83</mn><mo>,</mo><mn>85</mn><mo>,</mo><mn>86</mn><mo>,</mo><mn>86</mn><mo>,</mo><mn>87</mn><mo>,</mo><mn>87</mn><mo>,</mo><mn>88</mn><mo>,</mo><mn>89</mn><mo>,</mo><mn>89</mn></mrow><annotation encoding="application/x-tex">\text{sort}(\mathbf{x}) = 83, 83, 85, 86, 86, 87, 87, 88, 89, 89</annotation></semantics></math></p>
+<p>You could use R to sort the data:</p>
+<pre><code>sort(c(83,89,87,85,83,89,86,87,86,88))</code></pre>
+<pre><code>##  [1] 83 83 85 86 86 87 87 88 89 89</code></pre>
+<p>You could also use a spreadsheet. Import the table into a spreadsheet. Then, highlight the column of measurements and use <code>Sort</code> function.</p>
+<br/>
+<ol type="a">
+<li>
+The proportion of measurements between 85.5 and 87.5 is 0.4. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mn>85.5</mn><mo>&lt;</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>87.5</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.4</mn></mrow><annotation encoding="application/x-tex">\text{prop}[85.5&lt;\mathbf{x}&lt;87.5]=0.4</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements outside 80.5 and 85.5 is 0.7. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mtext mathvariant="monospace">𝙽𝙾𝚃</mtext><mo stretchy="false" form="prefix">(</mo><mn>80.5</mn><mo>&lt;</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>85.5</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.7</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\texttt{NOT}(80.5&lt;\mathbf{x}&lt;85.5)]=0.7</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements closer than 4.5 cm from 85 cm is 1. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>85</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>4.5</mn><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\text{prop}\left[\big|\mathbf{x}-85\big|&lt;4.5\right] = 1</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements farther than 0.5 cm from 83 cm is 0.8. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>83</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mn>0.5</mn><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><mn>0.8</mn></mrow><annotation encoding="application/x-tex">\text{prop}\left[\big|\mathbf{x}-83\big|&gt;0.5\right] = 0.8</annotation></semantics></math>
+</li>
+<li>
+You can guess and check until you find a half-integer that satisfies the equation. It turns out that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>2.5</mn></mrow><annotation encoding="application/x-tex">r = 2.5</annotation></semantics></math> satisfies the equation, because <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>83</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>2.5</mn><mo stretchy="true" form="postfix">]</mo></mrow><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.3</mn></mrow><annotation encoding="application/x-tex">\text{prop}\left[\big|\mathbf{x}-83\big|&lt;2.5\right] ~=~ 0.3</annotation></semantics></math>
+</li>
+<li>
+You can guess and check until you find an integer that satisfies the equation. It turns out that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r = 1</annotation></semantics></math> satisfies the equation, because <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>87.5</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mn>1</mn><mo stretchy="true" form="postfix">]</mo></mrow><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.7</mn></mrow><annotation encoding="application/x-tex">\text{prop}\left[\big|\mathbf{x}-87.5\big|&gt;1\right] ~=~ 0.7</annotation></semantics></math>
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

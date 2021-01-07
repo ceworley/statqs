@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>read_boxplot</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+
+<meta charset="UTF-8">
+
+</head>
+
+<body>
+<h2>read_boxplot</h2>
+
+<ol>
+<li>
+<hr><h3>Question</h3>
+<p>A sample was taken from an unknown population. The values were organized into a <a href="https://en.wikipedia.org/wiki/Box_plot" target="blank">boxplot</a>.</p>
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-1" /><br />
+</p>
+<p>For simplicity, assume no measurements lie on the hinges, median, or whisker tips (so we do not worry about inclusive vs. exclusive boundaries). This assumption is approximately true with a very large sample from a continuous distribution.</p>
+<br/>
+<ol type="a">
+<li>
+What proportion of measurements are below 46.6? <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>46.6</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mtext mathvariant="normal">?</mtext></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&lt; 46.6] = \text{?}</annotation></semantics></math>
+</li>
+<li>
+What proportion of measurements are above 46.6? <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&gt;</mo><mn>46.6</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mtext mathvariant="normal">?</mtext></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&gt; 46.6] = \text{?}</annotation></semantics></math>
+</li>
+<li>
+What proportion of measurements are between 22.4 and 46.6? <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mn>22.4</mn><mo>&lt;</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>46.6</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mtext mathvariant="normal">?</mtext></mrow><annotation encoding="application/x-tex">\text{prop}[22.4&lt; \mathbf{x} &lt; 46.6] = \text{?}</annotation></semantics></math>
+</li>
+<li>
+What proportion of measurements are closer than 4.85 units from 41.75? <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mo stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>41.75</mn><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>4.85</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mtext mathvariant="normal">?</mtext></mrow><annotation encoding="application/x-tex">\text{prop}[|\mathbf{x}-41.75|&lt;4.85] = \text{?}</annotation></semantics></math>
+</li>
+<li>
+Determine boundary <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math> such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mi>b</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&lt;b]=0.5</annotation></semantics></math>.
+</li>
+<li>
+Determine boundary <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math> such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&gt;</mo><mi>b</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.75</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&gt;b]=0.75</annotation></semantics></math>.
+</li>
+<li>
+What is the range?
+</li>
+<li>
+What is the interquartile range (IQR)?
+</li>
+<li>
+What is the median?
+</li>
+</ol>
+<br/>
+<hr><hr><hr><h3>Solution</h3>
+<p>You need to know that each region (whisker or half-box) contains 25% of the measurements.</p>
+<br/>
+<ol type="a">
+<li>
+1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+0.5
+</li>
+<li>
+36.9
+</li>
+<li>
+32.3
+</li>
+<li>
+Subtract min from max. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>46.6</mn><mo>−</mo><mn>22.4</mn><mo>=</mo><mn>24.2</mn></mrow><annotation encoding="application/x-tex">46.6-22.4 = 24.2</annotation></semantics></math>
+</li>
+<li>
+Subtract <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mn>1</mn></msub><annotation encoding="application/x-tex">Q_1</annotation></semantics></math> from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><mn>3</mn></msub><annotation encoding="application/x-tex">Q_3</annotation></semantics></math>. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>39.5</mn><mo>−</mo><mn>32.3</mn><mo>=</mo><mn>7.2</mn></mrow><annotation encoding="application/x-tex">39.5-32.3 = 7.2</annotation></semantics></math>
+</li>
+<li>
+36.9
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

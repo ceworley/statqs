@@ -1,0 +1,85 @@
+```{r,data,generation,echo=FALSE,results="hide"}
+ppop = sample(seq(0.05,0.95,0.01),size=1)
+n = sample(80:150,1)
+i = 1:n
+hit_or_miss = sample(c("Hit","Miss"),n,replace=T,prob=c(ppop,1-ppop))
+fn = paste0("basketball_proportion.csv")
+df = data.frame(i,hit_or_miss)
+write.csv(df, file = fn, quote = FALSE, row.names = FALSE)
+```
+
+Question
+========
+
+Jordan is practicing [free throws](https://en.wikipedia.org/wiki/Free_throw). They has recorded the results of many free throws.
+
+```{r echo=F}
+cat(hit_or_miss)
+```
+
+You can download the data as a csv: [`r fn`](`r fn`). The header and first four rows are shown below.
+
+| i | hit_or_miss |
+|:---:|:---:|
+| 1 | `r hit_or_miss[1]` |
+| 2 | `r hit_or_miss[2]` |
+| 3 | `r hit_or_miss[3]` |
+| 4 | `r hit_or_miss[4]` |
+| $\vdots$ | $\vdots$ |
+
+
+Answerlist
+--------
+* How many shots did Jordan attempt? (Evaluate $n$.)
+* How many shots were successful? (Evaluate $n_\text{s}$.)
+* How many shots were failures? (Evaluate $n_\text{f}$.)
+* What proportion of Jordan's shots were successful? (Evaluate $\hat{p}$.)
+* What proportion of Jordan's shots were failures? (Evaluate $\hat{q}$.)
+
+Solution
+========
+
+I recommend using either R or a spreadsheet. 
+
+## Using R:
+
+First, download the csv. Also, write the following script as save it as ``basketball_proportion.r``. Put both files in the same directory (folder). Run the script.
+
+```{r}
+mydata = read.csv("basketball_proportion.csv")
+x = mydata$hit_or_miss
+n = length(x)
+ns = sum(x=="Hit")
+nf = sum(x=="Miss")
+phat = ns/n
+qhat = nf/n
+cat(sprintf("n=%d, ns=%d, nf=%d, phat=%.4f, qhat=%.4f",n,ns,nf,phat,qhat))
+```
+
+If you are using Rstudio, you may need to click ``Session``, ``Set Working Directory``, ``Source File Location`` while the script (``basketball_proportion.r``) is the open tab.
+
+## Using a spreadsheet
+
+```{r echo=F}
+mydf = data.frame(c(i,"","","","",""),c(hit_or_miss,"","n",paste0("=count(A2:A",n+1,")"),"",""))
+mydf = cbind(mydf,c(paste0("\"=IF(B",i+1,'=""Hit"",1,0)\"'),"","sum",paste0("=SUM(C2:C",n+1,")"),
+                    "p hat",paste0("=C",n+4,"/B",n+4)))
+mydf = cbind(mydf,c(paste0("\"=IF(B",i+1,'=""Miss"",1,0)\"'),"","sum",paste0("=SUM(D2:D",n+1,")"),
+                    "q hat",paste0("=D",n+4,"/B",n+4)))
+colnames(mydf) = c("i","hit_or_miss","hit_or_miss=Hit","hit_or_miss=Miss")
+fn2 = paste0("proportion_solution.csv") 
+write.csv(mydf, file = fn2, quote = FALSE, row.names = FALSE)
+```
+
+First, if you scroll down, it should be clear there are `r n` rows of data, because the last row has $i=`r n`$. In column C use `IF(B2="Hit",1,0)` and in column D use `IF(B2="Miss",1,0)`, and extend the formulas down, to get columns of 0s and 1s, then use ``SUM(C2:C`r n`)`` and ``SUM(D2:D`r n`)`` to get $n_s$ and $n_f$. You can divide these by $n$ to determine $\hat{p}$ and $\hat{q}$.
+
+You can see a solution CSV: [`r fn2`](`r fn2`). Remember, you can hit `ctrl+~` to see the formulas. You may need to enlarge a cell if it shows `###`.
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|num
+exsolution: `r n`|`r ns`|`r nf`|`r phat`|`r qhat`|
+exname: list_counting_large
+extol: 0|0|0|0.01|0.01
+exextra[numwidth,character]: 999.999
