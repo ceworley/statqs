@@ -1,0 +1,107 @@
+```{r,data,generation,echo=FALSE,results="hide",fig.show='hide'}
+n = 100
+i = 1:n
+type = sample(1:2,1)
+ns = c(8,10)[type]
+x = sample(1:ns,n,T)
+brks = 1:(ns+1)-0.5
+myhist = hist(x,breaks=brks)
+counts = myhist$counts
+strdie = c("eight","ten")[type]
+
+while(T){
+  b1 = sample(brks[3:(length(brks)-1)],1)
+  n1 = sum(x<b1)
+  b2 = sample(brks[2:(length(brks)-2)],1)
+  n2 = sum(x>b2)
+  b3 = sort(sample(brks[2:(length(brks)-1)],2))
+  c3 = mean(b3)
+  r3 = (b3[2]-b3[1])/2
+  n3 = sum(abs(x-c3)<r3)
+  b4 = sort(sample(brks[2:(length(brks)-1)],2))
+  c4 = mean(b4)
+  r4 = (b4[2]-b4[1])/2
+  n4 = sum(abs(x-c4)>r4)
+  
+  b5 = sample(brks[3:(length(brks)-1)],1)
+  n5 = sum(x<b5)
+  b6 = sample(brks[2:(length(brks)-2)],1)
+  n6 = sum(x>b6)
+  b7 = sort(sample(brks[2:(length(brks)-1)],2))
+  c7 = mean(b7)
+  r7 = (b7[2]-b7[1])/2
+  if(r7==round(r7)){
+    wrd7 = "integer"
+  } else {
+    wrd7 = "half-integer"
+  }
+  n7 = sum(abs(x-c7)<r7)
+  b8 = sort(sample(brks[2:(length(brks)-1)],2))
+  c8 = mean(b8)
+  r8 = (b8[2]-b8[1])/2
+  if(r8==round(r8)){
+    wrd8 = "integer"
+  } else {
+    wrd8 = "half-integer"
+  }
+  n8 = sum(abs(x-c8)>r8)
+  p1 = n1/n
+  p2 = n2/n
+  p3=n3/n
+  p4=n4/n
+  p5=n5/n
+  p6=n6/n
+  p7=n7/n
+  p8=n8/n
+  if(r3>1 & r4>1 & r7>1 & r8>1 & r7!=r8 & r7!=r3 & r8!=r4){break}
+}
+```
+
+Question
+========
+
+A standard `r strdie`-sided [die](https://en.wikipedia.org/wiki/Dice) was rolled many times, and the results were organized into the [histogram](https://en.wikipedia.org/wiki/Histogram){target="blank"} shown below. 
+
+```{r echo=F,fig.width=6,fig.height=5}
+ylim = max(counts/n)*1.1
+hist(x,breaks=brks,labels = TRUE,ylim=c(0,ylim),xlim=c(0,ns+1),freq=F,ylab="Relative Frequency")
+```
+\
+
+
+Answerlist
+--------
+* Evaluate $\text{prop}[\mathbf{x}<`r b1`]$.
+* Evaluate $\text{prop}[\mathbf{x}>`r b2`]$.
+* Evaluate $\text{prop}[|\mathbf{x}-`r c3`|<`r r3`]$.
+* Evaluate $\text{prop}[|\mathbf{x}-`r c4`|>`r r4`]$.
+* Evaluate half-integer boundary $b$ such that $\text{prop}[\mathbf{x}<b] = `r n5/n`$.
+* Evaluate half-integer boundary $b$ such that $\text{prop}[\mathbf{x}>b] = `r n6/n`$.
+* Evaluate `r wrd7` radius $r$ such that $\text{prop}[|\mathbf{x}-`r c7`|<r] = `r n7/n`$.
+* Evaluate `r wrd8` radius $r$ such that $\text{prop}[|\mathbf{x}-`r c8`|>r] = `r n8/n`$.
+
+
+Solution
+========
+
+
+Answerlist
+--------
+* The answer is `r p1` because $\text{prop}[\mathbf{x}<`r b1`]=`r p1`$.
+* The answer is `r p2` because $\text{prop}[\mathbf{x}>`r b2`]=`r p2`$.
+* The answer is `r p3` because $\text{prop}[|\mathbf{x}-`r c3`|<`r r3`]=`r p3`$.
+* The answer is `r p4` because $\text{prop}[|\mathbf{x}-`r c4`|>`r r4`]=`r p4`$.
+* The answer is `r b5` because $\text{prop}[\mathbf{x}<`r b5`]=`r p5`$.
+* The answer is `r b6` because $\text{prop}[\mathbf{x}>`r b6`]=`r p6`$.
+* The answer is `r r7` because $\text{prop}[|\mathbf{x}-`r c7`|<`r r7`]=`r p7`$.
+* The answer is `r r8` because $\text{prop}[|\mathbf{x}-`r c8`|>`r r8`]=`r p8`$.
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|num|num|num|num
+exsolution: `r n1/n`|`r n2/n`|`r n3/n`|`r n4/n`|`r b5`|`r b6`|`r r7`|`r r8`
+exname: read_histogram_discrete_prop
+extol: 0.001
+exextra[numwidth]: 999.99

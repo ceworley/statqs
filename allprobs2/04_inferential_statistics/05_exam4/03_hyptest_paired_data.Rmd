@@ -1,0 +1,205 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+# w = read.csv("yob2019_w_header.txt",as.is=T)
+NAMES = c("Aarav","Ace","Acelyn","Adam","Addelynn","Adria","Adrian","Adrianna","Adriel","Aiden","Aiyla","Alani","Alayna","Alejandro","Alessio","Alexa","Alexander","Alexandre","Alexandro","Alias","Alice","Alina","Allison","Allyssa","Alonzo","Alyson","Amanda","Amara","Amari","Amelia","Amira","Anaise","Anasofia","Andres","Andrew","Angel","Angelo","Annabelle","Annie","Anthony","Anyla","Archer","Arianna","Ariel","Arjunreddy","Arlo","Aron","Asher","Asher","Ashrith","Ashton","Athalia","Atreyu","Aubrey","Audrey","August","Austin","Ava","Avery","Axel","Ayan","Ayman","Bailey","Baylon","Beckham","Bella","Benjamin","Bennett","Bensen","Bentley","Blair","Blaire","Blake","Bleu","Brady","Brandon","Brayden","Brennan","Brody","Brooks","Bryce","Brynnlee","Caleb","Cali","Callan","Callie","Camila","Carson","Carter","Case","Castiel","Cataleya","Caterina","Celena","Charles","Charlotte","Chase","Chelsea","Chloe","Christian","Christopher","Clara","Clayton","Cohen","Colbie","Colin","Conner","Connor","Cooper","Cruz","Dailyn","Daleyza","Daliah","Damian","Daniel","Dante","Dario","David","Dayanara","Declan","Devin","Diego","Donovan","Dorothy","Dylan","Easton","Edrick","Edward","Eithan","Elaine","Eleanor","Elena","Eli","Elianna","Elias","Elijah","Eliza","Elizabeth","Ella","Elliana","Ellie","Elliot","Emani","Emersyn","Emery","Emilee","Emir","Emma","Ericka","Essa","Ethan","Eva","Evangeline","Eve","Evelyn","Everett","Everleigh","Everly","Ezra","Fanny","Felicity","Fernanda","Fernando","Fiona","Fletcher","Forest","Francesca","Gabriella","Gael","Gerard","Giselle","Gittel","Grace","Grant","Gregory","Griselda","Gustavo","Hadden","Haelynn","Hailey","Haisleigh","Haley","Hannah","Harley","Harper","Hartley","Haven","Hayden","Henry","Hubert","Hudson","Hugo","Hunter","Hunter","Ibrahim","Ina","India","Indigo","Ira","Iris","Isaac","Isabel","Isabella","Isadora","Iskra","Ismael","Ita","Italia","Ivan","Ivar","Ivy","Jack","Jackson","Jacob","Jaden","Jaelani","Jahsiah","James","Jameson","Janiyah","Jasmine","Jaxon","Jaxson","Jaxton","Jayden","Jayla","Jaylon","Jeanette","Jeffrey","Jeniyah","Jesus","Jetson","Jett","Jibril","Joaquin","Joel","Joelle","Joely","John","Johnny","Jolene","Joli","Jolie","Jonah","Jonathan","Jordan","Jordan","Joseph","Joshua","Josiah","Journey","Jru","Juan","Judah","Julia","Julian","Julianne","Juliette","Julissa","Julius","June","Kade","Kaiden","Kaidyn","Kalani","Kameron","Kareem","Karim","Karson","Kason","Katherine","Kayan","Kaycee","Kayde","Kayden","Kayleigh","Kenley","Kenneth","Kenslee","Kerrington","Khloe","Kian","Kieran","Kimber","King","Kingston","Kinley","Klaudia","Kora","Kristina","Kylan","Kyra","Kyran","Kyren","Lachlan","Laila","Landon","Laney","Laura","Lauren","Layla","Lea","Leighton","Leo","Leonardo","Levi","Liam","Lianna","Lidia","Lincoln","Lluvia","Logan","Logan","Lorenzo","Luca","Lucas","Lucia","Luciana","Lucy","Luis","Luke","Lun","Luna","Lydia","Lyla","Mabelle","Macoy","Maddison","Maddox","Madelyn","Madison","Maisie","Makayla","Makiyah","Malcolm","Malik","Maliya","Manuel","Marco","Mariana","Mark","Marlee","Martin","Maryfer","Mateo","Matias","Matteo","Matthew","Maverick","Max","Maxwell","Maya","Mayeli","Meadow","Melody","Menno","Mia","Micah","Michael","Mika","Mikai","Mila","Milan","Milena","Miles","Mira","Miranda","Mohammad","Moises","Monte","Muhammad","Myles","Nadia","Natalia","Natalin","Nathan","Neymar","Nickson","Noah","Noah","Noble","Nolan","Nora","Norah","Nori","Novak","Oakleigh","Oakley","Oakley","Oaklyn","Octavia","Odin","Olive","Oliver","Olivia","Omar","Oscar","Otto","Owen","Paislee","Paisley","Pauline","Paxton","Penelope","Polette","Presley","Promise","Raegan","Raelynn","Ramir","Ramon","Richard","Riley","Riley","River","Riya","Roma","Roman","Royal","Ruben","Ruby","Ruth","Ryan","Ryder","Ryker","Rylie","Saheed","Samantha","Sandra","Santiago","Sarah","Sarita","Savanna","Sawyer","Scarlett","Sebastian","Sephora","Serene","Serenity","Shoshana","Shreya","Sidney","Skye","Skylar","Sloane","Sofia","Sophia","Sophie","Stella","Steve","Stormy","Sullivan","Sylvia","Taylor","Taylor","Thea","Theodore","Thiago","Thomas","Timothy","Tobin","Triniti","Tristan","Tucker","Tulip","Turner","Unique","Uri","Valery","Valor","Vincent","Violet","Waylon","Wayne","Wendy","Whitman","Wilfredo","William","Willie","Willow","Wilson","Winston","Wyatt","Xavier","Xitlali","Xzander","Yeiden","Zacarias","Zachariah","Zachary","Zahra","Zaina","Zamir","Zara","Zayvon","Zechariah","Zina","Zoe","Zoey","Zuri")
+n = sample(10:20,1)
+NAME = sort(sample(NAMES,n,replace=F))
+speeds = runif(n,3,13) #mph
+x1 = round(1/speeds*60*60)
+while(T){
+  sigd = runif(1,20,50)
+  SEd = sigd/sqrt(n)
+  MEd = 2*SEd
+  mud = sample(c(-MEd,MEd),1)
+  d = rnorm(n,mud,sigd)
+  x2 = round(x1+d)
+  t = abs(mean(d))/(sd(d)/sqrt(n))
+  cumulative = pt(t,n-1)
+  pval = 2*(1-cumulative)
+  if(pval<0.2 & pval>0.005 & abs(pval-0.05)>0.01){break}
+}
+x = data.frame(NAME,x1,x2)
+colnames(x) = c("name","x1","x2")
+write.csv(x,"run_times.csv",row.names=F)
+
+if(pval<0.05){
+  ans2="10"
+  s2="The $p$-value is less than 0.05, so the result is significant."
+} else {
+  ans2="01"
+  s2="The $p$-value is more than 0.05, so the result is NOT significant."
+}
+```
+
+Question
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+
+
+A study asked individuals to time a mile run (in seconds). After a month, the same individuals timed another mile run. You are asked to perform a paired-data $t$ test to investigate whether fitness changed.
+
+```{r tab1, results="asis"}
+knitr::kable(x,format="html",table.attr='class="bordered-table"', align = "lcc",row.names=F)
+```
+([download as  run_times.csv](run_times.csv){target="blank"})
+
+Please run a paired $t$-test to check whether there was a significant change in running times.
+ 
+##ANSWER1##
+
+Using a significance level of $\alpha=0.05$, is there a significant change in run times?
+
+##ANSWER2##
+
+Answerlist
+--------
+* Calculate the $p$-value.
+* Yes
+* No
+
+
+Solution
+========
+
+You first need to determine a list of differences.
+
+```{r}
+y = data.frame(NAME,x1,x2,x2-x1)
+colnames(y) = c("name","x1","x2","d = x2-x1")
+knitr::kable(y,format="html",table.attr='class="bordered-table"', align = "lccc",row.names=F)
+```
+
+```{r}
+dbar = mean(d)
+sdd = sd(d)
+```
+
+Determine the sample size and degrees of freedom.
+$$n = `r n`$$
+$$\text{df} = `r n-1` $$
+Determine the sample mean of the differences.
+$$\bar{d} = \frac{\sum d}{n}= `r signif(dbar,4)`$$
+Determine the standard deviation of the differences. You probably do not want to do this by hand.
+$$s_d = \sqrt{\frac{\sum (d-\bar{d})^2}{n-1}} = `r signif(sdd,4)` $$
+Calculate the $t$-score.
+$$t = \frac{|\overline{d}-0|}{s_d/\sqrt{n}} = \frac{`r abs(signif(dbar,4))`}{`r signif(sdd,4)`\sqrt{`r n`}} = `r round(t,2)`$$
+Restate the $p$-value.
+$$p\text{-value} = P\left(|T|>`r round(t,2)`\right) $$
+I would recommend using a computer program to determine this $p$-value, like a [spreadsheet] or [R]. 
+
+$$p\text{-value} = `r signif(pval,2)` $$
+
+`r s2`
+
+### spreadsheet
+
+```{r}
+dss = character()
+for(i in 2:(n+1)){
+  dss = c(dss,sprintf("=C%d-B%d",i,i))
+}
+vn = c("n","df","dbar","sd","t",
+       "P(|T|>t)","p-value","","easy pval")
+vf = c("=COUNT(D2:D1000)","=G2-1",
+       "=AVERAGE(D2:D1000)",
+       "=STDEV(D2:D1000)","=ABS(G4)/(G5/SQRT(G2))",
+       "=TDIST(G6,G3,2)","=G7","","=T.TEST(B2:B1000,C2:C1000,2,1)")
+sp = rep("",n)
+vn = c(vn,rep("",n-length(vn)))
+vf = c(vf,rep("",n-length(vf)))
+ssol = data.frame(NAME,x1,x2,dss,sp,vn,vf)
+colnames(ssol) = c("name","x1","x2","d","","","")
+write.csv(ssol,"run_times_solution.csv",row.names=F)
+```
+
+The solution spreadsheet can be [downloaded as a csv](run_times_solution.csv){target="blank"}. The first 10 rows are shown below.
+
+```{r solss,fig.height=5,fig.width=9}
+draw_ss = function(df,widths=rep(1,length(df[1,])+1)){
+  xline = c(0,cumsum(widths)/sum(widths))
+  nrow = length(df[,1])
+  ncol = length(df[1,])
+  xtex = (xline[2:(ncol+2)]+xline[1:(ncol+1)])/2
+  par(mar=c(0,0,0,0))
+  plot(0,0,type="n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+  hi = 1:((nrow+2)*2+1)
+  vi = 1:((ncol+1)*2+1)
+  hpos = seq(1,0,length.out=(nrow+2)*2+1)
+  vpos = seq(0,1,length.out=(ncol+1)*2+1)
+  hlin = hpos[hi%%2==1]
+  ytex = hpos[hi%%2==0]
+  vlin = vpos[vi%%2==1]
+  #xtex = vpos[vi%%2==0]
+  abline(h=hlin)
+  abline(h=hlin[2],lwd=3)
+  abline(v=xline)
+  abline(v=xline[2],lwd=3)
+  for(i in 2:(ncol+1)){
+    text(xtex[i],ytex[1],LETTERS[i-1],col=rgb(0.5,0.5,0.5))
+    text(xtex[i],ytex[2],colnames(df)[i-1])
+  }    
+  for(i in 2:(nrow+2)){
+    text(xtex[1],ytex[i],i-1,col=rgb(0.5,0.5,0.5))
+  }
+  for(i in 1:nrow){
+    for(j in 1:ncol){
+      text(xtex[j+1],ytex[i+2],df[i,j])
+    }
+  }
+}
+draw_ss(ssol[1:9,],c(0.4,1.5,0.5,0.5,1,0.3,.7,3))
+```
+\
+
+If your spreadsheet does not have the `TDIST` function, you can try `T.DIST.2T(G6,G3,1)`. Also, notice that `T.TEST` does everything for you, so you can just use that. 
+
+### R
+
+Make/use a directory (folder) for this problem (paired-data $t$ test), and set the working directory accordingly. Save `run_times.csv` to your working directory. I would recommend saving the following script as `paired_data_hypothesis_test.r`, in the same directory.
+
+```{r sol, echo=T}
+table = read.csv("run_times.csv")
+x1 = table[['x1']]
+x2 = table[['x2']]
+t.test(x1,x2,paired=T)
+```
+
+Or, if you wanted to do it the long way:
+
+```{r sol2, echo=T}
+table = read.csv("run_times.csv")
+x1 = table[["x1"]]
+x2 = table[["x2"]]
+d = x2-x1
+n = length(d)
+t = abs(mean(d))/(sd(d)/sqrt(n))
+cumulative = pt(t,n-1)
+pvalue = 2*(1-cumulative)
+pvalue
+```
+
+Meta-information
+================
+extype: cloze
+exsolution: `r pval`|`r ans2`
+exclozetype: num|schoice
+exname: hypothesis test paired
+extol: 0.005|0
+exextra[numwidth,logical]: TRUE
+exextra[stringwidth,logical]: TRUE

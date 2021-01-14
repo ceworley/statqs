@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>statistics</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<ol>
+<li>
+solution_02_probability/01_overview/q4_perm_single
+<p>This scenario describes a permutations problem (order matters). We are considering the nonrepeating sequences of size 3 from a set of size 22.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"><msub><mi></mi><mi>n</mi></msub><msub><mi>P</mi><mi>r</mi></msub></mtd><mtd columnalign="left"><mo>=</mo><mfrac><mrow><mi>n</mi><mi>!</mi></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow></mfrac></mtd></mtr><mtr><mtd columnalign="right"></mtd></mtr><mtr><mtd columnalign="right"><mi>n</mi></mtd><mtd columnalign="left"><mo>=</mo><mn>22</mn></mtd></mtr><mtr><mtd columnalign="right"></mtd></mtr><mtr><mtd columnalign="right"><mi>r</mi></mtd><mtd columnalign="left"><mo>=</mo><mn>3</mn></mtd></mtr><mtr><mtd columnalign="right"></mtd></mtr><mtr><mtd columnalign="right"><msub><mi></mi><mn>22</mn></msub><msub><mi>P</mi><mn>3</mn></msub></mtd><mtd columnalign="left"><mo>=</mo><mfrac><mrow><mn>22</mn><mi>!</mi></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mn>22</mn><mo>−</mo><mn>3</mn><mo stretchy="false" form="postfix">)</mo><mi>!</mi></mrow></mfrac></mtd></mtr><mtr><mtd columnalign="right"></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mfrac><mrow><mn>22</mn><mi>!</mi></mrow><mrow><mn>19</mn><mi>!</mi></mrow></mfrac></mtd></mtr><mtr><mtd columnalign="right"></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mn>22</mn><mo>⋅</mo><mn>21</mn><mo>⋅</mo><mn>20</mn></mtd></mtr><mtr><mtd columnalign="right"></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mn>9240</mn></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+{_nP_r} &amp;= \frac{n!}{(n-r)!} \\\\
+n &amp;= 22 \\\\
+r &amp;= 3 \\\\
+{_{22}P_{3}} &amp;= \frac{22!}{(22-3)! } \\\\
+&amp;= \frac{22!}{19!} \\\\
+&amp;=  22\cdot21\cdot20 \\\\
+&amp;= 9240
+\end{aligned}</annotation></semantics></math></p>
+<p>If you had a lot of time, you could list out all possibilities (using 1 for a president, 2 for a manager…):</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Count</th>
+<th align="center">Possibility</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0 0 0 0 0 0 0 0 3 0 0 1 0 0 0 0 0 2 0 0 0 0</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 0 1 0 0 0 2</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">2 0 0 0 0 0 1 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">0 0 0 1 0 2 0 0 0 0 3 0 0 0 0 0 0 0 0 0 0 0</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">0 0 0 0 0 0 0 0 0 0 0 0 2 1 0 3 0 0 0 0 0 0</td>
+</tr>
+<tr class="even">
+<td align="center"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>⋮</mi><annotation encoding="application/x-tex">\vdots</annotation></semantics></math></td>
+<td align="center"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>⋮</mi><annotation encoding="application/x-tex">\vdots</annotation></semantics></math></td>
+</tr>
+<tr class="odd">
+<td align="center">9236</td>
+<td align="center">0 0 0 0 0 2 0 3 0 0 0 0 1 0 0 0 0 0 0 0 0 0</td>
+</tr>
+<tr class="even">
+<td align="center">9237</td>
+<td align="center">0 0 3 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 2 0 0</td>
+</tr>
+<tr class="odd">
+<td align="center">9238</td>
+<td align="center">0 0 0 0 0 0 0 0 3 0 0 0 1 0 0 2 0 0 0 0 0 0</td>
+</tr>
+<tr class="even">
+<td align="center">9239</td>
+<td align="center">0 0 0 2 0 0 0 1 0 0 0 0 3 0 0 0 0 0 0 0 0 0</td>
+</tr>
+<tr class="odd">
+<td align="center">9240</td>
+<td align="center">0 3 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 0 0 1 0</td>
+</tr>
+</tbody>
+</table>
+<p>Of course, you’d want to be more systematic than that.</p>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

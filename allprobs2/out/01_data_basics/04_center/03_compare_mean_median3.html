@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>statistics</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<ol>
+<li>
+01_data_basics/04_center/03_compare_mean_median
+<p>Depending on the type of distribution, we can make a strong claim regarding the mean and median.</p>
+<ul>
+<li>Symmetric (bell, uniform, bimodal)
+<ul>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">mean</mtext><mo>≈</mo><mtext mathvariant="normal">median</mtext></mrow><annotation encoding="application/x-tex">\text{mean} \approx \text{median}</annotation></semantics></math></li>
+</ul></li>
+<li>Skew-right
+<ul>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">mean</mtext><mo>&gt;</mo><mtext mathvariant="normal">median</mtext></mrow><annotation encoding="application/x-tex">\text{mean} &gt; \text{median}</annotation></semantics></math></li>
+</ul></li>
+<li>Skew-left
+<ul>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">mean</mtext><mo>&lt;</mo><mtext mathvariant="normal">median</mtext></mrow><annotation encoding="application/x-tex">\text{mean} &lt; \text{median}</annotation></semantics></math></li>
+</ul></li>
+</ul>
+<p>A sample was gathered and visualized with a histogram.</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAGQCAMAAAC3Ycb+AAAC9FBMVEUAAAABAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw8QEBARERESEhITExMUFBQVFRUWFhYXFxcYGBgZGRkaGhobGxscHBwdHR0eHh4fHx8gICAhISEiIiIjIyMkJCQlJSUmJiYnJycoKCgpKSkqKiorKyssLCwtLS0uLi4vLy8wMDAxMTEyMjIzMzM0NDQ1NTU2NjY3Nzc4ODg5OTk6Ojo7Ozs8PDw+Pj4/Pz9AQEBBQUFCQkJDQ0NERERFRUVGRkZHR0dISEhJSUlKSkpLS0tMTExNTU1OTk5PT09QUFBRUVFSUlJTU1NUVFRVVVVWVlZXV1dYWFhZWVlaWlpbW1tcXFxdXV1eXl5fX19gYGBhYWFiYmJjY2NkZGRlZWVmZmZnZ2doaGhpaWlqampra2tsbGxtbW1ubm5vb29wcHBxcXFycnJzc3N0dHR1dXV2dnZ3d3d4eHh5eXl6enp7e3t8fHx9fX1+fn5/f3+AgICBgYGCgoKDg4OEhISFhYWGhoaHh4eIiIiJiYmKioqLi4uMjIyNjY2Ojo6Pj4+QkJCRkZGSkpKTk5OUlJSVlZWWlpaXl5eYmJiZmZmampqbm5ucnJydnZ2enp6goKChoaGioqKjo6OkpKSlpaWmpqanp6eoqKipqamqqqqrq6usrKytra2urq6wsLCxsbGysrKzs7O0tLS1tbW2tra3t7e4uLi5ubm6urq7u7u8vLy9vb2+vr6/v7/AwMDBwcHCwsLDw8PExMTFxcXGxsbHx8fIyMjJycnKysrLy8vMzMzNzc3Ozs7Pz8/Q0NDR0dHS0tLT09PU1NTV1dXW1tbX19fY2NjZ2dna2trb29vc3Nzd3d3e3t7g4ODh4eHi4uLj4+Pk5OTl5eXm5ubn5+fo6Ojp6enq6urr6+vs7Ozt7e3u7u7v7+/w8PDx8fHy8vLz8/P09PT19fX29vb39/f4+Pj5+fn6+vr7+/v8/Pz9/f3+/v7////+I6bPAAAACXBIWXMAAA9hAAAPYQGoP6dpAAARMklEQVR4nO3deWAU5RnH8SfsugkhIQlGEUGphtMA4lG0RkGkgFJAES2XotgirdQDSyIKLUUtqeAFEbUVEIJARDGo1KNYPCgtR7UVAUVbRYsRak1CBHK8/3RmNu8ekXez+04y8+zu7/vHZszM+85sPmY3yx5DArGK3D4AFB5AmAUQZgGEWQBhFkCYBRBmAYRZAGEWQJgFEGYBhFkAYRZAmAUQZgGEWQBhFkCYBRBmAYRZAGEWQJgFEGYBhFkAYRZAmAUQZgGEWQBhFkCYBRBmAYRZAGEWV5BJRKXWQheifWKsedH6/bGPL/1DB/YTqTgFeaFLlydafJ/f5hDRnhafNrbiA2T17NmHwlavIVrY4vvcRXTB3qMtPm1sxQfId2oVkO1EN7f4pLEWHyCNN1lbr+zatvuEd4UYQmZ1ouHJH55y0uCH68wN64vzO95URTROiEFEVfefstS4UxjaJbXrqM3G2v6U9s55mXnTar6ccNqJIz4I7ig4xfXGrtp3+6v/2y8RZR0Sh7KIXnb2ijMGGTPXrH0Q5KU2loP3NTHxJKKc79Uducz6Bg34xhgx1lwqkCB3Ez0llvtXe143QdpkmMuD8szLU7+R+wmZwq/858YVE4hmiiKiiQ5fccYggSRIPnlL3lrShnrLm6x5RD2XLu9PdIcQzxJ1XzSNJIgv6+yyhlxq+8QLtxFdbYJQl/nTvERpM2cbmuvkfkKnMG6ypgUO4KtcStuWTrlfOXzF4wik3kOddgnxyPTptX6QunTKrBCi6mTyVoqzyfsvIQolyIRvjZ/puHGPCvG5h/paIMaN0Wii3wmxgOiBxt2ETREGIlYaN2DydtPBGIP4fxbdgr8h/Qyc7j9/3ry5sUD2Nt6g/IJoe62PLjUWP5Eg/ocTh1++d2Jnoj4WiHE3cTvRG0KsIypu3E3oFE1AxHBjd8Odur6B4glk93CP+QuTXtwI8ipRkbnJA0RlHxJNMhbrU+SdurliqXG3kTc+oxFEWCBvh4GETtEUZJOxr00OXd1g8QRi3AitHN/B+DHt9IPs8SMI415i69dEQ43FL+RvSLXxHx946ILPhMiMABI6RROQhkuMPV3S4ND1DRRHIO/NnbtDiGM3Eq01QR4QtW2p/UHjDqAjeSpFR0r7jxDzQ0F+b91XvEsRQMKmCAd5jOhkoiVOX/E4AvkH0Vnr/lLa31x+jmjUXvFr4zsrSs8huk2IuUR9n7zDEwpSZtxgPf20MUG+EiRsijCQTzOp/d5syvzU4SseRyDixsa/uu40bmpSzAeG3w5qfBBRKURlH3OpWyjI16ea38rLosz/KUFCpwgDuZzoPvMX7gqHr3g8gdStuuz01FMufqbe+HbJ6WndjUfqj1/WMfdS/yP1qlt65F6zPxRE7BqW1X36NwXm/Y0KJHSKUBDjj95Oh8XhTkQrHbzWgi9IzH2+/3Pj8lOiQrePxF4JA5JP9Jw4OpGo3O0jsVfCgDzfhuj0HKLxbh+IzRIGRLz7425pnQetrnf7OGyWOCAJEkCYBRBmAYRZAGEWQJgFEGYBhFkAYRZAmAUQZgGEWQBhFkCYBRBmAYRZAGEWQJgFEGYBhFkAYRZAmAUQZgGEWQBhFkCYBRBmAYRZAGEWQJgFEGYBhFkAYRZAmAUQZgGEWQCx24FZRYrmHNCYDiB229BVBdJ1g8Z0ALHbhsGqNYMB4kZMQTZPlY1c1EJTxklMQT4olg2e1vzWiRRTkGD33NPiU7IOIMwCCLMAwiyAMAsgzAIIswDCLIAwCyDMAgizAMIsgDALIMwCCLMAwiyAMAsgzHIdZGdpyZL1f1evB4jMEZC1/fynCOq1SrUFQGROgKylkWW7Kyr2rJ+Q8oxiE4DInAA5/zq5VHihYhOAyJwAab9ULr2SpdgEIDInQAYNO+pfqL/+UsUmAJE5AbLFl3/v+rfeKi8+P22TYhOAyBz5K2vbWOss897R76i2AIjMocchNfs2v7GnSr0eIDLHHqk3bLx/0XblWoDInADJXixE9UBKaUNTVOenA4jMCRBaKMQdqcuqa1a3fVixCUBkToHkzTSXZp2j2AQgMqdA2lmncS7NCFuxLEfWdqTGYcRxLoMsEGJgkbk07bywFUc+lk2fpXEYcZzLIJ68YQW+HeJocfp9ik1wkyVzAuTNZXdfe27WcrGVRuKvLH8MHoeIOlGxRbkyQUG2lCkqGqAa4ghIbfn8smPmwruPKLZIUJCeP7zm+J2VoxriBMjBAUSU/5mxVKIamaAgPVTPWv/KVZBp2S9Wbew0oBYggdwFOd3822qHbzFAArkLkrXCvJyV+zVAZO6CDLqqwbg8fOZ4gMjcBVmTMmp5pRCbfSOmAMSfuyDiyZPpfePL610JIP5cBhENXxwxv9S/vVyxAUBkeG1vawYQZgGEWQBhFkCYBRBmAYRZAGEWQJgFEGYBhFkAYZbzIBcsOaQx/rsBRGYT5Aqvb8z6YxpTNAkgMrs3WRWLL6QTp2/TmCQsgMha4D7k43k9qNf8zzTmCQYQmX2QYxtvOpHyM7x3aUwUCCAymyBHNkzOpr737hVVs2mPxkwygMhsgmRS/m92W0vV9FLM8/z3NdnEOzUOg3/Og/x6l1yq318b8zxrz5N1GqNxGPxz4T7k2SFfic2XPKcxSVi4yZLZBClPOatSfDKU1mjMEhpAZDZBLhplvQVnjOrNnNEGEJndO3X/C61WZqg2jTKAyGyC9PO/WXN2H41ZQgOIzCbIwyc8+KU4VOIr1pglNIDI7P6VVZRKXvL8TPVmzmgDiMz2P53sX/fgM/s05ggPIDLbIP/Zb6UxS2gAkdkE+VsX/wfA2n0OESAymyAXdn74dSuNWUIDiMwmSGqJxvDjBBCZPZBjnvUaw48TQGQ2f0MmXnxYY/x3A4jMJsjvTjpl0m23G2nMEhpAZDZBesk0ZgkNIDK8UK41cwPkzQfuEbuUW0YbQGR2X+QwglJIdBsW4TOSrZL0hC7Og9zVbu1uEuU5hRG3T9oTujgPctpc8S/jv2afEWnz5D2hi/MgGastkNURnzFM3hO6OA9ScIMF8hPlRwiaJe8JXZwHeTHl5jJ6fw6tiLR58p7QxYU/e1d1Nu6sMxdE3Dx5T+jixuOQo/8s31rZzPZJe0IXFx6HyJoZkaQndHEehCjaZwyT8oQuzoOUmi0e7l0UafPkPaGLa/+4OOXUukibJ+0JXVwDeZUqIm2etCd0cQ1kfmbEzVUndPlLkewHN2gcBv+cB1loNSV9RMTNVSd0ea9YNvinGofBpfIOOYq8GxVDWg0k16rj5f+OuHmCn9BlyZiPFZ2wVjHE3WcME/2ELksmq9b4HAf5c0gHIg9K3BO6cALxUjA7L9ECiMwmyHbvtRv/+cr4E9/et29fjcZMMoDIbIIMH2d9mXilxiyhAURmEyTnaevLqtwIW9dcGJJiG4DIbIL0nGF9mXlmhK3rl3Wjflc2ptgGIDKbIHO8JUfEkce8t0bc/lNvcy+SB4jMJkjd9Smejh4a2swd+rkACa8VHxi+VzJz4ebmBvz1k2Y2AIgMLyW1HyeQaF9K2lwAkTnyUtLmA4jMiZeSRhFAZE68lDSKACJz4qWkUQQQmRMvJY0igMiceClpFAFEZg+kes2BaF5K2nwAkdkDaTitVGP4cQKIzOZN1qIL8MEBrEBKBnacMOOXRhqzhAYQmU2QbjKNWUIDiAwfHGA/LiDjmv1X9+gDiMwGCJmf2Vtu91NO/AFEZhektGVuvgAiA4j9AMIsgDCLDcgT1dXVT1G1lcYsQqw4U5Y9SmsCHrEBCU1jFiFqAm+kuKVIawIecQGZG5rGLKHhJkuGR+r2AwizAMIsgDALIMwCCLMA4k7V/1W08DrVEIC0ZrnZis9r8PVUDQFIa9b2oGLFuDzVEIC0ZgBhFkCYBRBmAYRZAGEWQJgFEGYBhFkAYRZAmAUQV/p3mSpfIoFwO0vb0UnXKOp9mmoNfaSYLP5A+J2l7aBP9XvQq0A1hj5UrIg7EIZnaTvYVrWmoEC1JnFAGJ6lLblBGJ6lLblBGJ6lLblBGJ6lLblBGJ6lLclBVGdpq9wumzJT4zBslPQgxz9L2zOBN+zkXKUxpY2SG4ThWdqSG4ThWdoAwuwsbQA57lnaggFE5giI6ixtwQAicwSE31nakhuE4VnakhvEnxtnaVs+RNFAj2pI8oBErJVAJv9E8TTUo8qrABCr1gJZoljxIUAiBxAZQJoEECuAyADSJIBY2QKpnlOkqO9vFEMA0ky2QP7eQQWSPV4xBCDNZA+kh2pNHkA0A4gMIE0CiFU0IJMVn2yR0z5dNQQgukUDMvgPHx+/RT7VEIDoFhWI6lDXAERjTOQAIgNIkwBiBRAZQJoEEKsgyG7Vs65DOjyuGAyQ1gTZ0P81RRm/UgwGSGu+C3fDYNU2OQBR1ZrvwgWIak2EWvNduABRrYlQS70Ld1vgiYuLbpLf29BV9eRGWoFixWiP8vmQ3ooVU0k1pHNn1RqaqljRO1s1xDNasaIgTTWkq5vvwg2CTAn86hyYpTrUa6YrVsxQXe2iiaqfYeEI1ZAbblCtGVGoWDF1gmrI6BmKFdPHqobMOdD6IFG8CxfZquXfhYts1fLvwkW2aql34aIWquUfqSNbAYRZzEC+vEr1N2R0qf8GjS71n73RNUX1cDnqmIFsUb5QLrrGKh+LRtfQPvbGBx8V68YMRP0yoOhS/2tNdKlPeRRd9l/YDJCwANIkgAAkLIA0CSAACQsgTQIIQMICSJMAwgykerW98Qd0njUN6aPN9sbv3GlvPDsQBBBmAYRZAGEWQJgFEGYBhFkAYRZAmAUQZgGEWQBhFkCYxQTkbf8b5WisEFsGZX1f9W6lKMZvtr5mx3wES89u1/N+870WWvsPjtfdv4wJyP6FZvM8vxXbUoctnZQS608kOH6ZZ4GxtDjWAyihMUvv8k0XmvsPjtfcfyAmIP4Kz6kVY/ON/81+1E97/N3KdwlGrPco4+KXqcd09x8Yr7n/QJxAdqb/Q9R45hlLZaTzRI85Xlw7TGvf35tqXDzkrdLdvxyvu/9AnEC+f6sQ+2i9sbSbSjXHi3MvHpjRbUZ1rGNnZq6oeKHrSO39y/G6+w/ECGRduwPmfeJbxmIFlWiOF1m+wpV3+gY1xDi47jLjrrhnpfb+5Xjd/QfiA1Lfyzy31RuNPxDVxyY3N75u+Q7jchltjHH0tMz5ryzuNOyY7v7leN39B+ID8jLtNS73ULl1uV5zvL/qlPtjG7yNlhuXW6hUc/+B8Zr7D8YH5OqLzMsqT7FxuZ4ifJhKxPEVW83HEjVtFsU2eDXtNi7r2szV3H9gvOb+g7EBqTzhIevr6PPrhZjQS3f8FjJ/oGtoW2yj37duozbR85r7D4zX3H8wNiDljdfhndTJrxalKD/aptnxI9N/tuqe9BtjHX5dWuHa+zpcVKe7/8B4zf0HYgNya3qtf+FPA7MGxO4RGF8379yMsx9UnbFM2bEFfdN7FFZp7z8wXnP/gdiAIH8AYRZAmAUQZgGEWQBhFkCYBRBmAYRZAGEWQJgFEGYBhFkAYRZAmAUQZgGEWQBhFkCYBRBmAYRZAGEWQJgFEGYBhFkAYRZAmAUQZgGEWQBhFkCYlbAgb5pnT/4kfYHbxxFrCQsifnHSQTHkB/rvnHGpxAWpPuP6ZW33Nr8dsxIXRGxKafeI28cQewkMIvqnfu32IcReAoOsSOt4s9vHEHuJC/J59vx1KW+4fRQxl7ggV/SvFaPzatw+jFhLWJBlnh1C7G9/p9vHEWsJCxKvAYRZAGEWQJgFEGYBhFkAYRZAmAUQZgGEWQBhFkCYBRBmAYRZAGEWQJgFEGYBhFkAYRZAmAUQZgGEWQBhFkCYBRBmAYRZ/weWvkPtHx3TFAAAAABJRU5ErkJggg==" alt="plot of chunk unnamed-chunk-1" /><br />
+</p>
+<p>What claim can you make regarding the mean and median?</p>
+<br/>
+<ol type="a">
+<li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">mean</mtext><mo>≈</mo><mtext mathvariant="normal">median</mtext></mrow><annotation encoding="application/x-tex">\text{mean} \approx \text{median}</annotation></semantics></math>
+</li>
+<li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">mean</mtext><mo>&gt;</mo><mtext mathvariant="normal">median</mtext></mrow><annotation encoding="application/x-tex">\text{mean} &gt; \text{median}</annotation></semantics></math>
+</li>
+<li>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">mean</mtext><mo>&lt;</mo><mtext mathvariant="normal">median</mtext></mrow><annotation encoding="application/x-tex">\text{mean} &lt; \text{median}</annotation></semantics></math>
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

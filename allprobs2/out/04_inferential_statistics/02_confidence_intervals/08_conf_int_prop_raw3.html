@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>statistics</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<ol>
+<li>
+04_inferential_statistics/02_confidence_intervals/08_conf_int_prop_raw
+<p>A basketball player has decided to estimate her probability to score a <a href="https://en.wikipedia.org/wiki/Free_throw" target="blank">freethrow</a>. To do this, she shoots freethrows. If she scores, she records a “1”. If she misses, she records a “0”.</p>
+<p>The results are shown below and can be <a href="data:text/csv;base64,IngiCjEKMAowCjEKMQowCjAKMAowCjAKMAowCjAKMQowCjAKMQoxCjEKMQoxCjEKMAowCjAKMAowCjEKMQoxCjAKMQoxCjAKMQowCjEKMQowCjEKMAoxCjEKMQoxCjEKMAoxCjEKMAowCjAKMAowCjEKMQoxCjAKMQowCjEKMAoxCjAKMAoxCjEKMAowCjAKMAowCjAKMQoxCjAKMAowCjAKMQoxCjAKMAoxCjAKMAowCjEKMQowCjAKMAoxCjEKMQoxCjAKMAowCjEKMAowCjEKMQoxCjEKMQoxCjEKMQoxCjAKMAowCjAKMQowCjAKMAowCjEKMAoxCjAKMQowCjEKMQowCjEKMQowCjAKMQoxCjAKMAowCjEKMAowCjAKMQowCjAKMAoxCjAKMQowCjEKMAoxCjEKMQowCjEKMAowCjEKMAowCjAKMAoxCjAKMAowCjEKMAowCjEKMAowCjAKMQowCjEKMQoxCjEKMQoxCjAKMQoxCjEKMAowCjEKMAowCjEKMAowCjEKMQowCjAKMQowCjAKMQowCjAKMAoxCjAKMAowCjEKMQowCjEKMQowCjAKMQowCjEKMAoxCjAKMAoxCjEKMQoxCjEKMAowCjAKMAowCjEKMAowCjEKMAowCjEKMAoxCjEKMAowCjAKMQoxCjAKMAoxCjAKMQowCjAKMAowCjAKMAowCjAKMAoxCjEKMAoxCjEKMAowCjAKMQoxCjEKMQoxCjEKMQoxCjEKMQoxCjEKMAowCjAKMAowCjAKMQowCjEKMAowCjAKMAoxCjEKMQowCjAKMAowCjAKMAowCg==" download="freethrows.csv" target="blank">downloaded as a csv</a>.</p>
+<pre><code>1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0</code></pre>
+<p>You are asked to determine a <a href="https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval" target="blank">confidence interval</a> using a given confidence level: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>γ</mi><mo>=</mo><mn>0.96</mn></mrow><annotation encoding="application/x-tex">\gamma=0.96</annotation></semantics></math>. To do this, you <a href="https://en.wikipedia.org/wiki/Confidence_interval#Basic_steps" target="blank">determine</a> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>z</mi><mo>⋆</mo></msup><annotation encoding="application/x-tex">z^\star</annotation></semantics></math> such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><mi>Z</mi><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><msup><mi>z</mi><mo>⋆</mo></msup><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.96</mn></mrow><annotation encoding="application/x-tex">P(|Z|&lt;z^\star)=0.96</annotation></semantics></math>. You also calculate the sample size and sample proportion. Then, you use the following formulas: <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">LB</mtext><mo>=</mo><mover><mi>p</mi><mo accent="true">̂</mo></mover><mo>−</mo><msup><mi>z</mi><mo>⋆</mo></msup><msqrt><mfrac><mrow><mover><mi>p</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mover><mi>p</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="postfix">)</mo></mrow><mi>n</mi></mfrac></msqrt></mrow><annotation encoding="application/x-tex">\text{LB} = \hat{p}-z^\star \sqrt{\frac{\hat{p}(1-\hat{p})}{n}} </annotation></semantics></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">UB</mtext><mo>=</mo><mover><mi>p</mi><mo accent="true">̂</mo></mover><mo>+</mo><msup><mi>z</mi><mo>⋆</mo></msup><msqrt><mfrac><mrow><mover><mi>p</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mover><mi>p</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="postfix">)</mo></mrow><mi>n</mi></mfrac></msqrt></mrow><annotation encoding="application/x-tex">\text{UB} = \hat{p}+z^\star \sqrt{\frac{\hat{p}(1-\hat{p})}{n}} </annotation></semantics></math></p>
+<br/>
+<ol type="a">
+<li>
+Determine the lower boundary of the confidence interval
+</li>
+<li>
+Determine the upper boundary of the confidence interval
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

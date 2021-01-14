@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>statistics</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<ol>
+<li>
+01_data_basics/02_proportion/05_read_frequency_distribution_prop
+<p>A random procedure generated 100 measurements, which were organized into the frequency distribution shown below. You can assume the measurements are of a <a href="https://en.wikipedia.org/wiki/Continuous_or_discrete_variable">continuous random variable</a>, such that every measurement is in one of the intervals (and not on a break).</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">interval</th>
+<th align="center">frequency</th>
+<th align="center">relative frequency</th>
+<th align="center">density</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">45 to 45.5</td>
+<td align="center">2</td>
+<td align="center">0.02</td>
+<td align="center">0.04</td>
+</tr>
+<tr class="even">
+<td align="center">45.5 to 46</td>
+<td align="center">1</td>
+<td align="center">0.01</td>
+<td align="center">0.02</td>
+</tr>
+<tr class="odd">
+<td align="center">46 to 46.5</td>
+<td align="center">7</td>
+<td align="center">0.07</td>
+<td align="center">0.14</td>
+</tr>
+<tr class="even">
+<td align="center">46.5 to 47</td>
+<td align="center">2</td>
+<td align="center">0.02</td>
+<td align="center">0.04</td>
+</tr>
+<tr class="odd">
+<td align="center">47 to 47.5</td>
+<td align="center">6</td>
+<td align="center">0.06</td>
+<td align="center">0.12</td>
+</tr>
+<tr class="even">
+<td align="center">47.5 to 48</td>
+<td align="center">5</td>
+<td align="center">0.05</td>
+<td align="center">0.1</td>
+</tr>
+<tr class="odd">
+<td align="center">48 to 48.5</td>
+<td align="center">7</td>
+<td align="center">0.07</td>
+<td align="center">0.14</td>
+</tr>
+<tr class="even">
+<td align="center">48.5 to 49</td>
+<td align="center">14</td>
+<td align="center">0.14</td>
+<td align="center">0.28</td>
+</tr>
+<tr class="odd">
+<td align="center">49 to 49.5</td>
+<td align="center">17</td>
+<td align="center">0.17</td>
+<td align="center">0.34</td>
+</tr>
+<tr class="even">
+<td align="center">49.5 to 50</td>
+<td align="center">39</td>
+<td align="center">0.39</td>
+<td align="center">0.78</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+<li>
+Evaluate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>48.5</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&lt;48.5]</annotation></semantics></math>.
+</li>
+<li>
+Evaluate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&gt;</mo><mn>47.5</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&gt;47.5]</annotation></semantics></math>.
+</li>
+<li>
+Evaluate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mo stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>47.25</mn><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1.25</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\text{prop}[|\mathbf{x}-47.25|&lt;1.25]</annotation></semantics></math>.
+</li>
+<li>
+Evaluate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mo stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>48</mn><mo stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mn>1.5</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\text{prop}[|\mathbf{x}-48|&gt;1.5]</annotation></semantics></math>.
+</li>
+<li>
+Evaluate boundary <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math> such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mi>b</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.23</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&lt;b] = 0.23</annotation></semantics></math>.
+</li>
+<li>
+Evaluate boundary <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math> such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&gt;</mo><mi>b</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.82</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&gt;b] = 0.82</annotation></semantics></math>.
+</li>
+<li>
+Evaluate radius <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math> such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mo stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>48.25</mn><mo stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mi>r</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.49</mn></mrow><annotation encoding="application/x-tex">\text{prop}[|\mathbf{x}-48.25|&lt;r] = 0.49</annotation></semantics></math>.
+</li>
+<li>
+Evaluate radius <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math> such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mo stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>49.25</mn><mo stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mi>r</mi><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.83</mn></mrow><annotation encoding="application/x-tex">\text{prop}[|\mathbf{x}-49.25|&gt;r] = 0.83</annotation></semantics></math>.
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

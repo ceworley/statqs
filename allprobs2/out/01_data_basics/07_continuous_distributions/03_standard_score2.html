@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>statistics</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<ol>
+<li>
+01_data_basics/07_continuous_distributions/03_standard_score
+<h3 id="background">Background</h3>
+<p>A <a href="https://en.wikipedia.org/wiki/Standard_score" target="blank">standard score</a> (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>) can be calculated from a measurement (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>), the population mean (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>), and the population standard deviation (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>). <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mfrac><mrow><mi>x</mi><mo>−</mo><mi>μ</mi></mrow><mi>σ</mi></mfrac></mrow><annotation encoding="application/x-tex">z = \frac{x-\mu}{\sigma} </annotation></semantics></math> With a little algebra, you can create another formula solved for the measurement. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>μ</mi><mo>+</mo><mi>z</mi><mi>σ</mi></mrow><annotation encoding="application/x-tex">x = \mu+z\sigma</annotation></semantics></math></p>
+<h3 id="actual-question">Actual question</h3>
+<p>A gambler is interested in the sum of 150 rolls of 12-sided dice. The process of summing 150 rolls of 12-sided dice can be repeated infinitely many times, giving independent results each time, so those sums can be thought of as an infinitely large population. This population happens to be approximately normal (see <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="blank">central limit theorem</a>).</p>
+<p>The gambler knows how to calculate the population mean (see <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="blank">discrete-uniform distribution</a>). <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>150</mn><mo>⋅</mo><mfrac><mrow><mn>1</mn><mo>+</mo><mn>12</mn></mrow><mn>2</mn></mfrac><mo>=</mo><mn>975</mn></mrow><annotation encoding="application/x-tex">\mu = 150\cdot\frac{1+12}{2} = 975 </annotation></semantics></math> She also knows how to calculate the population standard deviation. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>=</mo><msqrt><mn>150</mn></msqrt><mo>⋅</mo><msqrt><mfrac><mrow><msup><mn>12</mn><mn>2</mn></msup><mo>−</mo><mn>1</mn></mrow><mn>12</mn></mfrac></msqrt><mo>=</mo><mn>42.28</mn></mrow><annotation encoding="application/x-tex">\sigma = \sqrt{150} \cdot \sqrt{\frac{12^2-1}{12}} = 42.28 </annotation></semantics></math></p>
+<br/>
+<ol type="a">
+<li>
+If the gambler rolled a sum of 983 (in other words got a measurement <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>983</mn></mrow><annotation encoding="application/x-tex">x=983</annotation></semantics></math>), what is the standard score? (Determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>; you can round to the nearest hundredth.)
+</li>
+<li>
+If the gambler got a standard score of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mn>1.58</mn></mrow><annotation encoding="application/x-tex">z=1.58</annotation></semantics></math>, what is the sum? (Determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>, rounding to the nearest integer.)
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

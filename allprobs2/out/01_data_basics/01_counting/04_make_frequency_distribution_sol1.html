@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>statistics</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<ol>
+<li>
+solution_01_data_basics/01_counting/04_make_frequency_distribution
+<p>You will want to use a computer to answer these questions.</p>
+<p>In a spreadsheet, open the data, add the breaks as a column; then, use the <a href="https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_FREQUENCY_function" target="blank"><code>FREQUENCY function</code></a>.</p>
+<p>In R, open the data and use the <a href="https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/hist"><code>hist</code></a> function. You supply the breaks and read the counts:</p>
+<pre class="text"><code>mydata = read.csv(&quot;make_freq_dist.csv&quot;)
+x = mydata$x
+myhist = hist(x,breaks=c(50,51,52,53,54,55))</code></pre>
+<pre class="text"><code>myhist$counts</code></pre>
+<pre><code>## [1] 13 23 18 17  9</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="center">interval</th>
+<th align="center">frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">50 to 51</td>
+<td align="center">13</td>
+</tr>
+<tr class="even">
+<td align="center">51 to 52</td>
+<td align="center">23</td>
+</tr>
+<tr class="odd">
+<td align="center">52 to 53</td>
+<td align="center">18</td>
+</tr>
+<tr class="even">
+<td align="center">53 to 54</td>
+<td align="center">17</td>
+</tr>
+<tr class="odd">
+<td align="center">54 to 55</td>
+<td align="center">9</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+<li>
+
+</li>
+<li>
+
+</li>
+<li>
+
+</li>
+<li>
+
+</li>
+<li>
+
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

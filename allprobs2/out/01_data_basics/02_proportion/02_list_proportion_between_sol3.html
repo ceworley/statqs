@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>statistics</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<ol>
+<li>
+solution_01_data_basics/02_proportion/02_list_proportion_between
+<p>First, it helps to sort the data. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">sort</mtext><mo stretchy="false" form="prefix">(</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>32</mn><mo>,</mo><mn>32</mn><mo>,</mo><mn>33</mn><mo>,</mo><mn>34</mn><mo>,</mo><mn>36</mn><mo>,</mo><mn>37</mn><mo>,</mo><mn>37</mn><mo>,</mo><mn>38</mn><mo>,</mo><mn>39</mn><mo>,</mo><mn>39</mn></mrow><annotation encoding="application/x-tex">\text{sort}(\mathbf{x}) = 32, 32, 33, 34, 36, 37, 37, 38, 39, 39</annotation></semantics></math></p>
+<p>You could use R to sort the data:</p>
+<pre><code>sort(c(38,39,33,36,32,34,39,37,32,37))</code></pre>
+<pre><code>##  [1] 32 32 33 34 36 37 37 38 39 39</code></pre>
+<p>You could also use a spreadsheet. Import the table into a spreadsheet. Then, highlight the column of measurements and use <code>Sort</code> function.</p>
+<br/>
+<ol type="a">
+<li>
+The proportion of measurements between 33.5 and 36.5 is 0.2. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mn>33.5</mn><mo>&lt;</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>36.5</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.2</mn></mrow><annotation encoding="application/x-tex">\text{prop}[33.5&lt;\mathbf{x}&lt;36.5]=0.2</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements outside 33.5 and 35.5 is 0.9. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mtext mathvariant="monospace">𝙽𝙾𝚃</mtext><mo stretchy="false" form="prefix">(</mo><mn>33.5</mn><mo>&lt;</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>35.5</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.9</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\texttt{NOT}(33.5&lt;\mathbf{x}&lt;35.5)]=0.9</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements closer than 1 cm from 32.5 cm is 0.3. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>32.5</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1</mn><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><mn>0.3</mn></mrow><annotation encoding="application/x-tex">\text{prop}\left[\big|\mathbf{x}-32.5\big|&lt;1\right] = 0.3</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements farther than 1 cm from 36.5 cm is 0.7. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>36.5</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mn>1</mn><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><mn>0.7</mn></mrow><annotation encoding="application/x-tex">\text{prop}\left[\big|\mathbf{x}-36.5\big|&gt;1\right] = 0.7</annotation></semantics></math>
+</li>
+<li>
+You can guess and check until you find a half-integer that satisfies the equation. It turns out that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>3.5</mn></mrow><annotation encoding="application/x-tex">r = 3.5</annotation></semantics></math> satisfies the equation, because <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>36</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>3.5</mn><mo stretchy="true" form="postfix">]</mo></mrow><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.8</mn></mrow><annotation encoding="application/x-tex">\text{prop}\left[\big|\mathbf{x}-36\big|&lt;3.5\right] ~=~ 0.8</annotation></semantics></math>
+</li>
+<li>
+You can guess and check until you find a half-integer that satisfies the equation. It turns out that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">r = 0.5</annotation></semantics></math> satisfies the equation, because <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>38</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mn>0.5</mn><mo stretchy="true" form="postfix">]</mo></mrow><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.9</mn></mrow><annotation encoding="application/x-tex">\text{prop}\left[\big|\mathbf{x}-38\big|&gt;0.5\right] ~=~ 0.9</annotation></semantics></math>
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

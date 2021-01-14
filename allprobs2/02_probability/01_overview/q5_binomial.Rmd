@@ -1,0 +1,61 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+
+while(T){
+  n = sample(7:10,1)
+  p = round(runif(1,0.3,0.7),2)
+  x1 = sample(3:(n-3),1)
+  x2 = sample(c(1,2,n-2,n-1),1)
+  p1 = 1-pbinom(x2,n,p)
+  p2 = 1-pbinom(x2-1,n,p)
+  p3 = pbinom(x2-1,n,p)
+  p4 = pbinom(x2,n,p)
+  ps = c(p1,p2,p3,p4)
+  if(x1 != x2 & max(ps) < 0.98 & min(ps) > 0.02) {
+    break
+  }
+}
+```
+
+Question
+========
+In some situation, each trial has `r p` probability of success. There will be `r n` trials. (Thus the number of successes will follow a [binomial distribution](https://en.wikipedia.org/wiki/Binomial_distribution){target="blank"}.)
+
+Answerlist
+--------
+* What is the probability of getting exactly `r x1` successes? In other words, determine $\mathbb{P}[X = `r x1`]$.
+* What is the probability of getting exactly `r x2` successes? In other words, determine $\mathbb{P}[X = `r x2`]$.
+* What is the probability of getting more than `r x2` successes? In other words, determine $\mathbb{P}[X > `r x2`]$.
+* What is the probability of getting at least `r x2` successes? In other words, determine $\mathbb{P}[X \ge `r x2`]$.
+* What is the probability of getting less than `r x2` successes? In other words, determine $\mathbb{P}[X < `r x2`]$.
+* What is the probability of getting at most `r x2` successes? In other words, determine $\mathbb{P}[X \le `r x2`]$.
+* Determine the mean number of successes.
+* Determine the standard deviation of successes.
+
+Solution
+========
+
+This is a binomial distribution, so use the appropriate formulas. $$\mathbb{P}[X=x] ~=~ _n\text{C}_x \cdot p^x(1-p)^{n-x}$$ where $p$ is the probability of success on each trial, $x$ is a specific number of successes, $n$ is the number of trials, and $C$ is the combinations operator (so that ${_n}C_x = \frac{n!}{(n-x)! \, x!}$). Some people prefer to also use $q$ as the probability of failure, such that $q=1-p$.
+$$\mathbb{P}[X=x] ~=~ _n\text{C}_x \cdot p^xq^{n-x}$$
+
+You will also need to add [mutually exclusive](https://en.wikipedia.org/wiki/Mutual_exclusivity){target="blank"} probabilities (when multiple $x$-values satisfy the probability's condition). It is also helpful to be aware of the [complement rule](https://en.wikipedia.org/wiki/Complementary_event#Complement_rule){target="blank"}.
+
+Answerlist
+--------
+* $\text{Pr}(X=`r x1`) ~=~ \left({_{`r n`}}C_{`r x1`}\right)\left(`r p`^{`r x1`}\right) \left(`r 1-p`^{`r n-x1`}\right) ~=~ `r dbinom(x1,n,p)`$
+* $\text{Pr}(X=`r x2`) ~=~ \left({_{`r n`}}C_{`r x2`}\right)\left(`r p`^{`r x2`}\right)\left(`r 1-p`^{`r n-x2`}\right) ~=~ `r dbinom(x2,n,p)`$
+* $\text{Pr}(X > `r x2`) ~=~ `r 1-pbinom(x2,n,p)`$
+* $\text{Pr}(X \ge `r x2`) ~=~ `r 1-pbinom(x2-1,n,p)`$
+* $\text{Pr}(X < `r x2`) ~=~ `r pbinom(x2-1,n,p)`$
+* $\text{Pr}(X \le `r x2`) ~=~ `r pbinom(x2,n,p)`$
+* Because this is a binomial distribution, $\mu = np$, so $\mu = `r n*p`$
+* Because this is a binomial distribution, $\sigma = \sqrt{npq}$, so $\sigma = `r sqrt(n*p*(1-p))`$
+
+Meta-information
+============
+extype: cloze
+exsolution: `r dbinom(x1,n,p)`|`r dbinom(x2,n,p)`|`r 1-pbinom(x2,n,p)`|`r 1-pbinom(x2-1,n,p)`|`r pbinom(x2-1,n,p)`|`r pbinom(x2,n,p)`|`r n*p`|`r sqrt(n*p*(1-p))`
+exclozetype: num|num|num|num|num|num|num|num
+exname: binomial
+extol: 0.01
+exextra[numwidth,logical]: TRUE

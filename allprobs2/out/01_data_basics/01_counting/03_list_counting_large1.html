@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>statistics</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<ol>
+<li>
+01_data_basics/01_counting/03_list_counting_large
+<p>A random procedure generated many measurements: <a href="data:text/csv;base64,aSx4CjEsODYuMzUKMiw4NS42OQozLDg4LjEKNCw4MC45MQo1LDgyLjA2CjYsODMuNDMKNyw4NC40NAo4LDgzLjcyCjksODguNzQKMTAsODEuNQoxMSw4NS40NQoxMiw4MC4xNgoxMyw4Ni40NAoxNCw4MC41MQoxNSw4My4yMgoxNiw4NC43MQoxNyw4Mi42OAoxOCw4OC42NgoxOSw4NS4wNAoyMCw4Mi40NQoyMSw4OS4wMwoyMiw4MS4wOQoyMyw4OS44CjI0LDg5LjI5CjI1LDgwLjU2CjI2LDg2LjIyCjI3LDg4LjE4CjI4LDgxLjEKMjksODguMjgKMzAsODYuMjkKMzEsODQuNTkKMzIsODMuNDQKMzMsODguODEKMzQsODAuOTYKMzUsODcuMjEKMzYsODMuNzcKMzcsODEuMDUKMzgsODQuNTIKMzksODQuNjEKNDAsODkuMzEKNDEsODMuNAo0Miw4OC42CjQzLDg0Ljk4CjQ0LDg5LjQKNDUsODcuNDgKNDYsODMuNQo0Nyw4My42MQo0OCw4MS44Mwo0OSw4Ny43NAo1MCw4NS4xMQo1MSw4Ny40Ngo1Miw4MS44OQo1Myw4Mi42OAo1NCw4OS4wNQo1NSw4NC42Nwo1Niw4NC4yMQo1Nyw4NS40CjU4LDg2LjQ4CjU5LDg0LjgxCjYwLDg1LjUyCjYxLDg1LjM0CjYyLDgzLjc4CjYzLDg4LjgKNjQsODguNzYKNjUsODAuODEKNjYsODEuNTUKNjcsODkuNTgKNjgsODYuMjEKNjksODUuMTEKNzAsODYuNzQKNzEsODIuMjIKNzIsODYuNzkKNzMsODEuNDYKNzQsODIuMDgKNzUsODguNzMKNzYsODYuNzUKNzcsODguNzcKNzgsODIuNTgKNzksODkuNjUKODAsODEuMTUK" download="list_counting_large_data_34387.csv">list_counting_large_data_34387.csv</a></p>
+<pre><code>86.35, 85.69, 88.1, 80.91, 82.06, 83.43, 84.44, 83.72, 88.74, 81.5, 85.45, 80.16, 86.44, 80.51, 83.22, 84.71, 82.68, 88.66, 85.04, 82.45, 89.03, 81.09, 89.8, 89.29, 80.56, 86.22, 88.18, 81.1, 88.28, 86.29, 84.59, 83.44, 88.81, 80.96, 87.21, 83.77, 81.05, 84.52, 84.61, 89.31, 83.4, 88.6, 84.98, 89.4, 87.48, 83.5, 83.61, 81.83, 87.74, 85.11, 87.46, 81.89, 82.68, 89.05, 84.67, 84.21, 85.4, 86.48, 84.81, 85.52, 85.34, 83.78, 88.8, 88.76, 80.81, 81.55, 89.58, 86.21, 85.11, 86.74, 82.22, 86.79, 81.46, 82.08, 88.73, 86.75, 88.77, 82.58, 89.65, 81.15</code></pre>
+<br/>
+<ol type="a">
+<li>
+How many measurements are in the sample? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\#[\mathbf{x}]</annotation></semantics></math>. In the future, we will use <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> to denote the number of measurements in the sample.
+</li>
+<li>
+How many of the measurements are less than 80.4? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>80.4</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\#[\mathbf{x}&lt;80.4]</annotation></semantics></math>.
+</li>
+<li>
+How many of the measurements are greater than 80.8? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&gt;</mo><mn>80.8</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\#[\mathbf{x}&gt;80.8]</annotation></semantics></math>.
+</li>
+<li>
+How many of the measurements are closer than 1.5 units from 84.9? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>84.9</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>1.5</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\#\left[\big|\mathbf{x}-84.9\big|&lt;1.5\right]</annotation></semantics></math>.
+</li>
+<li>
+How many of the measurements are farther than 1.5 units from 87.2? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>87.2</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mn>1.5</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\#\left[\big|\mathbf{x}-87.2\big|&gt;1.5\right]</annotation></semantics></math>.
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

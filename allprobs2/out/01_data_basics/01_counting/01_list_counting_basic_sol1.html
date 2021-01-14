@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>statistics</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<ol>
+<li>
+solution_01_data_basics/01_counting/01_list_counting_basic
+<p>First, it helps to sort the data. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">sort</mtext><mo stretchy="false" form="prefix">(</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>80</mn><mo>,</mo><mn>81</mn><mo>,</mo><mn>82</mn><mo>,</mo><mn>83</mn><mo>,</mo><mn>84</mn><mo>,</mo><mn>84</mn><mo>,</mo><mn>86</mn><mo>,</mo><mn>87</mn><mo>,</mo><mn>87</mn><mo>,</mo><mn>89</mn></mrow><annotation encoding="application/x-tex">\text{sort}(\mathbf{x}) = 80, 81, 82, 83, 84, 84, 86, 87, 87, 89</annotation></semantics></math></p>
+<p>You could use R to sort the data:</p>
+<pre><code>sort(c(82,84,83,80,81,86,87,87,89,84))</code></pre>
+<pre><code>##  [1] 80 81 82 83 84 84 86 87 87 89</code></pre>
+<p>You could also use a spreadsheet. Import the table into a spreadsheet. Then, highlight the column of measurements and use <a href="https://wiki.openoffice.org/wiki/Documentation/OOo3_User_Guides/Calc_Guide/Sorting_data" target="blank"><code>Sort</code> function</a>.</p>
+<br/>
+<ol type="a">
+<li>
+There are 2 measurements less than 82.
+</li>
+<li>
+There are 9 measurements less than or equal to 87.
+</li>
+<li>
+There are 4 measurements greater than 84.
+</li>
+<li>
+There are 3 measurements greater than or equal to 87.
+</li>
+<li>
+Measurement value 84 has 4 measurements less than it, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><mo>=</mo><mn>84</mn></mrow><annotation encoding="application/x-tex">x_{\text{c}}=84</annotation></semantics></math>.
+</li>
+<li>
+Measurement value 81 has 2 measurements less than or equal to it, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><mo>=</mo><mn>81</mn></mrow><annotation encoding="application/x-tex">x_{\text{c}}=81</annotation></semantics></math>.
+</li>
+<li>
+Measurement value 80 has 9 measurements greater than it, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><mo>=</mo><mn>80</mn></mrow><annotation encoding="application/x-tex">x_{\text{c}}=80</annotation></semantics></math>.
+</li>
+<li>
+Measurement value 89 has 1 measurements greater than or equal to it, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><mo>=</mo><mn>89</mn></mrow><annotation encoding="application/x-tex">x_{\text{c}}=89</annotation></semantics></math>.
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

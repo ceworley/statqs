@@ -27,7 +27,7 @@ newfile = paste0(paste0(htmlintro,collapse=""),paste0(aaa,collapse=""),paste0(ht
 writeLines(newfile,"template.html")
 
 exams2html(myexam,question=qu,template="./template.html",
-             n=1,name=name,
+             n=1,name=name,mathjax = T,
              dir = "out",solution=F
              )
 

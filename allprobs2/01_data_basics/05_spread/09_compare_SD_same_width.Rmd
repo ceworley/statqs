@@ -1,0 +1,107 @@
+```{r,data,generation,echo=FALSE,results="hide",fig.show='hide'}
+
+type = sample(1:3,3) #bell, uniform, bimodal
+n = 10000
+beta1 = c(2,1,0.6)[type]
+beta2 = c(2,1,0.6)[type]
+mid = sample(seq(30,70,5),3)
+width = sample(seq(20,60,10),1)
+bottom = mid-width/2
+
+x1 = rbeta(n,beta1[1],beta2[1])*(width-0.02)+bottom[1]+0.01
+x2 = rbeta(n,beta1[2],beta2[2])*(width-0.02)+bottom[2]+0.01
+x3 = rbeta(n,beta1[3],beta2[3])*(width-0.02)+bottom[3]+0.01
+
+h1 = hist(x1,xlim=c(0,100),breaks=seq(0,100,2.5))
+h2 = hist(x2,xlim=c(0,100),breaks=seq(0,100,2.5))
+h3 = hist(x3,xlim=c(0,100),breaks=seq(0,100,2.5))
+
+counts1 = h1$counts
+counts2 = h2$counts
+counts3 = h3$counts
+
+ym = max(c(counts1,counts2,counts3))
+
+ans1 = paste0((mid==min(mid))*1,collapse="")
+ans2 = paste0((mid==max(mid))*1,collapse="")
+ans3 = paste0((type==min(type))*1,collapse="")
+ans4 = paste0((type==max(type))*1,collapse="")
+
+```
+
+
+Question
+========
+
+Three large samples were taken from three different populations. Their distributions are shown as histograms.
+
+```{r echo=F,fig.width=6,fig.height=4}
+par(mfrow=c(3,1),mar=c(0,0,0,0))
+par(mar=c(2,2,2,2))
+hist(x1,xlim=c(0,100),breaks=seq(0,100,2.5),ann=F,axes=F,ylim=c(0,ym),col=rgb(0.9,0.7,0.7))
+axis(1,line=0,at=seq(0,100,5))
+mtext("sample X",2,0,srt=90)
+
+par(mar=c(2,2,2,2))
+hist(x2,xlim=c(0,100),breaks=seq(0,100,2.5),ann=F,axes=F,ylim=c(0,ym),col=rgb(0.9,0.7,0.7))
+axis(1,line=0,at=seq(0,100,5))
+mtext("sample Y",2,0,srt=90)
+
+par(mar=c(2,2,2,2))
+hist(x3,xlim=c(0,100),breaks=seq(0,100,2.5),ann=F,axes=F,ylim=c(0,ym),col=rgb(0.9,0.7,0.7))
+axis(1,line=0,at=seq(0,100,5))
+mtext("sample Z",2,0,srt=90)
+```
+\
+
+a.  Which sample has the smallest mean? \#\#ANSWER1\#\#
+b.  Which sample has the largest mean? \#\#ANSWER2\#\#
+c.  Which sample has the smallest standard deviation? \#\#ANSWER3\#\#
+d.  Which sample has the largest standard deviation? \#\#ANSWER4\#\#
+
+
+Answerlist
+--------
+* X
+* Y
+* Z
+* X
+* Y
+* Z
+* X
+* Y
+* Z
+* X
+* Y
+* Z
+
+
+Solution
+========
+
+All three distributions look like they have similar ranges (widths), but different shapes. So, we will use the fact that for a given range, bell shape has the smallest standard deviation and bimodal has the largest standard deviation. This is because a bell shape has many measurements near the middle, whereas the bimodal shape has many measurements near the edges of its interval. 
+
+Answerlist
+--------
+* The distribution with its center sitting furthest left has the smallest mean.
+* .
+* .
+* The distribution with its center sitting furthest right has the largest mean.
+* .
+* .
+* The bell shape has the smallest standard deviation. It is this simple because all the distributions have the same range, but the bell has a higher fraction near its mean.
+* .
+* .
+* The bimodal shape has the largest standard deviation. It is this simple because all the distributions have the same range, but the bimodal shape has a higher fraction far from its mean.
+* .
+* .
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r ans1`|`r ans2`|`r ans3`|`r ans4`
+exname: compare_SD_same_width
+extol: 0
+exextra[numwidth]: 999.999

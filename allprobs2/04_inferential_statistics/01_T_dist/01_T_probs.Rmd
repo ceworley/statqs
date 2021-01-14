@@ -1,0 +1,70 @@
+```{r,data,generation,echo=FALSE,results="hide"}
+gamma = c(0.8,0.9,0.95,0.96,0.98,0.99)
+alpha = round(1-gamma,4)
+left = round(gamma+alpha/2,4)
+right = round(1-left,4)
+
+p = sample(left,8,T)
+r = round(1-p,4)
+al = round(2*r,4)
+ga = round(1-al,4)
+
+n = sample(2:40,8,T)
+t = round(qt(p,n-1),2)
+```
+
+
+Question
+========
+
+
+Answerlist
+--------
+* If $n=`r n[1]`$, determine $P(T<`r t[1]`)$.
+* If $n=`r n[2]`$, determine $P(T>`r t[2]`)$.
+* If $n=`r n[3]`$, determine $P(|T|<`r t[3]`)$.
+* If $n=`r n[4]`$, determine $P(|T|>`r t[4]`)$.
+* If $n=`r n[5]`$, determine $t$ such that $P(T<t) = `r p[5]`$.
+* If $n=`r n[6]`$, determine $t$ such that $P(T>t) = `r r[6]`$.
+* If $n=`r n[7]`$, determine $t$ such that $P(|T|<t) = `r ga[7]`$.
+* If $n=`r n[8]`$, determine $t$ such that $P(|T|>t) = `r al[8]`$.
+
+
+Solution
+========
+
+You can use a $t$ table. Remember, the degree of freedom (df or $\nu$) is one less than $n$.
+$$\text{df} = n-1 $$
+
+### Spreadsheet
+
+You can use `T.DIST` and `T.INV` to calculate the values. But remember these functions return/use LEFT-area probabilities. 
+
+
+
+### R
+
+You can use `pt` and `qt` to calculate the values. But remember these functions return/use LEFT-area probabilities. 
+
+
+Answerlist
+--------
+* When $n=`r n[1]`$, then $\text{df}=`r n[1]-1`$ and $P(T<`r t[1]`)=`r p[1]`$.
+* When $n=`r n[2]`$, then $\text{df}=`r n[2]-1`$ and $P(T>`r t[2]`)=`r r[2]`$.
+* When $n=`r n[3]`$, then $\text{df}=`r n[3]-1`$ and $P(|T|<`r t[3]`)=`r ga[3]`$.
+* When $n=`r n[4]`$, then $\text{df}=`r n[4]-1`$ and $P(|T|>`r t[4]`)=`r al[4]`$.
+* When $n=`r n[5]`$, then $\text{df}=`r n[5]-1`$ and $P(T<`r t[5]`)=`r p[5]`$, so $t=`r t[5]`$.
+* When $n=`r n[6]`$, then $\text{df}=`r n[6]-1`$ and $P(T>`r t[6]`)=`r r[6]`$, so $t=`r t[6]`$.
+* When $n=`r n[7]`$, then $\text{df}=`r n[7]-1`$ and $P(|T|<`r t[7]`)=`r ga[7]`$, so $t=`r t[7]`$.
+* When $n=`r n[8]`$, then $\text{df}=`r n[8]-1`$ and $P(|T|>`r t[8]`)=`r al[8]`$, so $t=`r t[8]`$.
+
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|num|num|num|num
+exsolution: `r p[1]`|`r r[2]`|`r ga[3]`|`r al[4]`|`r t[5]`|`r t[6]`|`r t[7]`|`r t[8]`
+exname: T_probs
+extol: 0.01
+exextra[numwidth,numeric]: 6

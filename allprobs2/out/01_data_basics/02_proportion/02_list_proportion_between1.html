@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>statistics</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<ol>
+<li>
+01_data_basics/02_proportion/02_list_proportion_between
+<p>The lengths (in centimeters) of 10 lizards were recorded.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>=</mo><mn>88</mn><mo>,</mo><mn>85</mn><mo>,</mo><mn>87</mn><mo>,</mo><mn>82</mn><mo>,</mo><mn>81</mn><mo>,</mo><mn>85</mn><mo>,</mo><mn>84</mn><mo>,</mo><mn>83</mn><mo>,</mo><mn>88</mn><mo>,</mo><mn>83</mn></mrow><annotation encoding="application/x-tex">\mathbf{x} = 88, 85, 87, 82, 81, 85, 84, 83, 88, 83 </annotation></semantics></math></p>
+<p>You can download the data as a CSV file (for importing into a spreadsheet or R): <a href="data:text/csv;base64,aSx4CjEsODgKMiw4NQozLDg3CjQsODIKNSw4MQo2LDg1CjcsODQKOCw4Mwo5LDg4CjEwLDgzCg==" download="lizard_data.csv">lizard_data.csv</a></p>
+<br/>
+<ol type="a">
+<li>
+What proportion of the measurements are inside 85.5 cm to 88.5 cm? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&gt;</mo><mn>85.5</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="monospace"> 𝙰𝙽𝙳 </mtext><mspace width="0.333em"></mspace></mrow><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>88.5</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&gt;85.5\texttt{ AND } \mathbf{x}&lt;88.5]</annotation></semantics></math>. In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mn>85.5</mn><mo>&lt;</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>88.5</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\text{prop}[85.5&lt;\mathbf{x}&lt;88.5]</annotation></semantics></math>.
+</li>
+<li>
+What proportion of the measurements are outside 84.5 cm to 87.5 cm? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>84.5</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="monospace"> 𝙾𝚁 </mtext><mspace width="0.333em"></mspace></mrow><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&gt;</mo><mn>87.5</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&lt;84.5\texttt{ OR } \mathbf{x}&gt;87.5]</annotation></semantics></math>. In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mtext mathvariant="monospace">𝙽𝙾𝚃</mtext><mo stretchy="false" form="prefix">(</mo><mn>84.5</mn><mo>&lt;</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>87.5</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\text{prop}[\texttt{NOT}(84.5&lt;\mathbf{x}&lt;87.5)]</annotation></semantics></math>.
+</li>
+<li>
+What proportion of the measurements are closer than 3.5 cm from 85 cm? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>85</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>3.5</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\text{prop}\left[\big|\mathbf{x}-85\big|&lt;3.5\right]</annotation></semantics></math>.
+</li>
+<li>
+What proportion of the measurements are farther than 1.5 cm from 84 cm? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>84</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mn>1.5</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\text{prop}\left[\big|\mathbf{x}-84\big|&gt;1.5\right]</annotation></semantics></math>.
+</li>
+<li>
+Determine a half-integer radius <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math> of an interval with center 85 cm such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>85</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mi>r</mi><mo stretchy="true" form="postfix">]</mo></mrow><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.9</mn></mrow><annotation encoding="application/x-tex">\text{prop}\left[\big|\mathbf{x}-85\big|&lt;r\right] ~=~ 0.9</annotation></semantics></math>.
+</li>
+<li>
+Determine a half-integer radius <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math> of an interval with center 81 cm such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>81</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mi>r</mi><mo stretchy="true" form="postfix">]</mo></mrow><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.9</mn></mrow><annotation encoding="application/x-tex">\text{prop}\left[\big|\mathbf{x}-81\big|&gt;r\right] ~=~ 0.9</annotation></semantics></math>.
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

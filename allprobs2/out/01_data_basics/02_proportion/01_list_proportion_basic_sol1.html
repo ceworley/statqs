@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>statistics</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<ol>
+<li>
+solution_01_data_basics/02_proportion/01_list_proportion_basic
+<p>First, it helps to sort the data. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>80</mn><mo>,</mo><mn>81</mn><mo>,</mo><mn>82</mn><mo>,</mo><mn>83</mn><mo>,</mo><mn>84</mn><mo>,</mo><mn>84</mn><mo>,</mo><mn>86</mn><mo>,</mo><mn>87</mn><mo>,</mo><mn>87</mn><mo>,</mo><mn>89</mn></mrow><annotation encoding="application/x-tex">80, 81, 82, 83, 84, 84, 86, 87, 87, 89</annotation></semantics></math></p>
+<p>You could use R to sort the data:</p>
+<pre><code>sort(c(82,84,83,80,81,86,87,87,89,84))</code></pre>
+<pre><code>##  [1] 80 81 82 83 84 84 86 87 87 89</code></pre>
+<p>You could also use a spreadsheet. Import the table into a spreadsheet. Then, highlight the column of measurements and use <code>Sort</code> function.</p>
+<br/>
+<ol type="a">
+<li>
+The proportion of measurements less than 82 is 0.2. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>82</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.2</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&lt;82]=0.2</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements less than or equal to 87 is 0.9. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>≤</mo><mn>87</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.9</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}\le 87]=0.9</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements greater than 84 is 0.4. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&gt;</mo><mn>84</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.4</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&gt; 84]=0.4</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements greater than or equal to 87 is 0.3. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>≥</mo><mn>87</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.3</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}\ge 87]=0.3</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements less than 84 is 0.4. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>84</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.4</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&lt;84]=0.4</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements less than or equal to 81 is 0.2. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>≤</mo><mn>81</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.2</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}\le 81]=0.2</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements greater than 80 is 0.9. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&gt;</mo><mn>80</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.9</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}&gt; 80]=0.9</annotation></semantics></math>
+</li>
+<li>
+The proportion of measurements greater than or equal to 89 is 0.1. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">prop</mtext><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>≥</mo><mn>89</mn><mo stretchy="false" form="postfix">]</mo><mo>=</mo><mn>0.1</mn></mrow><annotation encoding="application/x-tex">\text{prop}[\mathbf{x}\ge 89]=0.1</annotation></semantics></math>
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>statistics</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<ol>
+<li>
+03_central_limit_theorem/03_central_limit_theorem/03_compare_zs_means
+<p>A farm produces 4 types of fruit: oranges, pineapples, kiwis, and persimmons. The fruits’ masses have population parameters dependent on the type of fruit. (All values are in grams.)</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">_ Type of fruit _</th>
+<th align="center">_ Population mean (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>) _</th>
+<th align="center">_ Population standard deviation (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>) _</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">oranges</td>
+<td align="center">194</td>
+<td align="center">12</td>
+</tr>
+<tr class="even">
+<td align="center">pineapples</td>
+<td align="center">1474</td>
+<td align="center">130</td>
+</tr>
+<tr class="odd">
+<td align="center">kiwis</td>
+<td align="center">66</td>
+<td align="center">4</td>
+</tr>
+<tr class="even">
+<td align="center">persimmons</td>
+<td align="center">137</td>
+<td align="center">11</td>
+</tr>
+</tbody>
+</table>
+<p>A sample of each type is weighed. The results are shown below.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">_ Type of fruit _</th>
+<th align="center">_ Sample size (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>) _</th>
+<th align="center">_ Sample mean (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>x</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar{x}</annotation></semantics></math>) _</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">orange</td>
+<td align="center">100</td>
+<td align="center">193.1</td>
+</tr>
+<tr class="even">
+<td align="center">pineapple</td>
+<td align="center">144</td>
+<td align="center">1478</td>
+</tr>
+<tr class="odd">
+<td align="center">kiwi</td>
+<td align="center">36</td>
+<td align="center">65.28</td>
+</tr>
+<tr class="even">
+<td align="center">persimmon</td>
+<td align="center">25</td>
+<td align="center">135.7</td>
+</tr>
+</tbody>
+</table>
+<p>The population parameters and sample statistics can be <a href="data:text/csv;base64,ImZydWl0IiwibXUiLCJzaWdtYSIsIm4iLCJ4YmFyIgoib3JhbmdlIiwxOTQsMTIsMTAwLDE5My4xCiJwaW5lYXBwbGUiLDE0NzQsMTMwLDE0NCwxNDc4CiJraXdpIiw2Niw0LDM2LDY1LjI4CiJwZXJzaW1tb24iLDEzNywxMSwyNSwxMzUuNwo=" download="fruit.csv" target="blank">downloaded as a csv</a>.</p>
+<p>For each sample, determine the mean’s standard score and the mean’s <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function" target="blank">cumulative probability</a> by assuming the requirements for the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="blank">central limit theorem</a> are met. Then determine which sample mean is most unusually large, most unusually small, most typically sized, and most unusually sized.</p>
+<p>The standard score of a sample mean: <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mfrac><mrow><mover><mi>x</mi><mo accent="true">‾</mo></mover><mo>−</mo><mi>μ</mi></mrow><mrow><mi>σ</mi><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow></mfrac></mrow><annotation encoding="application/x-tex">z = \frac{\bar{x}-\mu}{\sigma/\sqrt{n}}</annotation></semantics></math> Some people prefer to call this denominator <a href="https://en.wikipedia.org/wiki/Standard_error" target="blank">the standard error</a>. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">standard error of mean</mtext><mo>=</mo><mtext mathvariant="normal">SEM</mtext><mo>=</mo><mfrac><mi>σ</mi><msqrt><mi>n</mi></msqrt></mfrac></mrow><annotation encoding="application/x-tex">\text{standard error of mean} = \text{SEM} = \frac{\sigma}{\sqrt{n}} </annotation></semantics></math> So the standard score (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>-score) of a sample mean can also be expressed as <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mfrac><mrow><mover><mi>x</mi><mo accent="true">‾</mo></mover><mo>−</mo><mi>μ</mi></mrow><mtext mathvariant="normal">SEM</mtext></mfrac></mrow><annotation encoding="application/x-tex">z = \frac{\bar{x}-\mu}{\text{SEM}} </annotation></semantics></math></p>
+<br/>
+<ol type="a">
+<li>
+Calculate a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>-score for the orange sample mean. (Round to the nearest hundredth.)
+</li>
+<li>
+What proportion of orange samples of size <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">n=100</annotation></semantics></math> have a smaller mean than the orange sample?
+</li>
+<li>
+Calculate a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>-score for the pineapple sample mean. (Round to the nearest hundredth.)
+</li>
+<li>
+What proportion of pineapple samples of size <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>144</mn></mrow><annotation encoding="application/x-tex">n=144</annotation></semantics></math> have a smaller mean than the pineapple sample?
+</li>
+<li>
+Calculate a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>-score for the kiwi sample mean. (Round to the nearest hundredth.)
+</li>
+<li>
+What proportion of kiwi samples of size <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>36</mn></mrow><annotation encoding="application/x-tex">n=36</annotation></semantics></math> have a smaller mean than the kiwi sample?
+</li>
+<li>
+Calculate a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>-score for the persimmon sample mean. (Round to the nearest hundredth.)
+</li>
+<li>
+What proportion of persimmon samples of size <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>25</mn></mrow><annotation encoding="application/x-tex">n=25</annotation></semantics></math> have a smaller mean than the persimmon sample?
+</li>
+<li>
+The orange sample mean is most unusually large. / The pineapple sample mean is most unusually large. / The kiwi sample mean is most unusually large. / The persimmon sample mean is most unusually large.
+</li>
+<li>
+The orange sample mean is most unusually small. / The pineapple sample mean is most unusually small. / The kiwi sample mean is most unusually small. / The persimmon sample mean is most unusually small.
+</li>
+<li>
+The orange sample mean is most typically sized. / The pineapple sample mean is most typically sized. / The kiwi sample mean is most typically sized. / The persimmon sample mean is most typically sized.
+</li>
+<li>
+The orange sample mean is most unusually sized. / The pineapple sample mean is most unusually sized. / The kiwi sample mean is most unusually sized. / The persimmon sample mean is most unusually sized.
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>statistics</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<ol>
+<li>
+01_data_basics/02_proportion/04_make_relfreq_dens
+<p>A random procedure generated <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>150</mn></mrow><annotation encoding="application/x-tex">n=150</annotation></semantics></math> measurements: <a href="data:text/csv;base64,ImkiLCJ4IgoxLDY4LjA2NTA3MTM5MzE3OTgKMiw2OC40MjQ1Mzc5NjI5ODY1CjMsNjYuMTI3MDY3MjczNjU5Nwo0LDY3LjI3Mzg1ODgwMTQ1MjYKNSw2OS43OTE1NzI5OTExNDkyCjYsNTcuNTI1OTk5NjE0MjcyNQo3LDY5LjY1NzUyMTIxNTE2MjcKOCw2OS40OTA3OTIwODEzNTM0CjksNjEuNzMyMTYwNDM4NjIzOQoxMCw2NC42NjY5MDMxMjE0NDkxCjExLDY5LjYzNzI5NjgyMDU2ODUKMTIsNjcuNTIyMjAwMjAzNTI2OAoxMyw1Ni45NjMxNTcxNTgxMjY5CjE0LDY5LjY5NDcyODg4MTY3MDMKMTUsNjkuOTUxNzI5Mzg2MDY4NgoxNiw1NS4wMTc2NjMyNzgwNjk3CjE3LDY2Ljk0MjU4MzI3Njg4MjQKMTgsNjcuMTIyNDIxMzg3MjgyMwoxOSw2OC42OTU4NzMyNjEzMzM4CjIwLDY5LjgxNjUzMTU2MTAxNTQKMjEsNjUuODYyOTQzNDYxMDY1NwoyMiw2OS45NjMzNzE2NjI3MDA4CjIzLDU2LjIwMjQ2MDYzNTc4MzgKMjQsNTguNzYwMjEwNTE1ODE2NQoyNSw2OC45NTA2MTMxNDg4Njk2CjI2LDY4Ljk3MDE2NjUwNDEzNDMKMjcsNjkuMjEzNjU0ODkxNDUwNQoyOCw2MC4zMjMzMjY5ODMxNzMKMjksNjIuODY3MTA5MjUyMjAzMwozMCw1OS4wNTIyMDIyMTI1Nzc1CjMxLDY4LjgxMjQ5MjY3OTc5OTQKMzIsNjQuOTY4NTkxODk4MDgwMQozMyw2My44OTAwNDgzNjIzMTU2CjM0LDYzLjU0NDA0Nzg2NjU4OTYKMzUsNTkuNDI3ODE2NjIxNTc4MwozNiw2NS44MzI4OTUwNTI1OTQ2CjM3LDY2Ljg5NzI5NTMzMDc0OTIKMzgsNjYuODg2NDg3NzA2NDA1MgozOSw2OS43OTUxODgwOTg2MTAyCjQwLDU2LjcyMTUzNTUyODc4MDcKNDEsNjYuMTk0NTM3MjgyMzU0Mwo0Miw2Ny4wODAyNjg1MDcyMTY4CjQzLDY5LjkzNDc0NjUzMDMxODYKNDQsNjYuNzEzNDIwNDEzNTQyMgo0NSw2OS42MjI4ODM0MjM3MjYyCjQ2LDY3LjQ0NDIzNDgxMTE4MjIKNDcsNTguODE0NDkxNjUzODI3NQo0OCw1OS41ODY5MDY0MjAxMTMKNDksNjkuODQ4MzU0NTU1NDA5OQo1MCw2Ny4yOTExNDQ3ODkzMzM5CjUxLDYyLjQzOTE1ODg1NjQ1MjUKNTIsNjkuOTQ2OTg2OTQzNDAyOQo1Myw2OS44Njk0Mjk5MTQ0MTkKNTQsNjUuODE1NzE0Mjg5MjM0MQo1NSw2Mi4zMDA3OTM3OTg5Nzk3CjU2LDY1LjM2NzQxNzc4NzY5NzYKNTcsNTQuMjg1NjU4MzM4MTIxMwo1OCw2OS45OTYyMjY3NTM3ODE1CjU5LDY5LjM2NjA3OTM5NjQ0MTUKNjAsNjkuNzMwMjQ3Njc1MDU1Mgo2MSw2Ny45NDA1NTEwMzQ2MTczCjYyLDYxLjI4MTE0MzAyNjEwNDEKNjMsNjMuNDE3NzI5ODg3ODY0OQo2NCw2OC4yNDcyMjA4NzM0MjUzCjY1LDU5LjA4NDkwNTAxMTY3OTcKNjYsNjcuOTMzNDc2NTMyNTcwNgo2Nyw2OS4zNjk3MDM3NjE2ODA5CjY4LDYwLjcwNzM3MzI3OTgyMzkKNjksNjkuMTYwMTUxMjQxOTY2OAo3MCw2OC4yNDYyNjEzMzI3ODUyCjcxLDY2LjQ1OTY3NjU1MjAxMDgKNzIsNjUuMjAwNjQ2ODI1Nzk0NQo3Myw2OC44Njc0OTgxMjIxMDQ0Cjc0LDU0LjA0NDUwNTEwMjIxNTkKNzUsNjkuOTY3NzI5NDk1MjUyNQo3Niw2MC45MzkxNzA1MDc5MjU1Cjc3LDU2LjgzNTkzMTAzMTQwNTgKNzgsNjIuNTQ1MzkyNTQxMTQ4Ngo3OSw2MS41NjgwMjYxMDAwMDcKODAsNjguOTgwODU1Mjc5NDkxNAo4MSw2OC4wMDYwNDg3MTkzMQo4Miw2OC41MTExNDk5ODk4NDYyCjgzLDYyLjg4NjQzOTY1ODY0NjgKODQsNjkuMzE0MjIwNzU2NDE3NAo4NSw2OC40MDI5ODMwMTc2OTE0Cjg2LDY2Ljk5NTE5MDkxOTA2OTYKODcsNjguMjcxNjU4MDYzNTIwOAo4OCw2OS45Nzk5Nzc2ODE4OTIKODksNjguNTg0MzEwNDg2NDIzNgo5MCw2Ni45NDY2MDQ0MzAyMzcxCjkxLDY2LjEzMDYyNjcxMTc3NTIKOTIsNTcuNjE1MzIxMDAyMjE4NAo5Myw2NS45NTIyNTkwOTM4MzE3Cjk0LDYzLjY5ODI2OTY4OTYzMzQKOTUsNjkuOTE4MzgxMTY1MTMxOQo5Niw2MS43ODk0MDM2MjkzNzM2Cjk3LDY5LjU1MjM5ODY2Njg5NjcKOTgsNjUuNDQ5MDU4NzEzOTU5OAo5OSw1Ny44MzMyNTI5ODE0NTcyCjEwMCw1Ny40NDgwNzg4MTQ2MzY0CjEwMSw2MC4xNzk2MDQ3NjEyMDYKMTAyLDYxLjI5MzQ4OTIwMDM5MTEKMTAzLDY5LjE3Mzg4MzE4NjU1NjIKMTA0LDU5Ljg5NTE1NjM4NTIzMzcKMTA1LDY5Ljg1NjAwMDk0MzEyMDIKMTA2LDY5Ljk5OTk1NTc2NjA3MjIKMTA3LDU1LjIwMDQ5MzU4NDAzOTEKMTA4LDY5LjkzNjkyNDQ4NTk1NzUKMTA5LDYzLjMwMTg1NDE4Mzg3MjMKMTEwLDY5LjczNTQwMTg2OTY2NTIKMTExLDY3LjA0MjM4MDgzMDQxNDMKMTEyLDU3Ljk2NTM2MzY5Njk3MTQKMTEzLDU2LjU3NzU1MTAzNzg3NTYKMTE0LDY3LjQ3MDgwNzYwMjEyMzgKMTE1LDY5LjU5MzcyMjEzMjM5MDQKMTE2LDY4LjMyNDY5NzAwMTQ4NQoxMTcsNjYuNzA2NjM1MDUxOTAwNQoxMTgsNjcuNzQ2NjY3NDkzNzM4OAoxMTksNTkuMzc1OTk0MTM3MjQ5CjEyMCw2Ny4wMDQxNjExMTIwNjE1CjEyMSw2Ny4zMTU0ODYxNzU5NTUKMTIyLDY2LjYyMzY4ODYzMjM5NQoxMjMsNjkuNDM2NTg0NzgzNTI1MwoxMjQsNjkuNzI5ODU5MzMzNzIyNwoxMjUsNjYuNTA1NjE0MTM4NzM5NgoxMjYsNjkuMTA3Nzk0MzM3ODYyOAoxMjcsNjcuOTI0ODg5NzU2MzMxCjEyOCw2OS4zMzgxMTU4NTIzNzQzCjEyOSw2Ni4wMDUxMTE5OTYxNTcKMTMwLDY0LjM0NzM3NzMyMzg5NjcKMTMxLDY5LjkzNDQxNzY2NzcxNjkKMTMyLDY3Ljg2ODkxOTMwMjE5MzcKMTMzLDYwLjM0OTM4NDU1MDUwNTIKMTM0LDY3LjQ2MDc2NzY4ODgyOAoxMzUsNjMuNDA0MDA2MjM3OTExCjEzNiw2OS44MjQwNjMzMTYyNzQKMTM3LDUzLjUzNDk5ODg4MDYwNTYKMTM4LDY4LjIwMzg2OTQ0ODkzNTgKMTM5LDY4LjQyNTU0NDM4MzcwMDYKMTQwLDY4LjM3NTIyMTA0NjUwMTIKMTQxLDYyLjE5MDI4MDc1MjQ3MDEKMTQyLDY1LjE2NjUxMzY5NzgxMjUKMTQzLDY5LjM1NjIzNzQ2MjA5OTIKMTQ0LDU5Ljk1OTI1NDAyNDI3NTMKMTQ1LDY3LjcxMDEzODIwNjE2ODcKMTQ2LDY3LjU0OTg5NDIyOTcyMTgKMTQ3LDY5LjgyNTgyMzc0MzUzMDMKMTQ4LDY3LjM2MTgxMjAyNzE3NzMKMTQ5LDY2Ljc2OTgyMTkzNzQ0MjIKMTUwLDY5LjMyNzMxMTQ4OTg2MjkK" download="make_freq_dist.csv">download data</a></p>
+<p>I’ve already determined the frequencies. Please determine the relative frequencies and the densities. A brief description of relative frequency and density can be found <a href="https://en.wikipedia.org/wiki/Histogram" target="blank">here</a>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Interval</th>
+<th align="center">Frequency</th>
+<th align="center">Relative Frequency</th>
+<th align="center">Density</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">50 to 55</td>
+<td align="center">3</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">55 to 60</td>
+<td align="center">21</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">60 to 65</td>
+<td align="center">25</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">65 to 70</td>
+<td align="center">101</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

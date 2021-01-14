@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>statistics</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<ol>
+<li>
+solution_01_data_basics/01_counting/02_list_counting_between
+<p>First, it helps to sort the data. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">sort</mtext><mo stretchy="false" form="prefix">(</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>12</mn><mo>,</mo><mn>13</mn><mo>,</mo><mn>13</mn><mo>,</mo><mn>13</mn><mo>,</mo><mn>14</mn><mo>,</mo><mn>14</mn><mo>,</mo><mn>14</mn><mo>,</mo><mn>15</mn><mo>,</mo><mn>18</mn><mo>,</mo><mn>19</mn></mrow><annotation encoding="application/x-tex">\text{sort}(\mathbf{x}) = 12, 13, 13, 13, 14, 14, 14, 15, 18, 19</annotation></semantics></math></p>
+<p>You could use R to sort the data:</p>
+<pre><code>sort(c(13,12,14,18,15,14,14,13,19,13))</code></pre>
+<pre><code>##  [1] 12 13 13 13 14 14 14 15 18 19</code></pre>
+<p>You could also use a spreadsheet. Import the table into a spreadsheet. Then, highlight the column of measurements and use <code>Sort</code> function.</p>
+<br/>
+<ol type="a">
+<li>
+There are 10 measurements between 11.5 and 19.5.
+</li>
+<li>
+There are 9 measurements outside 14.5 and 15.5.
+</li>
+<li>
+There are 8 measurements closer than 3.5 units from 14. It might help to rephrase the problem as finding how many measurements are between 10.5 and 17.5. These boundaries are found by subtracting 3.5 from 14 and adding 3.5 to 14.
+</li>
+<li>
+There are 4 measurements farther than 1.5 units from 15. It might help to rephrase the problem as finding how many measurements are outside 13.5 and 16.5. These boundaries are found by subtracting 1.5 from 15 and adding 1.5 to 15.
+</li>
+<li>
+You can guess and check until you find a half-integer that satisfies the equation. It turns out that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>2.5</mn></mrow><annotation encoding="application/x-tex">r = 2.5</annotation></semantics></math> satisfies the equation, because <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>17</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>2.5</mn><mo stretchy="true" form="postfix">]</mo></mrow><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>3</mn></mrow><annotation encoding="application/x-tex">\#\left[\big|\mathbf{x}-17\big|&lt;2.5\right] ~=~ 3</annotation></semantics></math>.
+</li>
+<li>
+You can guess and check until you find a half-integer that satisfies the equation. It turns out that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>1.5</mn></mrow><annotation encoding="application/x-tex">r = 1.5</annotation></semantics></math> satisfies the equation, because <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>16</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mn>1.5</mn><mo stretchy="true" form="postfix">]</mo></mrow><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>9</mn></mrow><annotation encoding="application/x-tex">\#\left[\big|\mathbf{x}-16\big|&gt;1.5\right] ~=~ 9</annotation></semantics></math>.
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

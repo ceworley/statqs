@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>statistics</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<ol>
+<li>
+03_central_limit_theorem/04_exam3/05_compare_zs_means
+<p>A farm produces 4 types of fruit: apples, pineapples, coconuts, and papayas. The fruits’ masses have population parameters dependent on the type of fruit. (All values are in grams.)</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">_ Type of fruit _</th>
+<th align="center">_ Population mean (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>) _</th>
+<th align="center">_ Population standard deviation (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>) _</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">apples</td>
+<td align="center">208</td>
+<td align="center">11</td>
+</tr>
+<tr class="even">
+<td align="center">pineapples</td>
+<td align="center">1617</td>
+<td align="center">176</td>
+</tr>
+<tr class="odd">
+<td align="center">coconuts</td>
+<td align="center">660</td>
+<td align="center">54</td>
+</tr>
+<tr class="even">
+<td align="center">papayas</td>
+<td align="center">545</td>
+<td align="center">77</td>
+</tr>
+</tbody>
+</table>
+<p>A sample of each type is weighed. The results are shown below.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">_ Type of fruit _</th>
+<th align="center">_ Sample size (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>) _</th>
+<th align="center">_ Sample mean (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>x</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar{x}</annotation></semantics></math>) _</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">apple</td>
+<td align="center">49</td>
+<td align="center">210.5</td>
+</tr>
+<tr class="even">
+<td align="center">pineapple</td>
+<td align="center">121</td>
+<td align="center">1600</td>
+</tr>
+<tr class="odd">
+<td align="center">coconut</td>
+<td align="center">25</td>
+<td align="center">639.7</td>
+</tr>
+<tr class="even">
+<td align="center">papaya</td>
+<td align="center">100</td>
+<td align="center">537.9</td>
+</tr>
+</tbody>
+</table>
+<p>The population parameters and sample statistics can be <a href="data:text/csv;base64,ImZydWl0IiwibXUiLCJzaWdtYSIsIm4iLCJ4YmFyIgoiYXBwbGUiLDIwOCwxMSw0OSwyMTAuNQoicGluZWFwcGxlIiwxNjE3LDE3NiwxMjEsMTYwMAoiY29jb251dCIsNjYwLDU0LDI1LDYzOS43CiJwYXBheWEiLDU0NSw3NywxMDAsNTM3LjkK" download="fruit.csv" target="blank">downloaded as a csv</a>.</p>
+<p>For each sample, determine the mean’s standard score and the mean’s <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function" target="blank">cumulative probability</a> by assuming the requirements for the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="blank">central limit theorem</a> are met. Then determine which sample mean is most unusually large, most unusually small, most typically sized, and most unusually sized.</p>
+<p>The standard score of a sample mean: <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mfrac><mrow><mover><mi>x</mi><mo accent="true">‾</mo></mover><mo>−</mo><mi>μ</mi></mrow><mrow><mi>σ</mi><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow></mfrac></mrow><annotation encoding="application/x-tex">z = \frac{\bar{x}-\mu}{\sigma/\sqrt{n}}</annotation></semantics></math> Some people prefer to call this denominator <a href="https://en.wikipedia.org/wiki/Standard_error" target="blank">the standard error</a>. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">standard error of mean</mtext><mo>=</mo><mtext mathvariant="normal">SEM</mtext><mo>=</mo><mfrac><mi>σ</mi><msqrt><mi>n</mi></msqrt></mfrac></mrow><annotation encoding="application/x-tex">\text{standard error of mean} = \text{SEM} = \frac{\sigma}{\sqrt{n}} </annotation></semantics></math> So the standard score (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>-score) of a sample mean can also be expressed as <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mfrac><mrow><mover><mi>x</mi><mo accent="true">‾</mo></mover><mo>−</mo><mi>μ</mi></mrow><mtext mathvariant="normal">SEM</mtext></mfrac></mrow><annotation encoding="application/x-tex">z = \frac{\bar{x}-\mu}{\text{SEM}} </annotation></semantics></math></p>
+<br/>
+<ol type="a">
+<li>
+Calculate a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>-score for the apple sample mean. (Round to the nearest hundredth.)
+</li>
+<li>
+What proportion of apple samples of size <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>49</mn></mrow><annotation encoding="application/x-tex">n=49</annotation></semantics></math> have a smaller mean than the apple sample?
+</li>
+<li>
+Calculate a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>-score for the pineapple sample mean. (Round to the nearest hundredth.)
+</li>
+<li>
+What proportion of pineapple samples of size <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>121</mn></mrow><annotation encoding="application/x-tex">n=121</annotation></semantics></math> have a smaller mean than the pineapple sample?
+</li>
+<li>
+Calculate a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>-score for the coconut sample mean. (Round to the nearest hundredth.)
+</li>
+<li>
+What proportion of coconut samples of size <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>25</mn></mrow><annotation encoding="application/x-tex">n=25</annotation></semantics></math> have a smaller mean than the coconut sample?
+</li>
+<li>
+Calculate a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>-score for the papaya sample mean. (Round to the nearest hundredth.)
+</li>
+<li>
+What proportion of papaya samples of size <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">n=100</annotation></semantics></math> have a smaller mean than the papaya sample?
+</li>
+<li>
+The apple sample mean is most unusually large. / The pineapple sample mean is most unusually large. / The coconut sample mean is most unusually large. / The papaya sample mean is most unusually large.
+</li>
+<li>
+The apple sample mean is most unusually small. / The pineapple sample mean is most unusually small. / The coconut sample mean is most unusually small. / The papaya sample mean is most unusually small.
+</li>
+<li>
+The apple sample mean is most typically sized. / The pineapple sample mean is most typically sized. / The coconut sample mean is most typically sized. / The papaya sample mean is most typically sized.
+</li>
+<li>
+The apple sample mean is most unusually sized. / The pineapple sample mean is most unusually sized. / The coconut sample mean is most unusually sized. / The papaya sample mean is most unusually sized.
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

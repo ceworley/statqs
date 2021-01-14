@@ -1,0 +1,155 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(knitr)
+opts_chunk$set(echo = FALSE)
+options(scipen=100)
+
+mu = runif(1,200,800)
+sigma = round(runif(1,5,50),1)
+n = sample(3:50,1)
+x = round(rnorm(n,mu,sigma))
+write.csv(data.frame(x),"data.csv",row.names=F)
+gamma = sample(c(0.8,0.9,0.95,0.96,0.98,0.99),1)
+
+gamma2 = gamma
+xlist = x
+x2 = x
+
+default_source_hook <- knit_hooks$get('source')
+knit_hooks$set(source = function(x, options) {
+  x <- gsub('gamma2',paste0(gamma),x)
+  x <- gsub('xlist',paste0(x2,collapse=", "),x)
+  default_source_hook(x, options)
+})
+
+```
+
+Question
+========
+
+A sample was taken from a population. The measurements are shown below and can be [downloaded as a csv](data.csv){target="blank"}.
+
+```{r comment=NA}
+cat(paste0(x,collapse=", "))
+```
+
+You are tasked with determining the confidence interval (of the population mean) with the confidence level of $\gamma=`r gamma`$.
+
+
+Answerlist
+--------
+* Determine $n$, the sample size.
+* Determine $\bar{x}$, the sample mean.
+* Determine $s$, the [sample standard deviation](https://en.wikipedia.org/wiki/Standard_deviation#Corrected_sample_standard_deviation){target="blank"} (with [Bessel correction](https://en.wikipedia.org/wiki/Bessel%27s_correction){target="blank"}).
+* Calculate $\frac{s}{\sqrt{n}}$, the estimated [**standard error**](https://en.wikipedia.org/wiki/Standard_error){target="blank"}.
+* Determine $t^\star$ such that $P(|T|<t^\star)=`r gamma`$. Remember, $\text{df}=n-1$.
+* Calculate $\frac{t^\star s}{\sqrt{n}}$, the estimated [margin of error](https://en.wikipedia.org/wiki/Margin_of_error){target="blank"}.
+* Calculate $\bar{x}-\frac{t^\star s}{\sqrt{n}}$, the lower boundary of the `r gamma*100`% confidence interval.
+* Calculate $\bar{x}+\frac{t^\star s}{\sqrt{n}}$, the upper boundary of the `r gamma*100`% confidence interval.
+
+
+Solution
+========
+
+### Spreadsheet
+
+```{r}
+variables = c("","gamma","","n","xbar","s","SE","cumulative","tstar","ME","LB","UB")
+values = c("",paste(gamma2),"","=COUNT(A2:A1000)","=AVERAGE(A2:A1000)","=STDEV.S(A2:A1000)",
+           "=D7/SQRT(D5)","=D3+(1-D3)/2","=T.INV(D9,D5-1)","=D10*D8","=D6-D11","=D6+D11")
+xtext = paste(x)
+
+if(length(x)>length(variables)){
+  diff = length(x)-length(variables)
+  spacer = rep("",length(x))
+  variables = c(variables,rep("",diff))
+  values = c(values,rep("",diff))
+} else if(length(x)<length(variables)){
+  diff = length(variables)-length(x)
+  spacer = rep("",length(variables))
+  xtext = c(xtext,rep("",diff))
+} else {
+  spacer = rep("",length(x))
+}
+csvdata = data.frame(xtext,spacer,variables,values)
+colnames(csvdata) = c("x","","variables","values")
+write.csv(csvdata,"CI_raw_solution.csv",row.names=F)
+```
+
+You can download a [solution spreadsheet](CI_raw_solution.csv){target="blank"}. The top 13 rows are shown below:
+
+```{r fig.width=10,fig.height=6}
+draw_ss = function(df){
+  nrow = length(df[,1])
+  ncol = length(df[1,])
+  par(mar=c(0,0,0,0))
+  plot(0,0,type="n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+  hi = 1:((nrow+2)*2+1)
+  vi = 1:((ncol+1)*2+1)
+  hpos = seq(1,0,length.out=(nrow+2)*2+1)
+  vpos = seq(0,1,length.out=(ncol+1)*2+1)
+  hlin = hpos[hi%%2==1]
+  ytex = hpos[hi%%2==0]
+  vlin = vpos[vi%%2==1]
+  xtex = vpos[vi%%2==0]
+  abline(h=hlin)
+  abline(h=hlin[2],lwd=3)
+  abline(v=vlin)
+  abline(v=vlin[2],lwd=3)
+  for(i in 2:(ncol+1)){
+    text(xtex[i],ytex[1],LETTERS[i-1],col=rgb(0.5,0.5,0.5))
+    text(xtex[i],ytex[2],colnames(df)[i-1])
+  }    
+  for(i in 2:(nrow+2)){
+    text(xtex[1],ytex[i],i-1,col=rgb(0.5,0.5,0.5))
+  }
+  for(i in 1:nrow){
+    for(j in 1:ncol){
+      text(xtex[j+1],ytex[i+2],df[i,j])
+    }
+  }
+}
+
+draw_ss(csvdata[1:12,])
+```
+\
+
+
+
+### R
+
+```{r echo=T,comment=NA}
+x = c(xlist)
+n = length(x)
+xbar = mean(x)
+s = sd(x)
+SE = s/sqrt(n)
+gamma = gamma2   # Probability T is between -tstar and tstar
+cumulative = gamma+(1-gamma)/2   # Probability T is less than tstar
+tstar = qt(cumulative, n-1)
+ME = tstar*s/sqrt(n)
+LB = xbar-ME
+UB = xbar+ME
+print(data.frame(n,xbar,s,SE,tstar,ME,LB,UB,row.names=""))
+```
+
+Answerlist
+--------
+* The sample size $=n=`r n`$.
+* The sample mean $=\bar{x}=\frac{\sum x}{n}=`r round(xbar,2)`$.
+* The sample standard deviation $=s=\sqrt{\frac{\sum(x-\bar{x})^2}{n-1}}=`r round(s,2)`$.
+* The estimated standard error $=\text{SE}=\frac{s}{\sqrt{n}}=\frac{`r round(s,2)`}{\sqrt{`r n`}}=`r round(SE,2)`$.
+* You can show, when $n=`r n`$, then $\text{df}=`r n-1`$, and $P(|T|<`r round(tstar,2)`)=`r gamma`$, so the boundary $=t^\star=`r round(tstar,2)`$.
+* The estimated margin of error $=\text{ME}=\frac{t^\star s}{\sqrt{n}}=\frac{(`r round(tstar,2)`)(`r round(s,2)`)}{\sqrt{`r n`}}=`r round(ME,2)`$.
+* The lower boundary of the confidence interval $=\text{LB}=\bar{x}-\text{ME}=`r round(xbar,2)`-`r round(ME,2)`=`r round(LB,2)`$.
+* The upper boundary of the confidence interval $=\text{UB}=\bar{x}+\text{ME}=`r round(xbar,2)`+`r round(ME,2)`=`r round(UB,2)`$.
+
+
+Meta-information
+================
+extype: cloze
+exsolution: `r paste0(c(n,xbar,s,SE,tstar,ME,LB,UB),collapse="|")`
+exclozetype: `r paste0(rep("num",8),collapse="|")`
+exname: confidence interval T raw
+extol: 0|1|1|1|0.1|1|1|1
+exextra[numwidth,numeric]: 6
+

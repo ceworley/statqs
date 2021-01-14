@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>statistics</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<ol>
+<li>
+04_inferential_statistics/04_hypothesis_tests_two_sample/01_hyptest_paired_data
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>A study asked individuals to time a mile run (in seconds). After a month, the same individuals timed another mile run. You are asked to perform a paired-data <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> test to investigate whether fitness changed.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:center;">
+x1
+</th>
+<th style="text-align:center;">
+x2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Angel
+</td>
+<td style="text-align:center;">
+319
+</td>
+<td style="text-align:center;">
+328
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Asher
+</td>
+<td style="text-align:center;">
+875
+</td>
+<td style="text-align:center;">
+893
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Elliana
+</td>
+<td style="text-align:center;">
+359
+</td>
+<td style="text-align:center;">
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gabriella
+</td>
+<td style="text-align:center;">
+301
+</td>
+<td style="text-align:center;">
+288
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hannah
+</td>
+<td style="text-align:center;">
+621
+</td>
+<td style="text-align:center;">
+609
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Hartley
+</td>
+<td style="text-align:center;">
+682
+</td>
+<td style="text-align:center;">
+739
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kayleigh
+</td>
+<td style="text-align:center;">
+1142
+</td>
+<td style="text-align:center;">
+1172
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Madelyn
+</td>
+<td style="text-align:center;">
+839
+</td>
+<td style="text-align:center;">
+835
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Milan
+</td>
+<td style="text-align:center;">
+915
+</td>
+<td style="text-align:center;">
+884
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Odin
+</td>
+<td style="text-align:center;">
+671
+</td>
+<td style="text-align:center;">
+730
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Willie
+</td>
+<td style="text-align:center;">
+330
+</td>
+<td style="text-align:center;">
+319
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Yeiden
+</td>
+<td style="text-align:center;">
+400
+</td>
+<td style="text-align:center;">
+528
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zacarias
+</td>
+<td style="text-align:center;">
+297
+</td>
+<td style="text-align:center;">
+377
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zuri
+</td>
+<td style="text-align:center;">
+418
+</td>
+<td style="text-align:center;">
+408
+</td>
+</tr>
+</tbody>
+</table>
+<p>(<a href="data:text/csv;base64,Im5hbWUiLCJ4MSIsIngyIgoiQW5nZWwiLDMxOSwzMjgKIkFzaGVyIiw4NzUsODkzCiJFbGxpYW5hIiwzNTksMzY0CiJHYWJyaWVsbGEiLDMwMSwyODgKIkhhbm5haCIsNjIxLDYwOQoiSGFydGxleSIsNjgyLDczOQoiS2F5bGVpZ2giLDExNDIsMTE3MgoiTWFkZWx5biIsODM5LDgzNQoiTWlsYW4iLDkxNSw4ODQKIk9kaW4iLDY3MSw3MzAKIldpbGxpZSIsMzMwLDMxOQoiWWVpZGVuIiw0MDAsNTI4CiJaYWNhcmlhcyIsMjk3LDM3NwoiWnVyaSIsNDE4LDQwOAo=" download="run_times.csv" target="blank">download as run_times.csv</a>)</p>
+<p>To do this, first determine the list of differences. For each individual, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>, determine their difference <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>i</mi></msub><annotation encoding="application/x-tex">d_i</annotation></semantics></math>. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>i</mi></msub><mo>=</mo><msub><mi>x</mi><mrow><mn>2</mn><mo>,</mo><mi>i</mi></mrow></msub><mo>−</mo><msub><mi>x</mi><mrow><mn>1</mn><mo>,</mo><mi>i</mi></mrow></msub></mrow><annotation encoding="application/x-tex">d_i = x_{2,i}-x_{1,i}</annotation></semantics></math></p>
+<p>Then, determine the mean (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>d</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar{d}</annotation></semantics></math>) and standard deviation (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>s</mi><mi>d</mi></msub><annotation encoding="application/x-tex">s_d</annotation></semantics></math>) of the differences. The <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> score is then calculated to determine the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-value.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mtext mathvariant="normal">-value</mtext><mo>=</mo><mi>P</mi><mrow><mo stretchy="true" form="prefix">(</mo><mo stretchy="false" form="prefix">|</mo><mi>T</mi><mo stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mfrac><mrow><mo stretchy="false" form="prefix">|</mo><mover><mi>d</mi><mo accent="true">¯</mo></mover><mo>−</mo><msub><mi>μ</mi><mn>0</mn></msub><mo stretchy="false" form="prefix">|</mo></mrow><mrow><msub><mi>s</mi><mi>d</mi></msub><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">p\text{-value} = P\left(|T|&gt;\frac{|\overline{d}-\mu_0|}{s_d/\sqrt{n}}\right) </annotation></semantics></math> The null hypothesis predicts there is no change in fitness, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mn>0</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\mu_0=0</annotation></semantics></math>. The alternative hypothesis predicts a change in fitness. The degree of freedom is one less than the number of individuals.</p>
+<p>Calculate the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-value.</p>
+<p>Using a significance level of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mn>0.05</mn></mrow><annotation encoding="application/x-tex">\alpha=0.05</annotation></semantics></math>, is there a significant change in run times?</p>
+<p>Yes / No</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

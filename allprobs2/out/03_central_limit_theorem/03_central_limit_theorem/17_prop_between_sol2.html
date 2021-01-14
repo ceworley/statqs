@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>statistics</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<ol>
+<li>
+solution_03_central_limit_theorem/03_central_limit_theorem/17_prop_between
+<p>We determine the mean and standard deviation of the proportion sampling distribution. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mi>p</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.47</mn></mrow><annotation encoding="application/x-tex">\mu ~=~ p ~=~ 0.47</annotation></semantics></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><msqrt><mfrac><mrow><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow><mi>n</mi></mfrac></msqrt><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><msqrt><mfrac><mrow><mo stretchy="false" form="prefix">(</mo><mn>0.47</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>0.53</mn><mo stretchy="false" form="postfix">)</mo></mrow><mn>122</mn></mfrac></msqrt><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.0451863</mn></mrow><annotation encoding="application/x-tex">\sigma ~=~ \sqrt{\frac{p(1-p)}{n}} ~=~ \sqrt{\frac{(0.47)(0.53)}{122}} ~=~ 0.0451863 </annotation></semantics></math></p>
+<p>We determine both <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>-scores. We get the first <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>-score.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"><msub><mi>z</mi><mn>1</mn></msub></mtd><mtd columnalign="left"><mo>=</mo><mfrac><mrow><msub><mover><mi>p</mi><mo accent="true">̂</mo></mover><mn>1</mn></msub><mo>−</mo><mi>μ</mi></mrow><mi>σ</mi></mfrac></mtd></mtr><mtr><mtd columnalign="right"></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mfrac><mrow><mn>0.4221</mn><mo>−</mo><mn>0.47</mn></mrow><mn>0.0451863</mn></mfrac></mtd></mtr><mtr><mtd columnalign="right"></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mo>−</mo><mn>1.0593661</mn></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+z_1 &amp;= \frac{\hat{p}_1 - \mu}{\sigma} \\\\
+&amp;= \frac{0.4221-0.47}{0.0451863} \\\\
+&amp;= -1.0593661
+\end{aligned}</annotation></semantics></math></p>
+<p>We get the second <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>-score.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"><msub><mi>z</mi><mn>2</mn></msub></mtd><mtd columnalign="left"><mo>=</mo><mfrac><mrow><msub><mover><mi>p</mi><mo accent="true">̂</mo></mover><mn>2</mn></msub><mo>−</mo><mi>μ</mi></mrow><mi>σ</mi></mfrac></mtd></mtr><mtr><mtd columnalign="right"></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mfrac><mrow><mn>0.5369</mn><mo>−</mo><mn>0.47</mn></mrow><mn>0.0451863</mn></mfrac></mtd></mtr><mtr><mtd columnalign="right"></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mn>1.4802102</mn></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
+z_2 &amp;= \frac{\hat{p}_2 - \mu}{\sigma} \\\\
+&amp;= \frac{0.5369-0.47}{0.0451863} \\\\
+&amp;= 1.4802102
+\end{aligned}</annotation></semantics></math></p>
+<p>Then, find the standard normal probability.</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo>−</mo><mn>1.0593661</mn><mo>&lt;</mo><mi>Z</mi><mo>&lt;</mo><mn>1.4802102</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.7858749</mn></mrow><annotation encoding="application/x-tex">P(-1.0593661 &lt; Z &lt; 1.4802102) ~=~ 0.7858749 </annotation></semantics></math></p>
+<p>Of course, you could have rounded the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>-scores, so any of the following will also get credit. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo>−</mo><mn>1.06</mn><mo>&lt;</mo><mi>Z</mi><mo>&lt;</mo><mn>1.48</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.786</mn></mrow><annotation encoding="application/x-tex">P(-1.06 &lt; Z &lt; 1.48) ~=~ 0.786 </annotation></semantics></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo>−</mo><mn>1.05</mn><mo>&lt;</mo><mi>Z</mi><mo>&lt;</mo><mn>1.49</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.785</mn></mrow><annotation encoding="application/x-tex">P(-1.05 &lt; Z &lt; 1.49) ~=~ 0.785 </annotation></semantics></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo>−</mo><mn>1.06</mn><mo>&lt;</mo><mi>Z</mi><mo>&lt;</mo><mn>1.49</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.7837</mn></mrow><annotation encoding="application/x-tex">P(-1.06 &lt; Z &lt; 1.49) ~=~ 0.7837 </annotation></semantics></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo>−</mo><mn>1.05</mn><mo>&lt;</mo><mi>Z</mi><mo>&lt;</mo><mn>1.48</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.7873</mn></mrow><annotation encoding="application/x-tex">P(-1.05 &lt; Z &lt; 1.48) ~=~ 0.7873 </annotation></semantics></math></p>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

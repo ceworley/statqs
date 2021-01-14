@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title>statistics</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<ol>
+<li>
+01_data_basics/01_counting/03_list_counting_large
+<p>A random procedure generated many measurements: <a href="data:text/csv;base64,aSx4CjEsMTUuNgoyLDE3LjI4CjMsMTIuNDEKNCwxMi4zMgo1LDE4LjAxCjYsMTYuMTQKNywxNS4yOAo4LDE1LjUyCjksMTIuMDkKMTAsMTEuNzgKMTEsMTYuNzIKMTIsMTYuMjgKMTMsMTAuMDkKMTQsMTYuNjgKMTUsMTkuMzUKMTYsMTkuNDMKMTcsMTUuNDUKMTgsMTUuNTkKMTksMTEuNDYKMjAsMTMuMDMKMjEsMTcuMDUKMjIsMTMuNjEKMjMsMTcuNDYKMjQsMTIuMTUKMjUsMTUuOQoyNiwxMy41MgoyNywxNC40OAoyOCwxMC4xOAoyOSwxNS4xMQozMCwxMS4xMwozMSwxMi45NwozMiwxMC4xOAozMywxNC40OQozNCwxMi40MwozNSwxOC4yMwozNiwxNi42NgozNywxMS4zNwozOCwxMS40MgozOSwxMQo0MCwxNi44NQo0MSwxNy4wNwo0MiwxMi4yNwo0MywxMC40Mwo0NCwxMC41CjQ1LDEwLjQKNDYsMTkuNDYKNDcsMTQuMwo0OCwxOS41NAo0OSwxMC40MQo1MCwxMi4wNwo1MSwxOS43MQo1MiwxNC4zMwo1MywxNy43Mgo1NCwxNS4wMQo1NSwxNy40Mwo1NiwxNy4yOQo1NywxNC41Nwo1OCwxNi41Mwo1OSwxNy41Mgo2MCwxNi45NAo2MSwxNS45NQo2MiwxOC4yCjYzLDE1LjQ4CjY0LDE5Ljg2CjY1LDE1LjAzCjY2LDEyLjI4CjY3LDE4LjY1CjY4LDE2Ljc1CjY5LDE3Ljc1CjcwLDE4LjM4CjcxLDE2LjUzCjcyLDEzLjIzCjczLDE5Cjc0LDE3LjgxCjc1LDE2LjEKNzYsMTAuNTgKNzcsMTQuNDgKNzgsMTYuNDIKNzksMTIuMzYKODAsMTYuNTMKODEsMTMuOTUKODIsMTUuMDMKODMsMTMuODYKODQsMTIuNDcKODUsMTQuOTEKODYsMTIuMTkKODcsMTIuMzMKODgsMTMuNzIKODksMTQuMDcKOTAsMTIuNQo5MSwxOS42CjkyLDE0Ljg4CjkzLDExLjk5Cjk0LDE2Ljc0Cjk1LDE3LjU5Cjk2LDE1LjM4Cjk3LDE5LjM5Cjk4LDE5LjA5Cjk5LDEzLjI3CjEwMCwxNi43OQoxMDEsMTMuODIKMTAyLDE2LjcyCjEwMywxNi4wMgoxMDQsMTMuNDIKMTA1LDE0LjAxCjEwNiwxNy4zNgoxMDcsMTgKMTA4LDE2LjM3CjEwOSwxOQoxMTAsMTIuNTUKMTExLDE5Ljc5CjExMiwxNy45NAoxMTMsMTYuNDYKMTE0LDExLjA1CjExNSwxMS42NAoxMTYsMTEuNjMKMTE3LDE3Ljk0CjExOCwxMi4yOAoxMTksMTUuNDYKMTIwLDE5LjQzCjEyMSwxMy43CjEyMiwxMy44MwoxMjMsMTUuOTYKMTI0LDEwLjY2CjEyNSwxMS45NQoxMjYsMTUuMzIKMTI3LDEyLjcyCjEyOCwxMi42CjEyOSwxMS4yNwoxMzAsMTEuOTIKMTMxLDEzLjk1CjEzMiwxNS4zNgoxMzMsMTcuMTMKMTM0LDE1Ljc2CjEzNSwxMi4yCjEzNiwxMi43NwoxMzcsMTYuNzcKMTM4LDEyLjM4CjEzOSwxOC41NgoxNDAsMTQuMTYKMTQxLDE5LjE4CjE0MiwxOC44MgoxNDMsMTQuMTIKMTQ0LDEyLjA1CjE0NSwxNC40MgoxNDYsMTUuNDMKMTQ3LDEyLjY4CjE0OCwxNC40MQoxNDksMTQuOTMKMTUwLDE0LjEzCjE1MSwxMi4wMgoxNTIsMTcuOQoxNTMsMTYuOTMKMTU0LDEzLjc0CjE1NSwxMC43OAoxNTYsMTYuNzMKMTU3LDE0LjkKMTU4LDExLjgxCjE1OSwxOS41MQoxNjAsMTUuNjMKMTYxLDE3LjA5CjE2MiwxMS4xMQoxNjMsMTguMDgKMTY0LDE0LjAzCjE2NSwxMy40NgoxNjYsMTkuOTcKMTY3LDE0LjcKMTY4LDE4LjYzCjE2OSwxOC40NAoxNzAsMTQuNTgKMTcxLDE1Ljk1CjE3MiwxMS42OQoxNzMsMTkuMzYKMTc0LDE1Ljc5CjE3NSwxNy45NQo=" download="list_counting_large_data_56030.csv">list_counting_large_data_56030.csv</a></p>
+<pre><code>15.6, 17.28, 12.41, 12.32, 18.01, 16.14, 15.28, 15.52, 12.09, 11.78, 16.72, 16.28, 10.09, 16.68, 19.35, 19.43, 15.45, 15.59, 11.46, 13.03, 17.05, 13.61, 17.46, 12.15, 15.9, 13.52, 14.48, 10.18, 15.11, 11.13, 12.97, 10.18, 14.49, 12.43, 18.23, 16.66, 11.37, 11.42, 11, 16.85, 17.07, 12.27, 10.43, 10.5, 10.4, 19.46, 14.3, 19.54, 10.41, 12.07, 19.71, 14.33, 17.72, 15.01, 17.43, 17.29, 14.57, 16.53, 17.52, 16.94, 15.95, 18.2, 15.48, 19.86, 15.03, 12.28, 18.65, 16.75, 17.75, 18.38, 16.53, 13.23, 19, 17.81, 16.1, 10.58, 14.48, 16.42, 12.36, 16.53, 13.95, 15.03, 13.86, 12.47, 14.91, 12.19, 12.33, 13.72, 14.07, 12.5, 19.6, 14.88, 11.99, 16.74, 17.59, 15.38, 19.39, 19.09, 13.27, 16.79, 13.82, 16.72, 16.02, 13.42, 14.01, 17.36, 18, 16.37, 19, 12.55, 19.79, 17.94, 16.46, 11.05, 11.64, 11.63, 17.94, 12.28, 15.46, 19.43, 13.7, 13.83, 15.96, 10.66, 11.95, 15.32, 12.72, 12.6, 11.27, 11.92, 13.95, 15.36, 17.13, 15.76, 12.2, 12.77, 16.77, 12.38, 18.56, 14.16, 19.18, 18.82, 14.12, 12.05, 14.42, 15.43, 12.68, 14.41, 14.93, 14.13, 12.02, 17.9, 16.93, 13.74, 10.78, 16.73, 14.9, 11.81, 19.51, 15.63, 17.09, 11.11, 18.08, 14.03, 13.46, 19.97, 14.7, 18.63, 18.44, 14.58, 15.95, 11.69, 19.36, 15.79, 17.95</code></pre>
+<br/>
+<ol type="a">
+<li>
+How many measurements are in the sample? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\#[\mathbf{x}]</annotation></semantics></math>. In the future, we will use <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> to denote the number of measurements in the sample.
+</li>
+<li>
+How many of the measurements are less than 15? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&lt;</mo><mn>15</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\#[\mathbf{x}&lt;15]</annotation></semantics></math>.
+</li>
+<li>
+How many of the measurements are greater than 17.8? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mo stretchy="false" form="prefix">[</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>&gt;</mo><mn>17.8</mn><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\#[\mathbf{x}&gt;17.8]</annotation></semantics></math>.
+</li>
+<li>
+How many of the measurements are closer than 2.2 units from 13.7? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>13.7</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>2.2</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\#\left[\big|\mathbf{x}-13.7\big|&lt;2.2\right]</annotation></semantics></math>.
+</li>
+<li>
+How many of the measurements are farther than 4.6 units from 14.9? In other words, determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>14.9</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mn>4.6</mn><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\#\left[\big|\mathbf{x}-14.9\big|&gt;4.6\right]</annotation></semantics></math>.
+</li>
+</ol>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

@@ -1,0 +1,225 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(knitr)
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+
+xbar = round(runif(1,10,100),1)
+s = round(runif(1,xbar/6,xbar/3),1)
+n = sample(5:50,1)
+gamma = sample(c(0.8,0.9,0.95,0.96,0.98,0.99),1)
+tstar = qt(gamma+(1-gamma)/2,n-1)
+ME = tstar*s/sqrt(n)
+LB = round(xbar-tstar*s/sqrt(n),1)
+UB = round(xbar+tstar*s/sqrt(n),1)
+tol = max(0.02*s/sqrt(n),0.1)
+
+xbar2 = xbar
+s2 = s
+n2 = n
+gamma2 = gamma
+default_source_hook <- knit_hooks$get('source')
+knit_hooks$set(source = function(x, options) {
+  x <- gsub('xbar2',paste0(xbar),x)
+  x <- gsub('s2',paste0(s),x)
+  x <- gsub('n2',paste0(n),x)
+  x <- gsub('gamma2',paste0(gamma),x)
+  default_source_hook(x, options)
+})
+```
+
+Question
+========
+
+A population's mean ($\mu$) and standard deviation ($\sigma$) are unknown, but the population is approximately normal. A sample of size $n=`r n`$ is taken, and the sample mean is calculated: $\bar{x}=`r xbar`$. The sample standard deviation is also calculated: $s=`r s`$. You are tasked with determining a confidence interval using a given confidence level: $\gamma=`r gamma`$.
+
+To do this, you need to first determine $t^\star$ such that $P(|T|<t^\star)=`r gamma`$. Then, the boundaries are determined by evaluating $\bar{x}\pm \frac{t^\star s}{\sqrt{n}}$.
+
+(You can round $t^\star$ to the nearest hundredth and the boundaries to the nearest tenth.)
+
+Answerlist
+--------
+* Determine the lower boundary of the confidence interval by using $\bar{x}-\frac{t^\star s}{\sqrt{n}}$.
+* Determine the upper boundary of the confidence interval by using $\bar{x}+\frac{t^\star s}{\sqrt{n}}$.
+
+
+Solution
+========
+
+First, determine $t^\star$ such that $P(|T|<t^\star)=`r gamma`$. It can help to draw a sketch.
+
+```{r middle,fig.width=5,fig.height=3}
+library(latex2exp)
+tmax = ceiling(qt(0.998,n-1))
+ts = seq(-tmax,tmax,0.001)
+par(mar=c(2,0,0,0))
+plot(ts,dt(ts,n-1),type="l",lwd=2,axes=F,ann=F)
+abline(h=0)
+polygon(c(-tstar,ts[abs(ts)<=tstar],tstar),
+        c(0,dt(ts[abs(ts)<=tstar],n-1),0),
+        col=rgb(1,0.5,0.5,0.5))
+axis(1,at=c(-tmax,-tstar,0,tstar,tmax),labels=c(paste(-tmax),TeX("$$-t^{*}$$"),"0",TeX("$$t^{*}$$"),paste(tmax)))
+text(0,0.15,gamma,cex=2,col=rgb(0.5,0.2,0.2,1))
+```
+\
+
+The entire area under the density curve is 1. Thus, we can determine the areas of the tails (using symmetry).
+$$\text{area of each tail} = \frac{1-\gamma}{2} = \frac{1-`r gamma`}{2} = `r (1-gamma)/2`$$
+
+```{r allthree,fig.width=5,fig.height=3}
+library(latex2exp)
+tmax = ceiling(qt(0.998,n-1))
+ts = seq(-tmax,tmax,0.001)
+par(mar=c(2,0,0,0))
+plot(ts,dt(ts,n-1),type="l",lwd=2,axes=F,ann=F)
+abline(h=0)
+polygon(c(-tstar,ts[abs(ts)<=tstar],tstar),
+        c(0,dt(ts[abs(ts)<=tstar],n-1),0),
+        col=rgb(1,0.5,0.5,0.5))
+axis(1,at=c(-tmax,-tstar,0,tstar,tmax),labels=c(paste(-tmax),TeX("$$-t^{*}$$"),"0",TeX("$$t^{*}$$"),paste(tmax)))
+text(0,0.15,gamma,cex=2,col=rgb(0.5,0.2,0.2,1))
+polygon(c(-tmax,ts[ts<=-tstar],-tstar),
+        c(0,dt(ts[ts<=-tstar],n-1),0),
+        col=rgb(0.5,1,0.5,0.5))
+text(-tmax+0.8,0.15,(1-gamma)/2,cex=2,col=rgb(0.2,0.5,0.2,1))
+polygon(c(tstar,ts[ts>=tstar],tmax),
+        c(0,dt(ts[ts>=tstar],n-1),0),
+        col=rgb(0.5,0.5,1,0.5))
+text(tmax-0.8,0.15,(1-gamma)/2,cex=2,col=rgb(0.2,0.2,0.5,1))
+```
+\
+
+Thus, we determine a left area.
+$$P(T<t^\star)=\gamma + \frac{1-\gamma}{2}= `r gamma`+`r (1-gamma)/2`=`r gamma+(1-gamma)/2`$$
+It should be mentioned the expression can be simplified.
+$$P(T<t^\star)= \frac{1}{2}+\frac{\gamma}{2}= 0.5+`r gamma/2`=`r gamma+(1-gamma)/2`$$
+
+
+```{r left,fig.width=5,fig.height=3}
+par(mar=c(2,0,0,0))
+plot(ts,dt(ts,n-1),type="l",lwd=2,axes=F,ann=F)
+abline(h=0)
+polygon(c(-tmax,ts[ts<=tstar],tstar),
+        c(0,dt(ts[ts<=tstar],n-1),0),
+        col=rgb(1,1,0.5,0.5))
+axis(1,at=c(-tmax,0,tstar,tmax),labels=c(paste(-tmax),"0",TeX("$$t^{*}$$"),paste(tmax)))
+text(0,0.15,gamma+(1-gamma)/2,cex=2,col=rgb(0.5,0.5,0.2,1))
+```
+\
+
+We rephrase the puzzle. We wish to determine $t^\star$ such that $P(T<t^\star)=`r gamma+(1-gamma)/2`$. This is easy to determine using a $t$-table, `qt` in R, `t.inv` in spreadsheets, or other methods for evaluating the [quantile function](https://en.wikipedia.org/wiki/Quantile_function){target="blank"}.
+
+$$P(T<`r round(tstar,2)`)=`r gamma+(1-gamma)/2`$$
+In the original phrasing,
+
+$$P(|T|<`r round(tstar,2)`)=`r gamma`$$
+
+So, $t^\star = `r round(tstar,2)`$. Now, use the given expressions.
+
+$$\text{Lower bound} = `r xbar`-(`r round(tstar,2)`)(`r s`)/\sqrt{`r n`} ~=~ `r round(LB,1)`$$
+$$\text{Upper bound} = `r xbar`+(`r round(tstar,2)`)(`r s`)/\sqrt{`r n`} ~=~ `r round(UB,1)`$$
+
+
+### Spreadsheet
+
+A spreadsheet can use the [`confidence.t`](https://support.google.com/docs/answer/9365672){target="blank"} function. It takes three arguments:
+
+* Alpha ($\alpha$) is the two-tail area, $\alpha=1-\gamma=1-`r gamma`=`r 1-gamma`$
+* sample standard deviation, $s=`r s`$
+* Sample size, $n=`r n`$
+
+The function returns the [margin of error](https://en.wikipedia.org/wiki/Margin_of_error){target="blank"}.
+$$\text{margin of error} = \frac{t^\star s}{\sqrt{n}}$$
+
+So, in this case, if in a spreadsheet you typed ```=confidence.t(1-`r gamma`,`r s`,`r n`)```, the result would be the margin of error, `r ME`. You then add/subtract the margin of error to/from the sample mean.
+$$\bar{x}-\text{ME} = `r xbar`-`r round(ME,3)` = `r round(xbar-ME,3)`$$
+$$\bar{x}+\text{ME} = `r xbar`+`r round(ME,3)` = `r round(xbar+ME,3)`$$
+
+```{r echo=F}
+labels = c("Conf_int when sigma is unknown",
+          "",
+          "xbar",
+          "s",
+          "n",
+          "gamma",
+          "",
+          "ME",
+          "LB",
+          "UB")
+formulas = c("","",paste0(xbar),
+          paste0(s),
+          paste0(n),
+          paste0(gamma),"",
+          "=CONFIDENCE.T(1-B6,B4,B5)",
+          "=B3-B8",
+          "=B3+B8")
+sol = data.frame(labels,formulas)
+write.table(sol,file="conf_int_t.csv", row.names=F, col.names=F)
+```
+
+You can do this with [a spreadsheet](conf_int_t.csv).
+
+```{r fig.height=5,fig.width=9,echo=F}
+draw_ss = function(df){
+  nrow = length(df[,1])
+  ncol = length(df[1,])
+  par(mar=c(0,0,0,0))
+  plot(0,0,type="n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+  hi = 1:((nrow+2)*2+1)
+  vi = 1:((ncol+1)*2+1)
+  hpos = seq(1,0,length.out=(nrow+1)*2+1)
+  vpos = seq(0,1,length.out=(ncol+1)*2+1)
+  hlin = hpos[hi%%2==1]
+  ytex = hpos[hi%%2==0]
+  vlin = vpos[vi%%2==1]
+  xtex = vpos[vi%%2==0]
+  abline(h=hlin)
+  abline(h=hlin[2],lwd=3)
+  abline(v=vlin)
+  abline(v=vlin[2],lwd=3)
+  for(i in 2:(ncol+1)){
+    text(xtex[i],ytex[1],LETTERS[i-1],col=rgb(0.5,0.5,0.5))
+  }    
+  for(i in 2:(nrow+1)){
+    text(xtex[1],ytex[i],i-1,col=rgb(0.5,0.5,0.5))
+  }
+  for(i in 1:nrow){
+    for(j in 1:ncol){
+      text(xtex[j+1],ytex[i+1],df[i,j])
+    }
+  }
+}
+draw_ss(sol)
+```
+\
+
+### R
+
+```{r echo=T}
+xbar = xbar2
+s = s2
+n = n2
+gamma = gamma2
+df = n-1   # df is the degrees of freedom
+tstar = qt(0.5+gamma/2, df)
+ME = tstar*s/sqrt(n)
+LB = xbar-ME
+UB = xbar+ME
+cat(sprintf("The lower bound: %.4f\nThe upper bound: %.4f",LB,UB))
+```
+
+
+Answerlist
+--------
+* Lower bound = $~`r xbar`-(`r round(tstar,2)`)(`r s`)/\sqrt{`r n`} ~=~ `r round(LB,1)`$
+* Upper bound = $~`r xbar`+(`r round(tstar,2)`)(`r s`)/\sqrt{`r n`} ~=~ `r round(UB,1)`$
+
+
+Meta-information
+================
+extype: cloze
+exsolution: `r LB`|`r UB`
+exclozetype: num|num
+exname: confidence interval T
+extol: `r tol`
+exextra[numwidth,numeric]: 6
+
