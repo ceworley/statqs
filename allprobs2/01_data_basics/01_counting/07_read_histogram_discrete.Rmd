@@ -50,7 +50,7 @@ n8 = sum(abs(x-c8)>r8)
 Question
 ========
 
-A standard `r strdie`-sided [die](https://en.wikipedia.org/wiki/Dice) was rolled `r n` times, and the results were organized into the [histogram](https://en.wikipedia.org/wiki/Histogram){target="blank"} shown below. In [dice notation](https://en.wikipedia.org/wiki/Dice_notation), we could say the results of `r n`d`r ns` were plotted as a histogram. (Pedantic sidenote: it is common to interpret `r n`d`r ns` as the SUM of `r n` rolls, but we will interpret `r n`d`r ns` as the LIST of `r n` rolls and use $\sum `r n`\text{d}`r ns`$ as the sum of `r n` rolls.)
+A standard `r strdie`-sided [die](https://en.wikipedia.org/wiki/Dice){target="blank"} was rolled `r n` times, and the results were organized into the [histogram](https://en.wikipedia.org/wiki/Histogram){target="blank"} shown below. In [dice notation](https://en.wikipedia.org/wiki/Dice_notation){target="blank"}, we could say the results of `r n`d`r ns` were plotted as a histogram. (Pedantic sidenote: it is common to interpret `r n`d`r ns` as the SUM of `r n` rolls, but we will interpret `r n`d`r ns` as the LIST of `r n` rolls and use $\sum `r n`\text{d}`r ns`$ as the sum of `r n` rolls.)
 
 ```{r echo=F}
 ylim = max(counts)*1.1

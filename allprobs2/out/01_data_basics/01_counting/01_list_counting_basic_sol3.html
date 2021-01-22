@@ -12,44 +12,41 @@ body{font-family: Arial, Helvetica, Sans;}
 
 <body>
 
-<ol>
-<li>
-solution_01_data_basics/01_counting/01_list_counting_basic
-<p>First, it helps to sort the data. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">sort</mtext><mo stretchy="false" form="prefix">(</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>31</mn><mo>,</mo><mn>31</mn><mo>,</mo><mn>32</mn><mo>,</mo><mn>33</mn><mo>,</mo><mn>35</mn><mo>,</mo><mn>36</mn><mo>,</mo><mn>37</mn><mo>,</mo><mn>38</mn><mo>,</mo><mn>38</mn><mo>,</mo><mn>39</mn></mrow><annotation encoding="application/x-tex">\text{sort}(\mathbf{x}) = 31, 31, 32, 33, 35, 36, 37, 38, 38, 39</annotation></semantics></math></p>
+<small><i>solution_01_data_basics/01_counting/01_list_counting_basic_v3</i></small>
+<p>First, it helps to sort the data. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">sort</mtext><mo stretchy="false" form="prefix">(</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>53</mn><mo>,</mo><mn>53</mn><mo>,</mo><mn>56</mn><mo>,</mo><mn>56</mn><mo>,</mo><mn>57</mn><mo>,</mo><mn>57</mn><mo>,</mo><mn>57</mn><mo>,</mo><mn>59</mn><mo>,</mo><mn>59</mn><mo>,</mo><mn>59</mn></mrow><annotation encoding="application/x-tex">\text{sort}(\mathbf{x}) = 53, 53, 56, 56, 57, 57, 57, 59, 59, 59</annotation></semantics></math></p>
 <p>You could use R to sort the data:</p>
-<pre><code>sort(c(31,38,32,36,38,37,33,35,31,39))</code></pre>
-<pre><code>##  [1] 31 31 32 33 35 36 37 38 38 39</code></pre>
+<pre><code>sort(c(59,57,53,59,57,53,56,57,59,56))</code></pre>
+<pre><code>##  [1] 53 53 56 56 57 57 57 59 59 59</code></pre>
 <p>You could also use a spreadsheet. Import the table into a spreadsheet. Then, highlight the column of measurements and use <a href="https://wiki.openoffice.org/wiki/Documentation/OOo3_User_Guides/Calc_Guide/Sorting_data" target="blank"><code>Sort</code> function</a>.</p>
 <br/>
 <ol type="a">
 <li>
-There are 6 measurements less than 37.
+There are 7 measurements less than 59.
 </li>
 <li>
-There are 4 measurements less than or equal to 33.
+There are 10 measurements less than or equal to 59.
 </li>
 <li>
-There are 0 measurements greater than 39.
+There are 3 measurements greater than 57.
 </li>
 <li>
-There are 3 measurements greater than or equal to 38.
+There are 10 measurements greater than or equal to 53.
 </li>
 <li>
-Measurement value 36 has 5 measurements less than it, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><mo>=</mo><mn>36</mn></mrow><annotation encoding="application/x-tex">x_{\text{c}}=36</annotation></semantics></math>.
+Measurement value 59 has 7 measurements less than it, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><mo>=</mo><mn>59</mn></mrow><annotation encoding="application/x-tex">x_{\text{c}}=59</annotation></semantics></math>.
 </li>
 <li>
-Measurement value 32 has 3 measurements less than or equal to it, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><mo>=</mo><mn>32</mn></mrow><annotation encoding="application/x-tex">x_{\text{c}}=32</annotation></semantics></math>.
+Measurement value 56 has 4 measurements less than or equal to it, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><mo>=</mo><mn>56</mn></mrow><annotation encoding="application/x-tex">x_{\text{c}}=56</annotation></semantics></math>.
 </li>
 <li>
-Measurement value 38 has 1 measurements greater than it, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><mo>=</mo><mn>38</mn></mrow><annotation encoding="application/x-tex">x_{\text{c}}=38</annotation></semantics></math>.
+Measurement value 53 has 8 measurements greater than it, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><mo>=</mo><mn>53</mn></mrow><annotation encoding="application/x-tex">x_{\text{c}}=53</annotation></semantics></math>.
 </li>
 <li>
-Measurement value 31 has 10 measurements greater than or equal to it, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><mo>=</mo><mn>31</mn></mrow><annotation encoding="application/x-tex">x_{\text{c}}=31</annotation></semantics></math>.
+Measurement value 57 has 6 measurements greater than or equal to it, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mtext mathvariant="normal">c</mtext></msub><mo>=</mo><mn>57</mn></mrow><annotation encoding="application/x-tex">x_{\text{c}}=57</annotation></semantics></math>.
 </li>
 </ol>
 <br/>
-</li>
-</ol>
+
 
 </body>
 </html>

@@ -1,6 +1,4 @@
 ```{r,data,generation,echo=FALSE,results="hide"}
-myseed = sample(10000:99999,1)
-set.seed(myseed)
 n = 10 #must be bigger than 8, or change xcom to replacement sampling with T
 f = sample(1:9,1)*10
 while(T){
@@ -82,10 +80,10 @@ Question
 
 A random procedure generated the following sample (sequence of measurements):
 
-$$\text{sort}(\mathbf{x}) = `r x` $$
+$$\mathbf{x} = `r x` $$
 
 ```{r echo=F}
-fn = paste0("list_counting_between_data_",myseed,".csv")
+fn = paste0("list_counting_between_data.csv")
 write.csv(data.frame(i,x), file = fn, quote = FALSE, row.names = FALSE)
 ```
 
@@ -140,4 +138,4 @@ exclozetype: num|num|num|num|num|num
 exsolution: `r nb1`|`r no2`|`r nb3`|`r no4`|`r d5`|`r d6`
 exname: list_counting_between
 extol: 0|0|0|0|0|0
-exextra[numwidth]: 999
+exextra[numwidth,numeric]: 8

@@ -12,38 +12,75 @@ body{font-family: Arial, Helvetica, Sans;}
 
 <body>
 
-<ol>
-<li>
-01_data_basics/01_counting/04_make_frequency_distribution
+<small><i>01_data_basics/01_counting/04_make_frequency_distribution_v2</i></small>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
 <p>A random procedure generated many measurements: <a href="data:text/csv;base64,ImkiLCJ4IgoxLDQ5Ljk1MDU3NjUxNDU5NTcKMiw0OS4yODMxMDUxNjMzMDI4CjMsNDguMDc4MTU2MDc2NzYyOAo0LDQ4LjkyNjE5NzMzMjI0MDYKNSw0NS40MjU4ODQ5MDUxOTkyCjYsNDkuOTcxNjg1NjU1MTQ1CjcsNDkuNTk0MjA3NDEyNzExMwo4LDQ3LjA4Mjg3MTQ0Nzc3MjEKOSw0Ny42NzQ5NTk5NDcxMjMyCjEwLDQ5LjkzMjUwMDUyMDU1MDgKMTEsNDkuOTkyODY3NDI2NTM0OQoxMiw0OS44MDAxNTYwNDY3OTU1CjEzLDQ4LjUzNzgwNTI1ODQxMTIKMTQsNDguNzMwMjg1MTg3NDg5NwoxNSw0Ny4yMzc5ODgwMzkwMjc5CjE2LDQ5Ljg3MjM3MjAwMzAwNjkKMTcsNDkuOTcxMTgwNTk3NDY1MQoxOCw0OS4zODkwODc2NDM0NjA2CjE5LDQ5LjcxODk0MDc0MTA0ODYKMjAsNDguMjEwNTUxNTEzNDA0CjIxLDQ4LjE3MTIyMjcyMzAwNDYKMjIsNDkuMzMzMzExOTIzNDQ4NgoyMyw0OC41NTkwODcwNjk4NjQ2CjI0LDQ5Ljk0NzMxNzA2MjcwMzIKMjUsNDkuNDg0NTA0OTUxMDg2MgoyNiw0OC42NjcyNzU1MDY3NDY1CjI3LDQ1LjQwMTE4ODkxNDM4MDIKMjgsNDkuODQ0NjY3MDA2MzY0OQoyOSw0OS4zOTY0NjgwODU3ODE0CjMwLDQ5LjM3Mjc3OTUyNTM3NDMKMzEsNDkuOTc5MjgzOTY3NjgzNwozMiw0OS44NzQ3MTE3MjMwMTA1CjMzLDQ3LjUyOTMyOTU3MDA4NwozNCw0OS45OTAzNzk3OTk2NTEKMzUsNDkuOTk4MjMzMTQyNzgyMwozNiw0OS43MDMyMzY4ODMxMDQ0CjM3LDQ5LjkzODcxMjAxMTY2NTMKMzgsNDguMTk1MzY0OTU4NzcyNwozOSw0Ny4xMTg4MTI5MzYzMDEyCjQwLDQ5LjgzNDk4MjEzMjI5NjgKNDEsNDcuMjUyNzE5MDgwMzE5Mwo0Miw0Ny4wMTc2Mjg1NzM2MDgKNDMsNDguMTQyMzIyNDMwODM1OQo0NCw0NS43MzgxMzIyMjAyMTU3CjQ1LDQ5Ljk5NTgxMjg1OTQyMTgKNDYsNDkuODc2MjYxMzkzMjk2NQo0Nyw0OS42NjQ5ODAxMzgwODc4CjQ4LDQ5Ljk5OTIxMDQwMTAyMTUKNDksNDkuMjI2Mjg3MzYyNTQ3CjUwLDQ5Ljk4MjkwNzk2Mjg0ODkKNTEsNDkuOTE3NTM2MDAxMjIwNwo1Miw0OS4yNTI5NTM3NzgyMzE2CjUzLDQ5LjM4NDk2MDI4NzQ4OTIKNTQsNDkuOTAyNzc5NjAwNTk2MQo1NSw0OS45NTMxMTUzNDYwNTE4CjU2LDQ5Ljg2Mjg5MTEwNjEyNDIKNTcsNDYuMDE1NTg3MDk0OTUxNQo1OCw0OS42NDg0NTc1NDY2NDgzCjU5LDQ5Ljk5ODk2MTQ3MDgzNDIKNjAsNDkuOTM5Nzc2NTQ0NzIzMwo2MSw0Ni4wNjU4NjE4NDc3NzU5CjYyLDQ5LjE0NjMzOTcwOTczNDcKNjMsNDYuMDk4NjQ3MTc1NDIyNQo2NCw0OS45OTQxMjYxMzM2NzQ3CjY1LDQ4LjkwNjI0MTM5MzcyMTYKNjYsNDguODM2MzkwMzAzNjk5OQo2Nyw0OS4xNzIwMzIzNzg3MTkKNjgsNDYuMTY0NTQ5NDU4MjQyNgo2OSw0OC44MjMzMzA0MDA4ODQKNzAsNDcuMTM3NjAwOTM2ODg5Ngo3MSw0OS45OTcxMzY1MTQ0OTMzCjcyLDQ5LjEwMjU1NzQ5MjUxNwo3Myw0Ny43NTg5NDg1ODk4NjM4Cjc0LDQ2LjkwNTgyMzM4MzExOTYKNzUsNDkuNjEwMTczODQ2MTg4MQo3Niw0OS43MTgxMzQzMDY1NzM3Cjc3LDQ5LjIxNzUxMDUxOTY2NDkKNzgsNDguOTU5MDgwNzI4Nzk3Cjc5LDQ2LjQ2MTYxOTk1MzMzNTgKODAsNDYuMzMzMjY4NzA1MTU3NQo4MSw0OS43MTQzNzE1MDY0MjEyCjgyLDQ5LjM5NjQ0OTc5NTQzODEKODMsNDcuNzYxODU1NTYyOTE1OAo4NCw0OC45OTc4NjA1Mjk0ODIyCjg1LDQ4LjMzOTU4MDE5MDg0MzIKODYsNDkuMDI1OTE3Mzc0Mzk0MQo4Nyw0OC45MTcyMzkyNzQzNDcxCjg4LDQ4LjU2NjExMTM5MTA0MTgKODksNDguNjQxNjA0NDg3MjU5MQo5MCw0Ni42MjU0Njg0NjE0MTAzCjkxLDQ4LjExMTU4OTgwMjQyMDYKOTIsNDkuMzc4NTY5MTM2MzMwNQo5Myw0Ny44MzA1MzY1NjI5MTg5Cjk0LDQ5Ljk4OTQ4Nzg4OTQ4NDYKOTUsNDguNjI5MTQwODk4MjMxOAo5Niw0OS40Nzc1NjMwODk4NTI2Cjk3LDQ5Ljk3Mzk2OTgwNzY4ODYKOTgsNDkuNTE4MDU2ODY5ODQwOQo5OSw0OS43NjI2MjQ1NDYyNDc2CjEwMCw0Ni4wMDU3NDYwNTA1MTIK" download="make_freq_dist.csv">download data</a></p>
 <p>Please complete the <a href="https://en.wikipedia.org/wiki/Frequency_distribution" target="blank">frequency distribution</a> using breaks 45, 46, 47, 48, 49, 50:</p>
-<table>
+<table class="bordered-table">
 <thead>
-<tr class="header">
-<th align="center">Interval</th>
-<th align="center">Frequency</th>
+<tr>
+<th style="text-align:center;">
+interval
+</th>
+<th style="text-align:center;">
+frequency
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="center">45 to 46</td>
-<td align="center"></td>
+<tr>
+<td style="text-align:center;">
+45 to 46
+</td>
+<td style="text-align:center;">
+
+</td>
 </tr>
-<tr class="even">
-<td align="center">46 to 47</td>
-<td align="center"></td>
+<tr>
+<td style="text-align:center;">
+46 to 47
+</td>
+<td style="text-align:center;">
+
+</td>
 </tr>
-<tr class="odd">
-<td align="center">47 to 48</td>
-<td align="center"></td>
+<tr>
+<td style="text-align:center;">
+47 to 48
+</td>
+<td style="text-align:center;">
+
+</td>
 </tr>
-<tr class="even">
-<td align="center">48 to 49</td>
-<td align="center"></td>
+<tr>
+<td style="text-align:center;">
+48 to 49
+</td>
+<td style="text-align:center;">
+
+</td>
 </tr>
-<tr class="odd">
-<td align="center">49 to 50</td>
-<td align="center"></td>
+<tr>
+<td style="text-align:center;">
+49 to 50
+</td>
+<td style="text-align:center;">
+
+</td>
 </tr>
 </tbody>
 </table>
@@ -51,8 +88,7 @@ body{font-family: Arial, Helvetica, Sans;}
 <ol type="a">
 </ol>
 <br/>
-</li>
-</ol>
+
 
 </body>
 </html>

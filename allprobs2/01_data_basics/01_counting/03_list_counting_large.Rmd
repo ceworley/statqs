@@ -1,6 +1,4 @@
 ```{r,data,generation,echo=FALSE,results="hide"}
-myseed = sample(10000:99999,1)
-set.seed(myseed)
 n = sample(c(70,80,90,100,120,125,150,175),1)
 f = sample(1:9,1)*10
 x = sample(0:999,n,TRUE)/100+f
@@ -39,7 +37,7 @@ if(r5 == 1){
 ```
 
 ```{r echo=F}
-fn = paste0("list_counting_large_data_",myseed,".csv")
+fn = paste0("list_counting_large_data.csv")
 write.csv(data.frame(i,x), file = fn, quote = FALSE, row.names = FALSE)
 ```
 
@@ -72,7 +70,7 @@ mydf = cbind(mydf,c(paste0('=IF(B',i+1,'>',b3,',1,0)'),paste0('=SUM(D2:D',n+1,')
 mydf = cbind(mydf,c(paste0('=IF(ABS(B',i+1,'-',c4,')<',r4,',1,0)'),paste0('=SUM(E2:E',n+1,')')))
 mydf = cbind(mydf,c(paste0('=IF(ABS(B',i+1,'-',c5,')>',r5,',1,0)'),paste0('=SUM(F2:F',n+1,')')))
 names(mydf) = c("i","x",paste0("x<",b2),paste0("x>",b3),paste0("abs(x-",c4,")<",r4),paste0("abs(x-",c5,")>",r5))
-fn2 = paste0("list_counting_large_solution_",myseed,".csv") 
+fn2 = paste0("list_counting_large_solution.csv") 
 write.csv(mydf, file = fn2, row.names = FALSE)
 ```
 \
@@ -131,4 +129,4 @@ exclozetype: num|num|num|num|num
 exsolution: `r n`|`r n2`|`r n3`|`r n4`|`r n5`
 exname: list_counting_large
 extol: 0
-exextra[numwidth,character]: 999
+exextra[numwidth,numeric]: 8

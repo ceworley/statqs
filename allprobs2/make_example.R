@@ -47,10 +47,10 @@ ul, #myUL {
 <body>
 %s
 <center>
-<iframe src="%s" frameborder=0 name="cake" id="cake" style ="border:2px solid black;height:500px;background-color:#eef1f3;" width="95%%"></></iframe>
+<iframe src="%s" frameborder=0 name="cake" id="cake" style ="border:2px solid black;height:95vh;background-color:#eef1f1;" width="95%%"></></iframe>
 </center>
 <center>
-<iframe src="%s" frameborder=0 name="duck" id="duck" style ="border:2px solid black;height:500px;background-color:#ffdada;" width="95%%"></></iframe>
+<iframe src="%s" frameborder=0 name="duck" id="duck" style ="border:2px solid black;height:95vh;background-color:#ffdada;" width="95%%"></></iframe>
 </center>
 <script>
 var toggler = document.getElementsByClassName("caret");
@@ -112,10 +112,6 @@ for(prob in s){
 news = paste0(rep("</ul></li>\n",lasti-1),collapse="")
 mys = paste0(mys,news,'</ul>',collapse="")
 
-htmlend = paste0(html1b,
-                 "out/",s[1],"1.html",
-                 html2,collapse=""
-)
 
 p1 = paste0("out/",s[1],"1.html",collapse="")
 p2 = paste0("out/",s[1],"_sol1.html",collapse="")
@@ -124,18 +120,43 @@ page = sprintf(html1,mys,p1,p2)
 write.table(page,"toc.html",quote=F,col.names=F,qmethod="d",row.names=F)
 
 
-# for(prob in s){
-#   bits = unlist(strsplit(prob,"/"))
-#   n = length(bits)
-#   dir = paste0(bits[1:(n-1)],collapse="/")
-#   myexam <- c(paste0(prob,".Rmd",sep=""))
-#   mydir = paste0("out/",dir,collapse="")
-#   dir.create(mydir,recursive=T,showWarnings=F)
-#   files = list.files(mydir)
-#   exams2html(myexam,n=3,seed=1:3,name=bits[n],template="plain8B.html",mathjax=T,
-#              dir = mydir,solution=F,question=prob
-#   )
-#   exams2html(myexam,n=3,seed=1:3,name=paste0(bits[n],"_sol"),template="plain8B.html",mathjax=T,
-#              dir = mydir,question=F,solution=paste0("solution_",prob,collapse="")
-#   )
-#  }
+
+for(prob in s){
+  bits = unlist(strsplit(prob,"/"))
+  n = length(bits)
+  dir = paste0(bits[1:(n-1)],collapse="/")
+  myexam <- c(paste0(prob,".Rmd",sep=""))
+  mydir = paste0("out/",dir,collapse="")
+  dir.create(mydir,recursive=T,showWarnings=F)
+  qname = paste0(mydir,"/",bits[n],1,".html",collapse="")
+  if(!file.exists(qname)){
+    exams2html(myexam,n=3,seed=1:3,name=bits[n],template="plain8B.html",mathjax=T,
+               dir = mydir,solution=F,question=prob
+    )
+    exams2html(myexam,n=3,seed=1:3,name=paste0(bits[n],"_sol"),template="plain8B.html",mathjax=T,
+               dir = mydir,question=F,solution=paste0("solution_",prob,collapse="")
+    )
+    for(i in 1:3){
+      qname = paste0(mydir,"/",bits[n],i,".html",collapse="")
+      print(qname)
+      myf = paste(readLines(qname),collapse="\n")
+      rep1 = sprintf("<ol>\n<li>\n%s/%s",dir,bits[n])
+      rep2 = sprintf("<small><i>%s/%s_v%s</i></small>",dir,bits[n],i)
+      myf = sub(rep1,rep2,myf)
+      rep1 = "</li>\n</ol>\n\n</body>"
+      rep2 = "\n\n</body>"
+      myf = sub(rep1,rep2,myf)
+      write.table(myf,qname,row.names=F,col.names=F,qmethod="d",quote=F)
+      ###
+      qname = paste0(mydir,"/",bits[n],"_sol",i,".html",collapse="")
+      myf = paste(readLines(qname),collapse="\n")
+      rep1 = sprintf("<ol>\n<li>\nsolution_%s/%s",dir,bits[n])
+      rep2 = sprintf("<small><i>solution_%s/%s_v%s</i></small>",dir,bits[n],i)
+      myf = sub(rep1,rep2,myf)
+      rep1 = "</li>\n</ol>\n\n</body>"
+      rep2 = "\n\n</body>"
+      myf = sub(rep1,rep2,myf)
+      write.table(myf,qname,row.names=F,col.names=F,qmethod="d",quote=F)
+    }
+  }
+ }

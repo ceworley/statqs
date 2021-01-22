@@ -1,6 +1,4 @@
 ```{r,data,generation,echo=FALSE,results="hide"}
-myseed = sample(10000:99999,1)
-set.seed(myseed)
 n = 10 #must be bigger than 8, or change xcom to replacement sampling with T
 f = sample(1:9,1)*10
 x = sort(sample(0:9,n,TRUE))+f
@@ -43,7 +41,7 @@ A [random procedure](https://en.wikipedia.org/wiki/Random_number_generation){tar
 $$\mathbf{x} = `r x` $$
 
 ```{r echo=F}
-fn = paste0("list_counting_basic_data_",myseed,".csv")
+fn = paste0("list_proportion_basic_data.csv")
 write.csv(data.frame(i,x), file = fn, quote = FALSE, row.names = FALSE)
 ```
 

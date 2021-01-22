@@ -25,6 +25,22 @@ knit_hooks$set(source = function(x, options) {
 Question
 ========
 
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+
 ```{r echo=F}
 write.csv(data.frame(i,x),file="make_freq_dist.csv",row.names = FALSE)
 ```
@@ -33,19 +49,31 @@ A random procedure generated many measurements: [download data](make_freq_dist.c
 
 Please complete the [frequency distribution](https://en.wikipedia.org/wiki/Frequency_distribution){target="blank"} using breaks `r brks`:
 
-```{r echo=F}
-s = ''
-for(i in 1:length(counts)){
-  s = paste0(s,"|",brks[i]," to ",brks[i+1],"|\\#\\#ANSWER",i,"\\#\\#|\n")
-}
+```{r tab1, results="asis",echo=F}
+interval = paste(brks[1:length(counts)]," to ", brks[2:(length(counts)+1)])
+frequency = paste0("##ANSWER",1:length(counts),"##")
+knitr::kable(data.frame(interval,frequency),format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
 ```
 
-| Interval |  Frequency  |
-|:---:|:---:|
-`r s`
 
 Solution
 ========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
 
 You will want to use a computer to answer these questions. 
 
@@ -53,23 +81,38 @@ In a spreadsheet, open the data, add the breaks as a column; then, use the [``FR
 
 In R, open the data and use the [``hist``](https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/hist) function. You supply the breaks and read the counts:
 
-```{r fig.show='hide'}
+```{r}
 mydata = read.csv("make_freq_dist.csv")
+```
+
+```{r}
 x = mydata$x
+```
+
+```{r fig.show="hide"}
 myhist = hist(x,breaks=brks)
+```
+
+```{r}
 myhist$counts
 ```
 
-```{r echo=F}
-s = ''
-for(i in 1:length(counts)){
-  s = paste0(s,"|",brks[i]," to ",brks[i+1],"|",counts[i],"|\n")
-}
+
+
+```{r tab2, results="asis", echo=F}
+interval = paste(brks[1:length(counts)]," to ", brks[2:(length(counts)+1)])
+frequency = counts
+knitr::kable(data.frame(interval,frequency),format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
 ```
 
-| interval |  frequency  |
-|:---:|:---:|
-`r s`
+
+
+Answerlist
+--------
+`r paste0("* ",counts,collapse="\n")`
+
+
+
 
 
 Meta-information
@@ -79,4 +122,4 @@ exclozetype: `r paste0(rep("num",length(counts)),collapse="|")`
 exsolution: `r paste0(counts,collapse="|")`
 exname: make_frequency_distribution
 extol: 0
-exextra[numwidth]: 999
+exextra[numwidth,numeric]: 10

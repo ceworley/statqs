@@ -12,38 +12,35 @@ body{font-family: Arial, Helvetica, Sans;}
 
 <body>
 
-<ol>
-<li>
-solution_01_data_basics/01_counting/02_list_counting_between
-<p>First, it helps to sort the data. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">sort</mtext><mo stretchy="false" form="prefix">(</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>32</mn><mo>,</mo><mn>32</mn><mo>,</mo><mn>33</mn><mo>,</mo><mn>34</mn><mo>,</mo><mn>36</mn><mo>,</mo><mn>37</mn><mo>,</mo><mn>37</mn><mo>,</mo><mn>38</mn><mo>,</mo><mn>39</mn><mo>,</mo><mn>39</mn></mrow><annotation encoding="application/x-tex">\text{sort}(\mathbf{x}) = 32, 32, 33, 34, 36, 37, 37, 38, 39, 39</annotation></semantics></math></p>
+<small><i>solution_01_data_basics/01_counting/02_list_counting_between_v3</i></small>
+<p>First, it helps to sort the data. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">sort</mtext><mo stretchy="false" form="prefix">(</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>52</mn><mo>,</mo><mn>53</mn><mo>,</mo><mn>54</mn><mo>,</mo><mn>55</mn><mo>,</mo><mn>55</mn><mo>,</mo><mn>56</mn><mo>,</mo><mn>57</mn><mo>,</mo><mn>57</mn><mo>,</mo><mn>58</mn><mo>,</mo><mn>59</mn></mrow><annotation encoding="application/x-tex">\text{sort}(\mathbf{x}) = 52, 53, 54, 55, 55, 56, 57, 57, 58, 59</annotation></semantics></math></p>
 <p>You could use R to sort the data:</p>
-<pre><code>sort(c(38,39,33,36,32,34,39,37,32,37))</code></pre>
-<pre><code>##  [1] 32 32 33 34 36 37 37 38 39 39</code></pre>
+<pre><code>sort(c(52,55,54,59,55,56,57,57,53,58))</code></pre>
+<pre><code>##  [1] 52 53 54 55 55 56 57 57 58 59</code></pre>
 <p>You could also use a spreadsheet. Import the table into a spreadsheet. Then, highlight the column of measurements and use <code>Sort</code> function.</p>
 <br/>
 <ol type="a">
 <li>
-There are 2 measurements between 33.5 and 36.5.
+There are 1 measurements between 53.5 and 54.5.
 </li>
 <li>
-There are 9 measurements outside 33.5 and 35.5.
+There are 8 measurements outside 57.5 and 59.5.
 </li>
 <li>
-There are 3 measurements closer than 1 units from 32.5. It might help to rephrase the problem as finding how many measurements are between 31.5 and 33.5. These boundaries are found by subtracting 1 from 32.5 and adding 1 to 32.5.
+There are 3 measurements closer than 1 units from 57.5. It might help to rephrase the problem as finding how many measurements are between 56.5 and 58.5. These boundaries are found by subtracting 1 from 57.5 and adding 1 to 57.5.
 </li>
 <li>
-There are 3 measurements farther than 1 units from 36.5. It might help to rephrase the problem as finding how many measurements are outside 35.5 and 37.5. These boundaries are found by subtracting 1 from 36.5 and adding 1 to 36.5.
+There are 9 measurements farther than 3.5 units from 55. It might help to rephrase the problem as finding how many measurements are outside 51.5 and 58.5. These boundaries are found by subtracting 3.5 from 55 and adding 3.5 to 55.
 </li>
 <li>
-You can guess and check until you find a half-integer that satisfies the equation. It turns out that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>3.5</mn></mrow><annotation encoding="application/x-tex">r = 3.5</annotation></semantics></math> satisfies the equation, because <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>36</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>3.5</mn><mo stretchy="true" form="postfix">]</mo></mrow><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>8</mn></mrow><annotation encoding="application/x-tex">\#\left[\big|\mathbf{x}-36\big|&lt;3.5\right] ~=~ 8</annotation></semantics></math>.
+You can guess and check until you find an integer that satisfies the equation. It turns out that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">r = 2</annotation></semantics></math> satisfies the equation, because <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>56.5</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&lt;</mo><mn>2</mn><mo stretchy="true" form="postfix">]</mo></mrow><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>6</mn></mrow><annotation encoding="application/x-tex">\#\left[\big|\mathbf{x}-56.5\big|&lt;2\right] ~=~ 6</annotation></semantics></math>.
 </li>
 <li>
-You can guess and check until you find a half-integer that satisfies the equation. It turns out that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">r = 0.5</annotation></semantics></math> satisfies the equation, because <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>38</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mn>0.5</mn><mo stretchy="true" form="postfix">]</mo></mrow><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>9</mn></mrow><annotation encoding="application/x-tex">\#\left[\big|\mathbf{x}-38\big|&gt;0.5\right] ~=~ 9</annotation></semantics></math>.
+You can guess and check until you find a half-integer that satisfies the equation. It turns out that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>1.5</mn></mrow><annotation encoding="application/x-tex">r = 1.5</annotation></semantics></math> satisfies the equation, because <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>#</mi><mrow><mo stretchy="true" form="prefix">[</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mn>58</mn><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mo>&gt;</mo><mn>1.5</mn><mo stretchy="true" form="postfix">]</mo></mrow><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>6</mn></mrow><annotation encoding="application/x-tex">\#\left[\big|\mathbf{x}-58\big|&gt;1.5\right] ~=~ 6</annotation></semantics></math>.
 </li>
 </ol>
 <br/>
-</li>
-</ol>
+
 
 </body>
 </html>

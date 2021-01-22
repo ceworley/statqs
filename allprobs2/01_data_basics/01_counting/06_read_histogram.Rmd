@@ -58,10 +58,10 @@ Answerlist
 * Evaluate $\#[\mathbf{x}>`r b2`]$.
 * Evaluate $\#[|\mathbf{x}-`r c3`|<`r r3`]$.
 * Evaluate $\#[|\mathbf{x}-`r c4`|>`r r4`]$.
-* Evaluate boundary $b$ such that $\#[\mathbf{x}<b] = `r n5`$.
-* Evaluate boundary $b$ such that $\#[\mathbf{x}>b] = `r n6`$.
-* Evaluate radius $r$ such that $\#[|\mathbf{x}-`r c7`|<r] = `r n7`$.
-* Evaluate radius $r$ such that $\#[|\mathbf{x}-`r c8`|>r] = `r n8`$.
+* Find boundary $b$ such that $\#[\mathbf{x}<b] = `r n5`$.
+* Find boundary $b$ such that $\#[\mathbf{x}>b] = `r n6`$.
+* Find radius $r$ such that $\#[|\mathbf{x}-`r c7`|<r] = `r n7`$.
+* Find radius $r$ such that $\#[|\mathbf{x}-`r c8`|>r] = `r n8`$.
 
 
 Solution

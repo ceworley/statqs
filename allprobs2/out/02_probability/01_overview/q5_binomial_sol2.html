@@ -12,9 +12,7 @@ body{font-family: Arial, Helvetica, Sans;}
 
 <body>
 
-<ol>
-<li>
-solution_02_probability/01_overview/q5_binomial
+<small><i>solution_02_probability/01_overview/q5_binomial_v2</i></small>
 <p>This is a binomial distribution, so use the appropriate formulas. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathvariant="double-struck"><mi>ℙ</mi></mstyle><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>=</mo><mi>x</mi><mo stretchy="false" form="postfix">]</mo><mspace width="0.222em"></mspace><mo>=</mo><msub><mspace width="0.222em"></mspace><mi>n</mi></msub><msub><mtext mathvariant="normal">C</mtext><mi>x</mi></msub><mo>⋅</mo><msup><mi>p</mi><mi>x</mi></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>n</mi><mo>−</mo><mi>x</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbb{P}[X=x] ~=~ _n\text{C}_x \cdot p^x(1-p)^{n-x}</annotation></semantics></math> where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> is the probability of success on each trial, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> is a specific number of successes, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> is the number of trials, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math> is the combinations operator (so that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi></mi><mi>n</mi></msub><msub><mi>C</mi><mi>x</mi></msub><mo>=</mo><mfrac><mrow><mi>n</mi><mi>!</mi></mrow><mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo>−</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mi>!</mi><mspace width="0.167em"></mspace><mi>x</mi><mi>!</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">{_n}C_x = \frac{n!}{(n-x)! \, x!}</annotation></semantics></math>). Some people prefer to also use <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math> as the probability of failure, such that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>q</mi><mo>=</mo><mn>1</mn><mo>−</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">q=1-p</annotation></semantics></math>. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathvariant="double-struck"><mi>ℙ</mi></mstyle><mo stretchy="false" form="prefix">[</mo><mi>X</mi><mo>=</mo><mi>x</mi><mo stretchy="false" form="postfix">]</mo><mspace width="0.222em"></mspace><mo>=</mo><msub><mspace width="0.222em"></mspace><mi>n</mi></msub><msub><mtext mathvariant="normal">C</mtext><mi>x</mi></msub><mo>⋅</mo><msup><mi>p</mi><mi>x</mi></msup><msup><mi>q</mi><mrow><mi>n</mi><mo>−</mo><mi>x</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbb{P}[X=x] ~=~ _n\text{C}_x \cdot p^xq^{n-x}</annotation></semantics></math></p>
 <p>You will also need to add <a href="https://en.wikipedia.org/wiki/Mutual_exclusivity" target="blank">mutually exclusive</a> probabilities (when multiple <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>-values satisfy the probability’s condition). It is also helpful to be aware of the <a href="https://en.wikipedia.org/wiki/Complementary_event#Complement_rule" target="blank">complement rule</a>.</p>
 <br/>
@@ -45,8 +43,7 @@ Because this is a binomial distribution, <math display="inline" xmlns="http://ww
 </li>
 </ol>
 <br/>
-</li>
-</ol>
+
 
 </body>
 </html>

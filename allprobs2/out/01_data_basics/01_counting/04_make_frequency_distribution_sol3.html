@@ -12,61 +12,93 @@ body{font-family: Arial, Helvetica, Sans;}
 
 <body>
 
-<ol>
-<li>
-solution_01_data_basics/01_counting/04_make_frequency_distribution
+<small><i>solution_01_data_basics/01_counting/04_make_frequency_distribution_v3</i></small>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
 <p>You will want to use a computer to answer these questions.</p>
 <p>In a spreadsheet, open the data, add the breaks as a column; then, use the <a href="https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_FREQUENCY_function" target="blank"><code>FREQUENCY function</code></a>.</p>
 <p>In R, open the data and use the <a href="https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/hist"><code>hist</code></a> function. You supply the breaks and read the counts:</p>
-<pre class="text"><code>mydata = read.csv(&quot;make_freq_dist.csv&quot;)
-x = mydata$x
-myhist = hist(x,breaks=c(50,55,60,65,70))</code></pre>
+<pre class="text"><code>mydata = read.csv(&quot;make_freq_dist.csv&quot;)</code></pre>
+<pre class="text"><code>x = mydata$x</code></pre>
+<pre class="text"><code>myhist = hist(x,breaks=c(50,55,60,65,70))</code></pre>
 <pre class="text"><code>myhist$counts</code></pre>
 <pre><code>## [1]  2 20 22 86</code></pre>
-<table>
+<table class="bordered-table">
 <thead>
-<tr class="header">
-<th align="center">interval</th>
-<th align="center">frequency</th>
+<tr>
+<th style="text-align:center;">
+interval
+</th>
+<th style="text-align:center;">
+frequency
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="center">50 to 55</td>
-<td align="center">2</td>
+<tr>
+<td style="text-align:center;">
+50 to 55
+</td>
+<td style="text-align:center;">
+2
+</td>
 </tr>
-<tr class="even">
-<td align="center">55 to 60</td>
-<td align="center">20</td>
+<tr>
+<td style="text-align:center;">
+55 to 60
+</td>
+<td style="text-align:center;">
+20
+</td>
 </tr>
-<tr class="odd">
-<td align="center">60 to 65</td>
-<td align="center">22</td>
+<tr>
+<td style="text-align:center;">
+60 to 65
+</td>
+<td style="text-align:center;">
+22
+</td>
 </tr>
-<tr class="even">
-<td align="center">65 to 70</td>
-<td align="center">86</td>
+<tr>
+<td style="text-align:center;">
+65 to 70
+</td>
+<td style="text-align:center;">
+86
+</td>
 </tr>
 </tbody>
 </table>
 <br/>
 <ol type="a">
 <li>
-
+2
 </li>
 <li>
-
+20
 </li>
 <li>
-
+22
 </li>
 <li>
-
+86
 </li>
 </ol>
 <br/>
-</li>
-</ol>
+
 
 </body>
 </html>
