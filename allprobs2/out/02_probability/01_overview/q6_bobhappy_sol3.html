@@ -2,17 +2,19 @@
 <html>
 
 <head>
-<title>statistics</title>
+<title>Exam 3</title>
 <style type="text/css">
 body{font-family: Arial, Helvetica, Sans;}
 </style>
 <meta charset="utf-8" />
-<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
 </head>
 
 <body>
+<h2>Exam 3</h2>
 
-<small><i>solution_02_probability/01_overview/q6_bobhappy_v3</i></small>
+<ol>
+<li>
+<h4>Solution</h4>
 <p>Use the definition of <a href="https://en.wikipedia.org/wiki/Conditional_probability" target="blank">conditional probability</a>. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">win given happy</mtext><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">win and happy</mtext><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">happy</mtext><mo stretchy="false" form="postfix">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">P(\text{win given happy}) = \frac{P(\text{win and happy})}{P(\text{happy})}</annotation></semantics></math> We can first determine all the joint probabilities. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> and </mtext><mspace width="0.333em"></mspace></mrow><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>⋅</mo><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> given </mtext><mspace width="0.333em"></mspace></mrow><mi>A</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(A\text{ and }B) = P(A)\cdot P(B\text{ given } A) </annotation></semantics></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">win and happy</mtext><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left"><mo>=</mo><mn>0.3</mn><mo>×</mo><mn>0.8</mn><mo>=</mo><mn>0.24</mn></mtd></mtr><mtr><mtd columnalign="right"><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">win and sad</mtext><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left"><mo>=</mo><mn>0.3</mn><mo>×</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>0.8</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.06</mn></mtd></mtr><mtr><mtd columnalign="right"><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">lose and happy</mtext><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left"><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>0.3</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mn>0.33</mn><mo>=</mo><mn>0.231</mn></mtd></mtr><mtr><mtd columnalign="right"><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">lose and sad</mtext><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left"><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>0.3</mn><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>0.33</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.469</mn></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
 P(\text{win and happy}) &amp;= 0.3\times0.8 = 0.24\\
 P(\text{win and sad}) &amp;= 0.3\times(1-0.8) = 0.06\\
@@ -26,7 +28,8 @@ P(\text{happy}) &amp;= P\left(\text{[win and happy] OR [lose and happy]}\right) 
 &amp;= 0.471
 \end{aligned}</annotation></semantics></math> So, back to the conditional probability. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">win given happy</mtext><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>0.24</mn><mn>0.471</mn></mfrac><mo>=</mo><mn>0.51</mn></mrow><annotation encoding="application/x-tex">P(\text{win given happy}) = \frac{0.24}{0.471} = 0.51</annotation></semantics></math></p>
 <br/>
-
+</li>
+</ol>
 
 </body>
 </html>

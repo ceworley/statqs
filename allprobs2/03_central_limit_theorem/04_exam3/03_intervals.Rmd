@@ -35,11 +35,38 @@ $$\text{interval of typical totals} = \left(n\mu-2\sigma\sqrt{n}, \, n\mu+2\sigm
 
 For the listed values of $n$, determine the bounds.
 
-| $n$ | _ lower bound of typical totals _ | _ upper bound of typical totals _ |
-|:---:|:---:|:---:|
-| 25  | ##ANSWER3## | ##ANSWER4## |
-| 100  | ##ANSWER5## | ##ANSWER6## |
-| 400  | ##ANSWER7## | ##ANSWER8## |
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r anstab1}
+n = c(25,100,400)
+col2 = c("##ANSWER3##","##ANSWER5##","##ANSWER7##")
+col3 = c("##ANSWER4##","##ANSWER6##","##ANSWER8##")
+anstab1 = data.frame(n,col2,col3)
+colnames(anstab1) = c("$n$","lower bound of typical totals",
+                      "upper bound of typical totals")
+knitr::kable(anstab1,format="html",table.attr='class="bordered-table"', align = "ccc",row.names=F)
+```
+
+
+<!-- | $n$ | _ lower bound of typical totals _ | _ upper bound of typical totals _ | -->
+<!-- |:---:|:---:|:---:| -->
+<!-- | 25  | ##ANSWER3## | ##ANSWER4## | -->
+<!-- | 100  | ##ANSWER5## | ##ANSWER6## | -->
+<!-- | 400  | ##ANSWER7## | ##ANSWER8## | -->
 
 ### Interval of typical averages
 
@@ -48,11 +75,21 @@ Let the interval of typical averages be defined as having lower bound $\mu-\frac
 $$\text{interval of typical averages} = \left(\mu-\frac{2\sigma}{\sqrt{n}}, \, \mu+\frac{2\sigma}{\sqrt{n}}\right)$$
 For the listed values of $n$, determine the bounds.
 
-| $n$ | _ lower bound of typical averages _ | _ upper bound of typical averages _ |
-|:---:|:---:|:---:|
-| 25  | ##ANSWER9## | ##ANSWER10## |
-| 100  | ##ANSWER11## | ##ANSWER12## |
-| 400  | ##ANSWER13## | ##ANSWER14## |
+```{r anstab2}
+n = c(25,100,400)
+col2 = c("##ANSWER9##","##ANSWER11##","##ANSWER13##")
+col3 = c("##ANSWER10##","##ANSWER12##","##ANSWER14##")
+anstab2 = data.frame(n,col2,col3)
+colnames(anstab2) = c("$n$","lower bound of typical averages",
+                      "upper bound of typical averages")
+knitr::kable(anstab2,format="html",table.attr='class="bordered-table"', align = "ccc",row.names=F)
+```
+
+<!-- | $n$ | _ lower bound of typical averages _ | _ upper bound of typical averages _ | -->
+<!-- |:---:|:---:|:---:| -->
+<!-- | 25  | ##ANSWER9## | ##ANSWER10## | -->
+<!-- | 100  | ##ANSWER11## | ##ANSWER12## | -->
+<!-- | 400  | ##ANSWER13## | ##ANSWER14## | -->
 
 
 Solution
@@ -65,19 +102,58 @@ $$\text{upper bound} = `r mu+2*sigma` $$
 
 ### Interval of typical totals
 
-| $n$ | _ lower bound of typical totals _ | _ upper bound of typical totals _ |
-|:---:|:---:|:---:|
-| 25  | `r totlb[1]` | `r totub[1]` |
-| 100  | `r totlb[2]` | `r totub[2]` |
-| 400  | `r totlb[3]` | `r totub[3]` |
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r soltab1}
+n = c(25,100,400)
+col2 = c(totlb[1],totlb[2],totlb[3])
+col3 = c(totub[1],totub[2],totub[3])
+soltab1 = data.frame(n,col2,col3)
+colnames(soltab1) = c("$n$","lower bound of typical totals",
+                      "upper bound of typical totals")
+knitr::kable(soltab1,format="html",table.attr='class="bordered-table"', align = "ccc",row.names=F)
+```
+
+
+<!-- | $n$ | _ lower bound of typical totals _ | _ upper bound of typical totals _ | -->
+<!-- |:---:|:---:|:---:| -->
+<!-- | 25  | `r totlb[1]` | `r totub[1]` | -->
+<!-- | 100  | `r totlb[2]` | `r totub[2]` | -->
+<!-- | 400  | `r totlb[3]` | `r totub[3]` | -->
 
 ### Interval of typical averages
 
-| $n$ | _ lower bound of typical averages _ | _ upper bound of typical averages _ |
-|:---:|:---:|:---:|
-| 25  | `r avelb[1]` | `r aveub[1]` |
-| 100  | `r avelb[2]` | `r aveub[2]` |
-| 400  | `r avelb[3]` | `r aveub[3]` |
+
+```{r soltab2}
+n = c(25,100,400)
+col2 = c(avelb[1],avelb[2],avelb[3])
+col3 = c(aveub[1],aveub[2],aveub[3])
+soltab1 = data.frame(n,col2,col3)
+colnames(soltab1) = c("$n$","lower bound of typical averages",
+                      "upper bound of typical averages")
+knitr::kable(soltab1,format="html",table.attr='class="bordered-table"', align = "ccc",row.names=F)
+```
+
+
+<!-- | $n$ | _ lower bound of typical averages _ | _ upper bound of typical averages _ | -->
+<!-- |:---:|:---:|:---:| -->
+<!-- | 25  | `r avelb[1]` | `r aveub[1]` | -->
+<!-- | 100  | `r avelb[2]` | `r aveub[2]` | -->
+<!-- | 400  | `r avelb[3]` | `r aveub[3]` | -->
 
 
 Meta-information

@@ -2,17 +2,19 @@
 <html>
 
 <head>
-<title>statistics</title>
+<title>Exam 1</title>
 <style type="text/css">
 body{font-family: Arial, Helvetica, Sans;}
 </style>
 <meta charset="utf-8" />
-<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
 </head>
 
 <body>
+<h2>Exam 1</h2>
 
-<small><i>solution_03_central_limit_theorem/03_central_limit_theorem/14_binom_between_v1</i></small>
+<ol>
+<li>
+<h4>Solution</h4>
 <p>We determine the mean and standard deviation of the binomial distribution. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mi>n</mi><mi>p</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mn>196</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>0.9</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>176.4</mn></mrow><annotation encoding="application/x-tex">\mu ~=~ np ~=~ (196)(0.9) ~=~ 176.4</annotation></semantics></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><msqrt><mrow><mi>n</mi><mi>p</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo></mrow></msqrt><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><msqrt><mrow><mo stretchy="false" form="prefix">(</mo><mn>196</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>0.9</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>0.1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msqrt><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>4.2</mn></mrow><annotation encoding="application/x-tex">\sigma ~=~ \sqrt{np(1-p)} ~=~ \sqrt{(196)(0.9)(0.1)} ~=~ 4.2 </annotation></semantics></math></p>
 <p>We determine both <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>-scores. (In the de Moivre-Laplace notes, I used <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">\sum x</annotation></semantics></math> to emphasize that a binomial variable is a sum of Bernoulli trials. Here, I will just use <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> as the boundary for number of successes, because this is the more common notation.) We get the first <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>-score.</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"><msub><mi>z</mi><mn>1</mn></msub></mtd><mtd columnalign="left"><mo>=</mo><mfrac><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>−</mo><mi>μ</mi></mrow><mi>σ</mi></mfrac></mtd></mtr><mtr><mtd columnalign="right"></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mfrac><mrow><mn>173.5</mn><mo>−</mo><mn>176.4</mn></mrow><mn>4.2</mn></mfrac></mtd></mtr><mtr><mtd columnalign="right"></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mo>−</mo><mn>0.6904762</mn></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
@@ -30,7 +32,8 @@ z_2 &amp;= \frac{x_2 - \mu}{\sigma} \\\\
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo>−</mo><mn>0.6904762</mn><mo>&lt;</mo><mi>Z</mi><mo>&lt;</mo><mo>−</mo><mn>0.2142857</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.1702147</mn></mrow><annotation encoding="application/x-tex">P(-0.6904762 &lt; Z &lt; -0.2142857) ~=~ 0.1702147 </annotation></semantics></math></p>
 <p>Of course, you could have rounded the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>-scores, so any of the following will also get credit. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo>−</mo><mn>0.7</mn><mo>&lt;</mo><mi>Z</mi><mo>&lt;</mo><mo>−</mo><mn>0.22</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.1709</mn></mrow><annotation encoding="application/x-tex">P(-0.7 &lt; Z &lt; -0.22) ~=~ 0.1709 </annotation></semantics></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo>−</mo><mn>0.69</mn><mo>&lt;</mo><mi>Z</mi><mo>&lt;</mo><mo>−</mo><mn>0.21</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.1717</mn></mrow><annotation encoding="application/x-tex">P(-0.69 &lt; Z &lt; -0.21) ~=~ 0.1717 </annotation></semantics></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo>−</mo><mn>0.7</mn><mo>&lt;</mo><mi>Z</mi><mo>&lt;</mo><mo>−</mo><mn>0.21</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.1678</mn></mrow><annotation encoding="application/x-tex">P(-0.7 &lt; Z &lt; -0.21) ~=~ 0.1678 </annotation></semantics></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mo>−</mo><mn>0.69</mn><mo>&lt;</mo><mi>Z</mi><mo>&lt;</mo><mo>−</mo><mn>0.22</mn><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>=</mo><mspace width="0.222em"></mspace><mn>0.1748</mn></mrow><annotation encoding="application/x-tex">P(-0.69 &lt; Z &lt; -0.22) ~=~ 0.1748 </annotation></semantics></math></p>
 <br/>
-
+</li>
+</ol>
 
 </body>
 </html>

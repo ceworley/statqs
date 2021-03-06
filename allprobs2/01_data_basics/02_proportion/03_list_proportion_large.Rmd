@@ -43,7 +43,7 @@ I recommend using either R or a spreadsheet.
 
 ## Using R:
 
-First, download the csv. Also, write the following script as save it as ``basketball_proportion.r``. Put both files in the same directory (folder). Run the script.
+First, download the csv. Also, write the following script, and save it as ``basketball_proportion.r``. Put both files in the same directory (folder). Run the script.
 
 ```{r}
 mydata = read.csv("basketball_proportion.csv")

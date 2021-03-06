@@ -60,28 +60,28 @@ mids = (cp[2:(ns+1)]+cp[1:ns])/2
 par(mar=c(0,0,0,0))
 plot(0,0,type="n",xlim=c(-size,size),ylim=c(-size,size))
 th = seq(0,2*pi,length.out=1000)
-lines(cos(th),sin(th))
+lines(sin(th),cos(th))
 for(a in cp){
-  lines(c(0,cos(a*2*pi)),c(0,sin(a*2*pi)))
+  lines(c(0,sin(a*2*pi)),c(0,cos(a*2*pi)))
 }
-lines(c(1,size),c(0,0),lwd=3)
 for(a in seq(0.1,0.9,0.1)){
-  lines(c(cos(a*2*pi),1.13*cos(a*2*pi)),c(sin(a*2*pi),1.13*sin(a*2*pi)))
-  text(1.19*cos(a*2*pi),1.19*sin(a*2*pi),a*100)
+  lines(c(sin(a*2*pi),1.13*sin(a*2*pi)),c(cos(a*2*pi),1.13*cos(a*2*pi)))
+  text(1.19*sin(a*2*pi),1.19*cos(a*2*pi),a*100)
 }
 for(a in seq(0.05,0.95,0.1)){
-  lines(c(cos(a*2*pi),1.10*cos(a*2*pi)),c(sin(a*2*pi),1.10*sin(a*2*pi)))
-  text(1.16*cos(a*2*pi),1.16*sin(a*2*pi),a*100)
+  lines(c(sin(a*2*pi),1.10*sin(a*2*pi)),c(cos(a*2*pi),1.10*cos(a*2*pi)))
+  text(1.16*sin(a*2*pi),1.16*cos(a*2*pi),a*100)
 }
 for(a in seq(0.01,0.99,0.01)){
-  lines(c(cos(a*2*pi),1.04*cos(a*2*pi)),c(sin(a*2*pi),1.04*sin(a*2*pi)))
+  lines(c(sin(a*2*pi),1.04*sin(a*2*pi)),c(cos(a*2*pi),1.04*cos(a*2*pi)))
 }
 for(i in 1:ns){
   a = mids[i]
-  text(0.7*cos(a*2*pi),0.7*sin(a*2*pi),(1:n)[i])
+  text(0.7*sin(a*2*pi),0.7*cos(a*2*pi),(1:n)[i],cex=2)
 }
-text(1.15,0.04,0)
-text(1.15,-0.04,100)
+text(0.04,1.15,0,srt=90)
+text(-0.04,1.15,100,srt=90)
+lines(c(0,0),c(1,size),lwd=3)
 ```
 \
 

@@ -160,12 +160,12 @@ lab = c("P(T<t)","P(T>t)","P(|T|<t)","P(|T|>t)")
 polygon(c(0,1,1,0),c(1,1,1-4/nrows,1-4/nrows),col=rgb(0.8,0.5,0.5,0.4),lwd=3)
 for(i in 1:4){
   ypos = 1-(i-0.5)/nrows
-  text(c1wd/2,ypos,lab[i],adj = c(0.5,0.5),family = "mono")
+  text(c1wd/2,ypos,lab[i],adj = c(0.5,0.5))
 }
 for(j in 1:length(gamma)){
     xpos = c1wd+(j-0.5)*cwd
     ypos = 1-(1:4-0.5)/nrows
-    text(xpos,ypos,c(left[j],right[j],gamma[j],alpha[j]),family = "mono")
+    text(xpos,ypos,c(left[j],right[j],gamma[j],alpha[j]))
 }
 polygon(c(0,0,c1wd,c1wd),c(0,1-4/nrows,1-4/nrows,0),lwd=3,col=rgb(0.2,0.4,1,0.2))
 polygon(c(c1wd,c1wd,1,1),c(0,1-4/nrows,1-4/nrows,0),lwd=3,col=rgb(0.8,0.8,0.3,0.2))
@@ -174,14 +174,14 @@ for(i in seq(5,nrows,2)){
   yhi = 1-(i-1)/nrows
   polygon(c(0,1,1,0),c(ylo,ylo,yhi,yhi),col=rgb(0,0,0,0.05))
 }
-text(c1wd/2,1-(5-0.5)/nrows,"df = ",family = "mono")
-text(c1wd+cwd/2,1-(5-0.5)/nrows,"t = ",family = "mono")
+text(c1wd/2,1-(5-0.5)/nrows,"df = ")
+text(c1wd+cwd/2,1-(5-0.5)/nrows,"t = ")
 for(i in 1:length(df)){
   ypos = 1-(5-0.5)/nrows-i/nrows
-  text(c1wd/2,ypos,df[i],family = "mono")
+  text(c1wd/2,ypos,df[i])
   for(j in 1:length(left)){
     xpos = c1wd+(j-0.5)*cwd
-    text(xpos,ypos,sprintf("%.2f",round(qt(left[j],df[i]),2)),family = "mono")
+    text(xpos,ypos,sprintf("%.2f",round(qt(left[j],df[i]),2)))
   }
 }
 ```

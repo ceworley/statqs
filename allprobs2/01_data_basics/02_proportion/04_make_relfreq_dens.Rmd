@@ -36,16 +36,33 @@ A random procedure generated $n=`r n`$ measurements: [download data](make_freq_d
 
 I've already determined the frequencies. Please determine the relative frequencies and the densities. A brief description of relative frequency and density can be found [here](https://en.wikipedia.org/wiki/Histogram){target="blank"}.
 
-```{r echo=F}
-s = ''
-for(i in 1:length(counts)){
-  s = paste0(s,"|",brks[i]," to ",brks[i+1],"|",counts[i],"|\\#\\#ANSWER",i*2-1,"\\#\\# ","| \\#\\#ANSWER",i*2,"\\#\\#|\n")
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
 }
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r anstab, results="asis", echo=F}
+NN = length(counts)
+Interval = paste(brks[1:NN],"to",brks[2:(NN+1)])
+Frequency = counts
+Relative_frequency = paste("##ANSWER",seq(1,NN*2-1,2),"##",sep="")
+Density = paste("##ANSWER",seq(2,2*NN,2),"##",sep="")
+anstab = data.frame(Interval,Frequency,Relative_frequency,Density)
+knitr::kable(anstab,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
 ```
 
-| Interval |  Frequency  | Relative Frequency | Density |
-|:---:|:---:|:---:|:---:|
-`r s`
+
 
 
 Solution
@@ -53,16 +70,33 @@ Solution
 
 To determine the relative frequencies, just divide each frequency by `r n` (because $n=`r n`$). To determine the densities, divide the relative frequencies by the width of the interval, which in this case is the same for each interval ($`r brks[2]`-`r brks[1]`=`r brks[2]-brks[1]`$).
 
-```{r echo=F}
-s = ''
-for(i in 1:length(counts)){
-  s = paste0(s,"|",brks[i]," to ",brks[i+1],"|",counts[i],"|",signif(counts[i]/n,4),"|",signif(counts[i]/n/(brks[i+1]-brks[i]),4),"|\n")
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
 }
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+
+```{r soltab, results="asis", echo=F}
+NN = length(counts)
+Interval = paste(brks[1:NN],"to",brks[2:(NN+1)])
+Frequency = counts
+Relative_frequency = signif(counts/n,4)
+Density = signif(counts/n/(brks[2]-brks[1]),4)
+soltab = data.frame(Interval,Frequency,Relative_frequency,Density)
+knitr::kable(soltab,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
 ```
 
-| Interval |  Frequency  | Relative Frequency | Density |
-|:---:|:---:|:---:|:---:|
-`r s`
 
 
 

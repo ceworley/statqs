@@ -2,17 +2,19 @@
 <html>
 
 <head>
-<title>statistics</title>
+<title>Exam 2</title>
 <style type="text/css">
 body{font-family: Arial, Helvetica, Sans;}
 </style>
 <meta charset="utf-8" />
-<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
 </head>
 
 <body>
+<h2>Exam 2</h2>
 
-<small><i>solution_01_data_basics/05_spread/01_get_range_v2</i></small>
+<ol>
+<li>
+<h4>Solution</h4>
 <p>To determine the range by hand, you subtract the minimum value from the maximum value. You could first sort all the data. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">sort</mtext><mo stretchy="false" form="prefix">(</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>45.43</mn><mo>,</mo><mn>47.08</mn><mo>,</mo><mn>47.67</mn><mo>,</mo><mn>48.08</mn><mo>,</mo><mn>48.93</mn><mo>,</mo><mn>49.28</mn><mo>,</mo><mn>49.59</mn><mo>,</mo><mn>49.80</mn><mo>,</mo><mn>49.93</mn><mo>,</mo><mn>49.95</mn><mo>,</mo><mn>49.97</mn><mo>,</mo><mn>49.99</mn></mrow><annotation encoding="application/x-tex">\text{sort}(\mathbf{x}) = 45.43, 47.08, 47.67, 48.08, 48.93, 49.28, 49.59, 49.80, 49.93, 49.95, 49.97, 49.99 </annotation></semantics></math> Determine the minimum. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">min</mtext><mo stretchy="false" form="prefix">(</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>45.43</mn></mrow><annotation encoding="application/x-tex">\text{min}(\mathbf{x}) = 45.43 </annotation></semantics></math> Determine the maximum. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">max</mtext><mo stretchy="false" form="prefix">(</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>49.99</mn></mrow><annotation encoding="application/x-tex">\text{max}(\mathbf{x}) = 49.99</annotation></semantics></math> Take the difference. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">range</mtext><mo stretchy="false" form="prefix">(</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mtext mathvariant="normal">max</mtext><mo stretchy="false" form="prefix">(</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mtext mathvariant="normal">min</mtext><mo stretchy="false" form="prefix">(</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>49.99</mn><mo>−</mo><mn>45.43</mn><mo>=</mo><mn>4.56</mn></mrow><annotation encoding="application/x-tex">\text{range}(\mathbf{x}) = \text{max}(\mathbf{x})-\text{min}(\mathbf{x}) = 49.99-45.43 = 4.56 </annotation></semantics></math></p>
 <h3 id="spreadsheet">Spreadsheet</h3>
 <p>In a spreadsheet, you can use the <a href="https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_MIN_function"><code>MIN</code> function</a> and <a href="https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_MAX_function"><code>MAX</code> function</a>.</p>
@@ -28,7 +30,8 @@ range = max(x)-min(x)
 print(range)</code></pre>
 <pre><code>## [1] 4.56</code></pre>
 <br/>
-
+</li>
+</ol>
 
 </body>
 </html>
