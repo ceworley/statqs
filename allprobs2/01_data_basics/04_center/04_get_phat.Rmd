@@ -44,7 +44,7 @@ $$\hat{p} = \frac{\#[\text{1s}]}{\#[\text{0s or 1s}]} = \frac{\text{# of success
 ```{r echo=F,fig.height=8,fig.width=6}
 sol = data.frame(i,x)
 sol = rbind(sol,c("",""),c("","average(x)"),c("",paste0("=average(B2:B",n+1,")",collapse="")))
-write.csv(sol,"mean_0s_1s_solution.csv",row.names=F)
+write.csv(sol,"get_phat_solution.csv",row.names=F)
 draw_ss = function(df){
   nrow = length(df[,1])
   ncol = length(df[1,])
@@ -80,13 +80,13 @@ draw_ss(sol)
 ```
 \
 
-In a spreadsheet, you can use the [`AVERAGE` function](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_AVERAGE_function){target="blank"}. You can see a [solution spreadsheet here](mean_0s_1s_solution.csv).
+In a spreadsheet, you can use the [`AVERAGE` function](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_AVERAGE_function){target="blank"}. You can see a [solution spreadsheet here](get_phat_solution.csv).
 
 In R, you can use the [`MEAN` function](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/mean){target="blank"}.
 
 ```{r}
 # First, get the csv into the working directory... then...
-data = read.csv("get_mean_0s_1s.csv")
+data = read.csv("get_phat.csv")
 x = data$x
 xbar = mean(x)
 phat = xbar #because data is 0s and 1s
