@@ -47,6 +47,7 @@ ul, #myUL {
 <body>
 %s
 <center>
+
 <iframe src="%s" frameborder=0 name="cake" id="cake" style ="border:2px solid black;height:95vh;background-color:#eef1f1;" width="95%%"></></iframe>
 </center>
 <center>

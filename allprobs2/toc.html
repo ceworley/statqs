@@ -237,10 +237,33 @@ ul, #myUL {
 </ul></li>
 </ul>
 <center>
-<iframe src="out/01_data_basics/01_counting/01_list_counting_basic1.html" frameborder=0 name="cake" id="cake" style ="border:2px solid black;height:95vh;background-color:#eef1f1;" width="95%"></></iframe>
+<script type="text/javascript">
+  function cakeLoaded() {
+      var iFrameID = document.getElementById("cake");
+      if(iFrameID) {
+            // here you can make the height, I delete it first, then I make it again
+            iFrameID.height = "";
+            iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + "px";
+      }   
+  }
+  function duckLoaded() {
+      var iFrameID = document.getElementById("duck");
+      if(iFrameID) {
+            // here you can make the height, I delete it first, then I make it again
+            iFrameID.height = "";
+            iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight;
+      }   
+  }
+  function resize() {
+    var ck = document.getElementById("cake");
+    ck.height = document.getElementById("body")[2].scrollHeight+"px";
+  }
+</script>  
+ <button onclick="resize()">Resize</button> 
+<iframe src="out/01_data_basics/01_counting/01_list_counting_basic1.html" frameborder=0 name="cake" id="cake" style ="border:2px solid black;background-color:#eef1f1;" width="95%"></></iframe>
 </center>
 <center>
-<iframe src="out/01_data_basics/01_counting/01_list_counting_basic_sol1.html" frameborder=0 name="duck" id="duck" style ="border:2px solid black;height:95vh;background-color:#ffdada;" width="95%"></></iframe>
+<iframe src="out/01_data_basics/01_counting/01_list_counting_basic_sol1.html" frameborder=0 name="duck" id="duck" style ="border:2px solid black;background-color:#ffdada;" width="95%"></></iframe>
 </center>
 <script>
 var toggler = document.getElementsByClassName("caret");
@@ -254,6 +277,8 @@ for (i = 0; i < toggler.length; i++) {
 function changeUrl(site,site2) {
     document.getElementsByName("cake")[0].src = site;
     document.getElementsByName("duck")[0].src = site2;
+    var ck = document.getElementById("cake");
+    ck.height = ck.contentDocument.body.scrollHeight; + "px";
 }
 </script>
 </body>
