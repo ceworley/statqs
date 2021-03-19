@@ -2,19 +2,17 @@
 <html>
 
 <head>
-<title>Exam 2</title>
+<title>statistics</title>
 <style type="text/css">
 body{font-family: Arial, Helvetica, Sans;}
 </style>
 <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
 </head>
 
 <body>
-<h2>Exam 2</h2>
 
-<ol>
-<li>
-<h4>Solution</h4>
+<small><i>solution_01_data_basics/05_spread/14_get_VAR_prop_v2</i></small>
 <p>First, determine the mean of the sample. Remember, if a sample is all 0s and 1s, then the sample’s mean is the same as the sample proportion (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>p</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{p}</annotation></semantics></math>).</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>p</mi><mo accent="true">̂</mo></mover><mo>=</mo><mover><mi>w</mi><mo accent="true">‾</mo></mover><mo>=</mo><mfrac><mrow><mo>∑</mo><mstyle mathvariant="bold"><mi>𝐰</mi></mstyle></mrow><mi>n</mi></mfrac><mo>=</mo><mn>0.625</mn></mrow><annotation encoding="application/x-tex">\hat{p} = \bar{w} = \frac{\sum \mathbf{w}}{n} =0.625 </annotation></semantics></math></p>
 <p>Determine the squared deviations (squared distances from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>p</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{p}</annotation></semantics></math>).</p>
@@ -129,8 +127,7 @@ var(w)*(n-1)/(n)</code></pre>
 \end{aligned}</annotation></semantics></math></p>
 <p>So, you could have just found <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>p</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{p}</annotation></semantics></math>. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>p</mi><mo accent="true">̂</mo></mover><mo>=</mo><mfrac><msub><mi>n</mi><mn>1</mn></msub><mrow><msub><mi>n</mi><mn>0</mn></msub><mo>+</mo><msub><mi>n</mi><mn>1</mn></msub></mrow></mfrac><mo>=</mo><mfrac><mn>5</mn><mn>8</mn></mfrac><mo>=</mo><mn>0.625</mn></mrow><annotation encoding="application/x-tex">\hat{p} = \frac{n_1}{n_0+n_1} = \frac{5}{8} = 0.625 </annotation></semantics></math> Then used the formula. <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext mathvariant="normal">VAR</mtext><mtext mathvariant="normal">bern</mtext></msub><mo>=</mo><mover><mi>p</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mover><mi>p</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>0.625</mn><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mn>0.625</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0.234375</mn></mrow><annotation encoding="application/x-tex">\text{VAR}_\text{bern} =\hat{p}(1-\hat{p}) = (0.625)(1-0.625) = 0.234375 </annotation></semantics></math></p>
 <br/>
-</li>
-</ol>
+
 
 </body>
 </html>

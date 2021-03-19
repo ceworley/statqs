@@ -42,10 +42,63 @@ ul, #myUL {
 .active {
   display: block;
 }
+#myBtn1 {
+  display: block;
+  position: fixed;
+  bottom: 20px;
+  right: 300px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+#myBtn2 {
+  display: block;
+  position: fixed;
+  bottom: 20px;
+  right: 130px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+#myBtn3 {
+  display: block;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+#myBtn1:hover {
+  background-color: #555;
+}
+
 </style>
 </head>
 <body>
 %s
+<button onclick="topFunction()" id="myBtn1" title="Go to top">Top</button>
+<button onclick="qFunction()" id="myBtn2" title="Go to question (shortcut=`q`)">Question</button>
+<button onclick="aFunction()" id="myBtn3" title="Go to answer (shortcut=`a`)">Answer</button>
 <center>
 
 <iframe src="%s" frameborder=0 name="cake" id="cake" style ="border:2px solid black;height:95vh;background-color:#eef1f1;" width="95%%"></></iframe>
@@ -66,6 +119,28 @@ function changeUrl(site,site2) {
     document.getElementsByName("cake")[0].src = site;
     document.getElementsByName("duck")[0].src = site2;
 }
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+function qFunction() {
+  document.getElementsByName("cake")[0].scrollIntoView();
+}
+function aFunction() {
+  document.getElementsByName("duck")[0].scrollIntoView();
+}
+document.addEventListener("keypress", function onEvent(event) {
+    if (event.key === "q") {
+        document.getElementsByName("cake")[0].scrollIntoView();
+    }
+    if (event.key === "t") {
+        document.body.scrollTop = 0;
+    }
+    if (event.key === "a") {
+        document.getElementsByName("duck")[0].scrollIntoView();
+    }
+
+});
 </script>
 </body>
 </html>'

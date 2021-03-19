@@ -128,7 +128,7 @@ s3 = paste(s3,"\\end{tabular}\n\\end{center}",sep="")
 |:---:|:---:|:---:|:---:|:---:|:---:|
 `r s2`
 |=========|=========|=========|=========|=========|=========|
-|     |     | $\sum x \cdot \mathbb{P}[x)] = `r mu`$ |   |   | $\sigma^2 = `r sum(c6)`$   |
+|     |     | $\sum x \cdot \mathbb{P}[x] = `r mu`$ |   |   | $\sigma^2 = `r sum(c6)`$   |
 |     |     | $\mu = `r mu`$ |   |   | $\sigma = `r sig`$   |
 
 <!-- `r s3` -->

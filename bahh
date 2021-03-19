@@ -1,0 +1,24 @@
+https://proofwiki.org/wiki/User:Ascii/Theorems
+
+
+each problem has its own html page, shows one version, can see solution, has 9 more versions.
+
+has link to previous problem, next problem, and collapsible tree.
+
+why not just use hats for all estimated (from sample) values?
+
+
+
+ref # a101142208
+
+
+
+
+set seed
+choose population
+get measurement
+get sample (set n)
+show histogram
+
+get many samples 
+

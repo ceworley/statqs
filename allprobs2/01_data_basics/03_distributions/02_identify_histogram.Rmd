@@ -56,11 +56,11 @@ for(j in 1:5){
 
 Answerlist
 --------
-* distribution 1
-* distribution 2
-* distribution 3
-* distribution 4
-* distribution 5
+* histogram 1
+* histogram 2
+* histogram 3
+* histogram 4
+* histogram 5
 * Bell
 * Uniform
 * Bimodal
@@ -80,6 +80,7 @@ hist(x)
 \
 
 Using a spreadsheet is [way more work](https://wikieducator.org/OpenOffice/Calc_3/Histogram){target="blank"}. 
+
 
 
 Meta-information
