@@ -9,6 +9,9 @@ html1 = '<!DOCTYPE html>
 <head>
 <title>All Problems</title>
 <style>
+body {
+    padding-bottom: 100px;
+}
 /* Remove default bullets */
 ul, #myUL {
   list-style-type: none;
