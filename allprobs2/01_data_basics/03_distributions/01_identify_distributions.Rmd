@@ -1,7 +1,7 @@
 ```{r,data,generation,echo=FALSE,results="hide"}
 types = c("Bell","Uniform","Bimodal","Right-skew","Left-skew")
 
-n = 1000
+n = 2000
 beta1 = c(3,1,0.5,0.7,1.4)
 beta2 = c(3,1,0.5,1.4,0.7)
 

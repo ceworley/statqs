@@ -46,8 +46,8 @@ Question
 
 A random procedure generated many measurements: [`r fn`](`r fn`)
 
-```{r echo=F, comment=NA}
-cat(paste0(x,collapse=", "))
+```{r echo=F, comment=NA, results="asis"}
+cat(paste0(sapply(x,function(a){sprintf("%.2f",a)}),collapse=", "))
 ```
 
 Answerlist
@@ -75,7 +75,57 @@ write.csv(mydf, file = fn2, row.names = FALSE)
 ```
 \
 
-If you used a spreadsheet, you should end up with [this solution csv](`r fn2`).
+
+### Spreadsheet
+
+You need to learn about references and formulas: [https://wiki.openoffice.org/wiki/Documentation/OOo3_User_Guides/Calc_Guide/Creating_formulas](https://wiki.openoffice.org/wiki/Documentation/OOo3_User_Guides/Calc_Guide/Creating_formulas){target="_blank"}
+
+You need to learn about the `IF` function:
+[https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_IF_function](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_IF_function){target="_blank"}
+
+You need to learn about the `SUM` function:
+[https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_SUM_function](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_SUM_function){target="_blank"}
+
+
+If you used a spreadsheet, you should end up with [this solution csv](`r fn2`). You can also see the solution spreadsheet here (with the middle rows removed).
+
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+    color: #88888888;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td:first-child{
+    color: #888888;
+}
+</style>
+
+```{r tab1, results="asis", echo=F}
+mydf2 = mydf[c(1:4,(length(x)-2):(length(x)+1)),]
+mydf2 = type.convert(mydf2, as.is = TRUE)
+mydf2 = rbind(names(mydf2),mydf2)
+mydf2 = cbind(c(1:5,(length(x)-1):(length(x)+2)),mydf2)
+colnames(mydf2) = c(" ",LETTERS[1:6])
+mydf2[length(mydf2[,1]),2] = " "
+mydf2[length(mydf2[,1]),3] = " "
+# mydf2 = cbind(c(1:4,(length(x)-2):(length(x)+1)),mydf2)
+knitr::kable(mydf2,format="html",table.attr='class="bordered-table"', align = "ccccccc",row.names=F)
+```
+
+If you have the solution spreadsheet open in a spreadsheet program, you can display the functions by simultaneously pressing `ctrl` and `~` and then return to the outputs by pressing `ctrl` and `~` again. If you see ###, you can expand the cell-width until there is enough room to display the functions.
+
+
+### R
 
 To use R, the following commands would answer the questions.
 ```{r echo=F, comment=NA}
@@ -107,19 +157,22 @@ sum(abs(x-c4)<r4)
 ```{r echo=F, comment=NA}
 cat(paste0("sum(abs(x-",c5,")>",r5,")"))
 ```
+
 ```{r echo=F}
 sum(abs(x-c5)>r5)
 ```
+
+Notice that the standard output in R starts with "##" and then [1]. For now, just ignore these. If the [1] really bothers you, you could use the [`cat`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/cat){target="_blank"} function.
 
 
 
 Answerlist
 --------
-* There are `r n` measurements.
-* There are `r n2` measurements less than `r b2`.
-* There are `r n3` measurements greater than `r b3`.
-* There are `r n4` measurements closer than `r r4` units from `r c4`. You could also say there are `r n4` measurements inside `r b4[1]` to `r b4[2]`.
-* There are `r n5` measurements farther than `r r5` units from `r c5`. You could also say there are `r n5` measurements outside `r b5[1]` to `r b5[2]`.
+* (ANS=`r n`) There are `r n` measurements.
+* (ANS=`r n2`) There are `r n2` measurements less than `r b2`.
+* (ANS=`r n3`) There are `r n3` measurements greater than `r b3`.
+* (ANS=`r n4`) There are `r n4` measurements closer than `r r4` units from `r c4`. You could also say there are `r n4` measurements inside `r b4[1]` to `r b4[2]`.
+* (ANS=`r n5`) There are `r n5` measurements farther than `r r5` units from `r c5`. You could also say there are `r n5` measurements outside `r b5[1]` to `r b5[2]`.
 
 
 Meta-information

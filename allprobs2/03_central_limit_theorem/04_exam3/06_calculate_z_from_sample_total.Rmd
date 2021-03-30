@@ -111,7 +111,7 @@ $$\text{expected total} = n\mu $$
 
 This expected total is the average of the sampling distribution.
 
-Calculate the expected total: ##ANSWER1##
+ ##ANSWER1##
 
 (Round to the hundredths place)
 
@@ -121,7 +121,7 @@ The standard error of a total is the product of the population standard deviatio
 $$\text{standard error of total} = \sigma \sqrt{n}$$
 This standard error is the standard deviation of the sampling distribution.
 
-Calculate the standard error: ##ANSWER2##
+ ##ANSWER2##
 
 (Round to the hundredths place)
 
@@ -141,7 +141,7 @@ points(r*cos(t),r*sin(t),pch=20)
 Archie would like to know how well she did today. She wants you to calculate a standard score (a $z$ score). To calculate the standard score of a sample total, you can use the following formula.
 $$z = \frac{\sum x - n\mu}{\sigma\sqrt{n}}$$
 
-Calculate the standard score: ##ANSWER3##
+ ##ANSWER3##
 
 (Round to the hundredths place)
 
@@ -149,7 +149,7 @@ Calculate the standard score: ##ANSWER3##
 
 Archie would like to know the probability that tomorrow she shoots worse than today. To estimate this, report the cumulative probability associated with the standard score you calculated. This can be done with a [$z$ table](https://en.wikipedia.org/wiki/Standard_normal_table#Conversion){target="blank"}, `pnorm` function in R, `NORM.DIST` function in a spreadsheet, or with other standard normal tools.
 
-Calculate $P(Z\leq z)$, the cumulative probability: ##ANSWER4##
+ ##ANSWER4##
 
 (Round to the ten-thousandths place)
 
@@ -187,10 +187,10 @@ Determine Archie's rating:  ##ANSWER5##
 
 Answerlist
 --------
-* 
-* 
-* 
-* 
+* Calculate the expected total:
+* Calculate the standard error:
+* Calculate the standard score:
+* Calculate $P(Z\leq z)$, the cumulative probability:
 * A
 * B
 * C

@@ -101,14 +101,14 @@ The first 4 questions involve adding up relative frequencies of the indicated in
 
 Answerlist
 --------
-* There are `r n1` measurements less than `r b1`. So, $\text{prop}[\mathbf{x}<`r b1`]=\frac{`r n1`}{`r n`}=`r p1`$.
-* There are `r n2` measurements more than `r b2`. So, $\text{prop}[\mathbf{x}>`r b2`]=\frac{`r n2`}{`r n`}=`r p2`$.
-* There are `r n3` measurements closer than `r r3` units from `r c3`. So, $\text{prop}[|\mathbf{x}-`r c3`|<`r r3`]=`r p3`$.
-* There are `r n4` measurements further than `r r4` units from `r c4`. So, $\text{prop}[|\mathbf{x}-`r c4`|>`r r4`]=`r p4`$.
-* First, $`r p5` \cdot `r n` = `r n5`$. A boundary at $b=`r b5`$ has `r n5` measurements less than it. So, $\text{prop}[\mathbf{x}<`r b5`]=`r p5`$.
-* First, $`r p6` \cdot `r n` = `r n6`$. A boundary at $b=`r b6`$ has `r n6` measurements more than it. So, $\text{prop}[\mathbf{x}>`r b6`]=`r p6`$.
-* First, $`r p7` \cdot `r n` = `r n7`$. An interval with radius $r=`r r7`$ around center `r c7` contains `r n7` measurements. So, $\text{prop}[|\mathbf{x}-`r c7`|<`r r7`]=`r p7`$.
-* First, $`r p8` \cdot `r n` = `r n8`$. An interval with radius $r=`r r8`$ around center `r c8` excludes `r n8` measurements.  So, $\text{prop}[|\mathbf{x}-`r c8`|<`r r8`]=`r p8`$.
+* (ANS=`r p1` $\pm$ 0.01) There are `r n1` measurements less than `r b1`. So, $\text{prop}[\mathbf{x}<`r b1`]=\frac{`r n1`}{`r n`}=`r p1`$.
+* (ANS=`r p2` $\pm$ 0.01) There are `r n2` measurements more than `r b2`. So, $\text{prop}[\mathbf{x}>`r b2`]=\frac{`r n2`}{`r n`}=`r p2`$.
+* (ANS=`r p3` $\pm$ 0.01) There are `r n3` measurements closer than `r r3` units from `r c3`. So, $\text{prop}[|\mathbf{x}-`r c3`|<`r r3`]=`r p3`$.
+* (ANS=`r p4` $\pm$ 0.01) There are `r n4` measurements further than `r r4` units from `r c4`. So, $\text{prop}[|\mathbf{x}-`r c4`|>`r r4`]=`r p4`$.
+* (ANS=`r b5`) First, $`r p5` \cdot `r n` = `r n5`$. A boundary at $b=`r b5`$ has `r n5` measurements less than it. So, $\text{prop}[\mathbf{x}<`r b5`]=`r p5`$.
+* (ANS=`r b6`) First, $`r p6` \cdot `r n` = `r n6`$. A boundary at $b=`r b6`$ has `r n6` measurements more than it. So, $\text{prop}[\mathbf{x}>`r b6`]=`r p6`$.
+* (ANS=`r r7`) First, $`r p7` \cdot `r n` = `r n7`$. An interval with radius $r=`r r7`$ around center `r c7` contains `r n7` measurements. So, $\text{prop}[|\mathbf{x}-`r c7`|<`r r7`]=`r p7`$.
+* (ANS=`r r8`) First, $`r p8` \cdot `r n` = `r n8`$. An interval with radius $r=`r r8`$ around center `r c8` excludes `r n8` measurements.  So, $\text{prop}[|\mathbf{x}-`r c8`|<`r r8`]=`r p8`$.
 
 
 Meta-information

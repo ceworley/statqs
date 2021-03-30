@@ -52,8 +52,15 @@ if(n%%2==0){
 Q1 = median(xs[1:h])
 Q3 = median(xs[(n-h+1):n])
 iqr = Q3-Q1
+
+aIQR = numeric(0)
+for(ttt in 1:9){
+  aIQR = c(aIQR,IQR(x,type=ttt))
+}
+aIQR = sort(unique(aIQR))
 ```
 
+(ANS = any of [`r aIQR`])
 
 ## Method 1: method of medians
 
@@ -171,7 +178,7 @@ print(iqr)
 
 We can find the quartiles with built-in functions of a spreadsheet. 
 
-```{r echo=F}
+```{r echo=F,fig.width=6,fig.height=8}
 sol = data.frame(i,x)
 sol = rbind(sol,c("",""),
             c("","Q1"),

@@ -39,7 +39,7 @@ Depending on the type of distribution, we can make a strong claim regarding the 
 
 A sample was gathered and visualized with a histogram.
 
-```{r, echo=F}
+```{r, echo=F,fig.width=5,fig.height=4}
 hist(x)
 ```
 \

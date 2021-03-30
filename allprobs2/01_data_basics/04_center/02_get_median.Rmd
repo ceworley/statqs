@@ -31,6 +31,8 @@ Determine the sample [median](https://en.wikipedia.org/wiki/Median){target="blan
 Solution
 ========
 
+(ANS=`r median(x)`)
+
 To determine the median by hand, you first sort the sample.
 $$\text{sort}(\mathbf{x})=`r sort(x)`$$
 If the sample size is odd, just find the number in the middle number (the $\frac{n+1}{2}$th value). If the sample size is even, determine the mean of the middle two numbers (the $\frac{n}{2}$th and $\left(\frac{n}{2}+1\right)$th values).

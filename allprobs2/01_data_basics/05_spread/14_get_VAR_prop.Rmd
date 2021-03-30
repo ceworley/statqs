@@ -38,13 +38,33 @@ Determine the variance of the sample.  You can round your final answer to the hu
 Solution
 ========
 
+(ANS=`r var`)
+
 First, determine the mean of the sample. Remember, if a sample is all 0s and 1s, then the sample's mean is the same as the sample proportion ($\hat{p}$). 
 
 $$\hat{p} = \bar{w} = \frac{\sum \mathbf{w}}{n} =`r mean(w)` $$
 
 Determine the squared deviations (squared distances from $\hat{p}$).
 
-`r knitr::kable(mydf)`
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r tab1, results="asis", echo=F}
+knitr::kable(mydf,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
 
 
 Now, take the mean of the squared deviations to determine the variance.

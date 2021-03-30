@@ -73,14 +73,29 @@ Solution
 
 You should make a histogram. This is easy in R.
 
-```{r}
+```{r fig.height=4,fig.width=5}
 x = read.csv("make_hist.csv")$x
 hist(x)
 ```
 \
 
-Using a spreadsheet is [way more work](https://wikieducator.org/OpenOffice/Calc_3/Histogram){target="blank"}. 
+Using a spreadsheet is [way more work](https://wikieducator.org/OpenOffice/Calc_3/Histogram){target="blank"}. But, you could use the [`FREQUENCY` function](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_FREQUENCY_function){target="_blank"}.
 
+The correct histogram is number `r (1:5)[type==ord]`.
+The correct description is `r types[type]`.
+
+Answerlist
+--------
+* `r (type==ord)[1]`
+* `r (type==ord)[2]`
+* `r (type==ord)[3]`
+* `r (type==ord)[4]`
+* `r (type==ord)[5]`
+* `r (1:5==type)[1]`
+* `r (1:5==type)[2]`
+* `r (1:5==type)[3]`
+* `r (1:5==type)[4]`
+* `r (1:5==type)[5]`
 
 
 Meta-information

@@ -83,14 +83,14 @@ You could also use a spreadsheet. Import the table into a spreadsheet. Then, hig
 
 Answerlist
 --------
-* There are `r i1` measurements less than `r x1`.
-* There are `r i2` measurements less than or equal to `r x2`.
-* There are `r i3` measurements greater than `r x3`.
-* There are `r i4` measurements greater than or equal to `r x4`.
-* Measurement value `r x5` has `r i5` measurements less than it, so $x_{\text{c}}=`r x5`$.
-* Measurement value `r x6` has `r i6` measurements less than or equal to it, so $x_{\text{c}}=`r x6`$.
-* Measurement value `r x7` has `r i7` measurements greater than it, so $x_{\text{c}}=`r x7`$.
-* Measurement value `r x8` has `r i8` measurements greater than or equal to it, so $x_{\text{c}}=`r x8`$.
+* (ANS=`r i1`) There are `r i1` measurements less than `r x1`. $\#[\mathbf{x}<`r x1`]=`r i1`$ 
+* (ANS=`r i2`) There are `r i2` measurements less than or equal to `r x2`. $\#[\mathbf{x}\le`r x2`]=`r i2`$
+* (ANS=`r i3`) There are `r i3` measurements greater than `r x3`. $\#[\mathbf{x}>`r x3`]=`r i3`$
+* (ANS=`r i4`) There are `r i4` measurements greater than or equal to `r x4`. $\#[\mathbf{x}\ge`r x4`]=`r i4`$
+* (ANS=`r x5`) Measurement value `r x5` has `r i5` measurements less than it, so $x_{\text{c}}=`r x5`$. In other words, $\#[\mathbf{x}<`r x5`] = `r i5`$.
+* (ANS=`r x6`) Measurement value `r x6` has `r i6` measurements less than or equal to it, so $x_{\text{c}}=`r x6`$. In other words, $\#[\mathbf{x}\le `r x6`] = `r i6`$.
+* (ANS=`r x7`) Measurement value `r x7` has `r i7` measurements greater than it, so $x_{\text{c}}=`r x7`$. In other words, $\#[\mathbf{x}>`r x7`] = `r i7`$.
+* (ANS=`r x8`) Measurement value `r x8` has `r i8` measurements greater than or equal to it, so $x_{\text{c}}=`r x8`$. In other words, $\#[\mathbf{x}\ge `r x8`] = `r i8`$.
 
 
 Meta-information

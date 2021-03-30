@@ -13,84 +13,182 @@ body{font-family: Arial, Helvetica, Sans;}
 <body>
 
 <small><i>solution_01_data_basics/05_spread/02_get_MAD_v1</i></small>
+<p>(3.532)</p>
 <p>First, determine the mean of the sample.</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>x</mi><mo accent="true">‾</mo></mover><mo>=</mo><mfrac><mrow><mo>∑</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle></mrow><mi>n</mi></mfrac><mo>=</mo><mn>50.89</mn></mrow><annotation encoding="application/x-tex">\bar{x} = \frac{\sum \mathbf{x}}{n} =50.89 </annotation></semantics></math></p>
 <p>Determine the absolute deviations (distances from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>x</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar{x}</annotation></semantics></math>).</p>
-<table>
-<colgroup>
-<col width="6%" />
-<col width="15%" />
-<col width="35%" />
-<col width="42%" />
-</colgroup>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<table class="bordered-table">
 <thead>
-<tr class="header">
-<th align="right"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math></th>
-<th align="right"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math></th>
-<th align="right">deviations = <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mover><mi>x</mi><mo accent="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\mathbf{x}-\bar{x}</annotation></semantics></math></th>
-<th align="right">AbsDev = <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="postfix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mover><mi>x</mi><mo accent="true">‾</mo></mover><mo stretchy="false" form="postfix">|</mo></mrow><annotation encoding="application/x-tex">\vert\mathbf{x}-\bar{x}\vert</annotation></semantics></math></th>
+<tr>
+<th style="text-align:center;">
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+</th>
+<th style="text-align:center;">
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math>
+</th>
+<th style="text-align:center;">
+deviations = <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mover><mi>x</mi><mo accent="true">‾</mo></mover></mrow><annotation encoding="application/x-tex">\mathbf{x}-\bar{x}</annotation></semantics></math>
+</th>
+<th style="text-align:center;">
+AbsDev = <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="postfix">|</mo><mstyle mathvariant="bold"><mi>𝐱</mi></mstyle><mo>−</mo><mover><mi>x</mi><mo accent="true">‾</mo></mover><mo stretchy="false" form="postfix">|</mo></mrow><annotation encoding="application/x-tex">\vert\mathbf{x}-\bar{x}\vert</annotation></semantics></math>
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">1</td>
-<td align="right">43.46</td>
-<td align="right">-7.43</td>
-<td align="right">7.43</td>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+43.46
+</td>
+<td style="text-align:center;">
+-7.43
+</td>
+<td style="text-align:center;">
+7.43
+</td>
 </tr>
-<tr class="even">
-<td align="right">2</td>
-<td align="right">54.98</td>
-<td align="right">4.09</td>
-<td align="right">4.09</td>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+54.98
+</td>
+<td style="text-align:center;">
+4.09
+</td>
+<td style="text-align:center;">
+4.09
+</td>
 </tr>
-<tr class="odd">
-<td align="right">3</td>
-<td align="right">54.97</td>
-<td align="right">4.08</td>
-<td align="right">4.08</td>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+54.97
+</td>
+<td style="text-align:center;">
+4.08
+</td>
+<td style="text-align:center;">
+4.08
+</td>
 </tr>
-<tr class="even">
-<td align="right">4</td>
-<td align="right">50.98</td>
-<td align="right">0.09</td>
-<td align="right">0.09</td>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+50.98
+</td>
+<td style="text-align:center;">
+0.09
+</td>
+<td style="text-align:center;">
+0.09
+</td>
 </tr>
-<tr class="odd">
-<td align="right">5</td>
-<td align="right">54.04</td>
-<td align="right">3.15</td>
-<td align="right">3.15</td>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+54.04
+</td>
+<td style="text-align:center;">
+3.15
+</td>
+<td style="text-align:center;">
+3.15
+</td>
 </tr>
-<tr class="even">
-<td align="right">6</td>
-<td align="right">52.96</td>
-<td align="right">2.07</td>
-<td align="right">2.07</td>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+52.96
+</td>
+<td style="text-align:center;">
+2.07
+</td>
+<td style="text-align:center;">
+2.07
+</td>
 </tr>
-<tr class="odd">
-<td align="right">7</td>
-<td align="right">54.81</td>
-<td align="right">3.92</td>
-<td align="right">3.92</td>
+<tr>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+54.81
+</td>
+<td style="text-align:center;">
+3.92
+</td>
+<td style="text-align:center;">
+3.92
+</td>
 </tr>
-<tr class="even">
-<td align="right">8</td>
-<td align="right">51.15</td>
-<td align="right">0.26</td>
-<td align="right">0.26</td>
+<tr>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+51.15
+</td>
+<td style="text-align:center;">
+0.26
+</td>
+<td style="text-align:center;">
+0.26
+</td>
 </tr>
-<tr class="odd">
-<td align="right">9</td>
-<td align="right">42.02</td>
-<td align="right">-8.87</td>
-<td align="right">8.87</td>
+<tr>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+42.02
+</td>
+<td style="text-align:center;">
+-8.87
+</td>
+<td style="text-align:center;">
+8.87
+</td>
 </tr>
-<tr class="even">
-<td align="right">10</td>
-<td align="right">49.53</td>
-<td align="right">-1.36</td>
-<td align="right">1.36</td>
+<tr>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+49.53
+</td>
+<td style="text-align:center;">
+-1.36
+</td>
+<td style="text-align:center;">
+1.36
+</td>
 </tr>
 </tbody>
 </table>

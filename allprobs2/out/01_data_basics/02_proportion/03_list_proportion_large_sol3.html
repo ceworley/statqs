@@ -14,7 +14,7 @@ body{font-family: Arial, Helvetica, Sans;}
 
 <small><i>solution_01_data_basics/02_proportion/03_list_proportion_large_v3</i></small>
 <p>I recommend using either R or a spreadsheet.</p>
-<h2 id="using-r">Using R:</h2>
+<h2 id="using-r">Using R</h2>
 <p>First, download the csv. Also, write the following script, and save it as <code>basketball_proportion.r</code>. Put both files in the same directory (folder). Run the script.</p>
 <pre class="text"><code>mydata = read.csv(&quot;basketball_proportion.csv&quot;)
 x = mydata$hit_or_miss
@@ -23,8 +23,10 @@ ns = sum(x==&quot;Hit&quot;)
 nf = sum(x==&quot;Miss&quot;)
 phat = ns/n
 qhat = nf/n
-cat(sprintf(&quot;n=%d, ns=%d, nf=%d, phat=%.4f, qhat=%.4f&quot;,n,ns,nf,phat,qhat))</code></pre>
-<pre><code>## n=137, ns=7, nf=130, phat=0.0511, qhat=0.9489</code></pre>
+mydata = data.frame(n,ns,nf,phat,qhat)
+print(mydata,row.names=F)</code></pre>
+<pre><code>##    n ns  nf       phat      qhat
+##  137  7 130 0.05109489 0.9489051</code></pre>
 <p>If you are using Rstudio, you may need to click <code>Session</code>, <code>Set Working Directory</code>, <code>Source File Location</code> while the script (<code>basketball_proportion.r</code>) is the open tab.</p>
 <h2 id="using-a-spreadsheet">Using a spreadsheet</h2>
 <p>First, if you scroll down, it should be clear there are 137 rows of data, because the last row has <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>137</mn></mrow><annotation encoding="application/x-tex">i=137</annotation></semantics></math>. In column C use <code>IF(B2="Hit",1,0)</code> and in column D use <code>IF(B2="Miss",1,0)</code>, and extend the formulas down, to get columns of 0s and 1s, then use <code>SUM(C2:C137)</code> and <code>SUM(D2:D137)</code> to get <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mi>s</mi></msub><annotation encoding="application/x-tex">n_s</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mi>f</mi></msub><annotation encoding="application/x-tex">n_f</annotation></semantics></math>. You can divide these by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> to determine <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>p</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{p}</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>q</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{q}</annotation></semantics></math>.</p>
@@ -32,19 +34,19 @@ cat(sprintf(&quot;n=%d, ns=%d, nf=%d, phat=%.4f, qhat=%.4f&quot;,n,ns,nf,phat,qh
 <br/>
 <ol type="a">
 <li>
-
+<div id='A' style='background: #FFAAAA'> (ANS=137) </div>
 </li>
 <li>
-
+<div id='A' style='background: #FFAAAA'> (ANS=7) This is simply the number of times “Hit” is in the list. </div>
 </li>
 <li>
-
+<div id='A' style='background: #FFAAAA'> (ANS=130) This is simply the number of times “Miss” is in the list. </div>
 </li>
 <li>
-
+<div id='A' style='background: #FFAAAA'> (ANS=<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.0510949</mn><mo>±</mo><mn>0.01</mn></mrow><annotation encoding="application/x-tex">0.0510949\pm 0.01</annotation></semantics></math>) <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>n</mi><mi>s</mi></msub><mi>n</mi></mfrac><mo>=</mo><mfrac><mn>7</mn><mn>137</mn></mfrac><mo>=</mo><mn>0.051</mn></mrow><annotation encoding="application/x-tex">\frac{n_s}{n}=\frac{7}{137}=0.051</annotation></semantics></math> </div>
 </li>
 <li>
-
+<div id='A' style='background: #FFAAAA'> (ANS=<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.9489051</mn><mo>±</mo><mn>0.01</mn></mrow><annotation encoding="application/x-tex">0.9489051\pm 0.01</annotation></semantics></math>) <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><msub><mi>n</mi><mi>f</mi></msub><mi>n</mi></mfrac><mo>=</mo><mfrac><mn>130</mn><mn>137</mn></mfrac><mo>=</mo><mn>0.949</mn></mrow><annotation encoding="application/x-tex">\frac{n_f}{n}=\frac{130}{137}=0.949</annotation></semantics></math> </div>
 </li>
 </ol>
 <br/>

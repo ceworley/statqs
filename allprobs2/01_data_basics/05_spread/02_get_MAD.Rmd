@@ -42,13 +42,34 @@ Determine the sample's [mean absolute deviation (MAD) around the mean](https://e
 Solution
 ========
 
+(`r MAD`)
+
 First, determine the mean of the sample.
 
 $$\bar{x} = \frac{\sum \mathbf{x}}{n} =`r mean(x)` $$
 
 Determine the absolute deviations (distances from $\bar{x}$).
 
-`r knitr::kable(mydf)`
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+
+```{r tab1, results="asis", echo=F}
+knitr::kable(mydf,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
 
 
 Now, take the mean of the absolute deviations.

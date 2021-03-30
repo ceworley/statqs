@@ -81,6 +81,12 @@ Solution
 
 All three distributions look like they have similar ranges (widths), but different shapes. So, we will use the fact that for a given range, bell shape has the smallest standard deviation and bimodal has the largest standard deviation. This is because a bell shape has many measurements near the middle, whereas the bimodal shape has many measurements near the edges of its interval. 
 
+
+a. (`r c("X","Y","Z")[mid==min(mid)]`)
+b. (`r c("X","Y","Z")[mid==max(mid)]`)
+c. (`r c("X","Y","Z")[type==min(type)]`)
+d. (`r c("X","Y","Z")[type==max(type)]`)
+
 Answerlist
 --------
 * The distribution with its center sitting furthest left has the smallest mean.

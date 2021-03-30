@@ -48,12 +48,12 @@ while(T){
     if(d5==round(d5)){
       wrdint5 = "an integer"
     } else {
-      wrdint5 = "a half-integer"
+      wrdint5 = "a [half-integer](https://en.wikipedia.org/wiki/Half-integer){target='blank'}"
     }
     if(d6==round(d6)){
       wrdint6 = "an integer"
     } else {
-      wrdint6 = "a half-integer"
+      wrdint6 = "a [half-integer](https://en.wikipedia.org/wiki/Half-integer){target='blank'}"
     }
     break
   }
@@ -123,12 +123,12 @@ You could also use a spreadsheet. Import the table into a spreadsheet. Then, hig
 
 Answerlist
 --------
-* There are `r nb1` measurements between `r b1[1]` and `r b1[2]`.
-* There are `r no2` measurements outside `r b2[1]` and `r b2[2]`.
-* There are `r nb3` measurements closer than `r d3` units from `r c3`. It might help to rephrase the problem as finding how many measurements are between `r b3[1]` and `r b3[2]`. These boundaries are found by subtracting `r d3` from `r c3` and adding `r d3` to `r c3`.
-* There are `r nb4` measurements farther than `r d4` units from `r c4`. It might help to rephrase the problem as finding how many measurements are outside `r b4[1]` and `r b4[2]`. These boundaries are found by subtracting `r d4` from `r c4` and adding `r d4` to `r c4`.
-* You can guess and check until you find `r wrdint5` that satisfies the equation. It turns out that $r = `r d5`$ satisfies the equation, because $\#\left[\big|\mathbf{x}-`r c5`\big|<`r d5`\right] ~=~ `r nb5`$.
-* You can guess and check until you find `r wrdint6` that satisfies the equation. It turns out that $r = `r d6`$ satisfies the equation, because $\#\left[\big|\mathbf{x}-`r c6`\big|>`r d6`\right] ~=~ `r no6`$.
+* (ANS=`r nb1`) There are `r nb1` measurements between `r b1[1]` and `r b1[2]`. $$\#[`r b1[1]`<\mathbf{x}<`r b1[2]`]=`r nb1`$$
+* (ANS=`r no2`) There are `r no2` measurements outside `r b2[1]` and `r b2[2]`. $$\#[\mathbf{x}<`r b2[1]`\texttt{ OR } \mathbf{x}>`r b2[2]`]=`r no2`$$
+* (ANS=`r nb3`) There are `r nb3` measurements closer than `r d3` units from `r c3`. It might help to rephrase the problem as finding how many measurements are between `r b3[1]` and `r b3[2]`. These boundaries are found by subtracting `r d3` from `r c3` and adding `r d3` to `r c3`. $$\#\left[\big|\mathbf{x}-`r c3`\big|<`r d3`\right]=`r nb3`$$
+* (ANS=`r no4`) There are `r no4` measurements farther than `r d4` units from `r c4`. It might help to rephrase the problem as finding how many measurements are outside `r b4[1]` and `r b4[2]`. These boundaries are found by subtracting `r d4` from `r c4` and adding `r d4` to `r c4`. $$\#\left[\big|\mathbf{x}-`r c4`\big|>`r d4`\right]=`r no4`$$
+* (ANS=`r d5`) You can guess and check until you find `r wrdint5` that satisfies the equation. It turns out that $r = `r d5`$ satisfies the equation, because $\#\left[\big|\mathbf{x}-`r c5`\big|<`r d5`\right] ~=~ `r nb5`$. Notice the boundaries are `r b5[1]` and `r b5[2]`, which are found by adding/subtracting `r d5` to/from `r c5`. $$\#\left[\big|\mathbf{x}-`r c5`\big|<`r d5`\right] ~=~ `r nb5`$$
+* (ANS=`r d6`) You can guess and check until you find `r wrdint6` that satisfies the equation. It turns out that $r = `r d6`$ satisfies the equation, because $\#\left[\big|\mathbf{x}-`r c6`\big|>`r d6`\right] ~=~ `r no6`$. Notice the boundaries are `r b6[1]` and `r b6[2]`, which are found by adding/subtracting `r d6` to/from `r c6`. $$\#\left[\big|\mathbf{x}-`r c6`\big|>`r d6`\right] ~=~ `r no6`$$
 
 
 Meta-information

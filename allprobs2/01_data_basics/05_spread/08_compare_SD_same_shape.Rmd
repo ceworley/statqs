@@ -27,7 +27,6 @@ ans2 = paste0((mid==max(mid))*1,collapse="")
 ans3 = paste0((width==min(width))*1,collapse="")
 ans4 = paste0((width==max(width))*1,collapse="")
 
-
 ```
 
 
@@ -81,6 +80,13 @@ Solution
 ========
 
 All three distributions look like they have similar `r c("uniform", "bell", "bimodal")[type]` shape, but their centers and spreads are all different. 
+
+
+a. (`r c("X","Y","Z")[mid==min(mid)]`)
+b. (`r c("X","Y","Z")[mid==max(mid)]`)
+c. (`r c("X","Y","Z")[width==min(width)]`)
+d. (`r c("X","Y","Z")[width==max(width)]`)
+
 
 Answerlist
 --------

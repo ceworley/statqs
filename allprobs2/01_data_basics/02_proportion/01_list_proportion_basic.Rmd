@@ -82,14 +82,14 @@ You could also use a spreadsheet. Import the table into a spreadsheet. Then, hig
 
 Answerlist
 --------
-* The proportion of measurements less than `r x1` is `r p1`. $$\text{prop}[\mathbf{x}<`r x1`]=`r p1`$$
-* The proportion of measurements less than or equal to `r x2` is `r p2`. $$\text{prop}[\mathbf{x}\le `r x2`]=`r p2`$$
-* The proportion of measurements greater than `r x3` is `r p3`. $$\text{prop}[\mathbf{x}> `r x3`]=`r p3`$$
-* The proportion of measurements greater than or equal to `r x4` is `r p4`. $$\text{prop}[\mathbf{x}\ge `r x4`]=`r p4`$$
-* The proportion of measurements less than `r x5` is `r p5`. $$\text{prop}[\mathbf{x}<`r x5`]=`r p5`$$
-* The proportion of measurements less than or equal to `r x6` is `r p6`. $$\text{prop}[\mathbf{x}\le `r x6`]=`r p6`$$
-* The proportion of measurements greater than `r x7` is `r p7`. $$\text{prop}[\mathbf{x}> `r x7`]=`r p7`$$
-* The proportion of measurements greater than or equal to `r x8` is `r p8`. $$\text{prop}[\mathbf{x}\ge `r x8`]=`r p8`$$
+* (ANS=`r p1`) The proportion of measurements less than `r x1` is `r p1`. $$\text{prop}[\mathbf{x}<`r x1`]=`r p1`$$
+* (ANS=`r p2`) The proportion of measurements less than or equal to `r x2` is `r p2`. $$\text{prop}[\mathbf{x}\le `r x2`]=`r p2`$$
+* (ANS=`r p3`) The proportion of measurements greater than `r x3` is `r p3`. $$\text{prop}[\mathbf{x}> `r x3`]=`r p3`$$
+* (ANS=`r p4`) The proportion of measurements greater than or equal to `r x4` is `r p4`. $$\text{prop}[\mathbf{x}\ge `r x4`]=`r p4`$$
+* (ANS=`r x5`) The proportion of measurements less than `r x5` is `r p5`. $$\text{prop}[\mathbf{x}<`r x5`]=`r p5`$$
+* (ANS=`r x6`) The proportion of measurements less than or equal to `r x6` is `r p6`. $$\text{prop}[\mathbf{x}\le `r x6`]=`r p6`$$
+* (ANS=`r x7`) The proportion of measurements greater than `r x7` is `r p7`. $$\text{prop}[\mathbf{x}> `r x7`]=`r p7`$$
+* (ANS=`r x8`) The proportion of measurements greater than or equal to `r x8` is `r p8`. $$\text{prop}[\mathbf{x}\ge `r x8`]=`r p8`$$
 
 
 Meta-information

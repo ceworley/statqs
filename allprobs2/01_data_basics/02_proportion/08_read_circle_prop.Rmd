@@ -58,7 +58,7 @@ Question
 
 A standard `r strdie`-sided [die](https://en.wikipedia.org/wiki/Dice) was rolled `r n` times, and the results were organized into the [pie chart](https://en.wikipedia.org/wiki/Pie_chart){target="blank"} shown below. The marks outside of the circle indicate the cumulative proportion.
 
-```{r echo=F,fig.width=6,fig.height=6}
+```{r echo=F,fig.width=5,fig.height=5}
 size = 1.2
 ps = counts/n
 cp = cumsum(c(0,ps,1))
@@ -76,7 +76,7 @@ for(a in seq(0.1,0.9,0.1)){
 }
 for(a in seq(0.05,0.95,0.1)){
   lines(c(sin(a*2*pi),1.10*sin(a*2*pi)),c(cos(a*2*pi),1.10*cos(a*2*pi)))
-  text(1.16*sin(a*2*pi),1.16*cos(a*2*pi),a)
+  text(1.19*sin(a*2*pi),1.19*cos(a*2*pi),a)
 }
 for(a in seq(0.01,0.99,0.01)){
   lines(c(sin(a*2*pi),1.04*sin(a*2*pi)),c(cos(a*2*pi),1.04*cos(a*2*pi)))
@@ -111,14 +111,14 @@ The first 4 questions involve adding up relative frequencies of the indicated in
 
 Answerlist
 --------
-* The proportion of measurements less than `r b1` is `r n1/n`. $$\text{prop}[\mathbf{x}<`r b1`]=`r n1/n`$$
-* The proportion of measurements more than `r b2` is `r n2/n`. $$\text{prop}[\mathbf{x}>`r b2`]=`r n2/n`$$
-* The proportion of measurements closer than `r r3` units from `r c3` is `r n3/n`. $$\text{prop}[|\mathbf{x}-`r c3`|<`r r3`]=`r n3/n`$$
-* The proportion of measurements farther than `r r4` units from `r c4` is `r n4/n`. $$\text{prop}[|\mathbf{x}-`r c4`|>`r r4`]=`r n4/n`$$
-* The proportion of measurements less than `r b5` is `r n5/n`. $$\text{prop}[\mathbf{x}<`r b5`]=`r n5/n`$$
-* The proportion of measurements more than `r b6` is `r n6/n`. $$\text{prop}[\mathbf{x}>`r b6`]=`r n6/n`$$
-* The proportion of measurements closer than `r r7` units from `r c7` is `r n7/n`. $$\text{prop}[|\mathbf{x}-`r c7`|<`r r7`]=`r n7/n`$$
-* The proportion of measurements farther than `r r8` units from `r c8` is `r n8/n`. $$\text{prop}[|\mathbf{x}-`r c8`|>`r r8`]=`r n8/n`$$
+* (`r signif(n1/n,3)`) The proportion of measurements less than `r b1` is `r n1/n`. $$\text{prop}[\mathbf{x}<`r b1`]=`r n1/n`$$
+* (`r signif(n2/n,3)`) The proportion of measurements more than `r b2` is `r n2/n`. $$\text{prop}[\mathbf{x}>`r b2`]=`r n2/n`$$
+* (`r signif(n3/n,3)`) The proportion of measurements closer than `r r3` units from `r c3` is `r n3/n`. $$\text{prop}[|\mathbf{x}-`r c3`|<`r r3`]=`r n3/n`$$
+* (`r signif(n4/n,3)`) The proportion of measurements farther than `r r4` units from `r c4` is `r n4/n`. $$\text{prop}[|\mathbf{x}-`r c4`|>`r r4`]=`r n4/n`$$
+* .(`r b5`) The proportion of measurements less than `r b5` is `r n5/n`. $$\text{prop}[\mathbf{x}<`r b5`]=`r n5/n`$$
+* .(`r b6`) The proportion of measurements more than `r b6` is `r n6/n`. $$\text{prop}[\mathbf{x}>`r b6`]=`r n6/n`$$
+* .(`r r7`) The proportion of measurements closer than `r r7` units from `r c7` is `r n7/n`. $$\text{prop}[|\mathbf{x}-`r c7`|<`r r7`]=`r n7/n`$$
+* .(`r r8`) The proportion of measurements farther than `r r8` units from `r c8` is `r n8/n`. $$\text{prop}[|\mathbf{x}-`r c8`|>`r r8`]=`r n8/n`$$
 
 
 Meta-information

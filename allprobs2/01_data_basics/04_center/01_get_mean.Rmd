@@ -32,6 +32,8 @@ Determine $\bar{x}$, the [sample mean](https://en.wikipedia.org/wiki/Mean){targe
 Solution
 ========
 
+(ANS=`r mean(x)`)
+
 You need to sum the values ($\sum \mathbf{x}$, see [summation](https://en.wikipedia.org/wiki/Summation){target="blank"}) and divide by the sample size ($n$).
 
 $$\bar{x} = \frac{\sum \mathbf{x}}{n} = \frac{`r sum(x)`}{`r length(x)`} = `r round(mean(x),4)`$$

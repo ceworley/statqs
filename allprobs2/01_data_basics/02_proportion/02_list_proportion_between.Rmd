@@ -119,16 +119,16 @@ You could also use a spreadsheet. Import the table into a spreadsheet. Then, hig
 
 Answerlist
 --------
-* The proportion of measurements between `r b1[1]` and `r b1[2]` is `r p1`.
+* (ANS=`r p1`) The proportion of measurements between `r b1[1]` and `r b1[2]` is `r p1`.
 $$\text{prop}[`r b1[1]`<\mathbf{x}<`r b1[2]`]=`r p1`$$
-* The proportion of measurements outside `r b2[1]` and `r b2[2]` is `r p2`.
+* (ANS=`r p2`) The proportion of measurements outside `r b2[1]` and `r b2[2]` is `r p2`.
 $$\text{prop}[\texttt{NOT}(`r b2[1]`<\mathbf{x}<`r b2[2]`)]=`r p2`$$
-* The proportion of measurements closer than `r d3` cm from `r c3` cm is `r p3`.
+* (ANS=`r p3`) The proportion of measurements closer than `r d3` cm from `r c3` cm is `r p3`.
 $$\text{prop}\left[\big|\mathbf{x}-`r c3`\big|<`r d3`\right] = `r p3`$$
-* The proportion of measurements farther than `r d4` cm from `r c4` cm is `r p4`. 
+* (ANS=`r p4`) The proportion of measurements farther than `r d4` cm from `r c4` cm is `r p4`. 
 $$\text{prop}\left[\big|\mathbf{x}-`r c4`\big|>`r d4`\right] = `r p4`$$
-* You can guess and check until you find `r wrdint5` that satisfies the equation. It turns out that $r = `r d5`$ satisfies the equation, because $$\text{prop}\left[\big|\mathbf{x}-`r c5`\big|<`r d5`\right] ~=~ `r p5`$$
-* You can guess and check until you find `r wrdint6` that satisfies the equation. It turns out that $r = `r d6`$ satisfies the equation, because $$\text{prop}\left[\big|\mathbf{x}-`r c6`\big|>`r d6`\right] ~=~ `r p6`$$
+* (ANS=`r d5`) You can guess and check until you find `r wrdint5` that satisfies the equation. It turns out that $r = `r d5`$ satisfies the equation, because $$\text{prop}\left[\big|\mathbf{x}-`r c5`\big|<`r d5`\right] ~=~ `r p5`$$
+* (ANS=`r d6`) You can guess and check until you find `r wrdint6` that satisfies the equation. It turns out that $r = `r d6`$ satisfies the equation, because $$\text{prop}\left[\big|\mathbf{x}-`r c6`\big|>`r d6`\right] ~=~ `r p6`$$
 
 
 Meta-information

@@ -31,13 +31,15 @@ So, determine the sample proportion. Your answer can be rounded to the nearest h
 Solution
 ========
 
+(ANS=`r mean(x)`)
+
 You need to sum the values ($\sum \mathbf{x}$, see [summation](https://en.wikipedia.org/wiki/Summation){target="blank"}) and divide by the sample size ($n$).
 
 $$\bar{x} = \frac{\sum \mathbf{x}}{n} = \frac{`r sum(x)`}{`r length(x)`} = `r round(mean(x),4)`$$
 
 In the context of 0s and 1s, it is more appropriate to use $\hat{p}$.
 
-$$\hat{p} = \frac{\#[\text{1s}]}{\#[\text{0s or 1s}]} = \frac{\text{# of successes}}{\text{# of attempts}} $$
+$$\hat{p} = \frac{\#[\text{1s}]}{\#[\text{0s or 1s}]} = \frac{\text{# of successes}}{\text{# of attempts}} = `r round(mean(x),4)`$$
 
 **Notice: the mean of 0s and 1s is the proportion of 1s.** This is a good reason to use 0 for `FALSE`/"fail" and 1 for `TRUE`/"success".
 

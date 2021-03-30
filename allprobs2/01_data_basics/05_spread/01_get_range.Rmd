@@ -31,6 +31,8 @@ Determine the sample [range](https://en.wikipedia.org/wiki/Range_(statistics)). 
 Solution
 ========
 
+(ANS=`r max(x)-min(x)`)
+
 To determine the range by hand, you subtract the minimum value from the maximum value. You could first sort all the data.
 $$\text{sort}(\mathbf{x}) = `r paste(lapply(sort(x),function(x) sprintf("%.2f",x)),collapse=", ")` $$
 Determine the minimum.

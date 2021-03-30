@@ -63,8 +63,6 @@ knitr::kable(anstab,format="html",table.attr='class="bordered-table"', align = "
 ```
 
 
-
-
 Solution
 ========
 
