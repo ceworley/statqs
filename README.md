@@ -4,9 +4,13 @@ Intro-stats materials made with [R/exams](http://www.r-exams.org/). Students use
 
 Please preview the questions on my [static github site](https://ceworley.github.io). You can see the script I used to generate that static site in [allprobs](https://github.com/ceworley/statistics/tree/main/allprobs).
 
-I use Moodle. I like to render a set of examples that every student sees and make video explanations for these. Then, I render ~100 versions as random exercises.
+There are also a couple Shiny apps. They are rough, but my students prefer using them to using tables. You can preview them:
 
-There are also a couple Shiny apps. I hope to make more soon.
+1. [Normal probabilities](http://18.191.167.248:3838/nprob/)
+2. [T-dist probabilities](http://18.191.167.248:3838/Tprob/)
+3. [Central-limit-theory probabilities](http://18.191.167.248:3838/CLTprob/)
+
+If you plan to regularly use these Shiny apps, please host them yourself. I can't afford a flood of queries. 
 
 Obviously, this is still very much a work in progress.
 
