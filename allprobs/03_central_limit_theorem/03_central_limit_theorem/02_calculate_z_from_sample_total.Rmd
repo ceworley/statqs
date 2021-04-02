@@ -1,0 +1,274 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+
+while(T){
+
+# Radii density: quadratic(roots @ 0 and 1) * exponential decay
+parr = function(x,a,xmax=1){
+  x = x/xmax
+  (exp(-(a*x))*((a-2)*exp(a*x+a)+a^2*exp(a)*x^2+(2*a-a^2)*exp(a)*x+(2-a)*exp(a)))/((a-2)*exp(a)+a+2)*(x>0)*(x<1)+1*(x>=1)
+  }
+qarr = function(p,a,xmax=1){
+  step = 1e-4
+  xlist = c(seq(0,1-step,step),1-step/10,1-step/100,1-step/1000,1-step/1e4,1)
+  plist = parr(xlist,a)
+  if(length(p)==1){
+    i = min(which(plist>=p))
+  } else {
+    i = numeric()
+    for(p1 in p){
+      i = c(i,min(which(plist>=p1)))
+    }
+  }
+  xlist[i]*xmax
+}
+rarr = function(n,a,xmax=1){qarr(runif(n),a,xmax)}
+
+makebullseye = function(scale=1,axes=T){
+  x = cos(2*seq(0,pi,length.out=1000)*pi)*scale
+  y = sin(2*seq(0,pi,length.out=1000)*pi)*scale
+  plot(x,y,type="l",lwd=3,xlim=c(-scale,scale)*1.1,ylim=c(-scale,scale)*1.1,ann=F,axes=axes)
+  lines(x=c(-1,1,1,-1,-1)*scale*1.1,y=c(1,1,-1,-1,1)*scale*1.1,lwd=4)
+  colors = c("yellow","yellow","red","red","blue","blue","grey30","grey30","white","white")
+  colors2 = lapply(colors, col2rgb)
+  linecolors = c(rep("black",6),"white",rep("black",3))
+  textcolors = c(rep("black",6),rep("white",2),rep("black",2))
+  for(i in 10:1){
+    x2 = x*i/10
+    y2 = y*i/10
+    polygon(x2[1:(length(x2)-1)],y2[1:(length(x2)-1)],col=colors[i],border=F)
+    lines(x2,y2,col=linecolors[i])
+  }
+  points(0,0,pch=20,cex=0.5)
+}
+
+rb = seq(0,1,0.1)
+
+a = runif(1,1.5,4)^2
+rmax = runif(1,0.9,1.1)
+
+pb = parr(rb,a,rmax)
+
+probs = pb[2:length(pb)]-pb[1:(length(pb)-1)]
+probs = c(probs,1-sum(probs))
+points = 10:0
+mu = round(sum(probs*points),2)
+sigma = round(sqrt( sum((points-mu)^2*probs) ),2)
+
+#sample
+n = 12*sample(3:10,1)
+r = rarr(n,a,rmax)
+t = runif(n,0,2*pi)
+pnt = points[ ceiling(r*10) ]
+tot = sum(pnt)
+z = round((tot-n*mu)/(sigma*sqrt(n)),2)
+if(is.numeric(z) & z%%0.5>0.04 & z%%0.5<0.46){break}
+}
+```
+
+Question
+========
+
+This question provides $\mu$, $\sigma$, $n$, and $\sum x$. You will characterize the sampling distribution, calculate the standard score, determine the percentile rank (expressed as a decimal), and translate the score into a rating (see below).
+
+### Population
+
+When Archie practices archery, each arrow has the same probability distribution (see [i.i.d](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables){target="blank"}). This means her skill is constant, there is no [hot-hand effect](https://en.wikipedia.org/wiki/Hot_hand){target="blank"}, and there is no [maturity of chances](https://en.wikipedia.org/wiki/Gambler%27s_fallacy){target="blank"}.
+
+Over many months, Archie has shot ten thousand arrows (their positions are shown below as dots).
+
+```{r,fig.width=4,fig.height=4}
+par(mar=c(0,0,0,0))
+makebullseye(1,F)
+n2 = 1e4
+r2 = rarr(n2,a,rmax)
+t2 = runif(n2,0,2*pi)
+points(r2*cos(t2),r2*sin(t2),pch=20,cex=0.1,col=rgb(0,0,0,0.5))
+```
+\
+
+From those many arrows, Archie has determined an accurate probability distribution (of the points scored by an arrow).
+
+```{r fig.width=6,fig.height=4}
+barplot(rev(probs),names.arg=rev(points),xlab="Points",ylab="Probability",main="Archie's Arrows' Probability Distribution")
+```
+\
+
+Thus, Archie can determine her population mean and population standard deviation.
+$$\mu=`r mu`$$
+$$\sigma=`r sigma` $$
+
+## Sampling distribution
+
+Each day, Archie shoots `r n` arrows ($n=`r n`$) and determines that day's total score. A total of `r n*10` would be a perfect day. We can treat each day's total as a random variable with its own probability distribution: a [sampling distribution](https://en.wikipedia.org/wiki/Sampling_distribution){target="blank"}. We wish to characterize this sampling distribution. From the [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem){target="blank"}, we know the sampling distribution is approximately normal; however, we need to calculate the parameters.
+
+### Expected total (mean of sampling distribution)
+
+The expected total is the product of the sample size and the population mean.
+$$\text{expected total} = n\mu $$
+
+"Expected total" is a misnomer. It is not necessarily likely, or even possible, for a total to equal the expected total. However, if Archie repeatedly shot `r n` arrows, we expect the totals to have a mean equal to the expected total. So, maybe "average of totals" would be better terminology. 
+
+This expected total is the average of the sampling distribution.
+
+Calculate the expected total: ##ANSWER1##
+
+(Round to the hundredths place)
+
+### Standard error (standard deviation of sampling distribution)
+
+The standard error of a total is the product of the population standard deviation and the square root of the sample size.
+$$\text{standard error of total} = \sigma \sqrt{n}$$
+This standard error is the standard deviation of the sampling distribution.
+
+Calculate the standard error: ##ANSWER2##
+
+(Round to the hundredths place)
+
+## Sample
+
+Today, Archie's total score is `r tot` points ($\sum x = `r tot`$). 
+
+```{r,fig.width=4,fig.height=4}
+par(mar=c(0,0,0,0))
+makebullseye(1,F)
+points(r*cos(t),r*sin(t),pch=20)
+```
+\
+
+### Standard score
+
+Archie would like to know how well she did today. She wants you to calculate a standard score (a $z$ score). To calculate the standard score of a sample total, you can use the following formula.
+$$z = \frac{\sum x - n\mu}{\sigma\sqrt{n}}$$
+
+Calculate the standard score: ##ANSWER3##
+
+(Round to the hundredths place)
+
+### Cumulative probability (percentile rank)
+
+Archie would like to know the probability that tomorrow she shoots worse than today. To estimate this, report the cumulative probability associated with the standard score you calculated. This can be done with a [$z$ table](https://en.wikipedia.org/wiki/Standard_normal_table#Conversion){target="blank"}, `pnorm` function in R, `NORM.DIST` function in a spreadsheet, or with other standard normal tools.
+
+Calculate $P(Z\leq z)$, the cumulative probability: ##ANSWER4##
+
+(Round to the ten-thousandths place)
+
+### Rating
+
+Archie would like a rating for her day's performance. You decide to use the following scale and that if $z$ is on a boundary, Archie will be given the higher rating.
+
+|    $z$ interval      | rating |
+|:--------------------:|:---:|
+|$-\infty$ to -1.5| F |
+| -1.5     to -0.5| D |
+| -0.5     to  0.5| C |
+|  0.5     to  1.5| B |
+|  1.5  to $\infty$ |  A |
+
+```{r,fig.width=5,fig.height=3}
+par(mar=c(5,0,0,0))
+plot(0,0,type="n",xlim=c(-3,3),ylim=c(0,0.8),axes=F,xlab="z")
+axis(1,at=seq(-1.5,1.5,1))
+axis(1,at=-3:3)
+abline(v=seq(-1.5,1.5,1))
+text(c(-2.5,-1,0,1,2.5),rep(0.6,5),c("F","D","C","B","A"),cex=3)
+bs = c(-10,-1.5,-0.5,0.5,1.5,10)
+grades = c("F","D","C","B","A")
+ans1 = rev((bs[1:5]<=z) & (bs[2:6]>z))
+ans = paste0(ans1*1, collapse="")
+g2 = rev(grades)
+zzz = seq(-3,3,0.001)
+lines(zzz,dnorm(zzz))
+abline(h=0)
+```
+\
+
+Determine Archie's rating:  ##ANSWER5##
+
+Answerlist
+--------
+* 
+* 
+* 
+* 
+* A
+* B
+* C
+* D
+* F
+
+Solution
+========
+
+[video](https://vimeo.com/531939121){target="_blank"}
+
+The sampling distribution is approximately normal with mean `r n*mu` and standard error `r round(sigma*sqrt(n),2)`. The sampling distribution can be visualized, along with today's total (`r tot`) highlighted in red. The cumulative probability is the sum of the probabilities of scores less than (or equal) `r tot`. Thus, the area highlighted in blue represents the cumulative probability.
+
+```{r fig.width=5,fig.height=4}
+zzz = seq(-3,3,0.01)
+
+minx = floor(mu*n-3*sigma*sqrt(n))
+maxx = ceiling(mu*n+3*sigma*sqrt(n))
+xb = seq(minx-0.5,maxx+0.5,1)
+zb = (xb-mu*n)/(sigma*sqrt(n))
+xm = seq(minx,maxx,1)
+zm = (xm-mu*n)/(sigma*sqrt(n))
+N = length(zb)
+probs2 = pnorm(zb[2:N])-pnorm(zb[1:(N-1)])
+
+par(mar=c(7,2,2,2))
+plot(zzz,dnorm(zzz),type="l",axes=F,ann=F,col=rgb(0,0,0,0.5))
+if(maxx-minx < 50){
+  axis(1,zm[xm%%5==0],xm[xm%%5==0],line=0)
+} else {
+  axis(1,zm[xm%%10==0],xm[xm%%10==0],line=0)
+}
+axis(1,at=-3:3,line=3)
+mtext("z",1,5)
+
+for(i in 1:length(xm)){
+  lines(c(zb[i],zb[i],zb[i+1],zb[i+1]),
+        c(0,probs2[i]*sigma*sqrt(n),probs2[i]*sigma*sqrt(n),0))
+}
+zbtot1 = (tot-0.5-mu*n)/(sigma*sqrt(n))
+zbtot2 = (tot+0.5-mu*n)/(sigma*sqrt(n))
+
+mtext("probability",2)
+mtext(sprintf("Archie's sampling distribution (when n=%d)",n))
+for(i in 1:sum(zm<z)){
+  polygon(c(zb[i],zb[i],zb[i+1],zb[i+1]),
+          c(0,dnorm(zm[i]),dnorm(zm[i]),0),
+          col=rgb(0,0,1,0.5))
+}
+polygon(c(zbtot1,zbtot1,zbtot2,zbtot2),
+        c(0,dnorm(z),dnorm(z),0),
+        col=rgb(1,0,0))
+```
+\
+
+
+
+
+
+
+Answerlist
+--------
+* The expected total is $n\mu = `r round(n*mu,2)`$
+* The standard error is $\sigma \sqrt{n} = `r round(sigma*sqrt(n),2)`$
+* Use the formula to calculate $z=`r z`$
+* Use the $z$ table to find $P(Z\le z) = `r round(pnorm(z),4)`$
+* The proper rating is `r g2[ans1]`
+* The proper rating is `r g2[ans1]`
+* The proper rating is `r g2[ans1]`
+* The proper rating is `r g2[ans1]`
+* The proper rating is `r g2[ans1]`
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|schoice
+exsolution: `r n*mu`|`r sigma*sqrt(n)`|`r z`|`r pnorm(z)`|`r ans`
+exname: Get z from sample total
+extol: 2|2|0.02|0.001|0
+exextra[numwidth,numeric]: 9
+exextra[stringwidth,numeric]: 5

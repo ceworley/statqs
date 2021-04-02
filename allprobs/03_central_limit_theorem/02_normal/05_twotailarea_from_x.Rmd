@@ -1,0 +1,107 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+while(T){
+  la = runif(1,0.55,0.99)
+  z = round(qnorm(la),2)
+  mag = sample(-1:2,1)
+  mu = signif(sample(10:99,1)/10 * 10^mag,2)
+  sig = round(runif(1,mu/20,mu/3),-mag+1)
+  lets = strsplit("ABCDEFGHIJKMQRVWXY",split=NULL)
+  rvi = sample(1:length(lets[[1]]),size=1)
+  rv = lets[[1]][rvi]
+  xl = tolower(rv)
+  x = round(z*sig+mu,-mag+1)
+  d = x-mu
+  x1 = mu-d
+  x2 = mu+d
+  z = (x-mu)/sig
+  zr = round(z,2)
+  la = round(pnorm(z),4)
+  ra = 1-la
+  ca = 1-2*ra
+  ta = 2*ra
+  if(sig != 0 & z == zr & z != 0){break}
+}
+```
+
+Question
+========
+Random variable $`r rv`$ is normally distributed with mean $\mu = `r mu`$ and standard deviation $\sigma = `r sig`$.
+$$`r rv` = \text{N}(`r mu`,\,`r sig`) $$
+Evaluate $P\left(\big|`r rv`-`r mu`\big| > `r d`\right)$. In other words, what is the probability that $`r rv`$ is outside $\pm`r x-mu`$ units from the mean?
+
+
+Solution
+========
+
+[video (using z-table)](https://vimeo.com/531933369){target="_blank"}
+
+[video (using app)](https://vimeo.com/531933725){target="_blank"}: the [app](http://18.191.167.248:3838/nprob/){target="_blank"}
+
+First, draw a sketch. We can label the $`r rv`$ axis by adding integer multiples of `r sig` to `r mu`. We know to shade the two tails because values far from `r mu` satisfy the condition $\big|`r rv`-`r mu`\big| > `r x-mu`$. We draw the boundaries at $`r mu`-`r d`=`r x1`$ and $`r mu`+`r d`=`r x2`$ because those are the solutions to $\big|`r rv`-`r mu`\big| = `r d`$. We can also rephrase the probability.
+
+$$P\left(\big|`r rv`-`r mu`\big| > `r d`\right) ~=~ P\big(`r rv`<`r x1` \text{ OR } `r rv`>`r x2`\big)$$
+
+```{r, fig.width=6, fig.height=3}
+par(mar=c(7,3,0,0))
+library(latex2exp)
+Z = seq(-3,3,0.001)
+plot(Z,dnorm(Z),type="l",xlim=c(-3,3),ylim=c(0,0.4),xlab="Z",ylab="density",axes=F,ann=F,lwd=3)
+axis(1,at=round(seq(-3,3,1),1),line=0)
+mtext("Z axis",1,0,at=-3.5)
+axis(1,at=round(seq(-3,3,1),1),labels=signif(seq(mu-3*sig,mu+3*sig,length.out=7),3),line=3)
+mtext(paste(rv,"axis",collapse=""),1,3,at=-3.5)
+abline(h=seq(0,0.4,0.05))
+for(zz in seq(-3,3,0.2)){
+  lines(c(zz,zz),c(0,0.4))
+}
+abline(h=0,lwd=3)
+if(!(zr %in% seq(-3,3,1))){
+  axis(1,at=c(-zr,zr),labels=c("",""),line=3)
+  mtext(x,1,4.9,at=zr)
+  mtext(round(mu-z*sig,2),1,4.9,at=-zr)
+}
+polygon(c(Z[Z<=-z],-z,-3),c(dnorm(Z[Z<=-z]),0,0),col=rgb(1,0.5,0.5,0.5))
+polygon(c(Z[Z>=z],3,z),c(dnorm(Z[Z>=z]),0,0),col=rgb(1,0.5,0.5,0.5))
+mtext("density",2,line=1)
+```
+\
+
+We calculate the $z$ values of the boundaries. Left boundary:
+$$\begin{aligned}
+z_1 &= \frac{`r x1`-`r mu`}{`r sig`} \\\\
+&= \frac{`r -d`}{`r sig`} \\\\
+&= `r -z`
+\end{aligned}$$
+
+Right boundary:
+
+$$\begin{aligned}
+z_2 &= \frac{`r x2`-`r mu`}{`r sig`} \\\\
+&= \frac{`r d`}{`r sig`} \\\\
+&= `r z`
+\end{aligned}$$
+
+We have rephrased our problem into a **standard normal** probability problem, because
+
+$$P\left(\big|`r rv`-`r mu`\big| > `r d`\right) ~=~ P\left(\big|Z\big|>`r z`\right)$$
+
+So, we just need to evaluate $P(|Z|>`r z`)$. I will also point out that $\frac{`r d`}{`r sig`} = `r z`$. In general, if $X$ is normally distributed, then:
+$$P\left(\big|X-\mu\big|>d\right) ~=~ P\left(\big|Z\big| > \frac{d}{\sigma}\right)$$
+
+From here we have a formula that lets us use the $z$ table. (We practiced this part before.)
+$$\begin{aligned}
+P(|Z|>`r z`) &= 2- 2 \times P(Z<`r z`) \\
+&= 2 - 2 \times `r la` \\
+&= `r ta`
+\end{aligned}$$
+
+
+Meta-information
+================
+extype: num
+exsolution: `r ta`
+exname: Get twotailarea from normal
+extol: 0.0002
+
+

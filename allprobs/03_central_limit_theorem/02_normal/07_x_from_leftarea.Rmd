@@ -1,0 +1,204 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+
+while(T){
+  la = round(runif(1,0.01,0.99),2)
+  z = qnorm(la)
+  zf = floor(z*100)/100
+  zc = ceiling(z*100)/100
+  mag = sample(-1:2,1)
+  mu = signif(sample(10:99,1)/10 * 10^mag,2)
+  sig = round(runif(1,mu/5,mu/3),-mag+1)
+  lets = strsplit("BCDFGHJKMQRVWXY",split=NULL)
+  rvi = sample(1:length(lets[[1]]),size=1)
+  Xl = lets[[1]][rvi]
+  xl = tolower(Xl)
+  x = z*sig+mu
+  xf = zf*sig+mu
+  xc = zc*sig+mu
+  tol = max(abs(xc-xf),1*10^(mag-1))
+  wrd = sample(c("lands under","lands below","lands on a value less than"),1)
+  if(abs(x-mu)/10^mag > 0.2){break}
+}
+```
+
+Question
+========
+Random variable $`r Xl`$ is normally distributed with mean $\mu = `r mu`$ and standard deviation $\sigma = `r sig`$.
+$$`r Xl` = \text{N}(`r mu`,\,`r sig`) $$
+Evaluate $`r xl`$ such that $P(`r Xl`<`r xl`) = `r la`$. In other words, determine an upper boundary such that a normal spinner with mean `r mu` and standard deviation `r sig` `r wrd` that boundary `r la*100`% of the time. 
+
+
+Solution
+========
+
+[video (using z-table)](https://vimeo.com/531935144){target="_blank"}
+
+[video (using app)](https://vimeo.com/531935582){target="_blank"}: the [app](http://18.191.167.248:3838/nprob/){target="_blank"}
+
+First, draw a sketch. We can label the $`r Xl`$ axis by adding integer multiples of `r sig` to `r mu`. We know to shade the left because low values of $`r Xl`$ satisfy the condition $`r Xl`<`r xl`$ (regardless of the exact value of $`r xl`$). We don't know exactly where to place the boundary, but we know the left area is `r la`.
+
+It is helpful to know the following approximations:
+
+|  $z$  |  $P(Z<z)$  |
+|:---:|:---:|
+| -3 | `r round(pnorm(-3),3)` |
+| -2 | `r round(pnorm(-2),3)` |
+| -1 | `r round(pnorm(-1),3)` |
+| 0 | `r round(pnorm(0),3)` |
+| 1 | `r round(pnorm(1),3)` |
+| 2 | `r round(pnorm(2),3)` |
+| 3 | `r round(pnorm(3),3)` |
+
+So, we know the $z$-score is between `r floor(z)` and `r ceiling(z)`. Remember, $Z$ and $z$ always refer to the **standard** normal variable.
+
+
+```{r, fig.width=6, fig.height=3}
+par(mar=c(7,3,0,0))
+library(latex2exp)
+Z = seq(-3,3,0.001)
+plot(Z,dnorm(Z),type="l",xlim=c(-3,3),ylim=c(0,0.4),xlab="Z",ylab="density",axes=F,ann=F,lwd=3)
+axis(1,at=round(seq(-3,3,1),1),line=0)
+mtext("Z axis",1,0,at=-3.5)
+axis(1,at=round(seq(-3,3,1),1),labels=signif(seq(mu-3*sig,mu+3*sig,length.out=7),3),line=3)
+mtext(paste(Xl,"axis",collapse=""),1,3,at=-3.5)
+# abline(h=seq(0,0.4,0.05))
+# for(zz in seq(-3,3,0.2)){
+#   lines(c(zz,zz),c(0,0.4))
+# }
+abline(h=0,lwd=3)
+axis(1,at=c(z),labels=c(""),line=3)
+mtext(sprintf("%s=?",xl),1,3.3,at=z)
+
+polygon(c(Z[Z<=z],z,-3),c(dnorm(Z[Z<=z]),0,0),col=rgb(1,0.5,0.5,0.5))
+mtext("density",2,line=1)
+
+text(-2,0.3,TeX(sprintf("$P(%s<%s) = %.2f$",Xl,xl,la)))
+arrows(-1.6,0.25,(2*z-3)/3,max(dnorm((2*z-3)/3)/2,0.03))
+```
+\
+
+By using the $z$ table we can determine $z$ more precisely.
+
+| $z$ | $P(Z<z)$ |
+|:---:|:---:|
+| `r zf-0.02` | `r round(pnorm(zf-0.02),4)` |
+| `r zf-0.01` | `r round(pnorm(zf-0.01),4)` |
+| **`r zf`** | **`r round(pnorm(zf),4)`** |
+| **`r zc`** | **`r round(pnorm(zc),4)`** |
+| `r zc+0.01` | `r round(pnorm(zc+0.01),4)` |
+| `r zc-0.02` | `r round(pnorm(zc+0.02),4)` |
+
+Either `r zf` or `r zc` is a good estimation of $z$, and either value will lead you to an acceptable answer. Using other tools, a more accurate value can be found. I will show the work with a more accurate value.
+$$z=`r round(z,4)`$$
+
+We now convert the $z$ score into a $`r xl`$ score.
+$$\begin{aligned}
+`r xl` &= \mu+z\sigma \\
+&= `r mu`+(`r round(z,4)`)(`r sig`) \\
+&= `r signif(x,4)`
+\end{aligned}$$
+
+We can also visualize this with a spinner.
+
+```{r, fig.width=8, fig.height=8}
+par(mar=c(0,0,0,0))
+plot(0,0,type="n",xlim=c(-1.2,1.2),ylim=c(-1.2,1.2),ann=F)
+theta = seq(0,2*pi,0.01)
+polygon(cos(theta),sin(theta))
+z1 = round(seq(-3,3,1),3)
+z2 = round(seq(-3,3,0.5),2)
+z3 = round(seq(-3,3,0.1),2)
+z4 = round(seq(-2,2,0.05),2)
+z5 = round(seq(-2,2,0.01),2)
+markz = function(z,L,lwd=1){
+    p = pnorm(z)
+    for(pp in p){
+        lines(c((1-L)*cos(2*pi*pp),cos(2*pi*pp)),c((1-L)*sin(2*pi*pp),sin(2*pi*pp)),lwd=lwd)
+    }
+}
+markz(z1,0.3,3)
+markz(z2,0.18)
+markz(z3,0.1)
+markz(z4,0.05)
+markz(z5,0.025)
+for(z in z1){
+    p = pnorm(z)
+    pc = min(max(p,0.005),0.995)
+    text((1-0.37)*cos(2*pi*pc),(1-0.37)*sin(2*pi*pc),round(signif(mu+sig*qnorm(p),4),6),cex=0.9)
+}
+for(z in z2[!(z2 %in% z1)]){
+    p = pnorm(z)
+    pc = min(max(p,0.005),0.995)
+    text((1-0.26)*cos(2*pi*pc),(1-0.26)*sin(2*pi*pc),signif(mu+sig*qnorm(p),4),cex=0.9)
+}
+for(z in z3[!(z3 %in% z2) & abs(z3)<2]){
+    p = pnorm(z)
+    pc = min(max(p,0.005),0.995)
+    text((1-0.16)*cos(2*pi*pc),(1-0.16)*sin(2*pi*pc),signif(mu+sig*qnorm(p),4),srt=(90+p*360)%%180-90,cex=0.9)
+}
+for(z in z4[!(z4 %in% z3) & abs(z4)<1.5]){
+    p = pnorm(z)
+    pc = min(max(p,0.005),0.995)
+    text((1-0.1)*cos(2*pi*pc),(1-0.1)*sin(2*pi*pc),signif(mu+sig*qnorm(p),4),srt=(90+p*360)%%180-90,cex=0.6)
+}
+p1 = round(seq(0,1,0.1),2)
+p2 = round(seq(0,1,0.05),2)
+p3 = round(seq(0,1,0.01),2)
+lines(c(1,1.2),c(0,0),lwd=3)
+for(p in p1){
+    lines(c(cos(p*2*pi),1.15*cos(p*2*pi)),c(sin(p*2*pi),1.15*sin(p*2*pi)))
+    pc = max(min(p,0.996),0.004)
+    text(1.2*cos(pc*2*pi),1.2*sin(pc*2*pi),round(p,2),cex=1)
+}
+for(p in p2[!(p2 %in% p1)]){
+    lines(c(cos(p*2*pi),1.1*cos(p*2*pi)),c(sin(p*2*pi),1.1*sin(p*2*pi)))
+    pc = max(min(p,0.996),0.004)
+    text(1.16*cos(pc*2*pi),1.16*sin(pc*2*pi),round(p,2),srt=(90+p*360)%%180-90,cex=0.8)
+}
+for(p in p3[!(p3 %in% p2)]){
+    lines(c(cos(p*2*pi),1.05*cos(p*2*pi)),c(sin(p*2*pi),1.05*sin(p*2*pi)))
+    pc = max(min(p,0.996),0.004)
+    text(1.12*cos(pc*2*pi),1.12*sin(pc*2*pi),round(p,2),srt=(90+p*360)%%180-90,cex=0.8)
+}
+P = seq(0,1,0.001)
+col = rgb(1,0.5,0.5,0.5)
+# if(input$type=="l"){
+pr = pnorm((x-mu)/sig)
+polygon(c(0,cos(2*pi*P[P<=pr])),c(0,sin(2*pi*P[P<=pr])),col=col)
+# }
+# if(input$type == "r"){
+#     pl = pnorm((input$x-mu)/sig)
+#     polygon(c(0,cos(2*pi*P[P>=pl])),c(0,sin(2*pi*P[P>=pl])),col=col)
+# }
+# if(input$type == "c"){
+#     pl = pnorm(-input$d/sig)
+#     pr = pnorm(input$d/sig)
+#     polygon(c(0,cos(2*pi*P[P>=pl & P<=pr])),c(0,sin(2*pi*P[P>=pl & P<=pr])),col=col)
+# }
+# if(input$type == "t"){
+#     pl = pnorm(-input$d/sig)
+#     pr = pnorm(input$d/sig)
+#     polygon(c(0,cos(2*pi*c(P[P>=pr],P[P<=pl]))),c(0,sin(2*pi*c(P[P>=pr],P[P<=pl]))),col=col)
+# }       
+# if(input$type == "b"){
+#     pl = pnorm((input$x1-mu)/sig)
+#     pr = pnorm((input$x2-mu)/sig)
+#     polygon(c(0,cos(2*pi*P[P>=pl & P<=pr])),c(0,sin(2*pi*P[P>=pl & P<=pr])),col=col)
+# }
+
+text(1,1,"U\nStandard Uniform\nDistribution")
+text(0,0,sprintf("X\nA Normal Distribution\nwith\nmean = %.4g \n and \nstdev = %.4g",mu,sig))
+```
+\
+
+The tolerance for an acceptable answer was $\pm `r tol`$ from `r x`. So, anything between `r x-tol` and `r x+tol` was accepted.
+
+Meta-information
+================
+extype: num
+exsolution: `r x`
+exname: Get x from leftarea
+extol: `r tol`
+
+

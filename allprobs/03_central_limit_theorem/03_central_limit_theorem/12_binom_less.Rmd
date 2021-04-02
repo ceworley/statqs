@@ -1,0 +1,69 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+la = runif(1,0.01,0.99)
+
+while(TRUE){
+  n = sample(30:200,1)
+  p = round(runif(1,0.01,0.99),2)
+  if(n*p>10 & n*(1-p)>10){
+    break
+  }
+}
+
+mu = p
+sig = sqrt(p*(1-p))
+
+mut = mu*n
+sigt = sig*sqrt(n)
+zapp = round(qnorm(la),2)
+xt = round(floor(mut+zapp*sigt)+0.5,1)
+z = (xt-mut)/sigt
+zlo = floor(z*100)/100
+zhi = ceiling(z*100)/100
+la = pnorm(z)
+lalo = round(pnorm(zlo),4)
+lahi = round(pnorm(zhi),4)
+
+tol = max(abs(lahi-lalo)*1.1,0.001)
+```
+
+Question
+========
+
+In some game, each trial has a $p = `r p`$ probability of success. A player will attempt `r n` trials. What is the probability that the number of successes is less than `r xt`?
+
+
+Solution
+========
+
+[video](https://vimeo.com/531943745){target="_blank"}
+
+We determine the mean and standard deviation of the binomial distribution.
+$$\mu ~=~ np ~=~ (`r n`)(`r p`) ~=~ `r mut`$$
+$$\sigma ~=~ \sqrt{np(1-p)} ~=~ \sqrt{(`r n`)(`r p`)(`r 1-p`)} ~=~ `r sigt` $$
+
+We determine a $z$-score. (In the de Moivre-Laplace notes, I used $\sum x$ to emphasize that a binomial variable is a sum of Bernoulli trials. Here, I will just use $x$ as the boundary for number of successes, because this is the more common notation.)
+$$\begin{aligned}
+z &= \frac{x - \mu}{\sigma} \\\\
+&= \frac{`r xt`-`r mut`}{`r sigt`} \\\\
+&= `r z`
+\end{aligned}$$
+
+Then, find the standard normal probability.
+
+$$P(Z < `r z`) ~=~ `r la` $$
+
+Of course, you could have rounded $z$, so the following will also get credit.
+$$P(Z < `r zlo`) ~=~ `r lalo` $$
+$$P(Z < `r zhi`) ~=~ `r lahi` $$
+
+
+
+
+Meta-information
+================
+extype: num
+exsolution: `r la`
+exname: prob binom less
+extol: `r tol`

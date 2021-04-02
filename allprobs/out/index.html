@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Stat Qs</title>
+<style>
+ body { padding-bottom: 30vh; }
+/* Remove default bullets */
+ul, #myUL {
+  list-style-type: none;
+}
+/* Remove margins and padding from the parent ul */
+#myUL {
+  margin: 0;
+  padding: 0;
+}
+/* Style the caret/arrow */
+.caret {
+  cursor: pointer;
+  user-select: none; /* Prevent text selection */
+}
+/* Create the caret/arrow with a unicode, and style it */
+.caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+}
+.erase::before {
+  content: none;
+}
+.sel::before {
+  content: "\2B24";
+  color: green;
+  display: inline-block;
+}
+/* Hide the nested list */
+.nested {
+  display: none;
+}
+/* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+.active {
+  display: block;
+}
+#myBtn1 {
+  display: block;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 10vw;
+  height: 5vh;
+  z-index: 99;
+  font-size: 3vh;
+  border: none;
+  outline: none;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  border-radius: 1vh;
+}
+#myBtn2 {
+  display: block;
+  position: fixed;
+  bottom: 0px;
+  left: 10vw;
+  width: 10vw;
+  height: 5vh;
+  z-index: 99;
+  font-size: 3vh;
+  border: none;
+  outline: none;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  border-radius: 1vh;
+}
+#myBtn3 {
+  display: block;
+  position: fixed;
+  bottom: 0px;
+  left: 20vw;
+  width: 10vw;
+  height: 5vh;
+  z-index: 99;
+  font-size: 3vh;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  border-radius: 1vh;
+}
+#myBtn4 {
+  display: block;
+  position: fixed;
+  bottom: 0px;
+  left: 30vw;
+  width: 10vw;
+  height: 5vh;
+  z-index: 99;
+  font-size: 3vh;
+  border: none;
+  outline: none;
+  background-color: #555555;
+  color: white;
+  cursor: pointer;
+  border-radius: 1vh;
+}
+#myBtn5 {
+  display: block;
+  position: fixed;
+  bottom: 0px;
+  left: 40vw;
+  width: 10vw;
+  height: 5vh;
+  z-index: 99;
+  font-size: 3vh;
+  border: none;
+  outline: none;
+  background-color: #666666;
+  color: white;
+  cursor: pointer;
+  border-radius: 1vh;
+}
+#myBtn6 {
+  display: block;
+  position: fixed;
+  bottom: 0px;
+  left: 50vw;
+  width: 10vw;
+  height: 5vh;
+  z-index: 99;
+  font-size: 3vh;
+  border: none;
+  outline: none;
+  background-color: #555555;
+  color: white;
+  cursor: pointer;
+  border-radius: 1vh;
+}
+#myBtn7 {
+  display: block;
+  position: fixed;
+  bottom: 0px;
+  left: 60vw;
+  width: 10vw;
+  height: 5vh;
+  z-index: 99;
+  font-size: 3vh;
+  border: none;
+  outline: none;
+  background-color: #666666;
+  color: white;
+  cursor: pointer;
+  border-radius: 1vh;
+}
+.button {
+  background: #AAAAAA;
+}
+</style><script>
+var qs = ["04_inferential_statistics/01_T_dist/01_T_probs1.html","04_inferential_statistics/01_T_dist/01_T_probs2.html","04_inferential_statistics/01_T_dist/01_T_probs3.html","04_inferential_statistics/02_confidence_intervals/01_conf_int_rough1.html","04_inferential_statistics/02_confidence_intervals/01_conf_int_rough2.html","04_inferential_statistics/02_confidence_intervals/01_conf_int_rough3.html","04_inferential_statistics/02_confidence_intervals/02_conf_int_prop_rough1.html","04_inferential_statistics/02_confidence_intervals/02_conf_int_prop_rough2.html","04_inferential_statistics/02_confidence_intervals/02_conf_int_prop_rough3.html","04_inferential_statistics/02_confidence_intervals/03_conf_int_prop1.html","04_inferential_statistics/02_confidence_intervals/03_conf_int_prop2.html","04_inferential_statistics/02_confidence_intervals/03_conf_int_prop3.html","04_inferential_statistics/02_confidence_intervals/04_conf_int_z1.html","04_inferential_statistics/02_confidence_intervals/04_conf_int_z2.html","04_inferential_statistics/02_confidence_intervals/04_conf_int_z3.html","04_inferential_statistics/02_confidence_intervals/05_conf_int_t1.html","04_inferential_statistics/02_confidence_intervals/05_conf_int_t2.html","04_inferential_statistics/02_confidence_intervals/05_conf_int_t3.html","04_inferential_statistics/02_confidence_intervals/06_conf_int_t_raw1.html","04_inferential_statistics/02_confidence_intervals/06_conf_int_t_raw2.html","04_inferential_statistics/02_confidence_intervals/06_conf_int_t_raw3.html","04_inferential_statistics/02_confidence_intervals/07_conf_int_z_raw1.html","04_inferential_statistics/02_confidence_intervals/07_conf_int_z_raw2.html","04_inferential_statistics/02_confidence_intervals/07_conf_int_z_raw3.html","04_inferential_statistics/02_confidence_intervals/08_conf_int_prop_raw1.html","04_inferential_statistics/02_confidence_intervals/08_conf_int_prop_raw2.html","04_inferential_statistics/02_confidence_intervals/08_conf_int_prop_raw3.html","04_inferential_statistics/02_confidence_intervals/09_n_from_ME1.html","04_inferential_statistics/02_confidence_intervals/09_n_from_ME2.html","04_inferential_statistics/02_confidence_intervals/09_n_from_ME3.html","04_inferential_statistics/02_confidence_intervals/10_n_from_ME_prop1.html","04_inferential_statistics/02_confidence_intervals/10_n_from_ME_prop2.html","04_inferential_statistics/02_confidence_intervals/10_n_from_ME_prop3.html","04_inferential_statistics/03_hypothesis_tests_one_sample/01_hyptest_single_mean1.html","04_inferential_statistics/03_hypothesis_tests_one_sample/01_hyptest_single_mean2.html","04_inferential_statistics/03_hypothesis_tests_one_sample/01_hyptest_single_mean3.html","04_inferential_statistics/03_hypothesis_tests_one_sample/02_hyptest_one_prop1.html","04_inferential_statistics/03_hypothesis_tests_one_sample/02_hyptest_one_prop2.html","04_inferential_statistics/03_hypothesis_tests_one_sample/02_hyptest_one_prop3.html","04_inferential_statistics/03_hypothesis_tests_one_sample/03_hyptest_single_mean_raw_archery1.html","04_inferential_statistics/03_hypothesis_tests_one_sample/03_hyptest_single_mean_raw_archery2.html","04_inferential_statistics/03_hypothesis_tests_one_sample/03_hyptest_single_mean_raw_archery3.html","04_inferential_statistics/03_hypothesis_tests_one_sample/04_hyptest_one_prop_raw_coin1.html","04_inferential_statistics/03_hypothesis_tests_one_sample/04_hyptest_one_prop_raw_coin2.html","04_inferential_statistics/03_hypothesis_tests_one_sample/04_hyptest_one_prop_raw_coin3.html","04_inferential_statistics/04_hypothesis_tests_two_sample/01_hyptest_paired_data1.html","04_inferential_statistics/04_hypothesis_tests_two_sample/01_hyptest_paired_data2.html","04_inferential_statistics/04_hypothesis_tests_two_sample/01_hyptest_paired_data3.html","04_inferential_statistics/04_hypothesis_tests_two_sample/02_hyptest_2_means_data1.html","04_inferential_statistics/04_hypothesis_tests_two_sample/02_hyptest_2_means_data2.html","04_inferential_statistics/04_hypothesis_tests_two_sample/02_hyptest_2_means_data3.html","04_inferential_statistics/04_hypothesis_tests_two_sample/03_hyptest_2_props_data1.html","04_inferential_statistics/04_hypothesis_tests_two_sample/03_hyptest_2_props_data2.html","04_inferential_statistics/04_hypothesis_tests_two_sample/03_hyptest_2_props_data3.html","04_inferential_statistics/05_exam4/01_one_mean_ci_pval1.html","04_inferential_statistics/05_exam4/01_one_mean_ci_pval2.html","04_inferential_statistics/05_exam4/01_one_mean_ci_pval3.html","04_inferential_statistics/05_exam4/02_one_prop_ci_pval1.html","04_inferential_statistics/05_exam4/02_one_prop_ci_pval2.html","04_inferential_statistics/05_exam4/02_one_prop_ci_pval3.html","04_inferential_statistics/05_exam4/03_hyptest_paired_data1.html","04_inferential_statistics/05_exam4/03_hyptest_paired_data2.html","04_inferential_statistics/05_exam4/03_hyptest_paired_data3.html","04_inferential_statistics/05_exam4/04_hyptest_2_means_data1.html","04_inferential_statistics/05_exam4/04_hyptest_2_means_data2.html","04_inferential_statistics/05_exam4/04_hyptest_2_means_data3.html","04_inferential_statistics/05_exam4/05_hyptest_2_props_data1.html","04_inferential_statistics/05_exam4/05_hyptest_2_props_data2.html","04_inferential_statistics/05_exam4/05_hyptest_2_props_data3.html"];
+var as = ["04_inferential_statistics/01_T_dist/01_T_probs_sol1.html","04_inferential_statistics/01_T_dist/01_T_probs_sol2.html","04_inferential_statistics/01_T_dist/01_T_probs_sol3.html","04_inferential_statistics/02_confidence_intervals/01_conf_int_rough_sol1.html","04_inferential_statistics/02_confidence_intervals/01_conf_int_rough_sol2.html","04_inferential_statistics/02_confidence_intervals/01_conf_int_rough_sol3.html","04_inferential_statistics/02_confidence_intervals/02_conf_int_prop_rough_sol1.html","04_inferential_statistics/02_confidence_intervals/02_conf_int_prop_rough_sol2.html","04_inferential_statistics/02_confidence_intervals/02_conf_int_prop_rough_sol3.html","04_inferential_statistics/02_confidence_intervals/03_conf_int_prop_sol1.html","04_inferential_statistics/02_confidence_intervals/03_conf_int_prop_sol2.html","04_inferential_statistics/02_confidence_intervals/03_conf_int_prop_sol3.html","04_inferential_statistics/02_confidence_intervals/04_conf_int_z_sol1.html","04_inferential_statistics/02_confidence_intervals/04_conf_int_z_sol2.html","04_inferential_statistics/02_confidence_intervals/04_conf_int_z_sol3.html","04_inferential_statistics/02_confidence_intervals/05_conf_int_t_sol1.html","04_inferential_statistics/02_confidence_intervals/05_conf_int_t_sol2.html","04_inferential_statistics/02_confidence_intervals/05_conf_int_t_sol3.html","04_inferential_statistics/02_confidence_intervals/06_conf_int_t_raw_sol1.html","04_inferential_statistics/02_confidence_intervals/06_conf_int_t_raw_sol2.html","04_inferential_statistics/02_confidence_intervals/06_conf_int_t_raw_sol3.html","04_inferential_statistics/02_confidence_intervals/07_conf_int_z_raw_sol1.html","04_inferential_statistics/02_confidence_intervals/07_conf_int_z_raw_sol2.html","04_inferential_statistics/02_confidence_intervals/07_conf_int_z_raw_sol3.html","04_inferential_statistics/02_confidence_intervals/08_conf_int_prop_raw_sol1.html","04_inferential_statistics/02_confidence_intervals/08_conf_int_prop_raw_sol2.html","04_inferential_statistics/02_confidence_intervals/08_conf_int_prop_raw_sol3.html","04_inferential_statistics/02_confidence_intervals/09_n_from_ME_sol1.html","04_inferential_statistics/02_confidence_intervals/09_n_from_ME_sol2.html","04_inferential_statistics/02_confidence_intervals/09_n_from_ME_sol3.html","04_inferential_statistics/02_confidence_intervals/10_n_from_ME_prop_sol1.html","04_inferential_statistics/02_confidence_intervals/10_n_from_ME_prop_sol2.html","04_inferential_statistics/02_confidence_intervals/10_n_from_ME_prop_sol3.html","04_inferential_statistics/03_hypothesis_tests_one_sample/01_hyptest_single_mean_sol1.html","04_inferential_statistics/03_hypothesis_tests_one_sample/01_hyptest_single_mean_sol2.html","04_inferential_statistics/03_hypothesis_tests_one_sample/01_hyptest_single_mean_sol3.html","04_inferential_statistics/03_hypothesis_tests_one_sample/02_hyptest_one_prop_sol1.html","04_inferential_statistics/03_hypothesis_tests_one_sample/02_hyptest_one_prop_sol2.html","04_inferential_statistics/03_hypothesis_tests_one_sample/02_hyptest_one_prop_sol3.html","04_inferential_statistics/03_hypothesis_tests_one_sample/03_hyptest_single_mean_raw_archery_sol1.html","04_inferential_statistics/03_hypothesis_tests_one_sample/03_hyptest_single_mean_raw_archery_sol2.html","04_inferential_statistics/03_hypothesis_tests_one_sample/03_hyptest_single_mean_raw_archery_sol3.html","04_inferential_statistics/03_hypothesis_tests_one_sample/04_hyptest_one_prop_raw_coin_sol1.html","04_inferential_statistics/03_hypothesis_tests_one_sample/04_hyptest_one_prop_raw_coin_sol2.html","04_inferential_statistics/03_hypothesis_tests_one_sample/04_hyptest_one_prop_raw_coin_sol3.html","04_inferential_statistics/04_hypothesis_tests_two_sample/01_hyptest_paired_data_sol1.html","04_inferential_statistics/04_hypothesis_tests_two_sample/01_hyptest_paired_data_sol2.html","04_inferential_statistics/04_hypothesis_tests_two_sample/01_hyptest_paired_data_sol3.html","04_inferential_statistics/04_hypothesis_tests_two_sample/02_hyptest_2_means_data_sol1.html","04_inferential_statistics/04_hypothesis_tests_two_sample/02_hyptest_2_means_data_sol2.html","04_inferential_statistics/04_hypothesis_tests_two_sample/02_hyptest_2_means_data_sol3.html","04_inferential_statistics/04_hypothesis_tests_two_sample/03_hyptest_2_props_data_sol1.html","04_inferential_statistics/04_hypothesis_tests_two_sample/03_hyptest_2_props_data_sol2.html","04_inferential_statistics/04_hypothesis_tests_two_sample/03_hyptest_2_props_data_sol3.html","04_inferential_statistics/05_exam4/01_one_mean_ci_pval_sol1.html","04_inferential_statistics/05_exam4/01_one_mean_ci_pval_sol2.html","04_inferential_statistics/05_exam4/01_one_mean_ci_pval_sol3.html","04_inferential_statistics/05_exam4/02_one_prop_ci_pval_sol1.html","04_inferential_statistics/05_exam4/02_one_prop_ci_pval_sol2.html","04_inferential_statistics/05_exam4/02_one_prop_ci_pval_sol3.html","04_inferential_statistics/05_exam4/03_hyptest_paired_data_sol1.html","04_inferential_statistics/05_exam4/03_hyptest_paired_data_sol2.html","04_inferential_statistics/05_exam4/03_hyptest_paired_data_sol3.html","04_inferential_statistics/05_exam4/04_hyptest_2_means_data_sol1.html","04_inferential_statistics/05_exam4/04_hyptest_2_means_data_sol2.html","04_inferential_statistics/05_exam4/04_hyptest_2_means_data_sol3.html","04_inferential_statistics/05_exam4/05_hyptest_2_props_data_sol1.html","04_inferential_statistics/05_exam4/05_hyptest_2_props_data_sol2.html","04_inferential_statistics/05_exam4/05_hyptest_2_props_data_sol3.html"];
+var cur = 0;
+function setUrl() {
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var pn = parseInt(urlParams.get("probnum"));
+    if(isNaN(pn)){
+      pn = 0;
+    }
+    if(pn<0){
+      pn=0;
+    }
+    if(pn>=qs.length){
+      pn=0;
+    }
+    cur = pn;
+    document.getElementsByName("cake")[0].src = qs[pn];
+    document.getElementsByName("duck")[0].src = as[pn];
+    var n = qs.length;
+    document.getElementById("myBtn4").onclick = function() {
+      changeUrl((((pn-1) % n ) + n ) % n);
+      };
+    document.getElementById("myBtn5").onclick = function() {
+      changeUrl((((pn+1) % n ) + n ) % n);
+      };
+    document.getElementById("myBtn6").onclick = function() {
+      changeUrl((((pn-pn%3-3) % n ) + n ) % n);
+    };
+    document.getElementById("myBtn7").onclick = function() {
+      changeUrl((((pn-pn%3+3) % n ) + n ) % n);
+    };
+    mybut = document.getElementById("but"+pn);
+    mybut.style.background="#AAFFAA";
+    mpn = mybut.parentNode.parentNode;
+    mpn.parentElement.querySelector(".nested").classList.toggle("active");
+    mpn.parentElement.querySelector(".caret").classList.toggle("sel");
+    mpn = mpn.parentNode.parentNode;
+    mpn.parentElement.querySelector(".nested").classList.toggle("active");
+    mpn.parentElement.querySelector(".caret").classList.toggle("sel");
+}
+function changeUrl(i) {
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    oldi = urlParams.get("probnum");
+    urlParams.set("probnum",parseInt(i));
+    window.history.replaceState("", "", window.location.pathname+"?probnum="+i);
+    document.getElementsByName("cake")[0].src = qs[i];
+    document.getElementsByName("duck")[0].src = as[i];
+    var n = qs.length;
+    document.getElementById("myBtn4").onclick = function() {
+      changeUrl((((i-1) % n ) + n ) % n);
+    };
+    document.getElementById("myBtn5").onclick = function() {
+      changeUrl(i+1);
+    };
+    document.getElementById("myBtn6").onclick = function() {
+      changeUrl((((i-i%3-3) % n ) + n ) % n);
+    };
+    document.getElementById("myBtn7").onclick = function() {
+      changeUrl((((i-i%3+3) % n ) + n ) % n);
+    };
+    var mybut = document.getElementById("but"+cur);
+    mybut.style.background="#AAAAAA";
+    var mpn = mybut.parentNode.parentNode;
+    mpn.parentElement.querySelector(".caret").classList.toggle("sel");
+    mpn = mpn.parentNode.parentNode;
+    mpn.parentElement.querySelector(".caret").classList.toggle("sel");
+    mybut = document.getElementById("but"+i);
+    mybut.style.background="#AAFFAA";
+    mpn = mybut.parentNode.parentNode;
+    mpn.parentElement.querySelector(".caret").classList.toggle("sel");
+    mpn = mpn.parentNode.parentNode;
+    mpn.parentElement.querySelector(".caret").classList.toggle("sel");
+    cur = i;
+}
+function topFunction() {
+  document.getElementById("top").scrollIntoView();
+}
+function qFunction() {
+  document.getElementsByName("cake")[0].scrollIntoView();
+}
+function aFunction() {
+  document.getElementsByName("duck")[0].scrollIntoView();
+}
+document.addEventListener("keypress", function onEvent(event) {
+    if (event.key === "q") {
+        document.getElementsByName("cake")[0].scrollIntoView();
+    }
+    if (event.key === "t") {
+        document.getElementById("top").scrollIntoView();
+    }
+    if (event.key === "a") {
+        document.getElementsByName("duck")[0].scrollIntoView();
+    }
+});
+</script>
+</head>
+<body onload="setUrl()">
+
+<div id="welcome" style="background:#aaeeaa;">
+Welcome to Chad Worley's statistics questions. Please also check out this
+<a href="https://github.com/ceworley/statistics" target="_blank">project's github</a>.
+
+</div>
+
+<br>
+
+<div id="top">
+<ul id="myUL">
+ <li><span class="caret">inferential_statistics</span>
+<ul class="nested">
+  <li><span class="caret">T_dist</span>
+<ul class="nested">
+   <li><button class="button" id="but0" onclick="changeUrl(0)">T_probs</button><button class="button" id="but1" onclick="changeUrl(1)">V2</button><button class="button" id="but2" onclick="changeUrl(2)">V3</button></li>
+</ul></li>
+  <li><span class="caret">confidence_intervals</span>
+<ul class="nested">
+   <li><button class="button" id="but3" onclick="changeUrl(3)">conf_int_rough</button><button class="button" id="but4" onclick="changeUrl(4)">V2</button><button class="button" id="but5" onclick="changeUrl(5)">V3</button></li>
+   <li><button class="button" id="but6" onclick="changeUrl(6)">conf_int_prop_rough</button><button class="button" id="but7" onclick="changeUrl(7)">V2</button><button class="button" id="but8" onclick="changeUrl(8)">V3</button></li>
+   <li><button class="button" id="but9" onclick="changeUrl(9)">conf_int_prop</button><button class="button" id="but10" onclick="changeUrl(10)">V2</button><button class="button" id="but11" onclick="changeUrl(11)">V3</button></li>
+   <li><button class="button" id="but12" onclick="changeUrl(12)">conf_int_z</button><button class="button" id="but13" onclick="changeUrl(13)">V2</button><button class="button" id="but14" onclick="changeUrl(14)">V3</button></li>
+   <li><button class="button" id="but15" onclick="changeUrl(15)">conf_int_t</button><button class="button" id="but16" onclick="changeUrl(16)">V2</button><button class="button" id="but17" onclick="changeUrl(17)">V3</button></li>
+   <li><button class="button" id="but18" onclick="changeUrl(18)">conf_int_t_raw</button><button class="button" id="but19" onclick="changeUrl(19)">V2</button><button class="button" id="but20" onclick="changeUrl(20)">V3</button></li>
+   <li><button class="button" id="but21" onclick="changeUrl(21)">conf_int_z_raw</button><button class="button" id="but22" onclick="changeUrl(22)">V2</button><button class="button" id="but23" onclick="changeUrl(23)">V3</button></li>
+   <li><button class="button" id="but24" onclick="changeUrl(24)">conf_int_prop_raw</button><button class="button" id="but25" onclick="changeUrl(25)">V2</button><button class="button" id="but26" onclick="changeUrl(26)">V3</button></li>
+   <li><button class="button" id="but27" onclick="changeUrl(27)">n_from_ME</button><button class="button" id="but28" onclick="changeUrl(28)">V2</button><button class="button" id="but29" onclick="changeUrl(29)">V3</button></li>
+   <li><button class="button" id="but30" onclick="changeUrl(30)">n_from_ME_prop</button><button class="button" id="but31" onclick="changeUrl(31)">V2</button><button class="button" id="but32" onclick="changeUrl(32)">V3</button></li>
+</ul></li>
+  <li><span class="caret">hypothesis_tests_one_sample</span>
+<ul class="nested">
+   <li><button class="button" id="but33" onclick="changeUrl(33)">hyptest_single_mean</button><button class="button" id="but34" onclick="changeUrl(34)">V2</button><button class="button" id="but35" onclick="changeUrl(35)">V3</button></li>
+   <li><button class="button" id="but36" onclick="changeUrl(36)">hyptest_one_prop</button><button class="button" id="but37" onclick="changeUrl(37)">V2</button><button class="button" id="but38" onclick="changeUrl(38)">V3</button></li>
+   <li><button class="button" id="but39" onclick="changeUrl(39)">hyptest_single_mean_raw_archery</button><button class="button" id="but40" onclick="changeUrl(40)">V2</button><button class="button" id="but41" onclick="changeUrl(41)">V3</button></li>
+   <li><button class="button" id="but42" onclick="changeUrl(42)">hyptest_one_prop_raw_coin</button><button class="button" id="but43" onclick="changeUrl(43)">V2</button><button class="button" id="but44" onclick="changeUrl(44)">V3</button></li>
+</ul></li>
+  <li><span class="caret">hypothesis_tests_two_sample</span>
+<ul class="nested">
+   <li><button class="button" id="but45" onclick="changeUrl(45)">hyptest_paired_data</button><button class="button" id="but46" onclick="changeUrl(46)">V2</button><button class="button" id="but47" onclick="changeUrl(47)">V3</button></li>
+   <li><button class="button" id="but48" onclick="changeUrl(48)">hyptest_2_means_data</button><button class="button" id="but49" onclick="changeUrl(49)">V2</button><button class="button" id="but50" onclick="changeUrl(50)">V3</button></li>
+   <li><button class="button" id="but51" onclick="changeUrl(51)">hyptest_2_props_data</button><button class="button" id="but52" onclick="changeUrl(52)">V2</button><button class="button" id="but53" onclick="changeUrl(53)">V3</button></li>
+</ul></li>
+  <li><span class="caret">exam4</span>
+<ul class="nested">
+   <li><button class="button" id="but54" onclick="changeUrl(54)">one_mean_ci_pval</button><button class="button" id="but55" onclick="changeUrl(55)">V2</button><button class="button" id="but56" onclick="changeUrl(56)">V3</button></li>
+   <li><button class="button" id="but57" onclick="changeUrl(57)">one_prop_ci_pval</button><button class="button" id="but58" onclick="changeUrl(58)">V2</button><button class="button" id="but59" onclick="changeUrl(59)">V3</button></li>
+   <li><button class="button" id="but60" onclick="changeUrl(60)">hyptest_paired_data</button><button class="button" id="but61" onclick="changeUrl(61)">V2</button><button class="button" id="but62" onclick="changeUrl(62)">V3</button></li>
+   <li><button class="button" id="but63" onclick="changeUrl(63)">hyptest_2_means_data</button><button class="button" id="but64" onclick="changeUrl(64)">V2</button><button class="button" id="but65" onclick="changeUrl(65)">V3</button></li>
+   <li><button class="button" id="but66" onclick="changeUrl(66)">hyptest_2_props_data</button><button class="button" id="but67" onclick="changeUrl(67)">V2</button><button class="button" id="but68" onclick="changeUrl(68)">V3</button></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<button onclick="topFunction()" id="myBtn1" title="Go to top">Top</button>
+<button onclick="qFunction()" id="myBtn2" title="Go to question (shortcut=`q`)">Q</button>
+<button onclick="aFunction()" id="myBtn3" title="Go to answer (shortcut=`a`)">A</button>
+<button onclick="changeUrl(1)" id="myBtn4" title="Previous version">&#8592</button>
+<button onclick="changeUrl(1)" id="myBtn5" title="Next version">&#8594</button>
+<button onclick="changeUrl(1)" id="myBtn6" title="Previous question">&#8593</button>
+<button onclick="changeUrl(1)" id="myBtn7" title="Next question">&#8595</button>
+<center>
+<iframe src=qs[1] frameborder=0 name="cake" id="cake" style ="border:2px solid black;height:95vh;background-color:#dadaff;" width="95%"></></iframe>
+</center>
+<center>
+<iframe src=as[1] frameborder=0 name="duck" id="duck" style ="border:2px solid black;height:95vh;background-color:#ffdada;" width="95%"></></iframe>
+</center>
+<script>
+var toggler = document.getElementsByClassName("caret");
+var jjj;
+for (jjj = 0; jjj < toggler.length; jjj++) {
+  toggler[jjj].addEventListener("click", function() {
+    this.parentElement.querySelector(".nested").classList.toggle("active");
+  });
+}
+</script>
+</body>
+</html>

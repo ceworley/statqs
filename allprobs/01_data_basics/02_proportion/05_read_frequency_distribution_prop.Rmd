@@ -1,0 +1,123 @@
+```{r,data,generation,echo=FALSE,results="hide",fig.show='hide'}
+type = sample(1:5,1) #uniform, bell, bimodal, skewright, skewleft
+n = sample(c(60,70,75,80,90,100,110,120,125,130,150),1)
+beta1 = c(1,5,0.2,0.5,2)[type]
+beta2 = c(1,5,0.2,2,0.5)[type]
+bottom = sample(seq(20,70,5),1)
+width = sample(seq(5,30,5),1)
+i = 1:n
+x = rbeta(n,beta1,beta2)*width+bottom
+myhist = hist(x,breaks=7)
+brks = myhist$breaks
+counts = myhist$counts
+
+b1 = sample(brks[3:(length(brks)-1)],1)
+n1 = sum(x<b1)
+b2 = sample(brks[2:(length(brks)-2)],1)
+n2 = sum(x>b2)
+b3 = sort(sample(brks[2:(length(brks)-1)],2))
+c3 = mean(b3)
+r3 = (b3[2]-b3[1])/2
+n3 = sum(abs(x-c3)<r3)
+b4 = sort(sample(brks[2:(length(brks)-1)],2))
+c4 = mean(b4)
+r4 = (b4[2]-b4[1])/2
+n4 = sum(abs(x-c4)>r4)
+
+b5 = sample(brks[3:(length(brks)-1)],1)
+n5 = sum(x<b5)
+b6 = sample(brks[2:(length(brks)-2)],1)
+n6 = sum(x>b6)
+b7 = sort(sample(brks[2:(length(brks)-1)],2))
+c7 = mean(b7)
+r7 = (b7[2]-b7[1])/2
+n7 = sum(abs(x-c7)<r7)
+b8 = sort(sample(brks[2:(length(brks)-1)],2))
+c8 = mean(b8)
+r8 = (b8[2]-b8[1])/2
+n8 = sum(abs(x-c8)>r8)
+
+p1=signif(n1/n,4)
+p2=signif(n2/n,4)
+p3=signif(n3/n,4)
+p4=signif(n4/n,4)
+p5=signif(n5/n,4)
+p6=signif(n6/n,4)
+p7=signif(n7/n,4)
+p8=signif(n8/n,4)
+
+```
+
+
+Question
+========
+
+A random procedure generated `r n` measurements, which were organized into the frequency distribution shown below. You can assume the measurements are of a [continuous random variable](https://en.wikipedia.org/wiki/Continuous_or_discrete_variable), such that every measurement is in one of the intervals (and not on a break).
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+
+```{r soltab, results="asis", echo=F}
+NN = length(counts)
+Interval = paste(brks[1:NN],"to",brks[2:(NN+1)])
+Frequency = counts
+Relative_frequency = signif(counts/n,4)
+Density = signif(counts/n/(brks[2]-brks[1]),4)
+soltab = data.frame(Interval,Frequency,Relative_frequency,Density)
+knitr::kable(soltab,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
+
+
+Answerlist
+--------
+* Evaluate $\text{prop}[\mathbf{x}<`r b1`]$.
+* Evaluate $\text{prop}[\mathbf{x}>`r b2`]$.
+* Evaluate $\text{prop}[|\mathbf{x}-`r c3`|<`r r3`]$.
+* Evaluate $\text{prop}[|\mathbf{x}-`r c4`|>`r r4`]$.
+* Evaluate boundary $b$ such that $\text{prop}[\mathbf{x}<b] = `r p5`$.
+* Evaluate boundary $b$ such that $\text{prop}[\mathbf{x}>b] = `r p6`$.
+* Evaluate radius $r$ such that $\text{prop}[|\mathbf{x}-`r c7`|<r] = `r p7`$.
+* Evaluate radius $r$ such that $\text{prop}[|\mathbf{x}-`r c8`|>r] = `r p8`$.
+
+
+Solution
+========
+
+[video](https://vimeo.com/531903796){target="_blank"}
+
+The first 4 questions involve adding up relative frequencies of the indicated intervals. The last 4 questions can be done by guessing and checking until something works.
+
+Answerlist
+--------
+* (ANS=`r p1` $\pm$ 0.01) There are `r n1` measurements less than `r b1`. So, $\text{prop}[\mathbf{x}<`r b1`]=\frac{`r n1`}{`r n`}=`r p1`$.
+* (ANS=`r p2` $\pm$ 0.01) There are `r n2` measurements more than `r b2`. So, $\text{prop}[\mathbf{x}>`r b2`]=\frac{`r n2`}{`r n`}=`r p2`$.
+* (ANS=`r p3` $\pm$ 0.01) There are `r n3` measurements closer than `r r3` units from `r c3`. So, $\text{prop}[|\mathbf{x}-`r c3`|<`r r3`]=`r p3`$.
+* (ANS=`r p4` $\pm$ 0.01) There are `r n4` measurements further than `r r4` units from `r c4`. So, $\text{prop}[|\mathbf{x}-`r c4`|>`r r4`]=`r p4`$.
+* (ANS=`r b5`) First, $`r p5` \cdot `r n` = `r n5`$. A boundary at $b=`r b5`$ has `r n5` measurements less than it. So, $\text{prop}[\mathbf{x}<`r b5`]=`r p5`$.
+* (ANS=`r b6`) First, $`r p6` \cdot `r n` = `r n6`$. A boundary at $b=`r b6`$ has `r n6` measurements more than it. So, $\text{prop}[\mathbf{x}>`r b6`]=`r p6`$.
+* (ANS=`r r7`) First, $`r p7` \cdot `r n` = `r n7`$. An interval with radius $r=`r r7`$ around center `r c7` contains `r n7` measurements. So, $\text{prop}[|\mathbf{x}-`r c7`|<`r r7`]=`r p7`$.
+* (ANS=`r r8`) First, $`r p8` \cdot `r n` = `r n8`$. An interval with radius $r=`r r8`$ around center `r c8` excludes `r n8` measurements.  So, $\text{prop}[|\mathbf{x}-`r c8`|<`r r8`]=`r p8`$.
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|num|num|num|num
+exsolution: `r p1`|`r p2`|`r p3`|`r p4`|`r b5`|`r b6`|`r r7`|`r r8`
+exname: read_frequency_distribution_prop
+extol: 0.01
+exextra[numwidth,character]: 999.999

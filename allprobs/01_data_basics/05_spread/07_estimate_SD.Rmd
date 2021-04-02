@@ -1,0 +1,73 @@
+```{r generation,echo=FALSE,results="hide"}
+
+type = sample(1:3,1) #uniform, bell, bimodal
+n = 10000
+beta1 = c(1,4,0.2)[type]
+beta2 = c(1,4,0.2)[type]
+bottom = sample(seq(20,50,5),1)
+width = sample(seq(5,50,5),1)
+x = round(rbeta(n,beta1,beta2)*width+bottom,3)
+xbar = mean(x)
+s = sd(x)
+divisors = c(sqrt(12),6,2)
+exb = bottom+width/2
+esd = width/divisors[type]
+```
+
+
+Question
+========
+
+A large sample ($n=10000$) was gathered and visualized with a histogram.
+
+```{r echo=F}
+hist(x,breaks=seq(bottom,bottom+width,length.out=10),freq=F,col=rgb(0.9,0.7,0.7))
+axis(1,at=c(bottom,bottom+width))
+```
+\
+
+When a symmetric distribution is sampled thoroughly ($n>100$), you can use the following rules of thumb to **estimate** the mean and standard deviation.
+
+
+
+| Shape | Estimated mean | Estimated standard deviation |
+|:---:|:---:|:---:|
+|Bell| $\frac{\min(x)+\max(x)}{2}$ | $\frac{\max(x)-\min(x)}{6}$ |
+|Uniform| $\frac{\min(x)+\max(x)}{2}$ | $\frac{\max(x)-\min(x)}{\sqrt{12}}$ |
+|Bimodal| $\frac{\min(x)+\max(x)}{2}$ | $\frac{\max(x)-\min(x)}{2}$ |
+
+
+Answerlist
+--------
+
+* Estimate the mean of the sample. (Please use the given formula.)
+* Estimate the standard deviation of the sample. (Please use the given formula.)
+
+
+Solution
+========
+
+[video](https://vimeo.com/531909205){target="_blank"}
+
+Notice the bell has the smallest standard deviation for a given range. This is because many measurements are near the mean, and just a few are near the edges.
+
+The bimodal has the largest standard deviation for a given range. This is because many measurements are near the edges, and just a few are near the mean.
+
+The uniform distribution has about equal numbers of measurements near the mean and near the edges, so it has a standard deviation between the two other shapes (for a given range).
+
+You'll notice the bimodal estimate is probably the worst estimate. The estimate would be more accurate if none of the values were near the mean, and all the values were near the edge. 
+
+Answerlist
+--------
+* By using the given formula, you'll get an estimate of `r exb` for the mean. The actual mean is `r xbar`.
+* By using the formula, you'll get an estimate of `r esd` for the standard deviation. The actual standard deviation is `r sd(x)`.
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num
+exsolution: `r exb`|`r esd`
+exname: estimate_mean_SD
+extol: `r exb/10`|`r esd/5`
+exextra[numwidth]: 999.999

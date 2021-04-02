@@ -1,0 +1,103 @@
+```{r,data,generation,echo=FALSE,results="hide"}
+
+# reseed for exam question
+set.seed(runif(1,2,22))
+
+p = runif(1,0.07,0.4)
+kmax = floor(log(0.0001/p,1-p))
+kmaxmark = floor(log(0.001/p,1-p))
+k = 0:kmax
+klast = kmax+1
+Pr = (1-p)^k*p
+Prlast = 1-sum(Pr)
+k = c(k,klast)
+Pr = c(0,Pr,Prlast)
+
+mu = round((1-p)/p,2)
+pvar = (1-p)/p^2
+psd = round(sqrt(pvar),2)
+
+n = round(runif(1,6,9)^2)
+x = rgeom(n,p)
+i = 1:n
+
+xbar = mean(x)
+med = median(x)
+
+data=data.frame(i,x)
+
+write.csv(data,file="geometric_sample.csv",row.names=F)
+```
+
+Question
+========
+
+A sample's statistic typically approaches its corresponding population parameter, but with a small sample size there is regularly error. Let's explore this idea with an example.
+
+A [geometric distribution](https://en.wikipedia.org/wiki/Geometric_distribution){target="blank"} is a well-studied discrete population. The spinner below represents a geometric distribution with the following population parameters.
+$$\mu = `r mu`$$
+$$\sigma = `r psd`$$
+
+```{r echo=F,fig.width=5,fig.height=5}
+par(mar=c(0,0,0,0))
+theta = seq(0,2*pi,0.01)
+plot(sin(theta),cos(theta),type="l",lwd=4,axes=F,ann=F)
+cump = cumsum(Pr)
+for(k in k){
+  lines(c(0,sin(cump[k+1]*2*pi)),c(0,cos(cump[k+1]*2*pi)))
+  if(k <= kmaxmark){
+    ppp = (cump[k+1]+cump[k+2])/2
+    text(0.6*sin(ppp*2*pi),0.6*cos(ppp*2*pi),k,cex=Pr[k+2]*30)
+  }
+}
+polygon(0.05*cos(theta),0.05*sin(theta),col="red")
+arrows(-0.5,-0.1,0.5,0.1,lwd=8)
+arrows(-0.5,-0.1,0.5,0.1,lwd=7,col="red")
+polygon(0.01*cos(theta),0.01*sin(theta),col="red")
+```
+\
+
+That spinner was spun many times. The raw data is displayed below and [can be downloaded as a CSV](geometric_sample.csv){target="blank"}.
+
+```{r echo=F,comment=""}
+cat(paste(x,collapse=", "))
+```
+
+Please calculate the following sample statistics.
+
+Answerlist
+--------
+* What is the sample size? (Determine $n$.)
+* What is the sample mean? (Determine $\bar{x}$. You can round to nearest hundredth.)
+* What is the **absolute difference** between the sample mean and population mean? (Calculate $|\bar{x}-\mu|$. You can round to nearest hundredth.)
+* What is the sample median?
+* What is the sample variance? (Determine $s^2$. Use Bessel's correction. You can round to nearest hundredth.)
+* What is the sample standard deviation? (Determine $s$. Use Bessel's correction. You can round to nearest hundredth.)
+* What is the **absolute difference** between the sample standard deviation and population standard deviation? (Calculate $|s-\sigma|$. You can round to nearest hundredth.)
+
+
+Solution
+========
+
+Notice the sample mean and sample standard deviation do not match the population mean and population standard deviation exactly. 
+
+
+Answerlist
+--------
+* `r n`
+* `r xbar`
+* `r abs(xbar-mu)`
+* `r median(x)`
+* `r var(x)`
+* `r sd(x)`
+* `r abs(sd(x)-psd)`
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|num|num|num
+exsolution: `r n`|`r xbar`|`r abs(xbar-mu)`|`r median(x)`|`r var(x)`|`r sd(x)`|`r abs(sd(x)-psd)`
+exname: exam1q1
+extol: 0|0.01|0.01|0|0.01|0.01|0.01
+exextra[numwidth,logical]: TRUE

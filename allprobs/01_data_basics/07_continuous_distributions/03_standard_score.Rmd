@@ -1,0 +1,61 @@
+```{r,data,generation,echo=FALSE,results="hide",fig.show='hide'}
+while(T){
+  N = sample(c(4,6,8,10,12,20),1)
+  n = sample(seq(10,200,10),1)
+  mu = (N+1)/2*n
+  sig = round(sqrt(n)*sqrt((N^2-1)/12),2)
+  x = round(rnorm(2,mu,sig))
+  z = round((x-mu)/sig,2)
+  x2 = round(mu+sig*z)
+  if(sum(x==x2)==2 & abs(z[1])!=abs(z[2]) & z[1]%%1!=0 & z[2]%%1!=0){break}
+}
+```
+
+
+Question
+========
+
+### Background
+
+A [standard score](https://en.wikipedia.org/wiki/Standard_score){target="blank"} ($z$) can be calculated from a measurement ($x$), the population mean ($\mu$), and the population standard deviation ($\sigma$).
+$$z = \frac{x-\mu}{\sigma} $$
+With a little algebra, you can create another formula solved for the measurement.
+$$x = \mu+z\sigma$$
+
+### Actual question
+
+A gambler is interested in the sum of `r n` rolls of `r N`-sided dice. The process of summing `r n` rolls of `r N`-sided dice can be repeated infinitely many times, giving independent results each time, so those sums can be thought of as an infinitely large population. This population happens to be approximately normal (see [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem){target="blank"}).
+
+The gambler knows how to calculate the population mean (see [discrete-uniform distribution](https://en.wikipedia.org/wiki/Discrete_uniform_distribution){target="blank"}).
+$$\mu = `r n`\cdot\frac{1+`r N`}{2} = `r mu` $$
+She also knows how to calculate the population standard deviation.
+$$\sigma = \sqrt{`r n`} \cdot \sqrt{\frac{`r N`^2-1}{12}} = `r sig` $$
+
+Answerlist
+--------
+* If the gambler rolled a sum of `r x[1]` (in other words got a measurement $x=`r x[1]`$), what is the standard score? (Determine $z$; you can round to the nearest hundredth.)
+* If the gambler got a standard score of $z=`r z[2]`$, what is the sum? (Determine $x$, rounding to the nearest integer.) 
+
+
+Solution
+========
+
+[video](https://vimeo.com/531914707){target="_blank"}
+
+Answerlist
+--------
+* Use the formula.
+$$z = \frac{x-\mu}{\sigma} = \frac{`r x[1]`-`r mu`}{`r sig`} = `r z[1]`$$
+* Use the formula.
+$$x = \mu+z\sigma = `r mu`+(`r z[2]`)(`r sig`) = `r x[2]` $$
+
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num
+exsolution: `r z[1]`|`r x[2]`
+exname: standard_score
+extol: 0.01|1
+exextra[numwidth,character]: 999.99

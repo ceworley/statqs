@@ -1,0 +1,131 @@
+```{r,data,generation,echo=FALSE,results="hide",fig.show='hide'}
+
+# reseed for exam question
+set.seed(runif(1,1,23))
+
+zs = -3:3
+ps = round(pnorm(zs),2)
+mu = sample(30:70,1)
+sig = sample(2:10,1)
+zc = sample(-2:2,6,T)
+zc[c(3,6)] = sample(1:2,2)
+zc[c(1:2,4:5)] = sample(-2:2,4)
+L = ps[zc+4]
+R = 1-ps[zc+4]
+C = 1-2*(1-ps[abs(zc)+4])
+
+x = mu+sig*zc
+```
+
+
+Question
+========
+
+We can visualize the "68-96-100" rule with a density curve. Notice the area of each region is shown, and you can estimate the areas by counting percentage boxes.
+
+```{r echo=F,fig.width=8,fig.height=4}
+z = seq(-3,3,0.01)
+yl = seq(0,0.4,0.05)
+zl = seq(-3,3,0.2)
+plot(z,dnorm(z),type="l",axes=F,ylab="density",xlab="measurement",lwd=4,ylim=c(0,0.5))
+axis(1,at=(-3):3,labels=c(expression(mu-3*sigma),expression(mu-2*sigma),expression(mu-sigma),
+                          expression(mu),expression(mu+sigma),expression(mu+2*sigma),
+                          expression(mu+3*sigma)))
+abline(h=0)
+for(z in (-3):3){
+  lines(c(z,z),c(0,dnorm(z)))
+}
+for(z in zl){
+  lines(c(z,z),c(0,0.4),lty=2,col=rgb(0.5,0.5,0.5))
+}
+for(y in yl){
+  lines(c(-3,3),c(y,y),lty=2,col=rgb(0.5,0.5,0.5))
+}
+cols = c(rgb(0,0,0.5,0.4),rgb(0,0.5,0,0.4),rgb(0.5,0,0,0.4),rgb(0,0.5,0.5,0.4),rgb(0.5,0.5,0,0.4),rgb(0.5,0,0.5,0.4))
+col2 = c(rgb(0,0,0.3),rgb(0,0.3,0),rgb(0.3,0,0),rgb(0,0.3,0.3),rgb(0.3,0.3,0),rgb(0.3,0,0.3))
+
+for(i in (-3):2){
+  zz = seq(i,i+1,0.01)
+  polygon(c(i,zz,i+1),c(0,dnorm(zz),0),col=cols[i+4])
+  text(i+0.5,0.225,round(pnorm(i+1)-pnorm(i),2),col=col2[i+4],cex=1.6)
+}
+
+lines(z,dnorm(z),lwd=4)
+
+lines(c(-1,-1,1,1),c(0.42,0.43,0.43,0.42))
+text(0,0.45,"0.68")
+lines(c(-2,-2,2,2),c(0.47,0.48,0.48,0.47))
+text(0,0.50,"0.96")
+```
+\
+
+Population $X$ has measurements that are normally distributed with mean  $\mu=`r mu`$ and standard deviation $\sigma=`r sig`$. Use the empirical rule (68-96-100 rule) to answer the following questions.
+
+Answerlist
+--------
+* Evaluate $\text{prop}[X<`r x[1]`]$.
+* Evaluate $\text{prop}[X>`r x[2]`]$.
+* Evaluate $\text{prop}[|X-`r mu`|<`r x[3]-mu`]$.
+* Determine boundary $b$ such that $\text{prop}[X<b]=`r L[4]`$.
+* Determine boundary $b$ such that $\text{prop}[X>b]=`r R[5]`$.
+* Determine radius $r$ such that $\text{prop}[|X-`r mu`|<r]=`r C[6]`$.
+
+
+Solution
+========
+
+It helps to draw a diagram using the supplied mean ($\mu=`r mu`$) and standard deviation ($\sigma=`r sig`$).
+
+```{r echo=F,fig.width=8,fig.height=4}
+z = seq(-3,3,0.01)
+yl = seq(0,0.4,0.05)
+zl = seq(-3,3,0.2)
+plot(z,dnorm(z),type="l",axes=F,ylab="density",xlab="measurement",lwd=4,ylim=c(0,0.5))
+axis(1,at=(-3):3,labels=mu+(-3):3*sig)
+abline(h=0)
+for(z in (-3):3){
+  lines(c(z,z),c(0,dnorm(z)))
+}
+for(z in zl){
+  lines(c(z,z),c(0,0.4),lty=2,col=rgb(0.5,0.5,0.5))
+}
+for(y in yl){
+  lines(c(-3,3),c(y,y),lty=2,col=rgb(0.5,0.5,0.5))
+}
+cols = c(rgb(0,0,0.5,0.4),rgb(0,0.5,0,0.4),rgb(0.5,0,0,0.4),rgb(0,0.5,0.5,0.4),rgb(0.5,0.5,0,0.4),rgb(0.5,0,0.5,0.4))
+col2 = c(rgb(0,0,0.3),rgb(0,0.3,0),rgb(0.3,0,0),rgb(0,0.3,0.3),rgb(0.3,0.3,0),rgb(0.3,0,0.3))
+
+for(i in (-3):2){
+  zz = seq(i,i+1,0.01)
+  polygon(c(i,zz,i+1),c(0,dnorm(zz),0),col=cols[i+4])
+  text(i+0.5,0.225,round(pnorm(i+1)-pnorm(i),2),col=col2[i+4],cex=1.6)
+}
+
+lines(z,dnorm(z),lwd=4)
+
+lines(c(-1,-1,1,1),c(0.42,0.43,0.43,0.42))
+text(0,0.45,"0.68")
+lines(c(-2,-2,2,2),c(0.47,0.48,0.48,0.47))
+text(0,0.50,"0.96")
+```
+\
+
+
+Answerlist
+--------
+* The answer is `r L[1]` because $\text{prop}[X<`r x[1]`]=`r L[1]`$. 
+* The answer is `r R[2]` because $\text{prop}[X>`r x[2]`]=`r R[2]`$.
+* The answer is `r C[3]` because $\text{prop}[|X-`r mu`|<`r x[3]-mu`]=`r C[3]`$.
+* The answer is `r x[4]` because $\text{prop}[X<`r x[4]`]=`r L[4]`$.
+* The answer is `r x[5]` because $\text{prop}[X>`r x[5]`]=`r R[5]`$.
+* The answer is `r x[6]-mu` because $\text{prop}[|X-`r mu`|<`r x[6]-mu`]=`r C[6]`$.
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|num|num
+exsolution: `r L[1]`|`r R[2]`|`r C[3]`|`r x[4]`|`r x[5]`|`r x[6]-mu`
+exname: q8_empirical_rule
+extol: 0.01|0.01|0.01|0|0|0
+exextra[numwidth,character]: 999.99

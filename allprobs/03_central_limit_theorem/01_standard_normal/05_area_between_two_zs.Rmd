@@ -1,0 +1,160 @@
+```{r data generation, echo = FALSE, results = "hide"}
+while(T){
+  ell = sort(runif(2,0.02,0.98))
+  z = round(qnorm(ell),2)
+  ell = round(pnorm(z),4)
+  sol = ell[2]-ell[1]
+  if(z[2]-z[1] > 0.5){break}
+}
+
+```
+
+Question
+========
+
+Determine the probability that the standard normal variable is between `r z[1]` and `r z[2]`. In other words, evaluate $P(`r z[1]` < Z < `r z[2]`)$.
+
+
+Solution
+========
+
+[video](https://vimeo.com/531931017){target="_blank"}
+
+Start with a sketch.
+
+```{r, echo=F, fig.height=4, fig.width=6}
+par(mar=c(7,0,0,0))
+zs = seq(-3,3,0.01)
+plot(zs,dnorm(zs),xlim=c(-3,3),type='l',ylab='density',xlab='Z',axes=F,ann=F)
+polygon(c(zs[zs>=z[1] & zs<=z[2]],z[2],z[1]),
+        c(dnorm(zs[zs>=z[1] & zs<=z[2]]),0,0),
+        col=rgb(0.7,0.7,0.7,0.7))
+text((z[1]+z[2])/2,dnorm((z[1]+z[2])/2)/3,"?")
+lines(c(-3,3),c(0,0))
+axis(1,at=c(-3,z[1],z[2],3),line = 0)
+axis(1,at=seq(-3,3,1),line=2)
+mtext('Z',1,5)
+```
+\
+
+We take a difference of areas.
+$$\begin{aligned}
+P(`r z[1]`<Z<`r z[2]`) &= P(Z<`r z[2]`) - P(Z<`r z[1]`) \\
+&= `r ell[2]` - `r ell[1]` \\
+&= `r sol`
+\end{aligned}$$
+
+```{r, echo=F, fig.height=4, fig.width=6}
+par(mar=c(7,0,0,0))
+zs = seq(-3,3,0.01)
+plot(zs,dnorm(zs),xlim=c(-3,3),ylim=c(0,0.5),type='l',ylab='density',xlab='Z',axes=F,ann=F)
+polygon(c(zs[zs>=z[1] & zs<=z[2]],z[2],z[1]),
+        c(dnorm(zs[zs>=z[1] & zs<=z[2]]),0,0),
+        col=rgb(0.7,0.7,0.7,0.7))
+text((z[1]+z[2])/2,max(dnorm((z[1]+z[2])/2)/3,0.02),sol)
+text((z[1]-3)/2,max(dnorm((z[1]-3)/2)/3,0.02),ell[1])
+text((-3+z[2])/2,0.46,ell[2])
+lines(c(-3,3),c(0,0))
+lines(c(-3,z[2],z[2]),c(0.43,0.43,0.41))
+axis(1,at=c(-3,z[1],z[2],3),line = 0)
+axis(1,at=seq(-3,3,1),line=2)
+mtext('Z',1,5)
+```
+\
+
+```{r echo=F,fig.width=6,fig.height=6}
+par(mar=c(0,0,0,0))
+theta=seq(0,2*pi,length.out=1000)
+plot(sin(theta),cos(theta),type="l",ann=F,axes=F,xlim=c(-1.3,1.3),ylim=c(-1.3,1.3))
+zs = -3:3
+for(i in 1:length(zs)){
+  p = pnorm(zs[i])
+  lines(sin(p*2*pi)*c(0.8,1),cos(p*2*pi)*c(0.8,1),lwd=2)
+  pt = min(max(p,0.007),0.993)
+  if(abs(zs[i])<3){
+    text(0.75*sin(pt*2*pi),0.75*cos(pt*2*pi),zs[i])
+  }
+}
+zs = seq(-2.5,2.5,1)
+for(i in 1:length(zs)){
+  p = pnorm(zs[i])
+  lines(sin(p*2*pi)*c(0.85,1),cos(p*2*pi)*c(0.85,1),lwd=2)
+  if(abs(zs[i])<3){
+    text(sin(p*2*pi)*0.8,cos(p*2*pi)*0.8,cex=0.5,round(zs[i],2),srt=(180-360*p)%%180-90)
+  }
+}
+zs = seq(-3,3,0.1)
+for(i in 1:length(zs)){
+  p = pnorm(zs[i])
+  lines(sin(p*2*pi)*c(0.9,1),cos(p*2*pi)*c(0.9,1),lwd=1)
+}
+zs = seq(-2,2,0.1)
+for(i in 1:length(zs)){
+  p = pnorm(zs[i])
+  if(zs[i]%%0.5 != 0){
+    text(sin(p*2*pi)*0.85,cos(p*2*pi)*0.85,cex=0.5,round(zs[i],2),srt=(180-360*p)%%180-90)
+  }
+}
+zs = seq(-3,3,0.05)
+for(i in 1:length(zs)){
+  p = pnorm(zs[i])
+  lines(sin(p*2*pi)*c(0.95,1),cos(p*2*pi)*c(0.95,1))
+}
+zs = seq(-3,3,0.01)
+for(i in 1:length(zs)){
+  p = pnorm(zs[i])
+  lines(sin(p*2*pi)*c(0.98,1),cos(p*2*pi)*c(0.98,1))
+}
+
+for(p in seq(0.1,0.9,0.1)){
+  lines(sin(p*2*pi)*c(1,1.05),cos(p*2*pi)*c(1,1.05))
+  text(sin(p*2*pi)*1.1,cos(p*2*pi)*1.1,p,cex=0.8,srt=-(p*360-90)%%180-90)
+}
+for(p in seq(0.01,0.99,0.01)){
+  lines(sin(p*2*pi)*c(1,1.03),cos(p*2*pi)*c(1,1.03))
+}
+for(p in seq(0.002,0.998,0.002)){
+  lines(sin(p*2*pi)*c(1,1.01),cos(p*2*pi)*c(1,1.01))
+}
+lines(c(0,0),c(1,1.05),lwd=2)
+text(0,1.09,"1 or 0",cex=0.8)
+text(0,0,cex=1.5,"z")
+
+zs = seq(z[1],z[2],0.001)
+ps = pnorm(zs)
+polygon(c(0,sin(ps*2*pi),0),c(0,cos(ps*2*pi),0),col=rgb(0.9,0.3,0.3,0.4),border=rgb(0.9,0.3,0.3))
+pe = pnorm(z)
+pm = mean(pe)
+
+lines(sin(ps*2*pi)*1.2,cos(ps*2*pi)*1.2,lwd=2)
+lines(sin(pe[1]*2*pi)*c(1.15,1.2),cos(pe[1]*2*pi)*c(1.15,1.2),lwd=2)
+lines(sin(pe[2]*2*pi)*c(1.15,1.2),cos(pe[2]*2*pi)*c(1.15,1.2),lwd=2)
+text(0.5*sin(2*pi*pe[1]),0.5*cos(2*pi*pe[1]),z[1],srt=(180-360*pe[1])%%180-90)
+text(0.5*sin(2*pi*pe[2]),0.5*cos(2*pi*pe[2]),z[2],srt=(180-360*pe[2])%%180-90)
+text(1.25*sin(2*pi*pe[1]),1.25*cos(2*pi*pe[1]),round(pe[1],4),srt=-(pe[1]*360-90)%%180-90,cex=0.8)
+text(1.25*sin(2*pi*pe[2]),1.25*cos(2*pi*pe[2]),round(pe[2],4),srt=-(pe[2]*360-90)%%180-90,cex=0.8)
+text(sin(pm*2*pi)*1.25,
+     cos(pm*2*pi)*1.25,
+     sprintf("%.4f",round(pe[2],4)-round(pe[1],4)),
+     srt=-(pm*360-90)%%180-90)
+```
+\
+
+In a spreadsheet, you could use the `NORM.DIST()` function.
+
+```
+=NORM.DIST(`r z[2]`,0,1,TRUE) - NORM.DIST(`r z[1]`,0,1,TRUE)
+```
+
+In R, you could use the `pnorm` function.
+
+```
+pnorm(`r z[2]`) - pnorm(`r z[1]`)
+```
+
+Meta-information
+================
+extype: num
+exsolution: `r sol`
+exname: Get area between 2 zs
+extol: 0.002

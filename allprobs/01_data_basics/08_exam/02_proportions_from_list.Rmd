@@ -1,0 +1,108 @@
+```{r,data,generation,echo=FALSE,results="hide"}
+
+# reseed for exam question
+set.seed(runif(1,8,99))
+
+while(T){
+  mu = sample(seq(30,70,10),1)
+  sig = sample(2:10,1)
+  n = sample(40:120,1)
+  x = round(rnorm(n,mu,sig),4)
+  i = 1:n
+  zc = round(rnorm(4),2)
+  b1 = round(mu+zc[1]*sig,1)
+  p1 = mean(x<b1)
+  b2 = round(mu+zc[2]*sig,1)
+  p2 = mean(x>b2)
+  r3 = round(abs(zc[3])*sig,1)
+  p3 = mean(abs(x-mu)<r3)
+  r4 = round(abs(zc[4])*sig,1)
+  p4 = mean(abs(x-mu)>r4)
+  if(p1>0.05 & p1<0.95 & p2>0.05 & p2<0.95 & p3>0.05 & p3<0.95 & p4>0.05 & p4<0.95){break}
+}
+data=data.frame(i,x)
+write.csv(data,file="normal_sample.csv",row.names=F)
+```
+
+Question
+========
+
+A [normal distribution](https://en.wikipedia.org/wiki/Geometric_distribution){target="blank"} is a well-studied continuous population. The spinner below represents a normal distribution with the following population parameters.
+$$\mu = `r mu`$$
+$$\sigma = `r sig`$$
+
+```{r echo=F,fig.width=5,fig.height=5}
+par(mar=c(0,0,0,0))
+theta = seq(0,2*pi,0.01)
+plot(sin(theta),cos(theta),type="l",lwd=4,axes=F,ann=F)
+for(z in -3:3){
+  p = pnorm(z)
+  lines(c(0.8,1)*sin(p*2*pi),c(0.8,1)*cos(p*2*pi),lwd=2.5)
+}
+for(z in -2:2){
+  p = pnorm(z)
+  text(0.73*sin(p*2*pi),0.73*cos(p*2*pi),mu+z*sig)
+}
+for(z in (-3*sig):(3*sig)/sig){
+  p = pnorm(z)
+  lines(c(0.85,1)*sin(p*2*pi),c(0.85,1)*cos(p*2*pi))
+}
+for(z in (-30*sig):(30*sig)/10/sig){
+  p = pnorm(z)
+  lines(c(0.95,1)*sin(p*2*pi),c(0.95,1)*cos(p*2*pi))
+}
+# for(z in -3:3/2){
+#   p = pnorm(z)
+#   lines(c(0.85,1)*sin(p*2*pi),c(0.85,1)*cos(p*2*pi))
+# }
+# for(z in -30:30/10){
+#   p = pnorm(z)
+#   lines(c(0.90,1)*sin(p*2*pi),c(0.90,1)*cos(p*2*pi))
+# }
+# for(z in -300:300/100){
+#   p = pnorm(z)
+#   lines(c(0.97,1)*sin(p*2*pi),c(0.97,1)*cos(p*2*pi))
+# }
+
+polygon(0.05*cos(theta),0.05*sin(theta),col="red")
+arrows(-0.5,-0.1,0.5,0.1,lwd=8)
+arrows(-0.5,-0.1,0.5,0.1,lwd=7,col="red")
+polygon(0.01*cos(theta),0.01*sin(theta),col="red")
+```
+\
+
+That spinner was spun many times. The raw data is displayed below and [can be downloaded as a CSV](normal_sample.csv){target="blank"}.
+
+```{r echo=F,comment=""}
+cat(paste(x,collapse=", "))
+```
+
+Please calculate the following sample proportions. (All answers can be rounded to nearest hundredth.)
+
+Answerlist
+--------
+* Calculate $\text{prop}[\mathbf{x}<`r b1`]$.
+* Calculate $\text{prop}[\mathbf{x}>`r b2`]$.
+* Calculate $\text{prop}[|\mathbf{x}-`r mu`|<`r r3`]$.
+* Calculate $\text{prop}[|\mathbf{x}-`r mu`|>`r r4`]$.
+
+
+Solution
+========
+
+Answerlist
+--------
+* `r p1`
+* `r p2`
+* `r p3`
+* `r p4`
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num
+exsolution: `r p1`|`r p2`|`r p3`|`r p4`
+exname: exam1q2
+extol: 0.01
+exextra[numwidth,numeric]: 8

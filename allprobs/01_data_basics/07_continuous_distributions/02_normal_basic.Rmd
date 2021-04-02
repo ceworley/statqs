@@ -1,0 +1,1231 @@
+```{r,data,generation,echo=FALSE,results="hide",fig.show='hide'}
+zs = -3:3
+ps = round(pnorm(zs),2)
+mu = sample(30:70,1)
+sig = sample(2:10,1)
+zc = sample(-2:2,6,T)
+zc[c(3,6)] = sample(1:2,2)
+zc[c(1:2,4:5)] = sample(-2:2,4)
+L = ps[zc+4]
+R = 1-ps[zc+4]
+C = 1-2*(1-ps[abs(zc)+4])
+
+x = mu+sig*zc
+```
+
+
+Question
+========
+
+### Background
+
+In statistics, the word "normal" does not mean "typical". Instead, "normal" refers to a very important continuous distribution: the [normal distribution](https://en.wikipedia.org/wiki/Normal_distribution){target="blank"}. Normal distributions are important because random sums and random averages are approximately normal (see [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem){target="blank"}). For example, if you repeatedly roll 100 dice, taking the sum of each 100, those sums will be normally distributed (even though single rolls are [discrete-uniform](https://en.wikipedia.org/wiki/Discrete_uniform_distribution)ly distributed).
+
+A normal distribution has a bell-shaped density curve. The center and spread of the bell are dictated by two parameters: [mean](https://en.wikipedia.org/wiki/Mean){target="blank"} ($\mu$) and [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation){target="blank"} ($\sigma$). The normal density curve is defined by the following equation:
+$$\text{normal density as function of x} = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2} $$
+where $\mu$ is the mean, $\sigma$ is the standard deviation, $\pi$ is the [ratio of a circle's circumference to its diameter](https://en.wikipedia.org/wiki/Pi){target="blank"}, and $e$ is [Euler's number](https://en.wikipedia.org/wiki/E_(mathematical_constant)){target="blank"}.
+
+For the first exam, we are expected to know [the empirical rule](https://en.wikipedia.org/wiki/68%E2%80%9395%E2%80%9399.7_rule){target="blank"}. We are going to round unconventionally, so for us it could be called the "68-96-100 rule". It implies that in a normal distribution 68% of the measurements are within 1 standard deviation of the mean, 96% of the measurements are within 2 standard deviations of the mean, and 100% of the measurements are within 3 standard deviations of the mean.
+
+We can visualize the "68-96-100" rule with a density curve. Notice the area of each region is shown, and you can estimate the areas by counting percentage boxes.
+
+```{r echo=F,fig.width=8,fig.height=4}
+z = seq(-3,3,0.01)
+yl = seq(0,0.4,0.05)
+zl = seq(-3,3,0.2)
+plot(z,dnorm(z),type="l",axes=F,ylab="density",xlab="measurement",lwd=4,ylim=c(0,0.5))
+axis(1,at=(-3):3,labels=c(expression(mu-3*sigma),expression(mu-2*sigma),expression(mu-sigma),
+                          expression(mu),expression(mu+sigma),expression(mu+2*sigma),
+                          expression(mu+3*sigma)))
+abline(h=0)
+for(z in (-3):3){
+  lines(c(z,z),c(0,dnorm(z)))
+}
+for(z in zl){
+  lines(c(z,z),c(0,0.4),lty=2,col=rgb(0.5,0.5,0.5))
+}
+for(y in yl){
+  lines(c(-3,3),c(y,y),lty=2,col=rgb(0.5,0.5,0.5))
+}
+cols = c(rgb(0,0,0.5,0.4),rgb(0,0.5,0,0.4),rgb(0.5,0,0,0.4),rgb(0,0.5,0.5,0.4),rgb(0.5,0.5,0,0.4),rgb(0.5,0,0.5,0.4))
+col2 = c(rgb(0,0,0.3),rgb(0,0.3,0),rgb(0.3,0,0),rgb(0,0.3,0.3),rgb(0.3,0.3,0),rgb(0.3,0,0.3))
+
+for(i in (-3):2){
+  zz = seq(i,i+1,0.01)
+  polygon(c(i,zz,i+1),c(0,dnorm(zz),0),col=cols[i+4])
+  text(i+0.5,0.225,round(pnorm(i+1)-pnorm(i),2),col=col2[i+4],cex=1.6)
+}
+
+lines(z,dnorm(z),lwd=4)
+
+lines(c(-1,-1,1,1),c(0.42,0.43,0.43,0.42))
+text(0,0.45,"0.68")
+lines(c(-2,-2,2,2),c(0.47,0.48,0.48,0.47))
+text(0,0.50,"0.96")
+```
+\
+
+We can display our 68-96-100 rule with a spinner.
+
+```{r echo=F,fig.width=6,fig.height=6}
+par(mar=c(0,0,0,0))
+theta=seq(0,2*pi,length.out=1000)
+plot(sin(theta),cos(theta),type="l",ann=F,axes=F,xlim=c(-1.2,1.2),ylim=c(-1.2,1.2))
+
+pp = c(0,0.02,0.14,0.34,0.34,0.14,0.02)
+pp2 = cumsum(pp)
+for(i in 1:6){
+  p1 = pp2[i]
+  p2 = pp2[i+1]
+  p = seq(p1,p2,0.001)
+  polygon(c(0,sin(p*2*pi),0),c(0,cos(p*2*pi),0),col=cols[i],lty=0)
+}
+
+z = seq(-2,2,1)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6) #distort the normal to match the 68-96-100 "rule"
+p = pnorm(y)
+texts = c(expression(mu-2*sigma),expression(mu-sigma),expression(mu),expression(mu+sigma),expression(mu+2*sigma))
+for(i in 1:5){
+  lines(c(0.88,1)*sin(2*pi*p[i]),c(0.88,1)*cos(2*pi*p[i]),lw=3)
+  lines(c(0,0.6)*sin(2*pi*p[i]),c(0,0.6)*cos(2*pi*p[i]))
+  if(i != 3){
+  text(0.74*sin(2*pi*p[i]),0.74*cos(2*pi*p[i]),texts[i],srt=-90+(-2*p[i]*180)%%180)
+  } else {
+    text(0.74*sin(2*pi*p[i]),0.74*cos(2*pi*p[i]),texts[i],cex=1.2)
+  }
+}
+
+lines(c(0,0),c(0.88,1),lwd=4)
+lines(c(0,0),c(0,0.6))
+text(0,0.74,expression(mu%+-%3*sigma),srt=90)
+
+z = seq(-3,3,.5)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6)
+p = pnorm(y)
+for(pp in p){
+  lines(c(0.92,1)*sin(2*pi*pp),c(0.92,1)*cos(2*pi*pp))
+}
+
+z = seq(-3,3,.1)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6)
+p = pnorm(y)
+for(i in 1:length(z)){
+  lines(c(0.95,1)*sin(2*pi*p[i]),c(0.95,1)*cos(2*pi*p[i]))
+  if(z[i]%%1 != 0 & p[i]<0.5 & p[i]>0.03){
+    text(0.85*sin(2*pi*p[i]),0.85*cos(2*pi*p[i]),eval(substitute(expression(mu-zt*sigma),list(zt=abs(z[i])))),cex=0.5,srt=-90+(-2*p[i]*180)%%180)
+  }
+  if(z[i]%%1 != 0 & p[i]>0.5 & p[i]<0.97){
+    text(0.85*sin(2*pi*p[i]),0.85*cos(2*pi*p[i]),eval(substitute(expression(mu+zt*sigma),list(zt=abs(z[i])))),cex=0.5,srt=-90+(-2*p[i]*180)%%180)
+  }
+}
+
+for(pp in 1:99/100){
+  lines(c(1,1.03)*sin(2*pi*pp),c(1,1.03)*cos(2*pi*pp))
+  text(1.08*sin(2*pi*pp),1.08*cos(2*pi*pp),pp,cex=0.5,srt=-90+(-2*pp*180)%%180)
+}
+
+arrows(-0.7,-0.1,0.7,0.1,lwd=3)
+polygon(0.03*sin(theta),0.03*cos(theta),col=rgb(0,0,0))
+
+pp = c(0,0.02,0.14,0.34,0.34,0.14,0.02)
+pp2 = cumsum(pp)
+for(i in 1:6){
+  p = (pp2[i]+pp2[i+1])/2
+  text(1.2*sin(p*2*pi),1.2*cos(p*2*pi),pp[i+1],cex=0.9,col=col2[i],srt=-90+(90-2*p*180)%%180)
+  a = pp2[i]+0.001
+  b = pp2[i+1]-0.001
+  p2 = seq(a,b,0.001)
+  lines(c(1.13*sin(a*2*pi),1.16*sin(p2*2*pi),1.13*sin(b*2*pi)),
+        c(1.13*cos(a*2*pi),1.16*cos(p2*2*pi),1.13*cos(b*2*pi)),
+        col=col2[i],lwd=2)
+}
+
+```
+\
+
+And, we can display our 68-96-100 rule with a cumulative curve. In this case, we will introduce the notation of using $z$  as the multiplier of $\sigma$. For example, if $z=-2$, then the measurement is $\mu-2\sigma$. We call $z$ the [standard score](https://en.wikipedia.org/wiki/Standard_score){target="blank"}.
+
+```{r echo=F,fig.width=5,fig.height=10}
+z = seq(-3,3,length.out=1000)
+p = pnorm(z)
+plot(z,p,type="l",lwd=2,ylab="cumulative proportion",axes=F,ylim=c(0,1))
+axis(1,at=seq(-3,3,1))
+axis(3,at=seq(-3,3,1))
+axis(2,at=seq(0,1,0.1))
+axis(4,at=seq(0,1,0.1))
+abline(v=seq(-3,3,.1),col=rgb(0.7,0.7,0.7))
+abline(h=0:100/100,col=rgb(0.7,0.7,0.7))
+abline(h=0:20/20,col=rgb(0.5,0.5,0.5))
+abline(h=0:10/10,col=rgb(0.3,0.3,0.3))
+abline(v=seq(-3,3,1),col=rgb(0.3,0.3,0.3))
+lines(z,pnorm(z),lwd=6)
+for(i in 1:6){
+  z1 = -4+i
+  z2 = -3+i
+  z3 = seq(z1,z2,0.001)
+  lines(z3,pnorm(z3),col=rgb(1,1,1),lwd=3)
+  lines(z3,pnorm(z3),col=cols[i],lwd=3)
+}
+
+z = seq(-3,3,1)
+
+adjx = c(0,0,0,0,1,1,0.9)
+adjy = c(1.2,0.8,0.5,1,0.5,0.3,-0.3)
+
+for(i in 1:7){
+  points(z[i],pnorm(z[i]),pch=20,cex=2)
+  text(z[i],pnorm(z[i]),sprintf("  (%d, %.2f)  ",z[i],pp2[i]),adj=c(adjx[i],adjy[i]),cex=1.2)
+}
+
+```
+\
+
+### Actual Question:
+
+Population $X$ (with infinite individuals) has measurements that are normally distributed with mean  $\mu=`r mu`$ and standard deviation $\sigma=`r sig`$. Use the empirical rule (68-96-100 rule) to answer the following questions.
+
+Answerlist
+--------
+* Evaluate $\text{prop}[X<`r x[1]`]$.
+* Evaluate $\text{prop}[X>`r x[2]`]$.
+* Evaluate $\text{prop}[|X-`r mu`|<`r x[3]-mu`]$.
+* Determine boundary $b$ such that $\text{prop}[X<b]=`r L[4]`$.
+* Determine boundary $b$ such that $\text{prop}[X>b]=`r R[5]`$.
+* Determine radius $r$ such that $\text{prop}[|X-`r mu`|<r]=`r C[6]`$.
+
+
+Solution
+========
+
+[video](https://vimeo.com/531914327){target="_blank"}
+
+It helps to draw a diagram using the supplied mean ($\mu=`r mu`$) and standard deviation ($\sigma=`r sig`$).
+
+```{r echo=F,fig.width=8,fig.height=4}
+z = seq(-3,3,0.01)
+yl = seq(0,0.4,0.05)
+zl = seq(-3,3,0.2)
+plot(z,dnorm(z),type="l",axes=F,ylab="density",xlab="measurement",lwd=4,ylim=c(0,0.5))
+axis(1,at=(-3):3,labels=mu+(-3):3*sig)
+abline(h=0)
+for(z in (-3):3){
+  lines(c(z,z),c(0,dnorm(z)))
+}
+for(z in zl){
+  lines(c(z,z),c(0,0.4),lty=2,col=rgb(0.5,0.5,0.5))
+}
+for(y in yl){
+  lines(c(-3,3),c(y,y),lty=2,col=rgb(0.5,0.5,0.5))
+}
+cols = c(rgb(0,0,0.5,0.4),rgb(0,0.5,0,0.4),rgb(0.5,0,0,0.4),rgb(0,0.5,0.5,0.4),rgb(0.5,0.5,0,0.4),rgb(0.5,0,0.5,0.4))
+col2 = c(rgb(0,0,0.3),rgb(0,0.3,0),rgb(0.3,0,0),rgb(0,0.3,0.3),rgb(0.3,0.3,0),rgb(0.3,0,0.3))
+
+for(i in (-3):2){
+  zz = seq(i,i+1,0.01)
+  polygon(c(i,zz,i+1),c(0,dnorm(zz),0),col=cols[i+4])
+  text(i+0.5,0.225,round(pnorm(i+1)-pnorm(i),2),col=col2[i+4],cex=1.6)
+}
+
+lines(z,dnorm(z),lwd=4)
+
+lines(c(-1,-1,1,1),c(0.42,0.43,0.43,0.42))
+text(0,0.45,"0.68")
+lines(c(-2,-2,2,2),c(0.47,0.48,0.48,0.47))
+text(0,0.50,"0.96")
+```
+\
+
+```{r echo=F,fig.width=6,fig.height=6}
+par(mar=c(0,0,0,0))
+theta=seq(0,2*pi,length.out=1000)
+plot(sin(theta),cos(theta),type="l",ann=F,axes=F,xlim=c(-1.2,1.2),ylim=c(-1.2,1.2))
+
+pp = c(0,0.02,0.14,0.34,0.34,0.14,0.02)
+pp2 = cumsum(pp)
+for(i in 1:6){
+  p1 = pp2[i]
+  p2 = pp2[i+1]
+  p = seq(p1,p2,0.001)
+  polygon(c(0,sin(p*2*pi),0),c(0,cos(p*2*pi),0),col=cols[i],lty=0)
+}
+
+z = seq(-2,2,1)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6) #distort the normal to match the 68-96-100 "rule"
+p = pnorm(y)
+
+for(i in 1:5){
+  lines(c(0.88,1)*sin(2*pi*p[i]),c(0.88,1)*cos(2*pi*p[i]),lw=3)
+  lines(c(0,0.6)*sin(2*pi*p[i]),c(0,0.6)*cos(2*pi*p[i]))
+  if(i != 3){
+  text(0.74*sin(2*pi*p[i]),0.74*cos(2*pi*p[i]),mu+(i-3)*sig,srt=-90+(-2*p[i]*180)%%180)
+  } else {
+    text(0.74*sin(2*pi*p[i]),0.74*cos(2*pi*p[i]),mu,cex=1.2)
+  }
+}
+
+lines(c(0,0),c(0.88,1),lwd=4)
+lines(c(0,0),c(0,0.6))
+text(0,0.74,sprintf("%d or %d",mu-3*sig,mu+3*sig),srt=90)
+
+z = seq(-3,3,.5)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6)
+p = pnorm(y)
+for(pp in p){
+  lines(c(0.92,1)*sin(2*pi*pp),c(0.92,1)*cos(2*pi*pp))
+}
+
+z = seq(-3,3,.1)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6)
+p = pnorm(y)
+for(i in 1:length(z)){
+  lines(c(0.95,1)*sin(2*pi*p[i]),c(0.95,1)*cos(2*pi*p[i]))
+  if(z[i]%%1 != 0 & p[i]<0.5 & p[i]>0.03){
+    text(0.85*sin(2*pi*p[i]),0.85*cos(2*pi*p[i]),mu-abs(z[i])*sig,cex=0.5,srt=-90+(-2*p[i]*180)%%180)
+  }
+  if(z[i]%%1 != 0 & p[i]>0.5 & p[i]<0.97){
+    text(0.85*sin(2*pi*p[i]),0.85*cos(2*pi*p[i]),mu+abs(z[i])*sig,cex=0.5,srt=-90+(-2*p[i]*180)%%180)
+  }
+}
+
+for(pp in 1:99/100){
+  lines(c(1,1.03)*sin(2*pi*pp),c(1,1.03)*cos(2*pi*pp))
+  text(1.08*sin(2*pi*pp),1.08*cos(2*pi*pp),pp,cex=0.5,srt=-90+(-2*pp*180)%%180)
+}
+
+arrows(-0.7,-0.1,0.7,0.1,lwd=3)
+polygon(0.03*sin(theta),0.03*cos(theta),col=rgb(0,0,0))
+
+pp = c(0,0.02,0.14,0.34,0.34,0.14,0.02)
+pp2 = cumsum(pp)
+for(i in 1:6){
+  p = (pp2[i]+pp2[i+1])/2
+  text(1.2*sin(p*2*pi),1.2*cos(p*2*pi),pp[i+1],cex=0.9,col=col2[i],srt=-90+(90-2*p*180)%%180)
+  a = pp2[i]+0.001
+  b = pp2[i+1]-0.001
+  p2 = seq(a,b,0.001)
+  lines(c(1.13*sin(a*2*pi),1.16*sin(p2*2*pi),1.13*sin(b*2*pi)),
+        c(1.13*cos(a*2*pi),1.16*cos(p2*2*pi),1.13*cos(b*2*pi)),
+        col=col2[i],lwd=2)
+}
+
+```
+\
+
+```{r echo=F,fig.width=5,fig.height=10}
+z = seq(-3,3,length.out=1000)
+p = pnorm(z)
+plot(z,p,type="l",lwd=2,ylab="cumulative proportion",xlab="measurement",axes=F,ylim=c(0,1))
+axis(1,at=-3:3,labels=mu+(-3):3*sig)
+axis(3,at=-3:3,labels=mu+(-3):3*sig)
+axis(2,at=seq(0,1,0.1))
+axis(4,at=seq(0,1,0.1))
+abline(v=seq(-3,3,.1),col=rgb(0.7,0.7,0.7))
+abline(h=0:100/100,col=rgb(0.7,0.7,0.7))
+abline(h=0:20/20,col=rgb(0.5,0.5,0.5))
+abline(h=0:10/10,col=rgb(0.3,0.3,0.3))
+abline(v=seq(-3,3,1),col=rgb(0.3,0.3,0.3))
+lines(z,pnorm(z),lwd=6)
+for(i in 1:6){
+  z1 = -4+i
+  z2 = -3+i
+  z3 = seq(z1,z2,0.001)
+  lines(z3,pnorm(z3),col=rgb(1,1,1),lwd=3)
+  lines(z3,pnorm(z3),col=cols[i],lwd=3)
+}
+
+z = seq(-3,3,1)
+
+adjx = c(0,0,0,0,1,1,0.8)
+adjy = c(1.2,0.8,0.5,1,0.5,0.3,-0.5)
+
+for(i in 1:7){
+  points(z[i],pnorm(z[i]),pch=20,cex=2)
+  text(z[i],pnorm(z[i]),sprintf("  (%d, %.2f)  ",(mu+(-3):3*sig)[i],pp2[i]),adj=c(adjx[i],adjy[i]),cex=1.2)
+}
+```
+\
+
+
+Answerlist
+--------
+* The answer is `r L[1]` because $\text{prop}[X<`r x[1]`]=`r L[1]`$. <br>
+```{r echo=F,fig.width=8,fig.height=4}
+z = seq(-3,3,0.01)
+yl = seq(0,0.4,0.05)
+zl = seq(-3,3,0.2)
+plot(z,dnorm(z),type="l",axes=F,ylab="density",xlab="measurement",lwd=4,ylim=c(0,0.5))
+axis(1,at=(-3):3,labels=mu+(-3):3*sig)
+abline(h=0)
+for(z in (-3):3){
+  lines(c(z,z),c(0,dnorm(z)))
+}
+for(z in zl){
+  lines(c(z,z),c(0,0.4),lty=2,col=rgb(0.5,0.5,0.5))
+}
+for(y in yl){
+  lines(c(-3,3),c(y,y),lty=2,col=rgb(0.5,0.5,0.5))
+}
+cols = c(rgb(0,0,0.5,0.4),rgb(0,0.5,0,0.4),rgb(0.5,0,0,0.4),rgb(0,0.5,0.5,0.4),rgb(0.5,0.5,0,0.4),rgb(0.5,0,0.5,0.4))
+col2 = c(rgb(0,0,0.3),rgb(0,0.3,0),rgb(0.3,0,0),rgb(0,0.3,0.3),rgb(0.3,0.3,0),rgb(0.3,0,0.3))
+
+for(i in (-3):(zc[1]-1)){
+  zz = seq(i,i+1,0.01)
+  polygon(c(i,zz,i+1),c(0,dnorm(zz),0),col=cols[i+4])
+  text(i+0.5,0.225,round(pnorm(i+1)-pnorm(i),2),col=col2[i+4],cex=1.6)
+}
+
+lines(z,dnorm(z),lwd=4)
+
+lines(c(-3,-3,zc[1],zc[1]),c(0.42,0.43,0.43,0.42),lwd=2)
+text((-3+zc[1])/2,0.48,L[1],cex=1.5)
+```
+\ <br>
+```{r echo=F,fig.width=6,fig.height=6}
+par(mar=c(0,0,0,0))
+theta=seq(0,2*pi,length.out=1000)
+plot(sin(theta),cos(theta),type="l",ann=F,axes=F,xlim=c(-1.2,1.2),ylim=c(-1.2,1.2))
+
+pp = c(0,0.02,0.14,0.34,0.34,0.14,0.02)
+pp2 = cumsum(pp)
+for(i in 1:(zc[1]+3)){
+  p1 = pp2[i]
+  p2 = pp2[i+1]
+  p = seq(p1,p2,0.001)
+  polygon(c(0,sin(p*2*pi),0),c(0,cos(p*2*pi),0),col=cols[i],lty=0)
+}
+
+z = seq(-2,2,1)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6) #distort the normal to match the 68-96-100 "rule"
+p = pnorm(y)
+
+for(i in 1:5){
+  lines(c(0.88,1)*sin(2*pi*p[i]),c(0.88,1)*cos(2*pi*p[i]),lw=3)
+  lines(c(0,0.6)*sin(2*pi*p[i]),c(0,0.6)*cos(2*pi*p[i]))
+  if(i != 3){
+  text(0.74*sin(2*pi*p[i]),0.74*cos(2*pi*p[i]),mu+(i-3)*sig,srt=-90+(-2*p[i]*180)%%180)
+  } else {
+    text(0.74*sin(2*pi*p[i]),0.74*cos(2*pi*p[i]),mu,cex=1.2)
+  }
+}
+
+lines(c(0,0),c(0.88,1),lwd=4)
+lines(c(0,0),c(0,0.6))
+text(0,0.74,sprintf("%d or %d",mu-3*sig,mu+3*sig),srt=90)
+
+z = seq(-3,3,.5)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6)
+p = pnorm(y)
+for(pp in p){
+  lines(c(0.92,1)*sin(2*pi*pp),c(0.92,1)*cos(2*pi*pp))
+}
+
+z = seq(-3,3,.1)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6)
+p = pnorm(y)
+for(i in 1:length(z)){
+  lines(c(0.95,1)*sin(2*pi*p[i]),c(0.95,1)*cos(2*pi*p[i]))
+  if(z[i]%%1 != 0 & p[i]<0.5 & p[i]>0.03){
+    text(0.85*sin(2*pi*p[i]),0.85*cos(2*pi*p[i]),mu-abs(z[i])*sig,cex=0.5,srt=-90+(-2*p[i]*180)%%180)
+  }
+  if(z[i]%%1 != 0 & p[i]>0.5 & p[i]<0.97){
+    text(0.85*sin(2*pi*p[i]),0.85*cos(2*pi*p[i]),mu+abs(z[i])*sig,cex=0.5,srt=-90+(-2*p[i]*180)%%180)
+  }
+}
+
+for(pp in 1:99/100){
+  lines(c(1,1.03)*sin(2*pi*pp),c(1,1.03)*cos(2*pi*pp))
+  text(1.08*sin(2*pi*pp),1.08*cos(2*pi*pp),pp,cex=0.5,srt=-90+(-2*pp*180)%%180)
+}
+
+arrows(-0.7,-0.1,0.7,0.1,lwd=3)
+polygon(0.03*sin(theta),0.03*cos(theta),col=rgb(0,0,0))
+
+pp = c(0,0.02,0.14,0.34,0.34,0.14,0.02)
+pp2 = cumsum(pp)
+p = L[1]/2
+text(1.2*sin(p*2*pi),1.2*cos(p*2*pi),L[1],cex=1,srt=-90+(90-2*p*180)%%180)
+a = 0+0.001
+b = L[1]-0.001
+p2 = seq(a,b,0.001)
+lines(c(1.13*sin(a*2*pi),1.16*sin(p2*2*pi),1.13*sin(b*2*pi)),
+      c(1.13*cos(a*2*pi),1.16*cos(p2*2*pi),1.13*cos(b*2*pi)),lwd=2)
+```
+\ <br>
+```{r echo=F,fig.width=5,fig.height=10}
+z = seq(-3,3,length.out=1000)
+p = pnorm(z)
+plot(z,p,type="l",lwd=2,ylab="cumulative proportion",xlab="measurement",axes=F,ylim=c(0,1),xlim=c(-3.8,3.8))
+axis(1,at=-3:3,labels=mu+(-3):3*sig)
+axis(3,at=-3:3,labels=mu+(-3):3*sig)
+axis(2,at=seq(0,1,0.1))
+axis(4,at=seq(0,1,0.1))
+abline(v=seq(-3,3,.1),col=rgb(0.7,0.7,0.7))
+abline(h=0:100/100,col=rgb(0.7,0.7,0.7))
+abline(h=0:20/20,col=rgb(0.5,0.5,0.5))
+abline(h=0:10/10,col=rgb(0.3,0.3,0.3))
+abline(v=seq(-3,3,1),col=rgb(0.3,0.3,0.3))
+lines(z,pnorm(z),lwd=6)
+for(i in 1:6){
+  z1 = -4+i
+  z2 = -3+i
+  z3 = seq(z1,z2,0.001)
+  lines(z3,pnorm(z3),col=rgb(1,1,1),lwd=3)
+  lines(z3,pnorm(z3),col=cols[i],lwd=3)
+}
+
+z = seq(-3,3,1)
+
+adjx = c(0,0,0,0,1,1,0.8)
+adjy = c(1.2,0.8,0.5,1,0.5,0.3,-0.5)
+
+for(i in 1:7){
+  points(z[i],pnorm(z[i]),pch=20,cex=2)
+}
+
+lines(-c(3.2,3.4,3.3,3.3,3.2,3.4),c(rep(0,3),rep(L[1],3)),col=rgb(0,0.3,0),lwd=3)
+lines(c(3.2,3.4,3.3,3.3,3.2,3.4),c(rep(0,3),rep(L[1],3)),col=rgb(0,0.3,0),lwd=3)
+text(-3.7,L[1]/2,L[1],col=rgb(0,0.3,0),cex=0.8)
+text(3.7,L[1]/2,L[1],col=rgb(0,0.3,0),cex=0.8)
+lines(c(rep(-3,3),rep(zc[1],3)),-c(0.01,0.03,0.02,0.02,0.01,0.03),col=rgb(0,0.3,0),lwd=3)
+lines(c(rep(-3,3),rep(zc[1],3)),c(1.01,1.03,1.02,1.02,1.01,1.03),col=rgb(0,0.3,0),lwd=3)
+points(zc[1],pnorm(zc[1]),pch=20)
+text(zc[1],pnorm(zc[1]),sprintf("  (%d, %.2f)  ",mu+zc[1]*sig,L[1]),adj=1*(L[1]>0.5))
+
+```
+\
+* The answer is `r R[2]` because $\text{prop}[X>`r x[2]`]=`r R[2]`$. <br>
+```{r echo=F,fig.width=8,fig.height=4}
+z = seq(-3,3,0.01)
+yl = seq(0,0.4,0.05)
+zl = seq(-3,3,0.2)
+plot(z,dnorm(z),type="l",axes=F,ylab="density",xlab="measurement",lwd=4,ylim=c(0,0.5))
+axis(1,at=(-3):3,labels=mu+(-3):3*sig)
+abline(h=0)
+for(z in (-3):3){
+  lines(c(z,z),c(0,dnorm(z)))
+}
+for(z in zl){
+  lines(c(z,z),c(0,0.4),lty=2,col=rgb(0.5,0.5,0.5))
+}
+for(y in yl){
+  lines(c(-3,3),c(y,y),lty=2,col=rgb(0.5,0.5,0.5))
+}
+cols = c(rgb(0,0,0.5,0.4),rgb(0,0.5,0,0.4),rgb(0.5,0,0,0.4),rgb(0,0.5,0.5,0.4),rgb(0.5,0.5,0,0.4),rgb(0.5,0,0.5,0.4))
+col2 = c(rgb(0,0,0.3),rgb(0,0.3,0),rgb(0.3,0,0),rgb(0,0.3,0.3),rgb(0.3,0.3,0),rgb(0.3,0,0.3))
+
+for(i in (zc[2]):2){
+  zz = seq(i,i+1,0.01)
+  polygon(c(i,zz,i+1),c(0,dnorm(zz),0),col=cols[i+4])
+  text(i+0.5,0.225,round(pnorm(i+1)-pnorm(i),2),col=col2[i+4],cex=1.6)
+}
+
+lines(z,dnorm(z),lwd=4)
+
+lines(c(zc[2],zc[2],3,3),c(0.42,0.43,0.43,0.42),lwd=2)
+text((3+zc[2])/2,0.48,R[2],cex=1.5)
+```
+\ <br>
+```{r echo=F,fig.width=6,fig.height=6}
+par(mar=c(0,0,0,0))
+theta=seq(0,2*pi,length.out=1000)
+plot(sin(theta),cos(theta),type="l",ann=F,axes=F,xlim=c(-1.2,1.2),ylim=c(-1.2,1.2))
+
+pp = c(0,0.02,0.14,0.34,0.34,0.14,0.02)
+pp2 = cumsum(pp)
+for(i in (zc[2]+4):6){
+  p1 = pp2[i]
+  p2 = pp2[i+1]
+  p = seq(p1,p2,0.001)
+  polygon(c(0,sin(p*2*pi),0),c(0,cos(p*2*pi),0),col=cols[i],lty=0)
+}
+
+z = seq(-2,2,1)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6) #distort the normal to match the 68-96-100 "rule"
+p = pnorm(y)
+
+for(i in 1:5){
+  lines(c(0.88,1)*sin(2*pi*p[i]),c(0.88,1)*cos(2*pi*p[i]),lw=3)
+  lines(c(0,0.6)*sin(2*pi*p[i]),c(0,0.6)*cos(2*pi*p[i]))
+  if(i != 3){
+  text(0.74*sin(2*pi*p[i]),0.74*cos(2*pi*p[i]),mu+(i-3)*sig,srt=-90+(-2*p[i]*180)%%180)
+  } else {
+    text(0.74*sin(2*pi*p[i]),0.74*cos(2*pi*p[i]),mu,cex=1.2)
+  }
+}
+
+lines(c(0,0),c(0.88,1),lwd=4)
+lines(c(0,0),c(0,0.6))
+text(0,0.74,sprintf("%d or %d",mu-3*sig,mu+3*sig),srt=90)
+
+z = seq(-3,3,.5)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6)
+p = pnorm(y)
+for(pp in p){
+  lines(c(0.92,1)*sin(2*pi*pp),c(0.92,1)*cos(2*pi*pp))
+}
+
+z = seq(-3,3,.1)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6)
+p = pnorm(y)
+for(i in 1:length(z)){
+  lines(c(0.95,1)*sin(2*pi*p[i]),c(0.95,1)*cos(2*pi*p[i]))
+  if(z[i]%%1 != 0 & p[i]<0.5 & p[i]>0.03){
+    text(0.85*sin(2*pi*p[i]),0.85*cos(2*pi*p[i]),mu-abs(z[i])*sig,cex=0.5,srt=-90+(-2*p[i]*180)%%180)
+  }
+  if(z[i]%%1 != 0 & p[i]>0.5 & p[i]<0.97){
+    text(0.85*sin(2*pi*p[i]),0.85*cos(2*pi*p[i]),mu+abs(z[i])*sig,cex=0.5,srt=-90+(-2*p[i]*180)%%180)
+  }
+}
+
+for(pp in 1:99/100){
+  lines(c(1,1.03)*sin(2*pi*pp),c(1,1.03)*cos(2*pi*pp))
+  text(1.08*sin(2*pi*pp),1.08*cos(2*pi*pp),pp,cex=0.5,srt=-90+(-2*pp*180)%%180)
+}
+
+arrows(-0.7,-0.1,0.7,0.1,lwd=3)
+polygon(0.03*sin(theta),0.03*cos(theta),col=rgb(0,0,0))
+
+pp = c(0,0.02,0.14,0.34,0.34,0.14,0.02)
+pp2 = cumsum(pp)
+p = 1-R[2]/2
+text(1.2*sin(p*2*pi),1.2*cos(p*2*pi),R[2],cex=1,srt=-90+(90-2*p*180)%%180)
+a = 1-R[2]+0.001
+b = 1-0.001
+p2 = seq(a,b,0.001)
+lines(c(1.13*sin(a*2*pi),1.16*sin(p2*2*pi),1.13*sin(b*2*pi)),
+      c(1.13*cos(a*2*pi),1.16*cos(p2*2*pi),1.13*cos(b*2*pi)),lwd=2)
+```
+\ <br>
+```{r echo=F,fig.width=5,fig.height=10}
+z = seq(-3,3,length.out=1000)
+p = pnorm(z)
+plot(z,p,type="l",lwd=2,ylab="cumulative proportion",xlab="measurement",axes=F,ylim=c(0,1),xlim=c(-3.8,3.8))
+axis(1,at=-3:3,labels=mu+(-3):3*sig)
+axis(3,at=-3:3,labels=mu+(-3):3*sig)
+axis(2,at=seq(0,1,0.1))
+axis(4,at=seq(0,1,0.1))
+abline(v=seq(-3,3,.1),col=rgb(0.7,0.7,0.7))
+abline(h=0:100/100,col=rgb(0.7,0.7,0.7))
+abline(h=0:20/20,col=rgb(0.5,0.5,0.5))
+abline(h=0:10/10,col=rgb(0.3,0.3,0.3))
+abline(v=seq(-3,3,1),col=rgb(0.3,0.3,0.3))
+lines(z,pnorm(z),lwd=6)
+for(i in 1:6){
+  z1 = -4+i
+  z2 = -3+i
+  z3 = seq(z1,z2,0.001)
+  lines(z3,pnorm(z3),col=rgb(1,1,1),lwd=3)
+  lines(z3,pnorm(z3),col=cols[i],lwd=3)
+}
+
+z = seq(-3,3,1)
+
+adjx = c(0,0,0,0,1,1,0.8)
+adjy = c(1.2,0.8,0.5,1,0.5,0.3,-0.5)
+
+for(i in 1:7){
+  points(z[i],pnorm(z[i]),pch=20,cex=2)
+}
+
+lines(-c(3.2,3.4,3.3,3.3,3.2,3.4),c(rep(L[2],3),rep(1,3)),col=rgb(0,0.3,0),lwd=3)
+lines(c(3.2,3.4,3.3,3.3,3.2,3.4),c(rep(L[2],3),rep(1,3)),col=rgb(0,0.3,0),lwd=3)
+text(-3.7,1-R[2]/2,R[2],col=rgb(0,0.3,0),cex=0.8)
+text(3.7,1-R[2]/2,R[2],col=rgb(0,0.3,0),cex=0.8)
+lines(c(rep(zc[2],3),rep(3,3)),-c(0.01,0.03,0.02,0.02,0.01,0.03),col=rgb(0,0.3,0),lwd=3)
+lines(c(rep(zc[2],3),rep(3,3)),c(1.01,1.03,1.02,1.02,1.01,1.03),col=rgb(0,0.3,0),lwd=3)
+points(zc[2],pnorm(zc[2]),pch=20)
+text(zc[2],pnorm(zc[2]),sprintf("  (%d, %.2f)  ",mu+zc[2]*sig,L[2]),adj=1*(L[2]>0.5))
+
+```
+\ 
+* The answer is `r C[3]` because $\text{prop}[|X-`r mu`|<`r x[3]-mu`]=`r C[3]`$.<br>
+```{r echo=F,fig.width=8,fig.height=4}
+z = seq(-3,3,0.01)
+yl = seq(0,0.4,0.05)
+zl = seq(-3,3,0.2)
+plot(z,dnorm(z),type="l",axes=F,ylab="density",xlab="measurement",lwd=4,ylim=c(0,0.5))
+axis(1,at=(-3):3,labels=mu+(-3):3*sig)
+abline(h=0)
+for(z in (-3):3){
+  lines(c(z,z),c(0,dnorm(z)))
+}
+for(z in zl){
+  lines(c(z,z),c(0,0.4),lty=2,col=rgb(0.5,0.5,0.5))
+}
+for(y in yl){
+  lines(c(-3,3),c(y,y),lty=2,col=rgb(0.5,0.5,0.5))
+}
+cols = c(rgb(0,0,0.5,0.4),rgb(0,0.5,0,0.4),rgb(0.5,0,0,0.4),rgb(0,0.5,0.5,0.4),rgb(0.5,0.5,0,0.4),rgb(0.5,0,0.5,0.4))
+col2 = c(rgb(0,0,0.3),rgb(0,0.3,0),rgb(0.3,0,0),rgb(0,0.3,0.3),rgb(0.3,0.3,0),rgb(0.3,0,0.3))
+
+for(i in (-zc[3]):(zc[3]-1)){
+  zz = seq(i,i+1,0.01)
+  polygon(c(i,zz,i+1),c(0,dnorm(zz),0),col=cols[i+4])
+  text(i+0.5,0.225,round(pnorm(i+1)-pnorm(i),2),col=col2[i+4],cex=1.6)
+}
+
+lines(z,dnorm(z),lwd=4)
+
+lines(c(-zc[3],-zc[3],zc[3],zc[3]),c(0.42,0.43,0.43,0.42),lwd=2)
+text(0,0.48,C[3],cex=1.5)
+```
+\ <br>
+```{r echo=F,fig.width=6,fig.height=6}
+par(mar=c(0,0,0,0))
+theta=seq(0,2*pi,length.out=1000)
+plot(sin(theta),cos(theta),type="l",ann=F,axes=F,xlim=c(-1.2,1.2),ylim=c(-1.2,1.2))
+
+pp = c(0,0.02,0.14,0.34,0.34,0.14,0.02)
+pp2 = cumsum(pp)
+for(i in (-zc[3]+4):(zc[3]+3)){
+  p1 = pp2[i]
+  p2 = pp2[i+1]
+  p = seq(p1,p2,0.001)
+  polygon(c(0,sin(p*2*pi),0),c(0,cos(p*2*pi),0),col=cols[i],lty=0)
+}
+
+z = seq(-2,2,1)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6) #distort the normal to match the 68-96-100 "rule"
+p = pnorm(y)
+
+for(i in 1:5){
+  lines(c(0.88,1)*sin(2*pi*p[i]),c(0.88,1)*cos(2*pi*p[i]),lw=3)
+  lines(c(0,0.6)*sin(2*pi*p[i]),c(0,0.6)*cos(2*pi*p[i]))
+  if(i != 3){
+  text(0.74*sin(2*pi*p[i]),0.74*cos(2*pi*p[i]),mu+(i-3)*sig,srt=-90+(-2*p[i]*180)%%180)
+  } else {
+    text(0.74*sin(2*pi*p[i]),0.74*cos(2*pi*p[i]),mu,cex=1.2)
+  }
+}
+
+lines(c(0,0),c(0.88,1),lwd=4)
+lines(c(0,0),c(0,0.6))
+text(0,0.74,sprintf("%d or %d",mu-3*sig,mu+3*sig),srt=90)
+
+z = seq(-3,3,.5)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6)
+p = pnorm(y)
+for(pp in p){
+  lines(c(0.92,1)*sin(2*pi*pp),c(0.92,1)*cos(2*pi*pp))
+}
+
+z = seq(-3,3,.1)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6)
+p = pnorm(y)
+for(i in 1:length(z)){
+  lines(c(0.95,1)*sin(2*pi*p[i]),c(0.95,1)*cos(2*pi*p[i]))
+  if(z[i]%%1 != 0 & p[i]<0.5 & p[i]>0.03){
+    text(0.85*sin(2*pi*p[i]),0.85*cos(2*pi*p[i]),mu-abs(z[i])*sig,cex=0.5,srt=-90+(-2*p[i]*180)%%180)
+  }
+  if(z[i]%%1 != 0 & p[i]>0.5 & p[i]<0.97){
+    text(0.85*sin(2*pi*p[i]),0.85*cos(2*pi*p[i]),mu+abs(z[i])*sig,cex=0.5,srt=-90+(-2*p[i]*180)%%180)
+  }
+}
+
+for(pp in 1:99/100){
+  lines(c(1,1.03)*sin(2*pi*pp),c(1,1.03)*cos(2*pi*pp))
+  text(1.08*sin(2*pi*pp),1.08*cos(2*pi*pp),pp,cex=0.5,srt=-90+(-2*pp*180)%%180)
+}
+
+arrows(-0.7,-0.1,0.7,0.1,lwd=3)
+polygon(0.03*sin(theta),0.03*cos(theta),col=rgb(0,0,0))
+
+pp = c(0,0.02,0.14,0.34,0.34,0.14,0.02)
+pp2 = cumsum(pp)
+p = 0.5
+text(1.2*sin(p*2*pi),1.2*cos(p*2*pi),C[3],cex=1,srt=-90+(90-2*p*180)%%180)
+a = 0.5-C[3]/2+0.001
+b = 0.5+C[3]/2-0.001
+p2 = seq(a,b,0.001)
+lines(c(1.13*sin(a*2*pi),1.16*sin(p2*2*pi),1.13*sin(b*2*pi)),
+      c(1.13*cos(a*2*pi),1.16*cos(p2*2*pi),1.13*cos(b*2*pi)),lwd=2)
+```
+\ <br>
+```{r echo=F,fig.width=5,fig.height=10}
+z = seq(-3,3,length.out=1000)
+p = pnorm(z)
+plot(z,p,type="l",lwd=2,ylab="cumulative proportion",xlab="measurement",axes=F,ylim=c(0,1),xlim=c(-3.8,3.8))
+axis(1,at=-3:3,labels=mu+(-3):3*sig)
+axis(3,at=-3:3,labels=mu+(-3):3*sig)
+axis(2,at=seq(0,1,0.1))
+axis(4,at=seq(0,1,0.1))
+abline(v=seq(-3,3,.1),col=rgb(0.7,0.7,0.7))
+abline(h=0:100/100,col=rgb(0.7,0.7,0.7))
+abline(h=0:20/20,col=rgb(0.5,0.5,0.5))
+abline(h=0:10/10,col=rgb(0.3,0.3,0.3))
+abline(v=seq(-3,3,1),col=rgb(0.3,0.3,0.3))
+lines(z,pnorm(z),lwd=6)
+for(i in 1:6){
+  z1 = -4+i
+  z2 = -3+i
+  z3 = seq(z1,z2,0.001)
+  lines(z3,pnorm(z3),col=rgb(1,1,1),lwd=3)
+  lines(z3,pnorm(z3),col=cols[i],lwd=3)
+}
+
+z = seq(-3,3,1)
+
+adjx = c(0,0,0,0,1,1,0.8)
+adjy = c(1.2,0.8,0.5,1,0.5,0.3,-0.5)
+
+for(i in 1:7){
+  points(z[i],pnorm(z[i]),pch=20,cex=2)
+}
+
+lines(-c(3.2,3.4,3.3,3.3,3.2,3.4),c(rep(R[3],3),rep(L[3],3)),col=rgb(0,0.3,0),lwd=3)
+lines(c(3.2,3.4,3.3,3.3,3.2,3.4),c(rep(R[3],3),rep(L[3],3)),col=rgb(0,0.3,0),lwd=3)
+text(-3.7,0.52,C[3],col=rgb(0,0.3,0),cex=0.9)
+text(3.7,0.52,C[3],col=rgb(0,0.3,0),cex=0.9)
+lines(c(rep(-zc[3],3),rep(zc[3],3)),-c(0.01,0.03,0.02,0.02,0.01,0.03),col=rgb(0,0.3,0),lwd=3)
+lines(c(rep(-zc[3],3),rep(zc[3],3)),c(1.01,1.03,1.02,1.02,1.01,1.03),col=rgb(0,0.3,0),lwd=3)
+points(zc[3],pnorm(zc[3]),pch=20)
+points(-zc[3],pnorm(-zc[3]),pch=20)
+text(-zc[3],-pnorm(zc[3]),sprintf("  (%d, %.2f)  ",mu-zc[3]*sig,R[3]),adj=1*(R[3]>0.5))
+text(zc[3],pnorm(zc[3]),sprintf("  (%d, %.2f)  ",mu+zc[3]*sig,L[3]),adj=1*(L[3]>0.5))
+```
+\ 
+* The answer is `r x[4]` because $\text{prop}[X<`r x[4]`]=`r L[4]`$. <br>
+```{r echo=F,fig.width=8,fig.height=4}
+z = seq(-3,3,0.01)
+yl = seq(0,0.4,0.05)
+zl = seq(-3,3,0.2)
+plot(z,dnorm(z),type="l",axes=F,ylab="density",xlab="measurement",lwd=4,ylim=c(0,0.5))
+axis(1,at=(-3):3,labels=mu+(-3):3*sig)
+abline(h=0)
+for(z in (-3):3){
+  lines(c(z,z),c(0,dnorm(z)))
+}
+for(z in zl){
+  lines(c(z,z),c(0,0.4),lty=2,col=rgb(0.5,0.5,0.5))
+}
+for(y in yl){
+  lines(c(-3,3),c(y,y),lty=2,col=rgb(0.5,0.5,0.5))
+}
+cols = c(rgb(0,0,0.5,0.4),rgb(0,0.5,0,0.4),rgb(0.5,0,0,0.4),rgb(0,0.5,0.5,0.4),rgb(0.5,0.5,0,0.4),rgb(0.5,0,0.5,0.4))
+col2 = c(rgb(0,0,0.3),rgb(0,0.3,0),rgb(0.3,0,0),rgb(0,0.3,0.3),rgb(0.3,0.3,0),rgb(0.3,0,0.3))
+
+for(i in (-3):(zc[4]-1)){
+  zz = seq(i,i+1,0.01)
+  polygon(c(i,zz,i+1),c(0,dnorm(zz),0),col=cols[i+4])
+  text(i+0.5,0.225,round(pnorm(i+1)-pnorm(i),2),col=col2[i+4],cex=1.6)
+}
+
+lines(z,dnorm(z),lwd=4)
+
+lines(c(-3,-3,zc[4],zc[4]),c(0.42,0.43,0.43,0.42),lwd=2)
+text((-3+zc[4])/2,0.48,L[4],cex=1.5)
+```
+\ <br>
+```{r echo=F,fig.width=6,fig.height=6}
+par(mar=c(0,0,0,0))
+theta=seq(0,2*pi,length.out=1000)
+plot(sin(theta),cos(theta),type="l",ann=F,axes=F,xlim=c(-1.2,1.2),ylim=c(-1.2,1.2))
+
+pp = c(0,0.02,0.14,0.34,0.34,0.14,0.02)
+pp2 = cumsum(pp)
+for(i in 1:(zc[4]+3)){
+  p1 = pp2[i]
+  p2 = pp2[i+1]
+  p = seq(p1,p2,0.001)
+  polygon(c(0,sin(p*2*pi),0),c(0,cos(p*2*pi),0),col=cols[i],lty=0)
+}
+
+z = seq(-2,2,1)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6) #distort the normal to match the 68-96-100 "rule"
+p = pnorm(y)
+
+for(i in 1:5){
+  lines(c(0.88,1)*sin(2*pi*p[i]),c(0.88,1)*cos(2*pi*p[i]),lw=3)
+  lines(c(0,0.6)*sin(2*pi*p[i]),c(0,0.6)*cos(2*pi*p[i]))
+  if(i != 3){
+  text(0.74*sin(2*pi*p[i]),0.74*cos(2*pi*p[i]),mu+(i-3)*sig,srt=-90+(-2*p[i]*180)%%180)
+  } else {
+    text(0.74*sin(2*pi*p[i]),0.74*cos(2*pi*p[i]),mu,cex=1.2)
+  }
+}
+
+lines(c(0,0),c(0.88,1),lwd=4)
+lines(c(0,0),c(0,0.6))
+text(0,0.74,sprintf("%d or %d",mu-3*sig,mu+3*sig),srt=90)
+
+z = seq(-3,3,.5)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6)
+p = pnorm(y)
+for(pp in p){
+  lines(c(0.92,1)*sin(2*pi*pp),c(0.92,1)*cos(2*pi*pp))
+}
+
+z = seq(-3,3,.1)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6)
+p = pnorm(y)
+for(i in 1:length(z)){
+  lines(c(0.95,1)*sin(2*pi*p[i]),c(0.95,1)*cos(2*pi*p[i]))
+  if(z[i]%%1 != 0 & p[i]<0.5 & p[i]>0.03){
+    text(0.85*sin(2*pi*p[i]),0.85*cos(2*pi*p[i]),mu-abs(z[i])*sig,cex=0.5,srt=-90+(-2*p[i]*180)%%180)
+  }
+  if(z[i]%%1 != 0 & p[i]>0.5 & p[i]<0.97){
+    text(0.85*sin(2*pi*p[i]),0.85*cos(2*pi*p[i]),mu+abs(z[i])*sig,cex=0.5,srt=-90+(-2*p[i]*180)%%180)
+  }
+}
+
+for(pp in 1:99/100){
+  lines(c(1,1.03)*sin(2*pi*pp),c(1,1.03)*cos(2*pi*pp))
+  text(1.08*sin(2*pi*pp),1.08*cos(2*pi*pp),pp,cex=0.5,srt=-90+(-2*pp*180)%%180)
+}
+
+arrows(-0.7,-0.1,0.7,0.1,lwd=3)
+polygon(0.03*sin(theta),0.03*cos(theta),col=rgb(0,0,0))
+
+pp = c(0,0.02,0.14,0.34,0.34,0.14,0.02)
+pp2 = cumsum(pp)
+p = L[4]/2
+text(1.2*sin(p*2*pi),1.2*cos(p*2*pi),L[4],cex=1,srt=-90+(90-2*p*180)%%180)
+a = 0+0.001
+b = L[4]-0.001
+p2 = seq(a,b,0.001)
+lines(c(1.13*sin(a*2*pi),1.16*sin(p2*2*pi),1.13*sin(b*2*pi)),
+      c(1.13*cos(a*2*pi),1.16*cos(p2*2*pi),1.13*cos(b*2*pi)),lwd=2)
+```
+\ <br>
+```{r echo=F,fig.width=5,fig.height=10}
+z = seq(-3,3,length.out=1000)
+p = pnorm(z)
+plot(z,p,type="l",lwd=2,ylab="cumulative proportion",xlab="measurement",axes=F,ylim=c(0,1),xlim=c(-3.8,3.8))
+axis(1,at=-3:3,labels=mu+(-3):3*sig)
+axis(3,at=-3:3,labels=mu+(-3):3*sig)
+axis(2,at=seq(0,1,0.1))
+axis(4,at=seq(0,1,0.1))
+abline(v=seq(-3,3,.1),col=rgb(0.7,0.7,0.7))
+abline(h=0:100/100,col=rgb(0.7,0.7,0.7))
+abline(h=0:20/20,col=rgb(0.5,0.5,0.5))
+abline(h=0:10/10,col=rgb(0.3,0.3,0.3))
+abline(v=seq(-3,3,1),col=rgb(0.3,0.3,0.3))
+lines(z,pnorm(z),lwd=6)
+for(i in 1:6){
+  z1 = -4+i
+  z2 = -3+i
+  z3 = seq(z1,z2,0.001)
+  lines(z3,pnorm(z3),col=rgb(1,1,1),lwd=3)
+  lines(z3,pnorm(z3),col=cols[i],lwd=3)
+}
+
+z = seq(-3,3,1)
+
+adjx = c(0,0,0,0,1,1,0.8)
+adjy = c(1.2,0.8,0.5,1,0.5,0.3,-0.5)
+
+for(i in 1:7){
+  points(z[i],pnorm(z[i]),pch=20,cex=2)
+}
+
+lines(-c(3.2,3.4,3.3,3.3,3.2,3.4),c(rep(0,3),rep(L[4],3)),col=rgb(0,0.3,0),lwd=3)
+lines(c(3.2,3.4,3.3,3.3,3.2,3.4),c(rep(0,3),rep(L[4],3)),col=rgb(0,0.3,0),lwd=3)
+text(-3.7,L[4]/2,L[4],col=rgb(0,0.3,0),cex=0.8)
+text(3.7,L[4]/2,L[4],col=rgb(0,0.3,0),cex=0.8)
+lines(c(rep(-3,3),rep(zc[4],3)),-c(0.01,0.03,0.02,0.02,0.01,0.03),col=rgb(0,0.3,0),lwd=3)
+lines(c(rep(-3,3),rep(zc[4],3)),c(1.01,1.03,1.02,1.02,1.01,1.03),col=rgb(0,0.3,0),lwd=3)
+points(zc[4],pnorm(zc[4]),pch=20)
+text(zc[4],pnorm(zc[4]),sprintf("  (%d, %.2f)  ",mu+zc[4]*sig,L[4]),adj=1*(L[4]>0.5))
+
+```
+\
+* The answer is `r x[5]` because $\text{prop}[X>`r x[5]`]=`r R[5]`$. <br>
+```{r echo=F,fig.width=8,fig.height=4}
+z = seq(-3,3,0.01)
+yl = seq(0,0.4,0.05)
+zl = seq(-3,3,0.2)
+plot(z,dnorm(z),type="l",axes=F,ylab="density",xlab="measurement",lwd=4,ylim=c(0,0.5))
+axis(1,at=(-3):3,labels=mu+(-3):3*sig)
+abline(h=0)
+for(z in (-3):3){
+  lines(c(z,z),c(0,dnorm(z)))
+}
+for(z in zl){
+  lines(c(z,z),c(0,0.4),lty=2,col=rgb(0.5,0.5,0.5))
+}
+for(y in yl){
+  lines(c(-3,3),c(y,y),lty=2,col=rgb(0.5,0.5,0.5))
+}
+cols = c(rgb(0,0,0.5,0.4),rgb(0,0.5,0,0.4),rgb(0.5,0,0,0.4),rgb(0,0.5,0.5,0.4),rgb(0.5,0.5,0,0.4),rgb(0.5,0,0.5,0.4))
+col2 = c(rgb(0,0,0.3),rgb(0,0.3,0),rgb(0.3,0,0),rgb(0,0.3,0.3),rgb(0.3,0.3,0),rgb(0.3,0,0.3))
+
+for(i in (zc[5]):2){
+  zz = seq(i,i+1,0.01)
+  polygon(c(i,zz,i+1),c(0,dnorm(zz),0),col=cols[i+4])
+  text(i+0.5,0.225,round(pnorm(i+1)-pnorm(i),2),col=col2[i+4],cex=1.6)
+}
+
+lines(z,dnorm(z),lwd=4)
+
+lines(c(zc[5],zc[5],3,3),c(0.42,0.43,0.43,0.42),lwd=2)
+text((3+zc[5])/2,0.48,R[5],cex=1.5)
+```
+\ <br>
+```{r echo=F,fig.width=6,fig.height=6}
+par(mar=c(0,0,0,0))
+theta=seq(0,2*pi,length.out=1000)
+plot(sin(theta),cos(theta),type="l",ann=F,axes=F,xlim=c(-1.2,1.2),ylim=c(-1.2,1.2))
+
+pp = c(0,0.02,0.14,0.34,0.34,0.14,0.02)
+pp2 = cumsum(pp)
+for(i in (zc[5]+4):6){
+  p1 = pp2[i]
+  p2 = pp2[i+1]
+  p = seq(p1,p2,0.001)
+  polygon(c(0,sin(p*2*pi),0),c(0,cos(p*2*pi),0),col=cols[i],lty=0)
+}
+
+z = seq(-2,2,1)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6) #distort the normal to match the 68-96-100 "rule"
+p = pnorm(y)
+
+for(i in 1:5){
+  lines(c(0.88,1)*sin(2*pi*p[i]),c(0.88,1)*cos(2*pi*p[i]),lw=3)
+  lines(c(0,0.6)*sin(2*pi*p[i]),c(0,0.6)*cos(2*pi*p[i]))
+  if(i != 3){
+  text(0.74*sin(2*pi*p[i]),0.74*cos(2*pi*p[i]),mu+(i-3)*sig,srt=-90+(-2*p[i]*180)%%180)
+  } else {
+    text(0.74*sin(2*pi*p[i]),0.74*cos(2*pi*p[i]),mu,cex=1.2)
+  }
+}
+
+lines(c(0,0),c(0.88,1),lwd=4)
+lines(c(0,0),c(0,0.6))
+text(0,0.74,sprintf("%d or %d",mu-3*sig,mu+3*sig),srt=90)
+
+z = seq(-3,3,.5)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6)
+p = pnorm(y)
+for(pp in p){
+  lines(c(0.92,1)*sin(2*pi*pp),c(0.92,1)*cos(2*pi*pp))
+}
+
+z = seq(-3,3,.1)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6)
+p = pnorm(y)
+for(i in 1:length(z)){
+  lines(c(0.95,1)*sin(2*pi*p[i]),c(0.95,1)*cos(2*pi*p[i]))
+  if(z[i]%%1 != 0 & p[i]<0.5 & p[i]>0.03){
+    text(0.85*sin(2*pi*p[i]),0.85*cos(2*pi*p[i]),mu-abs(z[i])*sig,cex=0.5,srt=-90+(-2*p[i]*180)%%180)
+  }
+  if(z[i]%%1 != 0 & p[i]>0.5 & p[i]<0.97){
+    text(0.85*sin(2*pi*p[i]),0.85*cos(2*pi*p[i]),mu+abs(z[i])*sig,cex=0.5,srt=-90+(-2*p[i]*180)%%180)
+  }
+}
+
+for(pp in 1:99/100){
+  lines(c(1,1.03)*sin(2*pi*pp),c(1,1.03)*cos(2*pi*pp))
+  text(1.08*sin(2*pi*pp),1.08*cos(2*pi*pp),pp,cex=0.5,srt=-90+(-2*pp*180)%%180)
+}
+
+arrows(-0.7,-0.1,0.7,0.1,lwd=3)
+polygon(0.03*sin(theta),0.03*cos(theta),col=rgb(0,0,0))
+
+pp = c(0,0.02,0.14,0.34,0.34,0.14,0.02)
+pp2 = cumsum(pp)
+p = 1-R[5]/2
+text(1.2*sin(p*2*pi),1.2*cos(p*2*pi),R[5],cex=1,srt=-90+(90-2*p*180)%%180)
+a = 1-R[5]+0.001
+b = 1-0.001
+p2 = seq(a,b,0.001)
+lines(c(1.13*sin(a*2*pi),1.16*sin(p2*2*pi),1.13*sin(b*2*pi)),
+      c(1.13*cos(a*2*pi),1.16*cos(p2*2*pi),1.13*cos(b*2*pi)),lwd=2)
+```
+\ <br>
+```{r echo=F,fig.width=5,fig.height=10}
+z = seq(-3,3,length.out=1000)
+p = pnorm(z)
+plot(z,p,type="l",lwd=2,ylab="cumulative proportion",xlab="measurement",axes=F,ylim=c(0,1),xlim=c(-3.8,3.8))
+axis(1,at=-3:3,labels=mu+(-3):3*sig)
+axis(3,at=-3:3,labels=mu+(-3):3*sig)
+axis(2,at=seq(0,1,0.1))
+axis(4,at=seq(0,1,0.1))
+abline(v=seq(-3,3,.1),col=rgb(0.7,0.7,0.7))
+abline(h=0:100/100,col=rgb(0.7,0.7,0.7))
+abline(h=0:20/20,col=rgb(0.5,0.5,0.5))
+abline(h=0:10/10,col=rgb(0.3,0.3,0.3))
+abline(v=seq(-3,3,1),col=rgb(0.3,0.3,0.3))
+lines(z,pnorm(z),lwd=6)
+for(i in 1:6){
+  z1 = -4+i
+  z2 = -3+i
+  z3 = seq(z1,z2,0.001)
+  lines(z3,pnorm(z3),col=rgb(1,1,1),lwd=3)
+  lines(z3,pnorm(z3),col=cols[i],lwd=3)
+}
+
+z = seq(-3,3,1)
+
+adjx = c(0,0,0,0,1,1,0.8)
+adjy = c(1.2,0.8,0.5,1,0.5,0.3,-0.5)
+
+for(i in 1:7){
+  points(z[i],pnorm(z[i]),pch=20,cex=2)
+}
+
+lines(-c(3.2,3.4,3.3,3.3,3.2,3.4),c(rep(L[5],3),rep(1,3)),col=rgb(0,0.3,0),lwd=3)
+lines(c(3.2,3.4,3.3,3.3,3.2,3.4),c(rep(L[5],3),rep(1,3)),col=rgb(0,0.3,0),lwd=3)
+text(-3.7,1-R[5]/2,R[5],col=rgb(0,0.3,0),cex=0.8)
+text(3.7,1-R[5]/2,R[5],col=rgb(0,0.3,0),cex=0.8)
+lines(c(rep(zc[5],3),rep(3,3)),-c(0.01,0.03,0.02,0.02,0.01,0.03),col=rgb(0,0.3,0),lwd=3)
+lines(c(rep(zc[5],3),rep(3,3)),c(1.01,1.03,1.02,1.02,1.01,1.03),col=rgb(0,0.3,0),lwd=3)
+points(zc[5],pnorm(zc[5]),pch=20)
+text(zc[5],pnorm(zc[5]),sprintf("  (%d, %.2f)  ",mu+zc[5]*sig,L[5]),adj=1*(L[5]>0.5))
+
+```
+\
+* The answer is `r x[6]-mu` because $\text{prop}[|X-`r mu`|<`r x[6]-mu`]=`r C[6]`$. <br>
+```{r echo=F,fig.width=8,fig.height=4}
+z = seq(-3,3,0.01)
+yl = seq(0,0.4,0.05)
+zl = seq(-3,3,0.2)
+plot(z,dnorm(z),type="l",axes=F,ylab="density",xlab="measurement",lwd=4,ylim=c(0,0.5))
+axis(1,at=(-3):3,labels=mu+(-3):3*sig)
+abline(h=0)
+for(z in (-3):3){
+  lines(c(z,z),c(0,dnorm(z)))
+}
+for(z in zl){
+  lines(c(z,z),c(0,0.4),lty=2,col=rgb(0.5,0.5,0.5))
+}
+for(y in yl){
+  lines(c(-3,3),c(y,y),lty=2,col=rgb(0.5,0.5,0.5))
+}
+cols = c(rgb(0,0,0.5,0.4),rgb(0,0.5,0,0.4),rgb(0.5,0,0,0.4),rgb(0,0.5,0.5,0.4),rgb(0.5,0.5,0,0.4),rgb(0.5,0,0.5,0.4))
+col2 = c(rgb(0,0,0.3),rgb(0,0.3,0),rgb(0.3,0,0),rgb(0,0.3,0.3),rgb(0.3,0.3,0),rgb(0.3,0,0.3))
+
+for(i in (-zc[6]):(zc[6]-1)){
+  zz = seq(i,i+1,0.01)
+  polygon(c(i,zz,i+1),c(0,dnorm(zz),0),col=cols[i+4])
+  text(i+0.5,0.225,round(pnorm(i+1)-pnorm(i),2),col=col2[i+4],cex=1.6)
+}
+
+lines(z,dnorm(z),lwd=4)
+
+lines(c(-zc[6],-zc[6],zc[6],zc[6]),c(0.42,0.43,0.43,0.42),lwd=2)
+text(0,0.48,C[6],cex=1.5)
+```
+\ <br>
+```{r echo=F,fig.width=6,fig.height=6}
+par(mar=c(0,0,0,0))
+theta=seq(0,2*pi,length.out=1000)
+plot(sin(theta),cos(theta),type="l",ann=F,axes=F,xlim=c(-1.2,1.2),ylim=c(-1.2,1.2))
+
+pp = c(0,0.02,0.14,0.34,0.34,0.14,0.02)
+pp2 = cumsum(pp)
+for(i in (-zc[6]+4):(zc[6]+3)){
+  p1 = pp2[i]
+  p2 = pp2[i+1]
+  p = seq(p1,p2,0.001)
+  polygon(c(0,sin(p*2*pi),0),c(0,cos(p*2*pi),0),col=cols[i],lty=0)
+}
+
+z = seq(-2,2,1)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6) #distort the normal to match the 68-96-100 "rule"
+p = pnorm(y)
+
+for(i in 1:5){
+  lines(c(0.88,1)*sin(2*pi*p[i]),c(0.88,1)*cos(2*pi*p[i]),lw=3)
+  lines(c(0,0.6)*sin(2*pi*p[i]),c(0,0.6)*cos(2*pi*p[i]))
+  if(i != 3){
+  text(0.74*sin(2*pi*p[i]),0.74*cos(2*pi*p[i]),mu+(i-3)*sig,srt=-90+(-2*p[i]*180)%%180)
+  } else {
+    text(0.74*sin(2*pi*p[i]),0.74*cos(2*pi*p[i]),mu,cex=1.2)
+  }
+}
+
+lines(c(0,0),c(0.88,1),lwd=4)
+lines(c(0,0),c(0,0.6))
+text(0,0.74,sprintf("%d or %d",mu-3*sig,mu+3*sig),srt=90)
+
+z = seq(-3,3,.5)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6)
+p = pnorm(y)
+for(pp in p){
+  lines(c(0.92,1)*sin(2*pi*pp),c(0.92,1)*cos(2*pi*pp))
+}
+
+z = seq(-3,3,.1)
+y = 1.775*z*pi/6 + 0.1123*tan(z*pi/6)
+p = pnorm(y)
+for(i in 1:length(z)){
+  lines(c(0.95,1)*sin(2*pi*p[i]),c(0.95,1)*cos(2*pi*p[i]))
+  if(z[i]%%1 != 0 & p[i]<0.5 & p[i]>0.03){
+    text(0.85*sin(2*pi*p[i]),0.85*cos(2*pi*p[i]),mu-abs(z[i])*sig,cex=0.5,srt=-90+(-2*p[i]*180)%%180)
+  }
+  if(z[i]%%1 != 0 & p[i]>0.5 & p[i]<0.97){
+    text(0.85*sin(2*pi*p[i]),0.85*cos(2*pi*p[i]),mu+abs(z[i])*sig,cex=0.5,srt=-90+(-2*p[i]*180)%%180)
+  }
+}
+
+for(pp in 1:99/100){
+  lines(c(1,1.03)*sin(2*pi*pp),c(1,1.03)*cos(2*pi*pp))
+  text(1.08*sin(2*pi*pp),1.08*cos(2*pi*pp),pp,cex=0.5,srt=-90+(-2*pp*180)%%180)
+}
+
+arrows(-0.7,-0.1,0.7,0.1,lwd=3)
+polygon(0.03*sin(theta),0.03*cos(theta),col=rgb(0,0,0))
+
+pp = c(0,0.02,0.14,0.34,0.34,0.14,0.02)
+pp2 = cumsum(pp)
+p = 0.5
+text(1.2*sin(p*2*pi),1.2*cos(p*2*pi),C[6],cex=1,srt=-90+(90-2*p*180)%%180)
+a = 0.5-C[6]/2+0.001
+b = 0.5+C[6]/2-0.001
+p2 = seq(a,b,0.001)
+lines(c(1.13*sin(a*2*pi),1.16*sin(p2*2*pi),1.13*sin(b*2*pi)),
+      c(1.13*cos(a*2*pi),1.16*cos(p2*2*pi),1.13*cos(b*2*pi)),lwd=2)
+```
+\ <br>
+```{r echo=F,fig.width=5,fig.height=10}
+z = seq(-3,3,length.out=1000)
+p = pnorm(z)
+plot(z,p,type="l",lwd=2,ylab="cumulative proportion",xlab="measurement",axes=F,ylim=c(0,1),xlim=c(-3.8,3.8))
+axis(1,at=-3:3,labels=mu+(-3):3*sig)
+axis(3,at=-3:3,labels=mu+(-3):3*sig)
+axis(2,at=seq(0,1,0.1))
+axis(4,at=seq(0,1,0.1))
+abline(v=seq(-3,3,.1),col=rgb(0.7,0.7,0.7))
+abline(h=0:100/100,col=rgb(0.7,0.7,0.7))
+abline(h=0:20/20,col=rgb(0.5,0.5,0.5))
+abline(h=0:10/10,col=rgb(0.3,0.3,0.3))
+abline(v=seq(-3,3,1),col=rgb(0.3,0.3,0.3))
+lines(z,pnorm(z),lwd=6)
+for(i in 1:6){
+  z1 = -4+i
+  z2 = -3+i
+  z3 = seq(z1,z2,0.001)
+  lines(z3,pnorm(z3),col=rgb(1,1,1),lwd=3)
+  lines(z3,pnorm(z3),col=cols[i],lwd=3)
+}
+
+z = seq(-3,3,1)
+
+adjx = c(0,0,0,0,1,1,0.8)
+adjy = c(1.2,0.8,0.5,1,0.5,0.3,-0.5)
+
+for(i in 1:7){
+  points(z[i],pnorm(z[i]),pch=20,cex=2)
+}
+
+lines(-c(3.2,3.4,3.3,3.3,3.2,3.4),c(rep(R[6],3),rep(L[6],3)),col=rgb(0,0.3,0),lwd=3)
+lines(c(3.2,3.4,3.3,3.3,3.2,3.4),c(rep(R[6],3),rep(L[6],3)),col=rgb(0,0.3,0),lwd=3)
+text(-3.7,0.52,C[6],col=rgb(0,0.3,0),cex=0.9)
+text(3.7,0.52,C[6],col=rgb(0,0.3,0),cex=0.9)
+lines(c(rep(-zc[6],3),rep(zc[6],3)),-c(0.01,0.03,0.02,0.02,0.01,0.03),col=rgb(0,0.3,0),lwd=3)
+lines(c(rep(-zc[6],3),rep(zc[6],3)),c(1.01,1.03,1.02,1.02,1.01,1.03),col=rgb(0,0.3,0),lwd=3)
+points(zc[6],pnorm(zc[6]),pch=20)
+points(-zc[6],pnorm(-zc[6]),pch=20)
+text(-zc[6],-pnorm(zc[6]),sprintf("  (%d, %.2f)  ",mu-zc[6]*sig,R[6]),adj=1*(R[6]>0.5))
+text(zc[6],pnorm(zc[6]),sprintf("  (%d, %.2f)  ",mu+zc[6]*sig,L[6]),adj=1*(L[6]>0.5))
+```
+\
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|num|num
+exsolution: `r L[1]`|`r R[2]`|`r C[3]`|`r x[4]`|`r x[5]`|`r x[6]-mu`
+exname: normal_basic
+extol: 0.01|0.01|0.01|0|0|0
+exextra[numwidth,character]: 999.99

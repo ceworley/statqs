@@ -1,0 +1,242 @@
+
+```{r data generation, echo = FALSE, results = "hide"}
+library(exams)
+options(scipen=100)
+types = c("A","B","C","D")
+fruit = c("apple","orange","banana","mango","plum","grapefruit","kiwi","lemon","papaya","apricot","persimmon","watermelon","pineapple","coconut")
+mass = c(180,180,180,250,90,240,80,100,450,50,170,9000,2000,700)
+is = sample(1:length(mass),4)
+while(T){
+  is = sample(1:length(mass),4)
+  f = fruit[is]
+  fs = paste(f,"s",sep="")
+  mus = round(mass[is]*runif(4,0.7,1.3))
+  sigs = round(mus/runif(4,6,20))
+  ns = sample(5:12,4)^2
+  ses = sigs/sqrt(ns)
+  ps = runif(4,0.02,0.98)
+  zs = round(qnorm(ps),2)
+  xbars = signif(mus+zs*ses,4)
+  zs = round((xbars-mus)/ses,2)
+  ps = round(pnorm(zs),4)
+  if(sum(zs>0)>=1 & sum(zs<0)>=1 & length(unique(abs(zs)))==4 & min(c(dist(abs(zs),method = "manhattan"))) > 0.1){
+    break
+  }
+}
+
+scs1 = mchoice2string(zs==max(zs))
+scs2 = mchoice2string(zs==min(zs))
+scs3 = mchoice2string(abs(zs)==min(abs(zs)))
+scs4 = mchoice2string(abs(zs)==max(abs(zs)))
+
+
+data = data.frame(f,mus,sigs,ns,xbars)
+colnames(data) = c("fruit",
+                   "mu",
+                   "sigma",
+                   "n",
+                   "xbar")
+
+write.csv(data,"fruit.csv",row.names=F)
+```
+
+Question
+========
+
+A farm produces 4 types of fruit: `r fs[1]`, `r fs[2]`, `r fs[3]`, and `r fs[4]`. The fruits' masses have population parameters dependent on the type of fruit. (All values are in grams.)
+
+| _ Type of fruit _ | _ Population mean ($\mu$) _ | _ Population standard deviation ($\sigma$) _|
+|:---:|:---:|:---:|
+|`r fs[1]` | `r mus[1]` | `r sigs[1]` | 
+|`r fs[2]` | `r mus[2]` | `r sigs[2]` |
+|`r fs[3]` | `r mus[3]` | `r sigs[3]` |
+|`r fs[4]` | `r mus[4]` | `r sigs[4]` |
+
+A sample of each type is weighed. The results are shown below.
+
+| _ Type of fruit _ | _ Sample size ($n$) _ | _ Sample mean ($\bar{x}$) _ |
+|:---:|:---:|:---:|
+|`r f[1]` | `r ns[1]` | `r xbars[1]` |
+|`r f[2]` | `r ns[2]` | `r xbars[2]` |
+|`r f[3]` | `r ns[3]` | `r xbars[3]` |
+|`r f[4]` | `r ns[4]` | `r xbars[4]` |
+
+The population parameters and sample statistics can be [downloaded as a csv](fruit.csv){target="blank"}.
+
+For each sample, determine the mean's standard score and the mean's [cumulative probability](https://en.wikipedia.org/wiki/Cumulative_distribution_function){target="blank"} by assuming the requirements for the [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem){target="blank"} are met. Then determine which sample mean is most unusually large, most unusually small, most typically sized, and most unusually sized.
+
+The standard score of a sample mean:
+$$z = \frac{\bar{x}-\mu}{\sigma/\sqrt{n}}$$
+Some people prefer to call this denominator [the standard error](https://en.wikipedia.org/wiki/Standard_error){target="blank"}.
+$$\text{standard error of mean} = \text{SEM} = \frac{\sigma}{\sqrt{n}} $$
+So the standard score ($z$-score) of a sample mean can also be expressed as
+$$z = \frac{\bar{x}-\mu}{\text{SEM}} $$
+
+Answerlist
+--------
+* Calculate a $z$-score for the `r f[1]` sample mean. (Round to the nearest hundredth.)
+* What proportion of `r f[1]` samples of size $n=`r ns[1]`$ have a smaller mean than the `r f[1]` sample?
+* Calculate a $z$-score for the `r f[2]` sample mean. (Round to the nearest hundredth.)
+* What proportion of `r f[2]` samples of size $n=`r ns[2]`$ have a smaller mean than the `r f[2]` sample?
+* Calculate a $z$-score for the `r f[3]` sample mean. (Round to the nearest hundredth.)
+* What proportion of `r f[3]` samples of size $n=`r ns[3]`$ have a smaller mean than the `r f[3]` sample?
+* Calculate a $z$-score for the `r f[4]` sample mean. (Round to the nearest hundredth.)
+* What proportion of `r f[4]` samples of size $n=`r ns[4]`$ have a smaller mean than the `r f[4]` sample?
+* The `r f[1]` sample mean is most unusually large.
+* The `r f[2]` sample mean is most unusually large.
+* The `r f[3]` sample mean is most unusually large.
+* The `r f[4]` sample mean is most unusually large.
+* The `r f[1]` sample mean is most unusually small.
+* The `r f[2]` sample mean is most unusually small.
+* The `r f[3]` sample mean is most unusually small.
+* The `r f[4]` sample mean is most unusually small.
+* The `r f[1]` sample mean is most typically sized.
+* The `r f[2]` sample mean is most typically sized.
+* The `r f[3]` sample mean is most typically sized.
+* The `r f[4]` sample mean is most typically sized.
+* The `r f[1]` sample mean is most unusually sized.
+* The `r f[2]` sample mean is most unusually sized.
+* The `r f[3]` sample mean is most unusually sized.
+* The `r f[4]` sample mean is most unusually sized.
+
+Solution
+========
+
+[video](https://vimeo.com/531945861){target="_blank"}
+
+The formula to determine the $z$-score of a **sample mean** is the ratio with numerator the difference between measurement and population mean and denominator the standard error of the mean.
+
+$$z = \frac{\bar{x}-\mu}{\sigma/\sqrt{n}} $$
+
+The highest $z$-score (furthest right on [number line](https://en.wikipedia.org/wiki/Number_line){target="blank"}) corresponds to the most unusually large sample mean. 
+
+The smallest $z$-score (furthest left on [number line](https://en.wikipedia.org/wiki/Number_line){target="blank"}) corresponds to the most unusually small sample mean.
+
+The smallest [**absolute**](https://en.wikipedia.org/wiki/Absolute_value){target="blank"} $z$-score corresponds to the most usually sized sample mean.
+
+The largest [**absolute**](https://en.wikipedia.org/wiki/Absolute_value){target="blank"} $z$-score corresponds to the most unusually sized sample mean.
+
+
+### Spreadsheet:
+
+By using the formulas, you should get a spreadsheet like the one displayed here:
+
+```{r fig.width=10,fig.height=5,echo=F}
+draw_ss = function(df){
+  nrow = length(df[,1])
+  ncol = length(df[1,])
+  par(mar=c(0,0,0,0))
+  plot(0,0,type="n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+  hi = 1:((nrow+2)*2+1)
+  vi = 1:((ncol+1)*2+1)
+  hpos = seq(1,0,length.out=(nrow+2)*2+1)
+  vpos = seq(0,1,length.out=(ncol+1)*2+1)
+  hlin = hpos[hi%%2==1]
+  ytex = hpos[hi%%2==0]
+  vlin = vpos[vi%%2==1]
+  xtex = vpos[vi%%2==0]
+  abline(h=hlin)
+  abline(h=hlin[2],lwd=3)
+  abline(v=vlin)
+  abline(v=vlin[2],lwd=3)
+  for(i in 2:(ncol+1)){
+    text(xtex[i],ytex[1],LETTERS[i-1],col=rgb(0.5,0.5,0.5))
+    text(xtex[i],ytex[2],colnames(df)[i-1])
+  }    
+  for(i in 2:(nrow+2)){
+    text(xtex[1],ytex[i],i-1,col=rgb(0.5,0.5,0.5))
+  }
+  for(i in 1:nrow){
+    for(j in 1:ncol){
+      text(xtex[j+1],ytex[i+2],df[i,j])
+    }
+  }
+}
+
+data2 = data.frame(f,mus,sigs,ns,xbars,signif(ses,4),zs,ps,abs(zs))
+colnames(data2) = c("fruit",
+                   "mu",
+                   "sigma",
+                   "n",
+                   "xbar",
+                   "SEM",
+                   "z",
+                   "P(Z<z)",
+                   "abs(z)")
+
+draw_ss(data2)
+```
+\
+
+### To do this in R:
+
+```{r echo=TRUE}
+data = read.csv("fruit.csv", as.is=TRUE)
+fruit = data$fruit
+mu = data$mu
+sigma = data$sigma
+n = data$n
+xbar = data$xbar
+
+SEM = sigma/sqrt(n)
+z = round( (xbar-mu)/SEM ,2)
+cum_prob = round( pnorm(z) ,4)
+data.frame(data,SEM,z,cum_prob,abs(z))
+
+# Most unusually large
+fruit[z==max(z)]
+
+# Most unusually small
+fruit[z==min(z)]
+
+# Most typically sized
+fruit[abs(z)==min(abs(z))]
+
+# Most unusually sized
+fruit[abs(z)==max(abs(z))]
+```
+
+
+Answerlist
+--------
+* We use the formula for calculating the `r f[1]` sample-mean $z$ score.
+$$z = \frac{`r xbars[1]`-`r mus[1]`}{`r sigs[1]`/\sqrt{`r ns[1]`}} = `r zs[1]` $$
+* Use the $z$ table to find the cumulative probability.
+$$P(Z<`r zs[1]`) = `r ps[1]` $$
+* We use the formula for calculating the `r f[2]` sample-mean $z$ score.
+$$z = \frac{`r xbars[2]`-`r mus[2]`}{`r sigs[2]`/\sqrt{`r ns[2]`}} = `r zs[2]` $$
+* Use the $z$ table to find the cumulative probability.
+$$P(Z<`r zs[2]`) = `r ps[2]` $$
+* We use the formula for calculating the `r f[3]` sample-mean $z$ score.
+$$z = \frac{`r xbars[3]`-`r mus[3]`}{`r sigs[3]`/\sqrt{`r ns[3]`}} = `r zs[3]` $$
+* Use the $z$ table to find the cumulative probability.
+$$P(Z<`r zs[3]`) = `r ps[3]` $$
+* We use the formula for calculating the `r f[4]` sample-mean $z$ score.
+$$z = \frac{`r xbars[4]`-`r mus[4]`}{`r sigs[4]`/\sqrt{`r ns[4]`}} = `r zs[4]` $$
+* Use the $z$ table to find the cumulative probability.
+$$P(Z<`r zs[4]`) = `r ps[4]` $$
+* We determine the maximum $z$ score is $`r max(zs)`$, which belongs to the `r f[zs==max(zs)]`.
+* .
+* .
+* .
+* We determine the minimum $z$ score is $`r min(zs)`$, which belongs to the `r f[zs==min(zs)]`.
+* .
+* .
+* .
+* We determine the minimum [**absolute**](https://en.wikipedia.org/wiki/Absolute_value){target="blank"} $z$ score is $`r min(abs(zs))`$, which belongs to the `r f[abs(zs)==min(abs(zs))]`. 
+* .
+* .
+* .
+* We determine the maximum [**absolute**](https://en.wikipedia.org/wiki/Absolute_value){target="blank"} $z$ score is $`r max(abs(zs))`$, which belongs to the `r f[abs(zs)==max(abs(zs))]`.
+* .
+* .
+* .
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: num|num|num|num|num|num|num|num|schoice|schoice|schoice|schoice
+exsolution: `r zs[1]`|`r ps[1]`|`r zs[2]`|`r ps[2]`|`r zs[3]`|`r ps[3]`|`r zs[4]`|`r ps[4]`|`r scs1`|`r scs2`|`r scs3`|`r scs4`
+exname: compare zs
+extol: 0.011|0.01|0.011|0.01|0.011|0.01|0.011|0.01|0|0|0|0

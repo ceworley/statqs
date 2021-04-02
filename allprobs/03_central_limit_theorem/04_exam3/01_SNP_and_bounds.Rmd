@@ -1,0 +1,76 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+
+p1 = runif(1,0.002,0.998)
+z1 = round(qnorm(p1),2)
+p1 = round(pnorm(z1),4)
+t1 = paste0("Determine $P(Z<",z1,")$",collapse="")
+
+p2 = runif(1,0.002,0.998)
+z2 = round(qnorm(p2),2)
+p2 = round(pnorm(z2),4)
+r2 = round(1-p2,4)
+t2 = paste0("Determine $P(Z>",z2,")$",collapse="")
+
+p3 = runif(1,0.51,0.998)
+z3 = round(qnorm(p3),2)
+p3 = round(pnorm(z3),4)
+c3 = round(2*(p3-0.5),4)
+t3 = paste0("Determine $P(",-z3,"<Z<",z3,")$",collapse="")
+
+p4 = runif(1,0.002,0.998)
+z4 = round(qnorm(p4),2)
+p4 = round(pnorm(z4),4)
+t4 = paste0("Determine $z$ such that $P(Z<z)=",p4,"$",collapse="")
+
+p5 = runif(1,0.002,0.998)
+z5 = round(qnorm(p5),2)
+p5 = round(pnorm(z5),4)
+r5 = round(1-p5,4)
+t5 = paste0("Determine $z$ such that $P(Z>z)=",r5,"$",collapse="")
+
+qord = sample(1:5)
+ans = c(p1,r2,c3,z4,z5)
+qs = c(t1,t2,t3,t4,t5)
+```
+
+Question
+========
+
+The following questions use $Z$ to refer to the [standard normal](https://en.wikipedia.org/wiki/Standard_normal_table){target="blank"} variable. You will determine some probabilities and some boundaries.
+
+Answerlist
+--------
+* `r qs[qord[1]]`
+* `r qs[qord[2]]`
+* `r qs[qord[3]]`
+* `r qs[qord[4]]`
+* `r qs[qord[5]]`
+
+
+Solution
+========
+
+[video](https://vimeo.com/531944862){target="_blank"}
+
+To do this problem, you should practice the Standard Normal exercises.
+
+Answerlist
+--------
+* `r ans[qord[1]]`
+* `r ans[qord[2]]`
+* `r ans[qord[3]]`
+* `r ans[qord[4]]`
+* `r ans[qord[5]]`
+
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|num
+exsolution: `r ans[qord[1]]`|`r ans[qord[2]]`|`r ans[qord[3]]`|`r ans[qord[4]]`|`r ans[qord[5]]`
+exname: Standard normal probs and bounds
+extol: 0.01|0.01|0.01|0.01|0.01
+exextra[numwidth,numeric]: 9
+exextra[stringwidth,numeric]: 5

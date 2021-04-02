@@ -1,0 +1,379 @@
+---
+title: "Standard Normal Probabilities"
+author: "Chad Worley"
+date: "3/26/2020"
+output:
+  html_notebook:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Depictions of the Standard Normal Distribution
+
+The standard normal distribution has a mean of 0 and a standard deviation of 1. It is a very special distribution, so we always use $Z$ to refer to its random variable and $z$ to refer to specific values from the standard normal distribution.
+
+Let's get 5 samples from $Z$, each of size 100.
+
+```{r}
+set.seed(123)
+x = matrix(rnorm(500),ncol=5)
+plot(0,0,type="n",xlim=c(-3,3),ylim=c(0.5,5.5),ylab="sample",xlab="z")
+for(i in 1:5){
+  points(x[,i],rep(i,100))
+}
+```
+\
+
+We see that a large sample from $Z$ gives a lot of **density** near $z=0$. We see less density near $z=2$ or $z=-2$. And it is quite rare to get a $z$ greater than 3 or less than -3.
+
+If our sample was infinitely large, we would see a density curve described by
+$$\text{density} ~=~ \frac{1}{\sqrt{2\pi}}e^{-z^2/2} $$
+```{r, fig.width=6, fig.height=4}
+z=seq(-3,3,0.001)
+plot(z,dnorm(z),type="l",ylab="density")
+```
+
+
+I prefer to see probability distributions in a few different ways. As you know, I like spinners. However, because $Z$ is continuous and its support (the allowable outputs) goes from $-\infty$ to $\infty$, our spinner will not be perfect. That's okay.
+
+```{r, fig.height=8, fig.width=8, cache=T}
+get_ave_z = function(p1,p2,n=100){
+  ps = seq(p1,p2,length.out=n+1)
+  pc = seq(p1+(p2-p1)/2/n, p2-(p2-p1)/2/n, length.out=n)
+  zs = sapply(qnorm(ps), function(x) min(x,1e30))
+  zs = sapply(zs, function(x) max(x,-1e30))
+  zc = qnorm(pc)
+  weights = dnorm(zc)*(zs[2:(n+1)]-zs[1:n])
+  totweight = sum(weights)
+  integrands = zc*weights/totweight
+  return(sum(integrands))
+}
+
+draw_sns = function(N=100) {
+  par(mar=c(0,0,0,0))
+  plot(0,0,type="n",xlim=c(-1,1),ylim=c(-1,1),ann=F)
+  theta = seq(0,2*pi,0.01)
+  polygon(cos(theta),sin(theta))
+  polygon(0.5*cos(theta),0.5*sin(theta))
+  text(0,0,"Z",cex=2)
+  ps = seq(0,1,length.out=N+1)
+  for(i in 1:N){
+    p1 = ps[i]
+    p2 = ps[i+1]
+    pc = (p1+p2)/2
+    lines(c(0.5*cos(p1*2*pi),cos(p1*2*pi)),c(0.5*sin(p1*2*pi),sin(p1*2*pi)))
+    zave = get_ave_z(p1,p2)
+    text(cos(pc*2*pi)*0.9, sin(pc*2*pi)*0.9, round(zave,2) , cex=min(0.5*200/N,1.5), srt=(90+pc*360)%%180-90)
+  }
+  text(0,-0.2,paste("An approximate Standard Normal spinner\nwith",N,"equally-sized wedges"))
+}
+
+draw_sns(50)
+draw_sns(100)
+draw_sns(200)
+```
+\
+
+For continuous distributions, I prefer another representation of the spinner (without wedges).
+
+```{r, fig.width=8, fig.height=8}
+par(mar=c(0,0,0,0))
+plot(0,0,type="n",xlim=c(-1,1),ylim=c(-1,1),ann=F)
+theta = seq(0,2*pi,0.01)
+polygon(cos(theta),sin(theta))
+text(0,0,"Z",cex=2)
+
+z1 = round(seq(-3,3,1),2)
+z2 = round(seq(-3,3,0.5),2)
+z3 = round(seq(-3,3,0.1),2)
+z4 = round(seq(-2,2,0.05),2)
+z5 = round(seq(-2,2,0.01),2)
+
+markz = function(z,L,cex=1){
+  p = pnorm(z)
+  for(pp in p){
+    lines(c((1-L)*cos(2*pi*pp),cos(2*pi*pp)),c((1-L)*sin(2*pi*pp),sin(2*pi*pp)),cex=cex)
+  }
+}
+
+markz(z1,0.3,2)
+markz(z2,0.2)
+markz(z3,0.1)
+markz(z4,0.05)
+markz(z5,0.025)
+
+for(z in z1){
+  p = pnorm(z)
+  pc = min(max(p,0.005),0.995)
+  text((1-0.33)*cos(2*pi*pc),(1-0.33)*sin(2*pi*pc),round(qnorm(p),2))
+}
+
+for(z in z2[!(z2 %in% z1)]){
+  p = pnorm(z)
+  pc = min(max(p,0.005),0.995)
+  text((1-0.26)*cos(2*pi*pc),(1-0.26)*sin(2*pi*pc),round(qnorm(p),2))
+}
+
+for(z in z3[!(z3 %in% z2) & abs(z3)<2]){
+  p = pnorm(z)
+  pc = min(max(p,0.005),0.995)
+  text((1-0.16)*cos(2*pi*pc),(1-0.16)*sin(2*pi*pc),round(qnorm(p),2),srt=(90+p*360)%%180-90)
+}
+
+for(z in z4[!(z4 %in% z3) & abs(z4)<1.5]){
+  p = pnorm(z)
+  pc = min(max(p,0.005),0.995)
+  text((1-0.09)*cos(2*pi*pc),(1-0.09)*sin(2*pi*pc),round(qnorm(p),2),srt=(90+p*360)%%180-90,cex=0.7)
+}
+
+text(0,-0.2,paste("A Standard Normal spinner\nwith resolution down to 0.01 between -2 and 2"))
+```
+\
+
+This visualization makes it clear that $Z$ lands between -1 and 1 more than half the time. In fact, about 68% of the time $|Z|<1$, about 95% of the time $|Z|<2$, and about 99.7% of the time $|Z|<3$.
+
+
+We can show these ideas more precisely by plotting a standard uniform distribution on the outside of the circle.
+
+```{r, fig.width=8, fig.height=8}
+sns = function(){
+  par(mar=c(0,0,0,0))
+  plot(0,0,type="n",xlim=c(-1.2,1.2),ylim=c(-1.2,1.2),ann=F)
+  theta = seq(0,2*pi,0.01)
+  polygon(cos(theta),sin(theta))
+  text(0,0,"Z",cex=2)
+  
+  z1 = round(seq(-3,3,1),2)
+  z2 = round(seq(-3,3,0.5),2)
+  z3 = round(seq(-3,3,0.1),2)
+  z4 = round(seq(-2,2,0.05),2)
+  z5 = round(seq(-2,2,0.01),2)
+  
+  markz = function(z,L,cex=1){
+    p = pnorm(z)
+    for(pp in p){
+      lines(c((1-L)*cos(2*pi*pp),cos(2*pi*pp)),c((1-L)*sin(2*pi*pp),sin(2*pi*pp)),cex=cex)
+    }
+  }
+  
+  markz(z1,0.3,2)
+  markz(z2,0.2)
+  markz(z3,0.1)
+  markz(z4,0.05)
+  markz(z5,0.025)
+  
+  for(z in z1){
+    p = pnorm(z)
+    pc = min(max(p,0.005),0.995)
+    text((1-0.33)*cos(2*pi*pc),(1-0.33)*sin(2*pi*pc),round(qnorm(p),2),cex=0.9)
+  }
+  for(z in z2[!(z2 %in% z1)]){
+    p = pnorm(z)
+    pc = min(max(p,0.005),0.995)
+    text((1-0.26)*cos(2*pi*pc),(1-0.26)*sin(2*pi*pc),round(qnorm(p),2),cex=0.9)
+  }
+  for(z in z3[!(z3 %in% z2) & abs(z3)<2]){
+    p = pnorm(z)
+    pc = min(max(p,0.005),0.995)
+    text((1-0.16)*cos(2*pi*pc),(1-0.16)*sin(2*pi*pc),round(qnorm(p),2),srt=(90+p*360)%%180-90,cex=0.9)
+  }
+  for(z in z4[!(z4 %in% z3) & abs(z4)<1.5]){
+    p = pnorm(z)
+    pc = min(max(p,0.005),0.995)
+    text((1-0.1)*cos(2*pi*pc),(1-0.1)*sin(2*pi*pc),round(qnorm(p),2),srt=(90+p*360)%%180-90,cex=0.6)
+  }
+  
+  p1 = round(seq(0,1,0.1),2)
+  p2 = round(seq(0,1,0.05),2)
+  p3 = round(seq(0,1,0.01),2)
+  
+  lines(c(1,1.2),c(0,0),lwd=3)
+  for(p in p1){
+    lines(c(cos(p*2*pi),1.15*cos(p*2*pi)),c(sin(p*2*pi),1.15*sin(p*2*pi)))
+    pc = max(min(p,0.996),0.004)
+    text(1.2*cos(pc*2*pi),1.2*sin(pc*2*pi),round(p,2),cex=1)
+  }
+  for(p in p2[!(p2 %in% p1)]){
+    lines(c(cos(p*2*pi),1.1*cos(p*2*pi)),c(sin(p*2*pi),1.1*sin(p*2*pi)))
+    pc = max(min(p,0.996),0.004)
+    text(1.16*cos(pc*2*pi),1.16*sin(pc*2*pi),round(p,2),srt=(90+p*360)%%180-90,cex=0.8)
+  }
+  for(p in p3[!(p3 %in% p2)]){
+    lines(c(cos(p*2*pi),1.05*cos(p*2*pi)),c(sin(p*2*pi),1.05*sin(p*2*pi)))
+    pc = max(min(p,0.996),0.004)
+    text(1.12*cos(pc*2*pi),1.12*sin(pc*2*pi),round(p,2),srt=(90+p*360)%%180-90,cex=0.8)
+  }
+  text(1,1,"U\nStandard Uniform\nDistribution")
+}
+
+sns()
+text(0,-0.2,paste("A Standard Normal spinner\nwith resolution down to 0.01 between -2 and 2"))
+```
+\
+
+We see there is a one-to-one mapping between $z$-scores and their $u$-scores. A $u$-score is the percentile rank and also the probability that $Z<z$. For examples,
+$$\begin{aligned}
+P(Z<-2) &= `r round(pnorm(-2),4)` \\
+P(Z<-1.5) &= `r round(pnorm(-1.5),4)` \\
+P(Z<-1) &= `r round(pnorm(-1),4)` \\
+P(Z<-0.5) &= `r round(pnorm(-0.5),4)` \\
+P(Z<0) &= `r round(pnorm(0),3)` \\
+P(Z<0.5) &= `r round(pnorm(0.5),4)` \\
+P(Z<1) &= `r round(pnorm(1),4)` \\
+P(Z<1.5) &= `r round(pnorm(1.5),4)` \\
+P(Z<2) &= `r round(pnorm(2),4)` \\
+\end{aligned}$$
+
+This one-to-one mapping is shown as the **standard normal cumulative curve**.
+
+```{r, fig.width=8, fig.height=8}
+z = seq(-3,3,0.001)
+plot(z,pnorm(z),type="l",lwd=3,ylab="P(Z<z)",xlab="z",main="Standard Normal Cumulative Curve")
+abline(v=seq(-3,3,1),lty=1,lwd=1)
+abline(h=seq(0,1,0.1),lty=1,lwd=1)
+abline(v=seq(-3,3,0.5),lty=1,lwd=.4)
+abline(h=seq(0,1,0.05),lty=1,lwd=.4)
+abline(v=seq(-3,3,0.1),lty=1,lwd=.2)
+abline(h=seq(0,1,0.01),lty=1,lwd=.2)
+```
+\
+
+And, we also use a table. (A full table is on moodle as a pdf.)
+
+```{r}
+s = '| $z$ | $P(Z<z)$ |\n|:----:|:----:|\n'
+for(z in seq(-3,3,0.1)){
+  s = paste(s,'| ',round(z,1),' | ',round(pnorm(z),4),' | \n', collapse='')
+}
+```
+
+`r s`
+
+
+
+## Probabilities of Standard Normal Variable
+
+Let's return to the density curve. Usually when you graph a function, you are interested in the relationship between the horizontal and vertical coordinates. It surprises most people to learn that with the density curve, we are more interested in discussing the relationship between horizontal coordinate and **area**. This is because an **area under the density curve is a probability**. 
+$$P(z_1<Z<z_2) ~=~ \text{area from }z_1\text{ to }z_2 $$
+```{r, fig.width=6, fig.height=4}
+library(latex2exp)
+z=seq(-3,3,0.001)
+plot(z,dnorm(z),type="l",ylab="density",axes=F)
+z1 = -1.5
+z2 = 2.5
+polygon(c(z[z>=z1 & z<=z2],z2,z1),c(dnorm(z[z>=z1 & z<=z2]),0,0),col=rgb(0.9,0.5,0.5))
+axis(1,at=c(-3,z1,z2,3),labels=c("-3",TeX("$z_1$"),TeX("$z_2$"),"3"))
+text(0,0.2,TeX("area = $P(z_1 < Z < z_2)$"))
+text(0,0.13,TeX("= Probability that Z is"))
+text(0,0.09,TeX(" between $z_1$ and $z_2$"))
+```
+
+For example,
+$$P(0<Z<1) ~=~ `r round(pnorm(1),4)-round(pnorm(0),4)` $$
+```{r, fig.width=9, fig.height=4}
+library(latex2exp)
+z=seq(-3,3,0.001)
+plot(z,dnorm(z),type="l",ylab="density",lwd=3)
+z1 = 0
+z2 = 1
+polygon(c(z[z>=z1 & z<=z2],z2,z1),c(dnorm(z[z>=z1 & z<=z2]),0,0),col=rgb(1,0.5,0.5,0.7))
+abline(h=seq(0,0.4,0.05),lwd=0.5)
+abline(v=seq(-3,3,0.2),lwd=0.5)
+abline(h=0,lwd=2)
+```
+\
+
+If you counted how many squares are shaded, using your best estimates for fractions of squares, you'd see that about `r round(round(pnorm(1),4)*100-round(pnorm(0),4)*100)` squares are shaded. That's because, in this graph, each "square" has a height of 0.05 and a width of 0.2, giving an area of 0.01 (or 1%).
+
+We can also visualize this with a spinner.
+
+```{r, fig.width=8, fig.height=8}
+sns()
+text(0,-0.2,paste("Standard Normal Distribution"))
+p = seq(pnorm(z1),pnorm(z2),0.001)
+polygon(c(cos(p*2*pi),0),c(sin(p*2*pi),0),col=rgb(1,0.5,0.5,0.4))
+```
+\
+
+Notice the area is about 1/3 of the circle. We can use the Standard Uniform Distribution tickmarks to give a more precise probability. With some thought, you should see why the following is true.
+$$\begin{aligned}
+P(0<Z<1) &\approx 0.841 - 0.5 \\
+&= 0.341
+\end{aligned}$$
+
+
+
+Let's consider another example. The probability that $Z$ lands between 1 and 2 is `r round(pnorm(2),4)*100-round(pnorm(1),4)*100`%.
+$$P(1<Z<2) = `r round(pnorm(2),4)-round(pnorm(1),4)` $$
+If we shade under the density curve, we see about 13.6 squares are shaded.
+```{r, fig.width=9, fig.height=4}
+library(latex2exp)
+z=seq(-3,3,0.001)
+plot(z,dnorm(z),type="l",ylab="density",lwd=3)
+z1 = 1
+z2 = 2
+polygon(c(z[z>=z1 & z<=z2],z2,z1),c(dnorm(z[z>=z1 & z<=z2]),0,0),col=rgb(1,0.5,0.5,0.7))
+abline(h=seq(0,0.4,0.05),lwd=0.5)
+abline(v=seq(-3,3,0.2),lwd=0.5)
+abline(h=0,lwd=2)
+```
+\
+
+If we shade a slice of the Standard Normal spinner (between $z=1$ and $z=2$), we see the slice is about 13.6% of the circle.
+
+```{r, fig.width=8, fig.height=8}
+sns()
+text(0,-0.2,paste("Standard Normal Distribution"))
+p = seq(pnorm(z1),pnorm(z2),0.001)
+polygon(c(cos(p*2*pi),0),c(sin(p*2*pi),0),col=rgb(1,0.4,0.4,0.5))
+```
+\
+
+$$\begin{aligned}
+P(1<Z<2) &\approx `r round(pnorm(2),3)` - `r round(pnorm(1),3)` \\
+&= `r round(pnorm(2),3)-round(pnorm(1),3)`
+\end{aligned}$$
+
+It should be pointed out that every spin of $Z$ results in a number between $-\infty$ and $\infty$.
+$$P(-\infty < Z < \infty) ~=~ 1 $$
+
+## Getting left area from $z$-score
+
+A left area under the normal curve represents a probability that $Z$ is less than some number.
+
+```{r,fig.width=8,fig.height=6}
+library(latex2exp)
+par(mfrow=c(3,2))
+draw_norm_l = function(z){
+  Z = seq(-3,3,0.01)
+  plot(Z,dnorm(Z),type="l",ylab="density",lwd=3,main=TeX(paste("$P(Z<",z,") = ",round(pnorm(z),4),"$",collapse="")))
+  polygon(c(Z[Z<=z],z,-3),c(dnorm(Z[Z<=z]),0,0),col=rgb(1,0.5,0.5,0.5))
+  abline(h=seq(0,0.4,0.05),lwd=0.5)
+  abline(v=seq(-3,3,0.2),lwd=0.5)
+  abline(h=0,lwd=2)
+}
+
+for(i in -2:2){
+  draw_norm_l(i)
+}
+
+```
+\
+
+The precise association between $z$ and $P(Z<z)$, the left area, is documented in our $z$-table (on moodle). There are also other tools available. 
+
+
+
+
+
+
+
+
+
+
+
+
+

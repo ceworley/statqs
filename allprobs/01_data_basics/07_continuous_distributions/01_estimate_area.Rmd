@@ -1,0 +1,684 @@
+```{r,data,generation,echo=FALSE,results="hide",fig.show='hide'}
+dtwotent = function(x){
+  return( 8*x*(x>0)*(x<=0.25) + abs(4-8*x)*(x>0.25)*(x<=0.75) + (8-8*x)*(x>0.75)*(x<1) )
+}
+ptwotent = function(x){
+  return( (4*x^2)*(x>=0)*(x<=0.25) + (-1/2+4*x-4*x^2)*(x>0.25)*(x<=0.5) + (-4*x+4*x^2+3/2)*(x>0.5)*(x<=0.75) + (8*x-4*x^2-3)*(x>0.75)*(x<=1) + 1*(x>1))
+}
+
+dtent = function(x){
+  return(4*x*(x>0)*(x<=0.5) + (4-4*x)*(x>0.5)*(x<1))
+}
+ptent = function(x){
+  return(2*x^2*(x>0)*(x<=0.5) + (4*x-2*x^2-1)*(x>0.5)*(x<=1) + 1*(x>1))
+}
+
+dbim = function(x){
+  return( (2-4*x)*(x>0)*(x<=0.5) + (-2+4*x)*(x>0.5)*(x<1) )
+}
+pbim = function(x){
+  return( (2*x-2*x^2)*(x>0)*(x<=0.5) + (2*x^2-2*x+1)*(x>0.5)*(x<=1) + 1*(x>1))
+}
+
+drs = function(x){
+  return( (2-2*x)*(x>0)*(x<1) )
+}
+prs = function(x){
+  return( (2*x-x^2)*(x>0)*(x<1) + 1*(x>=1)  )
+}
+
+dls = function(x){
+  return( (2*x)*(x>0)*(x<1) )
+}
+pls = function(x){
+  return( (x^2)*(x>0)*(x<1) + 1*(x>=1)  )
+}
+
+
+pick = sample(1:5,1)
+ds = list(dtwotent,dtent,dbim,drs,dls)
+ps = list(ptwotent,ptent,pbim,prs,pls)
+
+
+bottom = sample(seq(30,70,10),1)
+width = 20 #sample(c(10,20,40),1)
+height = 2/width
+top = bottom+width
+xl = seq(bottom,bottom+width,length.out=21)
+xq = seq(bottom,bottom+width,length.out=11)
+xc = sample(xq[2:(length(xq)-1)],8)
+
+dmf = ds[[pick]]
+pmf = ps[[pick]]
+
+b1 = xc[1]
+p1 = pmf((b1-bottom)/width)
+
+b2 = xc[2]
+p2 = 1-pmf((b2-bottom)/width)
+
+b3 = sort(xc[3:4])
+cen3 = mean(b3)
+r3 = diff(b3)/2
+p3 = pmf((b3[2]-bottom)/width)-pmf((b3[1]-bottom)/width)
+lb3 = cen3-r3
+ub3 = cen3+r3
+plb3 = pmf((lb3-bottom)/width)
+pub3 = pmf((ub3-bottom)/width)
+pcen3 = pmf((cen3-bottom)/width)
+
+b4 = xc[5]
+p4 = pmf((b4-bottom)/width)
+
+b5 = xc[6]
+p5 = 1-pmf((b5-bottom)/width)
+
+b6 = sort(xc[7:8])
+cen6 = mean(b6)
+r6 = diff(b6)/2
+p6 = pmf((b6[2]-bottom)/width)-pmf((b6[1]-bottom)/width)
+lb6 = cen6-r6
+ub6 = cen6+r6
+plb6 = pmf((lb6-bottom)/width)
+pub6 = pmf((ub6-bottom)/width)
+pcen6 = pmf((cen6-bottom)/width)
+
+```
+
+
+Question
+========
+
+A continuous random variable (spinner/random number generator/infinite population) can be visualized with a density curve, a spinner, and a cumulative curve. 
+
+```{r echo=F, fig.width=6, fig.height=4.5}
+x = seq(bottom,bottom+width,length.out=1000)
+x2 = (x-bottom)/width
+plot(x,dmf(x2)/width,type="l",lwd=3,xlab="x",ylab="density")
+polygon(x,dmf(x2)/width,col=rgb(0.95,0.85,0.85))
+yl = seq(0,height,length.out=11)
+abline(h=yl,lty=2)
+abline(v=xl,lty=2)
+abline(h=0)
+```
+\
+
+```{r echo=F,fig.width=5,fig.height=5}
+par(mar=c(0,0,0,0))
+theta = seq(0,2*pi,length.out=1000)
+plot(cos(theta),sin(theta),ylim=c(-1.1,1.1),xlim=c(-1.1,1.1),type="l",axes=F,ann=F)
+polygon(0.03*cos(theta),0.03*sin(theta),col=rgb(0,0,0))
+for(x in xl[2:(length(xl)-1)]){
+  p = pmf((x-bottom)/width)
+  theta = 2*pi*p
+  lines(c(0.9,1)*sin(theta),c(0.9,1)*cos(theta))
+  text(0.85*sin(theta),0.85*cos(theta),x,cex=0.5,srt=-90+(-2*p*180)%%180)
+}
+text(0,0.5,sprintf("%d or %d",xl[1],xl[length(xl)]),cex=0.7,srt=-90)
+lines(c(0,0),c(0.7,1),lwd=3)
+arrows(-0.6,-0.1,0.6,0.1,lwd=2)
+for(p in 0:10/10){
+  theta1 = 2*pi*p
+  lines(c(1,1.05)*sin(theta1),c(1,1.05)*cos(theta1))
+}
+for(p in 0:20/20){
+  theta1 = 2*pi*p
+  lines(c(1,1.03)*sin(theta1),c(1,1.03)*cos(theta1))
+}
+for(p in 1:99/100){
+  theta1 = 2*pi*p
+  lines(c(1,1.02)*sin(theta1),c(1,1.02)*cos(theta1))
+  text(1.08*sin(theta1),1.08*cos(theta1),p,cex=0.5,srt=-90+(-2*p*180)%%180)
+}
+for(p in 0:200/200){
+  theta1 = 2*pi*p
+  lines(c(1,1.01)*sin(theta1),c(1,1.01)*cos(theta1))
+}
+text(0,1.1,"0 1",cex=0.7,srt=-90+(-2*p*180)%%180)
+```
+\
+
+```{r echo=F,fig.width=5,fig.height=10}
+x = seq(bottom-2,bottom+width+2,length.out=1000)
+p = pmf((x-bottom)/width)
+plot(x,p,type="l",lwd=2,ylab="cumulative proportion",axes=F,ylim=c(0,1))
+axis(1,at=seq(bottom,bottom+width,5))
+axis(3,at=seq(bottom,bottom+width,5))
+axis(2,at=seq(0,1,0.1))
+axis(4,at=seq(0,1,0.1))
+abline(v=xl,col=rgb(0.7,0.7,0.7))
+abline(h=0:100/100,col=rgb(0.7,0.7,0.7))
+abline(h=0:20/20,col=rgb(0.5,0.5,0.5))
+abline(h=0:10/10,col=rgb(0.3,0.3,0.3))
+abline(v=seq(bottom,bottom+width,5),col=rgb(0.3,0.3,0.3))
+lines(x,p,lwd=2)
+```
+\
+
+
+Answerlist
+--------
+* Evaluate $\text{prop}[\mathbf{x}<`r b1`]$
+* Evaluate $\text{prop}[\mathbf{x}>`r b2`]$
+* Evaluate $\text{prop}[|\mathbf{x}-`r cen3`|<`r r3`]$
+* Determine integer $b$ such that $\text{prop}[\mathbf{x}<b]=`r p4`$
+* Determine integer $b$ such that $\text{prop}[\mathbf{x}>b]=`r p5`$
+* Determine integer $r$ such that $\text{prop}[|\mathbf{x}-`r cen6`|<r]=`r p6`$
+
+
+Solution
+========
+
+[video](https://vimeo.com/531913892){target="_blank"}
+
+For each problem, you can use any of the visualizations. In short, the answers:
+```{r echo=F}
+cat(c(p1,p2,p3,b4,b5,r6))
+```
+
+Answerlist
+--------
+* The answer is `r p1` because $\text{prop}[\mathbf{x}<`r b1`]=`r p1`$. The following visualizations show this. 
+The density curve can be used by counting percent boxes. Each box adds 0.01 to the proportion. You may need to count half boxes, or find partial boxes that add to whole boxes. <br>
+```{r echo=F, fig.width=6, fig.height=4.5}
+x = seq(bottom,bottom+width,length.out=1000)
+x3 = seq(bottom,b1,length.out=1000)
+x2 = (x-bottom)/width
+plot(x,dmf(x2)/width,type="l",lwd=3,xlab="x",ylab="density",main=sprintf("%d boxes shaded below x=%d\n%d boxes unshaded above x=%d",round(p1*100),b1,round((1-p1)*100),b1))
+polygon(c(bottom,x3,b1),c(0,dmf((x3-bottom)/width),0)/width,col=rgb(0.95,0.85,0.85),lwd=3)
+yl = seq(0,height,length.out=11)
+abline(h=yl,lty=2)
+abline(v=xl,lty=2)
+abline(h=0)
+```
+\ <br>
+On the spinner, you can determine the size of a region by using the outside tickmarks. <br>
+```{r echo=F,fig.width=5,fig.height=5}
+par(mar=c(0,0,0,0))
+theta = seq(0,2*pi,length.out=1000)
+plot(cos(theta),sin(theta),ylim=c(-1.2,1.2),xlim=c(-1.2,1.2),type="l",axes=F,ann=F)
+polygon(0.03*cos(theta),0.03*sin(theta),col=rgb(0,0,0))
+for(x in xl[2:(length(xl)-1)]){
+  p = pmf((x-bottom)/width)
+  theta = 2*pi*p
+  lines(c(0.9,1)*sin(theta),c(0.9,1)*cos(theta))
+  text(0.85*sin(theta),0.85*cos(theta),x,cex=0.5,srt=-90+(-2*p*180)%%180)
+}
+text(0,0.5,sprintf("%d or %d",xl[1],xl[length(xl)]),cex=0.7,srt=-90)
+lines(c(0,0),c(0.7,1),lwd=3)
+arrows(-0.6,-0.1,0.6,0.1,lwd=2)
+for(p in 0:10/10){
+  theta1 = 2*pi*p
+  lines(c(1,1.05)*sin(theta1),c(1,1.05)*cos(theta1))
+}
+for(p in 0:20/20){
+  theta1 = 2*pi*p
+  lines(c(1,1.03)*sin(theta1),c(1,1.03)*cos(theta1))
+}
+for(p in 1:99/100){
+  theta1 = 2*pi*p
+  lines(c(1,1.02)*sin(theta1),c(1,1.02)*cos(theta1))
+  text(1.08*sin(theta1),1.08*cos(theta1),p,cex=0.5,srt=-90+(-2*p*180)%%180)
+}
+for(p in 0:200/200){
+  theta1 = 2*pi*p
+  lines(c(1,1.01)*sin(theta1),c(1,1.01)*cos(theta1))
+}
+text(0,1.1,"0 1",cex=0.7,srt=-90+(-2*p*180)%%180)
+ppp = seq(0,p1,0.001)
+polygon(c(0,sin(2*pi*ppp),0),c(0,cos(2*pi*ppp),0),col=rgb(0.9,0.5,0.5,0.5))
+lines(1.2*sin(2*pi*ppp),1.2*cos(2*pi*ppp),lwd=2,col=rgb(0,0,0.3))
+lines(c(0,0),c(1.15,1.2),col=rgb(0,0,0.3),lwd=2)
+lines(c(1.15,1.2)*sin(p1*2*pi),c(1.15,1.2)*cos(p1*2*pi),col=rgb(0,0,0.3),lwd=2)
+pt = p1/2
+text(1.16*sin(2*pi*pt),1.16*cos(2*pi*pt),p1,cex=0.8,srt=(90-pt*360)%%180-90,col=rgb(0,0,0.3))
+```
+\ <br>
+You need to read coordinates to use the cumulative curve. <br>
+```{r echo=F,fig.width=5,fig.height=10}
+x = seq(bottom-2,bottom+width+2,length.out=1000)
+p = pmf((x-bottom)/width)
+plot(x,p,type="l",lwd=2,ylab="cumulative proportion",axes=F,ylim=c(0,1))
+axis(1,at=seq(bottom,bottom+width,5))
+axis(3,at=seq(bottom,bottom+width,5))
+axis(2,at=seq(0,1,0.1))
+axis(4,at=seq(0,1,0.1))
+abline(v=xl,col=rgb(0.7,0.7,0.7))
+abline(h=0:100/100,col=rgb(0.7,0.7,0.7))
+abline(h=0:20/20,col=rgb(0.5,0.5,0.5))
+abline(h=0:10/10,col=rgb(0.3,0.3,0.3))
+abline(v=seq(bottom,bottom+width,5),col=rgb(0.3,0.3,0.3))
+lines(x,p,lwd=2)
+lines(bottom-c(1.5,2.5,2,2,2.5,1.5),c(0,0,0,p1,p1,p1),col=rgb(0,0.3,0),lwd=3)
+lines(top+c(1.5,2.5,2,2,2.5,1.5),c(0,0,0,p1,p1,p1),col=rgb(0,0.3,0),lwd=3)
+text(bottom-0.9,p1/2,p1,col=rgb(0,0.3,0),cex=0.8)
+text(top+0.9,p1/2,p1,col=rgb(0,0.3,0),cex=0.8)
+lines(c(rep(bottom,3),rep(b1,3)),-c(0.01,0.03,0.02,0.02,0.01,0.03),col=rgb(0,0.3,0),lwd=3)
+lines(c(rep(bottom,3),rep(b1,3)),c(1.01,1.03,1.02,1.02,1.01,1.03),col=rgb(0,0.3,0),lwd=3)
+points(b1,p1,pch=20)
+text(b1,p1,sprintf(" (%d, %.2f) ",b1,p1),adj=1*(p1>0.5))
+```
+\ <br>
+* The answer is `r p2` because $\text{prop}[\mathbf{x}>`r b2`]=`r p2`$. The following visualizations show this. 
+The density curve can be used by counting percent boxes. Each box adds 0.01 to the proportion. You may need to count half boxes, or find partial boxes that add to whole boxes. <br>
+```{r echo=F, fig.width=6, fig.height=4.5}
+x = seq(bottom,bottom+width,length.out=1000)
+x3 = seq(b2,bottom+width,length.out=1000)
+x2 = (x-bottom)/width
+plot(x,dmf(x2)/width,type="l",lwd=3,xlab="x",ylab="density",main=sprintf("%d boxes shaded above x=%d\n%d boxes unshaded below x=%d",round(p2*100),b2,round((1-p2)*100),b2))
+polygon(c(b2,x3,bottom+width),c(0,dmf((x3-bottom)/width),0)/width,col=rgb(0.95,0.85,0.85),lwd=3)
+yl = seq(0,height,length.out=11)
+abline(h=yl,lty=2)
+abline(v=xl,lty=2)
+abline(h=0)
+```
+\ <br>
+On the spinner, you can determine the size of a region by using the outside tickmarks. $$1-`r 1-p2`=`r p2`$$
+```{r echo=F,fig.width=5,fig.height=5}
+par(mar=c(0,0,0,0))
+theta = seq(0,2*pi,length.out=1000)
+plot(cos(theta),sin(theta),ylim=c(-1.2,1.2),xlim=c(-1.2,1.2),type="l",axes=F,ann=F)
+polygon(0.03*cos(theta),0.03*sin(theta),col=rgb(0,0,0))
+for(x in xl[2:(length(xl)-1)]){
+  p = pmf((x-bottom)/width)
+  theta = 2*pi*p
+  lines(c(0.9,1)*sin(theta),c(0.9,1)*cos(theta))
+  text(0.85*sin(theta),0.85*cos(theta),x,cex=0.5,srt=-90+(-2*p*180)%%180)
+}
+text(0,0.5,sprintf("%d or %d",xl[1],xl[length(xl)]),cex=0.7,srt=-90)
+lines(c(0,0),c(0.7,1),lwd=3)
+arrows(-0.6,-0.1,0.6,0.1,lwd=2)
+for(p in 0:10/10){
+  theta1 = 2*pi*p
+  lines(c(1,1.05)*sin(theta1),c(1,1.05)*cos(theta1))
+}
+for(p in 0:20/20){
+  theta1 = 2*pi*p
+  lines(c(1,1.03)*sin(theta1),c(1,1.03)*cos(theta1))
+}
+for(p in 1:99/100){
+  theta1 = 2*pi*p
+  lines(c(1,1.02)*sin(theta1),c(1,1.02)*cos(theta1))
+  text(1.08*sin(theta1),1.08*cos(theta1),p,cex=0.5,srt=-90+(-2*p*180)%%180)
+}
+for(p in 0:200/200){
+  theta1 = 2*pi*p
+  lines(c(1,1.01)*sin(theta1),c(1,1.01)*cos(theta1))
+}
+text(0,1.1,"0 1",cex=0.7,srt=-90+(-2*p*180)%%180)
+ppp = seq(1-p2,1,0.001)
+polygon(c(0,sin(2*pi*ppp),0),c(0,cos(2*pi*ppp),0),col=rgb(0.9,0.5,0.5,0.5))
+lines(1.2*sin(2*pi*ppp),1.2*cos(2*pi*ppp),lwd=2,col=rgb(0,0,0.3))
+lines(c(0,0),c(1.15,1.2),col=rgb(0,0,0.3),lwd=2)
+lines(c(1.15,1.2)*sin((1-p2)*2*pi),c(1.15,1.2)*cos((1-p2)*2*pi),col=rgb(0,0,0.3),lwd=2)
+pt = (1+(1-p2))/2
+text(1.16*sin(2*pi*pt),1.16*cos(2*pi*pt),p2,cex=0.8,srt=(90-pt*360)%%180-90,col=rgb(0,0,0.3))
+```
+\ <br>
+You need to read coordinates to use the cumulative curve. $$1-`r 1-p2`=`r p2`$$
+```{r echo=F,fig.width=5,fig.height=10}
+x = seq(bottom-2,top+2,length.out=1000)
+p = pmf((x-bottom)/width)
+plot(x,p,type="l",lwd=2,ylab="cumulative proportion",axes=F,ylim=c(0,1))
+axis(1,at=seq(bottom,top,5))
+axis(3,at=seq(bottom,top,5))
+axis(2,at=seq(0,1,0.1))
+axis(4,at=seq(0,1,0.1))
+abline(v=xl,col=rgb(0.7,0.7,0.7))
+abline(h=0:100/100,col=rgb(0.7,0.7,0.7))
+abline(h=0:20/20,col=rgb(0.5,0.5,0.5))
+abline(h=0:10/10,col=rgb(0.3,0.3,0.3))
+abline(v=seq(bottom,top,5),col=rgb(0.3,0.3,0.3))
+lines(x,p,lwd=2)
+lines(bottom-c(1.5,2.5,2,2,2.5,1.5),c(1-p2,1-p2,1-p2,1,1,1),col=rgb(0,0.3,0),lwd=3)
+lines(top+c(1.5,2.5,2,2,2.5,1.5),c(1-p2,1-p2,1-p2,1,1,1),col=rgb(0,0.3,0),lwd=3)
+text(bottom-0.9,(1+1-p2)/2,p2,col=rgb(0,0.3,0),cex=0.8)
+text(top+0.9,(1+1-p2)/2,p2,col=rgb(0,0.3,0),cex=0.8)
+lines(c(rep(b2,3),rep(top,3)),-c(0.01,0.03,0.02,0.02,0.01,0.03),col=rgb(0,0.3,0),lwd=3)
+lines(c(rep(b2,3),rep(top,3)),c(1.01,1.03,1.02,1.02,1.01,1.03),col=rgb(0,0.3,0),lwd=3)
+points(b2,1-p2,pch=20)
+text(b2,1-p2,sprintf(" (%d, %.2f) ",b2,1-p2),adj=1*(1-p2>0.5))
+```
+\ <br>
+* The answer is `r p3` because $\text{prop}[|\mathbf{x}-`r cen3`|<`r r3`]=`r p3`$. It helps to point out this interval has a center of `r cen3` and a radius of `r r3`, and thus a lower bound of `r cen3-r3` and an upper bound of `r cen3+r3`. The following visualizations show this. 
+The density curve can be used by counting percent boxes. Each box adds 0.01 to the proportion. You may need to count half boxes, or find partial boxes that add to whole boxes. <br>
+```{r echo=F, fig.width=6, fig.height=4.5}
+x = seq(bottom,bottom+width,length.out=1000)
+x3 = seq(lb3,ub3,length.out=1000)
+x2 = (x-bottom)/width
+plot(x,dmf(x2)/width,type="l",lwd=3,xlab="x",ylab="density",main=sprintf("%d boxes shaded within r=%d of cen=%d",round(p3*100),r3,cen3))
+polygon(c(lb3,x3,ub3),c(0,dmf((x3-bottom)/width),0)/width,col=rgb(0.95,0.85,0.85),lwd=3)
+yl = seq(0,height,length.out=11)
+abline(h=yl,lty=2)
+abline(v=xl,lty=2)
+abline(h=0)
+```
+\ <br>
+On the spinner, you can determine the size of a region by using the outside tickmarks. The lower bound is at $x=`r lb3`$, which corresponds to a cumulative proportion of `r plb3`. The upper bound is at $x=`r ub3`$, which corresponds to a cumulative proportion of `r pub3`.  $$`r pub3`-`r plb3`=`r p3`$$
+```{r echo=F,fig.width=5,fig.height=5}
+par(mar=c(0,0,0,0))
+theta = seq(0,2*pi,length.out=1000)
+plot(cos(theta),sin(theta),ylim=c(-1.2,1.2),xlim=c(-1.2,1.2),type="l",axes=F,ann=F)
+polygon(0.03*cos(theta),0.03*sin(theta),col=rgb(0,0,0))
+for(x in xl[2:(length(xl)-1)]){
+  p = pmf((x-bottom)/width)
+  theta = 2*pi*p
+  lines(c(0.9,1)*sin(theta),c(0.9,1)*cos(theta))
+  text(0.85*sin(theta),0.85*cos(theta),x,cex=0.5,srt=-90+(-2*p*180)%%180)
+}
+text(0,0.5,sprintf("%d or %d",xl[1],xl[length(xl)]),cex=0.7,srt=-90)
+lines(c(0,0),c(0.7,1),lwd=3)
+for(p in 0:10/10){
+  theta1 = 2*pi*p
+  lines(c(1,1.05)*sin(theta1),c(1,1.05)*cos(theta1))
+}
+for(p in 0:20/20){
+  theta1 = 2*pi*p
+  lines(c(1,1.03)*sin(theta1),c(1,1.03)*cos(theta1))
+}
+for(p in 1:99/100){
+  theta1 = 2*pi*p
+  lines(c(1,1.02)*sin(theta1),c(1,1.02)*cos(theta1))
+  text(1.08*sin(theta1),1.08*cos(theta1),p,cex=0.5,srt=-90+(-2*p*180)%%180)
+}
+for(p in 0:200/200){
+  theta1 = 2*pi*p
+  lines(c(1,1.01)*sin(theta1),c(1,1.01)*cos(theta1))
+}
+text(0,1.1,"0 1",cex=0.7,srt=-90+(-2*p*180)%%180)
+ppp = seq(plb3,pub3,0.001)
+polygon(c(0,sin(2*pi*ppp),0),c(0,cos(2*pi*ppp),0),col=rgb(0.9,0.5,0.5,0.5))
+lines(1.2*sin(2*pi*ppp),1.2*cos(2*pi*ppp),lwd=2,col=rgb(0,0,0.3))
+lines(c(1.15,1.2)*sin(plb3*2*pi),c(1.15,1.2)*cos(plb3*2*pi),col=rgb(0,0,0.3),lwd=2)
+lines(c(1.15,1.2)*sin(pub3*2*pi),c(1.15,1.2)*cos(pub3*2*pi),col=rgb(0,0,0.3),lwd=2)
+pt = (plb3+pub3)/2
+text(1.16*sin(2*pi*pt),1.16*cos(2*pi*pt),p3,cex=0.8,srt=(90-pt*360)%%180-90,col=rgb(0,0,0.3))
+# lines(0.6*sin(2*pi*ppp),0.6*cos(2*pi*ppp),lwd=2,col=rgb(0.3,0,0))
+points(0.98*sin(2*pi*pcen3),0.98*cos(2*pi*pcen3),pch=20)
+```
+\ <br>
+You need to read coordinates to use the cumulative curve. The lower bound is at $x=`r lb3`$, which corresponds to a cumulative proportion of `r plb3`. The upper bound is at $x=`r ub3`$, which corresponds to a cumulative proportion of `r pub3`.  $$`r pub3`-`r plb3`=`r p3`$$
+```{r echo=F,fig.width=5,fig.height=10}
+x = seq(bottom-2,top+2,length.out=1000)
+p = pmf((x-bottom)/width)
+plot(x,p,type="l",lwd=2,ylab="cumulative proportion",axes=F,ylim=c(0,1))
+axis(1,at=seq(bottom,top,5))
+axis(3,at=seq(bottom,top,5))
+axis(2,at=seq(0,1,0.1))
+axis(4,at=seq(0,1,0.1))
+abline(v=xl,col=rgb(0.7,0.7,0.7))
+abline(h=0:100/100,col=rgb(0.7,0.7,0.7))
+abline(h=0:20/20,col=rgb(0.5,0.5,0.5))
+abline(h=0:10/10,col=rgb(0.3,0.3,0.3))
+abline(v=seq(bottom,top,5),col=rgb(0.3,0.3,0.3))
+lines(x,p,lwd=2)
+lines(bottom-c(1.5,2.5,2,2,2.5,1.5),c(plb3,plb3,plb3,pub3,pub3,pub3),col=rgb(0,0.3,0),lwd=3)
+lines(top+c(1.5,2.5,2,2,2.5,1.5),c(plb3,plb3,plb3,pub3,pub3,pub3),col=rgb(0,0.3,0),lwd=3)
+text(bottom-0.9,(plb3+pub3)/2,p3,col=rgb(0,0.3,0),cex=0.8)
+text(top+0.9,(plb3+pub3)/2,p3,col=rgb(0,0.3,0),cex=0.8)
+lines(c(rep(lb3,3),rep(ub3,3)),-c(0.01,0.03,0.02,0.02,0.01,0.03),col=rgb(0,0.3,0),lwd=3)
+lines(c(rep(lb3,3),rep(ub3,3)),c(1.01,1.03,1.02,1.02,1.01,1.03),col=rgb(0,0.3,0),lwd=3)
+points(lb3,plb3,pch=20)
+text(lb3,plb3,sprintf(" (%d, %.2f) ",lb3,plb3),adj=1*(plb3>0.5))
+points(ub3,pub3,pch=20)
+text(ub3,pub3,sprintf(" (%d, %.2f) ",ub3,pub3),adj=1*(pub3>0.5))
+```
+\ <br>
+* The answer is `r b4` because $\text{prop}[\mathbf{x}<`r b4`]=`r p4`$. The following visualizations show this. 
+The density curve can be used by counting percent boxes. Each box adds 0.01 to the proportion. You may need to count half boxes, or find partial boxes that add to whole boxes. <br>
+```{r echo=F, fig.width=6, fig.height=4.5}
+x = seq(bottom,bottom+width,length.out=1000)
+x3 = seq(bottom,b4,length.out=1000)
+x2 = (x-bottom)/width
+plot(x,dmf(x2)/width,type="l",lwd=3,xlab="x",ylab="density",main=sprintf("%d boxes shaded below x=%d\n%d boxes unshaded above x=%d",round(p4*100),b4,round((1-p4)*100),b4))
+polygon(c(bottom,x3,b4),c(0,dmf((x3-bottom)/width),0)/width,col=rgb(0.95,0.85,0.85),lwd=3)
+yl = seq(0,height,length.out=11)
+abline(h=yl,lty=2)
+abline(v=xl,lty=2)
+abline(h=0)
+```
+\ <br>
+On the spinner, you can determine the size of a region by using the outside tickmarks. <br>
+```{r echo=F,fig.width=5,fig.height=5}
+par(mar=c(0,0,0,0))
+theta = seq(0,2*pi,length.out=1000)
+plot(cos(theta),sin(theta),ylim=c(-1.2,1.2),xlim=c(-1.2,1.2),type="l",axes=F,ann=F)
+polygon(0.03*cos(theta),0.03*sin(theta),col=rgb(0,0,0))
+for(x in xl[2:(length(xl)-1)]){
+  p = pmf((x-bottom)/width)
+  theta = 2*pi*p
+  lines(c(0.9,1)*sin(theta),c(0.9,1)*cos(theta))
+  text(0.85*sin(theta),0.85*cos(theta),x,cex=0.5,srt=-90+(-2*p*180)%%180)
+}
+text(0,0.5,sprintf("%d or %d",xl[1],xl[length(xl)]),cex=0.7,srt=-90)
+lines(c(0,0),c(0.7,1),lwd=3)
+arrows(-0.6,-0.1,0.6,0.1,lwd=2)
+for(p in 0:10/10){
+  theta1 = 2*pi*p
+  lines(c(1,1.05)*sin(theta1),c(1,1.05)*cos(theta1))
+}
+for(p in 0:20/20){
+  theta1 = 2*pi*p
+  lines(c(1,1.03)*sin(theta1),c(1,1.03)*cos(theta1))
+}
+for(p in 1:99/100){
+  theta1 = 2*pi*p
+  lines(c(1,1.02)*sin(theta1),c(1,1.02)*cos(theta1))
+  text(1.08*sin(theta1),1.08*cos(theta1),p,cex=0.5,srt=-90+(-2*p*180)%%180)
+}
+for(p in 0:200/200){
+  theta1 = 2*pi*p
+  lines(c(1,1.01)*sin(theta1),c(1,1.01)*cos(theta1))
+}
+text(0,1.1,"0 1",cex=0.7,srt=-90+(-2*p*180)%%180)
+ppp = seq(0,p4,0.001)
+polygon(c(0,sin(2*pi*ppp),0),c(0,cos(2*pi*ppp),0),col=rgb(0.9,0.5,0.5,0.5))
+lines(1.2*sin(2*pi*ppp),1.2*cos(2*pi*ppp),lwd=2,col=rgb(0,0,0.3))
+lines(c(0,0),c(1.15,1.2),col=rgb(0,0,0.3),lwd=2)
+lines(c(1.15,1.2)*sin(p4*2*pi),c(1.15,1.2)*cos(p4*2*pi),col=rgb(0,0,0.3),lwd=2)
+pt = p4/2
+text(1.16*sin(2*pi*pt),1.16*cos(2*pi*pt),p4,cex=0.8,srt=(90-pt*360)%%180-90,col=rgb(0,0,0.3))
+```
+\ <br>
+You need to read coordinates to use the cumulative curve. <br>
+```{r echo=F,fig.width=5,fig.height=10}
+x = seq(bottom-2,bottom+width+2,length.out=1000)
+p = pmf((x-bottom)/width)
+plot(x,p,type="l",lwd=2,ylab="cumulative proportion",axes=F,ylim=c(0,1))
+axis(1,at=seq(bottom,bottom+width,5))
+axis(3,at=seq(bottom,bottom+width,5))
+axis(2,at=seq(0,1,0.1))
+axis(4,at=seq(0,1,0.1))
+abline(v=xl,col=rgb(0.7,0.7,0.7))
+abline(h=0:100/100,col=rgb(0.7,0.7,0.7))
+abline(h=0:20/20,col=rgb(0.5,0.5,0.5))
+abline(h=0:10/10,col=rgb(0.3,0.3,0.3))
+abline(v=seq(bottom,bottom+width,5),col=rgb(0.3,0.3,0.3))
+lines(x,p,lwd=2)
+lines(bottom-c(1.5,2.5,2,2,2.5,1.5),c(0,0,0,p4,p4,p4),col=rgb(0,0.3,0),lwd=3)
+lines(top+c(1.5,2.5,2,2,2.5,1.5),c(0,0,0,p4,p4,p4),col=rgb(0,0.3,0),lwd=3)
+text(bottom-0.9,p4/2,p4,col=rgb(0,0.3,0),cex=0.8)
+text(top+0.9,p4/2,p4,col=rgb(0,0.3,0),cex=0.8)
+lines(c(rep(bottom,3),rep(b4,3)),-c(0.01,0.03,0.02,0.02,0.01,0.03),col=rgb(0,0.3,0),lwd=3)
+lines(c(rep(bottom,3),rep(b4,3)),c(1.01,1.03,1.02,1.02,1.01,1.03),col=rgb(0,0.3,0),lwd=3)
+points(b4,p4,pch=20)
+text(b4,p4,sprintf(" (%d, %.2f) ",b4,p4),adj=1*(p1>0.5))
+```
+\ <br>
+* The answer is `r b5` because $\text{prop}[\mathbf{x}>`r b5`]=`r p5`$. The following visualizations show this. 
+The density curve can be used by counting percent boxes. Each box adds 0.01 to the proportion. You may need to count half boxes, or find partial boxes that add to whole boxes. <br>
+```{r echo=F, fig.width=6, fig.height=4.5}
+x = seq(bottom,bottom+width,length.out=1000)
+x3 = seq(b5,bottom+width,length.out=1000)
+x2 = (x-bottom)/width
+plot(x,dmf(x2)/width,type="l",lwd=3,xlab="x",ylab="density",main=sprintf("%d boxes shaded above x=%d\n%d boxes unshaded below x=%d",round(p5*100),b5,round((1-p5)*100),b5))
+polygon(c(b5,x3,bottom+width),c(0,dmf((x3-bottom)/width),0)/width,col=rgb(0.95,0.85,0.85),lwd=3)
+yl = seq(0,height,length.out=11)
+abline(h=yl,lty=2)
+abline(v=xl,lty=2)
+abline(h=0)
+```
+\ <br>
+On the spinner, you can determine the size of a region by using the outside tickmarks. $$1-`r 1-p5`=`r p5`$$
+```{r echo=F,fig.width=5,fig.height=5}
+par(mar=c(0,0,0,0))
+theta = seq(0,2*pi,length.out=1000)
+plot(cos(theta),sin(theta),ylim=c(-1.2,1.2),xlim=c(-1.2,1.2),type="l",axes=F,ann=F)
+polygon(0.03*cos(theta),0.03*sin(theta),col=rgb(0,0,0))
+for(x in xl[2:(length(xl)-1)]){
+  p = pmf((x-bottom)/width)
+  theta = 2*pi*p
+  lines(c(0.9,1)*sin(theta),c(0.9,1)*cos(theta))
+  text(0.85*sin(theta),0.85*cos(theta),x,cex=0.5,srt=-90+(-2*p*180)%%180)
+}
+text(0,0.5,sprintf("%d or %d",xl[1],xl[length(xl)]),cex=0.7,srt=-90)
+lines(c(0,0),c(0.7,1),lwd=3)
+arrows(-0.6,-0.1,0.6,0.1,lwd=2)
+for(p in 0:10/10){
+  theta1 = 2*pi*p
+  lines(c(1,1.05)*sin(theta1),c(1,1.05)*cos(theta1))
+}
+for(p in 0:20/20){
+  theta1 = 2*pi*p
+  lines(c(1,1.03)*sin(theta1),c(1,1.03)*cos(theta1))
+}
+for(p in 1:99/100){
+  theta1 = 2*pi*p
+  lines(c(1,1.02)*sin(theta1),c(1,1.02)*cos(theta1))
+  text(1.08*sin(theta1),1.08*cos(theta1),p,cex=0.5,srt=-90+(-2*p*180)%%180)
+}
+for(p in 0:200/200){
+  theta1 = 2*pi*p
+  lines(c(1,1.01)*sin(theta1),c(1,1.01)*cos(theta1))
+}
+text(0,1.1,"0 1",cex=0.7,srt=-90+(-2*p*180)%%180)
+ppp = seq(1-p5,1,0.001)
+polygon(c(0,sin(2*pi*ppp),0),c(0,cos(2*pi*ppp),0),col=rgb(0.9,0.5,0.5,0.5))
+lines(1.2*sin(2*pi*ppp),1.2*cos(2*pi*ppp),lwd=2,col=rgb(0,0,0.3))
+lines(c(0,0),c(1.15,1.2),col=rgb(0,0,0.3),lwd=2)
+lines(c(1.15,1.2)*sin((1-p5)*2*pi),c(1.15,1.2)*cos((1-p5)*2*pi),col=rgb(0,0,0.3),lwd=2)
+pt = (1+(1-p5))/2
+text(1.16*sin(2*pi*pt),1.16*cos(2*pi*pt),p5,cex=0.8,srt=(90-pt*360)%%180-90,col=rgb(0,0,0.3))
+```
+\ <br>
+You need to read coordinates to use the cumulative curve. $$1-`r 1-p5`=`r p5`$$
+```{r echo=F,fig.width=5,fig.height=10}
+x = seq(bottom-2,top+2,length.out=1000)
+p = pmf((x-bottom)/width)
+plot(x,p,type="l",lwd=2,ylab="cumulative proportion",axes=F,ylim=c(0,1))
+axis(1,at=seq(bottom,top,5))
+axis(3,at=seq(bottom,top,5))
+axis(2,at=seq(0,1,0.1))
+axis(4,at=seq(0,1,0.1))
+abline(v=xl,col=rgb(0.7,0.7,0.7))
+abline(h=0:100/100,col=rgb(0.7,0.7,0.7))
+abline(h=0:20/20,col=rgb(0.5,0.5,0.5))
+abline(h=0:10/10,col=rgb(0.3,0.3,0.3))
+abline(v=seq(bottom,top,5),col=rgb(0.3,0.3,0.3))
+lines(x,p,lwd=2)
+lines(bottom-c(1.5,2.5,2,2,2.5,1.5),c(1-p5,1-p5,1-p5,1,1,1),col=rgb(0,0.3,0),lwd=3)
+lines(top+c(1.5,2.5,2,2,2.5,1.5),c(1-p5,1-p5,1-p5,1,1,1),col=rgb(0,0.3,0),lwd=3)
+text(bottom-0.9,(1+1-p5)/2,p5,col=rgb(0,0.3,0),cex=0.8)
+text(top+0.9,(1+1-p5)/2,p5,col=rgb(0,0.3,0),cex=0.8)
+lines(c(rep(b5,3),rep(top,3)),-c(0.01,0.03,0.02,0.02,0.01,0.03),col=rgb(0,0.3,0),lwd=3)
+lines(c(rep(b5,3),rep(top,3)),c(1.01,1.03,1.02,1.02,1.01,1.03),col=rgb(0,0.3,0),lwd=3)
+points(b5,1-p5,pch=20)
+text(b5,1-p5,sprintf(" (%d, %.2f) ",b5,1-p5),adj=1*(1-p5>0.5))
+```
+\ <br>
+* The answer is `r r6` because $\text{prop}[|\mathbf{x}-`r cen6`|<`r r6`]=`r p6`$. You will need to guess and check to arrive at this answer. The following shows how to check after making the correct guess. This interval has a center of `r cen6` and a radius of `r r6`, and thus a lower bound of `r cen6-r6` and an upper bound of `r cen6+r6`. 
+The density curve can be used by counting percent boxes. Each box adds 0.01 to the proportion. You may need to count half boxes, or find partial boxes that add to whole boxes. <br>
+```{r echo=F, fig.width=6, fig.height=4.5}
+x = seq(bottom,bottom+width,length.out=1000)
+x3 = seq(lb6,ub6,length.out=1000)
+x2 = (x-bottom)/width
+plot(x,dmf(x2)/width,type="l",lwd=3,xlab="x",ylab="density",main=sprintf("%d boxes shaded within r=%d of cen=%d",round(p6*100),r6,cen6))
+polygon(c(lb6,x3,ub6),c(0,dmf((x3-bottom)/width),0)/width,col=rgb(0.95,0.85,0.85),lwd=3)
+yl = seq(0,height,length.out=11)
+abline(h=yl,lty=2)
+abline(v=xl,lty=2)
+abline(h=0)
+```
+\ <br>
+On the spinner, you can determine the size of a region by using the outside tickmarks. The lower bound is at $x=`r lb6`$, which corresponds to a cumulative proportion of `r plb6`. The upper bound is at $x=`r ub6`$, which corresponds to a cumulative proportion of `r pub6`.  $$`r pub6`-`r plb6`=`r p6`$$
+```{r echo=F,fig.width=5,fig.height=5}
+par(mar=c(0,0,0,0))
+theta = seq(0,2*pi,length.out=1000)
+plot(cos(theta),sin(theta),ylim=c(-1.2,1.2),xlim=c(-1.2,1.2),type="l",axes=F,ann=F)
+polygon(0.03*cos(theta),0.03*sin(theta),col=rgb(0,0,0))
+for(x in xl[2:(length(xl)-1)]){
+  p = pmf((x-bottom)/width)
+  theta = 2*pi*p
+  lines(c(0.9,1)*sin(theta),c(0.9,1)*cos(theta))
+  text(0.85*sin(theta),0.85*cos(theta),x,cex=0.5,srt=-90+(-2*p*180)%%180)
+}
+text(0,0.5,sprintf("%d or %d",xl[1],xl[length(xl)]),cex=0.7,srt=-90)
+lines(c(0,0),c(0.7,1),lwd=3)
+for(p in 0:10/10){
+  theta1 = 2*pi*p
+  lines(c(1,1.05)*sin(theta1),c(1,1.05)*cos(theta1))
+}
+for(p in 0:20/20){
+  theta1 = 2*pi*p
+  lines(c(1,1.03)*sin(theta1),c(1,1.03)*cos(theta1))
+}
+for(p in 1:99/100){
+  theta1 = 2*pi*p
+  lines(c(1,1.02)*sin(theta1),c(1,1.02)*cos(theta1))
+  text(1.08*sin(theta1),1.08*cos(theta1),p,cex=0.5,srt=-90+(-2*p*180)%%180)
+}
+for(p in 0:200/200){
+  theta1 = 2*pi*p
+  lines(c(1,1.01)*sin(theta1),c(1,1.01)*cos(theta1))
+}
+text(0,1.1,"0 1",cex=0.7,srt=-90+(-2*p*180)%%180)
+ppp = seq(plb6,pub6,0.001)
+polygon(c(0,sin(2*pi*ppp),0),c(0,cos(2*pi*ppp),0),col=rgb(0.9,0.5,0.5,0.5))
+lines(1.2*sin(2*pi*ppp),1.2*cos(2*pi*ppp),lwd=2,col=rgb(0,0,0.3))
+lines(c(1.15,1.2)*sin(plb6*2*pi),c(1.15,1.2)*cos(plb6*2*pi),col=rgb(0,0,0.3),lwd=2)
+lines(c(1.15,1.2)*sin(pub6*2*pi),c(1.15,1.2)*cos(pub6*2*pi),col=rgb(0,0,0.3),lwd=2)
+pt = (plb6+pub6)/2
+text(1.16*sin(2*pi*pt),1.16*cos(2*pi*pt),p6,cex=0.8,srt=(90-pt*360)%%180-90,col=rgb(0,0,0.3))
+# lines(0.6*sin(2*pi*ppp),0.6*cos(2*pi*ppp),lwd=2,col=rgb(0.3,0,0))
+points(0.98*sin(2*pi*pcen6),0.98*cos(2*pi*pcen6),pch=20)
+```
+\ <br>
+You need to read coordinates to use the cumulative curve. The lower bound is at $x=`r lb6`$, which corresponds to a cumulative proportion of `r plb6`. The upper bound is at $x=`r ub6`$, which corresponds to a cumulative proportion of `r pub6`.  $$`r pub6`-`r plb6`=`r p6`$$
+```{r echo=F,fig.width=5,fig.height=10}
+x = seq(bottom-2,top+2,length.out=1000)
+p = pmf((x-bottom)/width)
+plot(x,p,type="l",lwd=2,ylab="cumulative proportion",axes=F,ylim=c(0,1))
+axis(1,at=seq(bottom,top,5))
+axis(3,at=seq(bottom,top,5))
+axis(2,at=seq(0,1,0.1))
+axis(4,at=seq(0,1,0.1))
+abline(v=xl,col=rgb(0.7,0.7,0.7))
+abline(h=0:100/100,col=rgb(0.7,0.7,0.7))
+abline(h=0:20/20,col=rgb(0.5,0.5,0.5))
+abline(h=0:10/10,col=rgb(0.3,0.3,0.3))
+abline(v=seq(bottom,top,5),col=rgb(0.3,0.3,0.3))
+lines(x,p,lwd=2)
+lines(bottom-c(1.5,2.5,2,2,2.5,1.5),c(plb6,plb6,plb6,pub6,pub6,pub6),col=rgb(0,0.3,0),lwd=3)
+lines(top+c(1.5,2.5,2,2,2.5,1.5),c(plb6,plb6,plb6,pub6,pub6,pub6),col=rgb(0,0.3,0),lwd=3)
+text(bottom-0.9,(plb6+pub6)/2,p6,col=rgb(0,0.3,0),cex=0.8)
+text(top+0.9,(plb6+pub6)/2,p6,col=rgb(0,0.3,0),cex=0.8)
+lines(c(rep(lb6,3),rep(ub6,3)),-c(0.01,0.03,0.02,0.02,0.01,0.03),col=rgb(0,0.3,0),lwd=3)
+lines(c(rep(lb6,3),rep(ub6,3)),c(1.01,1.03,1.02,1.02,1.01,1.03),col=rgb(0,0.3,0),lwd=3)
+points(lb6,plb6,pch=20)
+text(lb6,plb6,sprintf(" (%d, %.2f) ",lb6,plb6),adj=1*(plb6>0.5))
+points(ub6,pub6,pch=20)
+text(ub6,pub6,sprintf(" (%d, %.2f) ",ub6,pub6),adj=1*(pub6>0.5))
+```
+\
+
+
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|num|num
+exsolution: `r p1`|`r p2`|`r p3`|`r b4`|`r b5`|`r r6`
+exname: estimate_area
+extol: 0.01|0.01|0.01|0.5|0.5|0.5
+exextra[numwidth,character]: 999.99
