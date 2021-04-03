@@ -10,7 +10,7 @@ There are also a couple Shiny apps. They are rough, but my students prefer using
 2. [T-dist probabilities](http://18.191.167.248:3838/Tprob/)
 3. [Central-limit-theory probabilities](http://18.191.167.248:3838/CLTprob/)
 
-If you plan to regularly use these Shiny apps, please host them yourself. I can't afford a flood of queries. 
+If you plan to regularly use these Shiny apps, please host them yourself. I can't afford a flood of traffic. 
 
 Obviously, this is still very much a work in progress.
 
