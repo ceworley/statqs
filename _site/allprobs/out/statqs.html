@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Stat Qs</title>
+<style>
+ body { padding-bottom: 30vh; }
+/* Remove default bullets */
+ul, #myUL {
+  list-style-type: none;
+}
+/* Remove margins and padding from the parent ul */
+#myUL {
+  margin: 0;
+  padding: 0;
+}
+/* Style the caret/arrow */
+.caret {
+  cursor: pointer;
+  user-select: none; /* Prevent text selection */
+}
+/* Create the caret/arrow with a unicode, and style it */
+.caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+}
+.erase::before {
+  content: none;
+}
+.sel::before {
+  content: "\2B24";
+  color: green;
+  display: inline-block;
+}
+/* Hide the nested list */
+.nested {
+  display: none;
+}
+/* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+.active {
+  display: block;
+}
+#myBtn1 {
+  display: block;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 10vw;
+  height: 5vh;
+  z-index: 99;
+  font-size: 3vh;
+  border: none;
+  outline: none;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  border-radius: 1vh;
+}
+#myBtn2 {
+  display: block;
+  position: fixed;
+  bottom: 0px;
+  left: 10vw;
+  width: 10vw;
+  height: 5vh;
+  z-index: 99;
+  font-size: 3vh;
+  border: none;
+  outline: none;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  border-radius: 1vh;
+}
+#myBtn3 {
+  display: block;
+  position: fixed;
+  bottom: 0px;
+  left: 20vw;
+  width: 10vw;
+  height: 5vh;
+  z-index: 99;
+  font-size: 3vh;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  border-radius: 1vh;
+}
+#myBtn4 {
+  display: block;
+  position: fixed;
+  bottom: 0px;
+  left: 30vw;
+  width: 10vw;
+  height: 5vh;
+  z-index: 99;
+  font-size: 3vh;
+  border: none;
+  outline: none;
+  background-color: #555555;
+  color: white;
+  cursor: pointer;
+  border-radius: 1vh;
+}
+#myBtn5 {
+  display: block;
+  position: fixed;
+  bottom: 0px;
+  left: 40vw;
+  width: 10vw;
+  height: 5vh;
+  z-index: 99;
+  font-size: 3vh;
+  border: none;
+  outline: none;
+  background-color: #666666;
+  color: white;
+  cursor: pointer;
+  border-radius: 1vh;
+}
+#myBtn6 {
+  display: block;
+  position: fixed;
+  bottom: 0px;
+  left: 50vw;
+  width: 10vw;
+  height: 5vh;
+  z-index: 99;
+  font-size: 3vh;
+  border: none;
+  outline: none;
+  background-color: #555555;
+  color: white;
+  cursor: pointer;
+  border-radius: 1vh;
+}
+#myBtn7 {
+  display: block;
+  position: fixed;
+  bottom: 0px;
+  left: 60vw;
+  width: 10vw;
+  height: 5vh;
+  z-index: 99;
+  font-size: 3vh;
+  border: none;
+  outline: none;
+  background-color: #666666;
+  color: white;
+  cursor: pointer;
+  border-radius: 1vh;
+}
+.button {
+  background: #AAAAAA;
+}
+</style><script>
+var qs = ["01_data_basics/01_counting/01_list_counting_basic1.html","01_data_basics/01_counting/01_list_counting_basic2.html","01_data_basics/01_counting/01_list_counting_basic3.html","01_data_basics/01_counting/02_list_counting_between1.html","01_data_basics/01_counting/02_list_counting_between2.html","01_data_basics/01_counting/02_list_counting_between3.html","01_data_basics/01_counting/03_list_counting_large1.html","01_data_basics/01_counting/03_list_counting_large2.html","01_data_basics/01_counting/03_list_counting_large3.html","01_data_basics/01_counting/04_make_frequency_distribution1.html","01_data_basics/01_counting/04_make_frequency_distribution2.html","01_data_basics/01_counting/04_make_frequency_distribution3.html","01_data_basics/01_counting/05_read_frequency_distribution1.html","01_data_basics/01_counting/05_read_frequency_distribution2.html","01_data_basics/01_counting/05_read_frequency_distribution3.html","01_data_basics/01_counting/06_read_histogram1.html","01_data_basics/01_counting/06_read_histogram2.html","01_data_basics/01_counting/06_read_histogram3.html","01_data_basics/01_counting/07_read_histogram_discrete1.html","01_data_basics/01_counting/07_read_histogram_discrete2.html","01_data_basics/01_counting/07_read_histogram_discrete3.html","01_data_basics/01_counting/08_read_circle_freq1.html","01_data_basics/01_counting/08_read_circle_freq2.html","01_data_basics/01_counting/08_read_circle_freq3.html","01_data_basics/02_proportion/01_list_proportion_basic1.html","01_data_basics/02_proportion/01_list_proportion_basic2.html","01_data_basics/02_proportion/01_list_proportion_basic3.html","01_data_basics/02_proportion/02_list_proportion_between1.html","01_data_basics/02_proportion/02_list_proportion_between2.html","01_data_basics/02_proportion/02_list_proportion_between3.html","01_data_basics/02_proportion/03_list_proportion_large1.html","01_data_basics/02_proportion/03_list_proportion_large2.html","01_data_basics/02_proportion/03_list_proportion_large3.html","01_data_basics/02_proportion/04_make_relfreq_dens1.html","01_data_basics/02_proportion/04_make_relfreq_dens2.html","01_data_basics/02_proportion/04_make_relfreq_dens3.html","01_data_basics/02_proportion/05_read_frequency_distribution_prop1.html","01_data_basics/02_proportion/05_read_frequency_distribution_prop2.html","01_data_basics/02_proportion/05_read_frequency_distribution_prop3.html","01_data_basics/02_proportion/06_read_histogram1.html","01_data_basics/02_proportion/06_read_histogram2.html","01_data_basics/02_proportion/06_read_histogram3.html","01_data_basics/02_proportion/07_read_histogram_discrete1.html","01_data_basics/02_proportion/07_read_histogram_discrete2.html","01_data_basics/02_proportion/07_read_histogram_discrete3.html","01_data_basics/02_proportion/08_read_circle_prop1.html","01_data_basics/02_proportion/08_read_circle_prop2.html","01_data_basics/02_proportion/08_read_circle_prop3.html","01_data_basics/03_distributions/01_identify_distributions1.html","01_data_basics/03_distributions/01_identify_distributions2.html","01_data_basics/03_distributions/01_identify_distributions3.html","01_data_basics/03_distributions/02_make_histogram_and_identify_shape1.html","01_data_basics/03_distributions/02_make_histogram_and_identify_shape2.html","01_data_basics/03_distributions/02_make_histogram_and_identify_shape3.html","01_data_basics/04_center/01_get_mean1.html","01_data_basics/04_center/01_get_mean2.html","01_data_basics/04_center/01_get_mean3.html","01_data_basics/04_center/02_get_median1.html","01_data_basics/04_center/02_get_median2.html","01_data_basics/04_center/02_get_median3.html","01_data_basics/04_center/03_compare_mean_median1.html","01_data_basics/04_center/03_compare_mean_median2.html","01_data_basics/04_center/03_compare_mean_median3.html","01_data_basics/04_center/04_get_phat1.html","01_data_basics/04_center/04_get_phat2.html","01_data_basics/04_center/04_get_phat3.html","01_data_basics/05_spread/01_get_range1.html","01_data_basics/05_spread/01_get_range2.html","01_data_basics/05_spread/01_get_range3.html","01_data_basics/05_spread/02_get_MAD1.html","01_data_basics/05_spread/02_get_MAD2.html","01_data_basics/05_spread/02_get_MAD3.html","01_data_basics/05_spread/03_get_VAR1.html","01_data_basics/05_spread/03_get_VAR2.html","01_data_basics/05_spread/03_get_VAR3.html","01_data_basics/05_spread/04_get_VAR21.html","01_data_basics/05_spread/04_get_VAR22.html","01_data_basics/05_spread/04_get_VAR23.html","01_data_basics/05_spread/05_get_SD1.html","01_data_basics/05_spread/05_get_SD2.html","01_data_basics/05_spread/05_get_SD3.html","01_data_basics/05_spread/06_get_SD21.html","01_data_basics/05_spread/06_get_SD22.html","01_data_basics/05_spread/06_get_SD23.html","01_data_basics/05_spread/07_estimate_SD1.html","01_data_basics/05_spread/07_estimate_SD2.html","01_data_basics/05_spread/07_estimate_SD3.html","01_data_basics/05_spread/08_compare_SD_same_shape1.html","01_data_basics/05_spread/08_compare_SD_same_shape2.html","01_data_basics/05_spread/08_compare_SD_same_shape3.html","01_data_basics/05_spread/09_compare_SD_same_width1.html","01_data_basics/05_spread/09_compare_SD_same_width2.html","01_data_basics/05_spread/09_compare_SD_same_width3.html","01_data_basics/05_spread/10_get_interval_of_typical_measurements1.html","01_data_basics/05_spread/10_get_interval_of_typical_measurements2.html","01_data_basics/05_spread/10_get_interval_of_typical_measurements3.html","01_data_basics/05_spread/11_check_interval_of_typical_measurements1.html","01_data_basics/05_spread/11_check_interval_of_typical_measurements2.html","01_data_basics/05_spread/11_check_interval_of_typical_measurements3.html","01_data_basics/05_spread/12_get_IQR1.html","01_data_basics/05_spread/12_get_IQR2.html","01_data_basics/05_spread/12_get_IQR3.html","01_data_basics/05_spread/13_get_MAD_prop1.html","01_data_basics/05_spread/13_get_MAD_prop2.html","01_data_basics/05_spread/13_get_MAD_prop3.html","01_data_basics/05_spread/14_get_VAR_prop1.html","01_data_basics/05_spread/14_get_VAR_prop2.html","01_data_basics/05_spread/14_get_VAR_prop3.html","01_data_basics/05_spread/15_get_SD_prop1.html","01_data_basics/05_spread/15_get_SD_prop2.html","01_data_basics/05_spread/15_get_SD_prop3.html","01_data_basics/06_boxplots/01_read_boxplot1.html","01_data_basics/06_boxplots/01_read_boxplot2.html","01_data_basics/06_boxplots/01_read_boxplot3.html","01_data_basics/06_boxplots/02_compare_boxplots1.html","01_data_basics/06_boxplots/02_compare_boxplots2.html","01_data_basics/06_boxplots/02_compare_boxplots3.html","01_data_basics/06_boxplots/03_identify_distributions_boxplots1.html","01_data_basics/06_boxplots/03_identify_distributions_boxplots2.html","01_data_basics/06_boxplots/03_identify_distributions_boxplots3.html","01_data_basics/07_continuous_distributions/01_estimate_area1.html","01_data_basics/07_continuous_distributions/01_estimate_area2.html","01_data_basics/07_continuous_distributions/01_estimate_area3.html","01_data_basics/07_continuous_distributions/02_normal_basic1.html","01_data_basics/07_continuous_distributions/02_normal_basic2.html","01_data_basics/07_continuous_distributions/02_normal_basic3.html","01_data_basics/07_continuous_distributions/03_standard_score1.html","01_data_basics/07_continuous_distributions/03_standard_score2.html","01_data_basics/07_continuous_distributions/03_standard_score3.html","01_data_basics/08_exam/01_summary_statistics1.html","01_data_basics/08_exam/01_summary_statistics2.html","01_data_basics/08_exam/01_summary_statistics3.html","01_data_basics/08_exam/02_proportions_from_list1.html","01_data_basics/08_exam/02_proportions_from_list2.html","01_data_basics/08_exam/02_proportions_from_list3.html","01_data_basics/08_exam/03_read_histogram1.html","01_data_basics/08_exam/03_read_histogram2.html","01_data_basics/08_exam/03_read_histogram3.html","01_data_basics/08_exam/04_compare_SD_same_shape1.html","01_data_basics/08_exam/04_compare_SD_same_shape2.html","01_data_basics/08_exam/04_compare_SD_same_shape3.html","01_data_basics/08_exam/05_compare_SD_same_width1.html","01_data_basics/08_exam/05_compare_SD_same_width2.html","01_data_basics/08_exam/05_compare_SD_same_width3.html","01_data_basics/08_exam/06_compare_boxplots1.html","01_data_basics/08_exam/06_compare_boxplots2.html","01_data_basics/08_exam/06_compare_boxplots3.html","01_data_basics/08_exam/07_get_interval_of_typical_measurements1.html","01_data_basics/08_exam/07_get_interval_of_typical_measurements2.html","01_data_basics/08_exam/07_get_interval_of_typical_measurements3.html","01_data_basics/08_exam/08_empirical_rule1.html","01_data_basics/08_exam/08_empirical_rule2.html","01_data_basics/08_exam/08_empirical_rule3.html","01_data_basics/08_exam/09_standard_score1.html","01_data_basics/08_exam/09_standard_score2.html","01_data_basics/08_exam/09_standard_score3.html","01_data_basics/08_exam/10_make_histogram_and_identify_shape1.html","01_data_basics/08_exam/10_make_histogram_and_identify_shape2.html","01_data_basics/08_exam/10_make_histogram_and_identify_shape3.html","02_probability/01_overview/q1_cards1.html","02_probability/01_overview/q1_cards2.html","02_probability/01_overview/q1_cards3.html","02_probability/01_overview/q2_probdist1.html","02_probability/01_overview/q2_probdist2.html","02_probability/01_overview/q2_probdist3.html","02_probability/01_overview/q3_comb1.html","02_probability/01_overview/q3_comb2.html","02_probability/01_overview/q3_comb3.html","02_probability/01_overview/q4_perm1.html","02_probability/01_overview/q4_perm2.html","02_probability/01_overview/q4_perm3.html","02_probability/01_overview/q5_binomial1.html","02_probability/01_overview/q5_binomial2.html","02_probability/01_overview/q5_binomial3.html","02_probability/01_overview/q6_bobhappy1.html","02_probability/01_overview/q6_bobhappy2.html","02_probability/01_overview/q6_bobhappy3.html","02_probability/01_overview/q7_winlose1.html","02_probability/01_overview/q7_winlose2.html","02_probability/01_overview/q7_winlose3.html","03_central_limit_theorem/01_standard_normal/01_leftarea_from_z1.html","03_central_limit_theorem/01_standard_normal/01_leftarea_from_z2.html","03_central_limit_theorem/01_standard_normal/01_leftarea_from_z3.html","03_central_limit_theorem/01_standard_normal/02_rightarea_from_z1.html","03_central_limit_theorem/01_standard_normal/02_rightarea_from_z2.html","03_central_limit_theorem/01_standard_normal/02_rightarea_from_z3.html","03_central_limit_theorem/01_standard_normal/03_centralarea_from_z1.html","03_central_limit_theorem/01_standard_normal/03_centralarea_from_z2.html","03_central_limit_theorem/01_standard_normal/03_centralarea_from_z3.html","03_central_limit_theorem/01_standard_normal/04_twotailarea_from_z1.html","03_central_limit_theorem/01_standard_normal/04_twotailarea_from_z2.html","03_central_limit_theorem/01_standard_normal/04_twotailarea_from_z3.html","03_central_limit_theorem/01_standard_normal/05_area_between_two_zs1.html","03_central_limit_theorem/01_standard_normal/05_area_between_two_zs2.html","03_central_limit_theorem/01_standard_normal/05_area_between_two_zs3.html","03_central_limit_theorem/01_standard_normal/06_z_from_left_area1.html","03_central_limit_theorem/01_standard_normal/06_z_from_left_area2.html","03_central_limit_theorem/01_standard_normal/06_z_from_left_area3.html","03_central_limit_theorem/01_standard_normal/07_z_from_right_area1.html","03_central_limit_theorem/01_standard_normal/07_z_from_right_area2.html","03_central_limit_theorem/01_standard_normal/07_z_from_right_area3.html","03_central_limit_theorem/01_standard_normal/08_z_from_central_area1.html","03_central_limit_theorem/01_standard_normal/08_z_from_central_area2.html","03_central_limit_theorem/01_standard_normal/08_z_from_central_area3.html","03_central_limit_theorem/01_standard_normal/09_z_from_twotail_area1.html","03_central_limit_theorem/01_standard_normal/09_z_from_twotail_area2.html","03_central_limit_theorem/01_standard_normal/09_z_from_twotail_area3.html","03_central_limit_theorem/02_normal/01_compare_zs1.html","03_central_limit_theorem/02_normal/01_compare_zs2.html","03_central_limit_theorem/02_normal/01_compare_zs3.html","03_central_limit_theorem/02_normal/02_leftarea_from_x1.html","03_central_limit_theorem/02_normal/02_leftarea_from_x2.html","03_central_limit_theorem/02_normal/02_leftarea_from_x3.html","03_central_limit_theorem/02_normal/03_rightarea_from_x1.html","03_central_limit_theorem/02_normal/03_rightarea_from_x2.html","03_central_limit_theorem/02_normal/03_rightarea_from_x3.html","03_central_limit_theorem/02_normal/04_centralarea_from_x1.html","03_central_limit_theorem/02_normal/04_centralarea_from_x2.html","03_central_limit_theorem/02_normal/04_centralarea_from_x3.html","03_central_limit_theorem/02_normal/05_twotailarea_from_x1.html","03_central_limit_theorem/02_normal/05_twotailarea_from_x2.html","03_central_limit_theorem/02_normal/05_twotailarea_from_x3.html","03_central_limit_theorem/02_normal/06_betweenarea_from_x1.html","03_central_limit_theorem/02_normal/06_betweenarea_from_x2.html","03_central_limit_theorem/02_normal/06_betweenarea_from_x3.html","03_central_limit_theorem/02_normal/07_x_from_leftarea1.html","03_central_limit_theorem/02_normal/07_x_from_leftarea2.html","03_central_limit_theorem/02_normal/07_x_from_leftarea3.html","03_central_limit_theorem/02_normal/08_x_from_rightarea1.html","03_central_limit_theorem/02_normal/08_x_from_rightarea2.html","03_central_limit_theorem/02_normal/08_x_from_rightarea3.html","03_central_limit_theorem/02_normal/09_bounds_from_centralarea1.html","03_central_limit_theorem/02_normal/09_bounds_from_centralarea2.html","03_central_limit_theorem/02_normal/09_bounds_from_centralarea3.html","03_central_limit_theorem/02_normal/10_bounds_from_twotailarea1.html","03_central_limit_theorem/02_normal/10_bounds_from_twotailarea2.html","03_central_limit_theorem/02_normal/10_bounds_from_twotailarea3.html","03_central_limit_theorem/03_central_limit_theorem/01_calculate_z_from_sample_mean1.html","03_central_limit_theorem/03_central_limit_theorem/01_calculate_z_from_sample_mean2.html","03_central_limit_theorem/03_central_limit_theorem/01_calculate_z_from_sample_mean3.html","03_central_limit_theorem/03_central_limit_theorem/02_calculate_z_from_sample_total1.html","03_central_limit_theorem/03_central_limit_theorem/02_calculate_z_from_sample_total2.html","03_central_limit_theorem/03_central_limit_theorem/02_calculate_z_from_sample_total3.html","03_central_limit_theorem/03_central_limit_theorem/03_compare_zs_means1.html","03_central_limit_theorem/03_central_limit_theorem/03_compare_zs_means2.html","03_central_limit_theorem/03_central_limit_theorem/03_compare_zs_means3.html","03_central_limit_theorem/03_central_limit_theorem/04_ave_less1.html","03_central_limit_theorem/03_central_limit_theorem/04_ave_less2.html","03_central_limit_theorem/03_central_limit_theorem/04_ave_less3.html","03_central_limit_theorem/03_central_limit_theorem/05_ave_more1.html","03_central_limit_theorem/03_central_limit_theorem/05_ave_more2.html","03_central_limit_theorem/03_central_limit_theorem/05_ave_more3.html","03_central_limit_theorem/03_central_limit_theorem/06_ave_near1.html","03_central_limit_theorem/03_central_limit_theorem/06_ave_near2.html","03_central_limit_theorem/03_central_limit_theorem/06_ave_near3.html","03_central_limit_theorem/03_central_limit_theorem/07_ave_far1.html","03_central_limit_theorem/03_central_limit_theorem/07_ave_far2.html","03_central_limit_theorem/03_central_limit_theorem/07_ave_far3.html","03_central_limit_theorem/03_central_limit_theorem/08_total_dice_less1.html","03_central_limit_theorem/03_central_limit_theorem/08_total_dice_less2.html","03_central_limit_theorem/03_central_limit_theorem/08_total_dice_less3.html","03_central_limit_theorem/03_central_limit_theorem/09_total_more1.html","03_central_limit_theorem/03_central_limit_theorem/09_total_more2.html","03_central_limit_theorem/03_central_limit_theorem/09_total_more3.html","03_central_limit_theorem/03_central_limit_theorem/10_total_near1.html","03_central_limit_theorem/03_central_limit_theorem/10_total_near2.html","03_central_limit_theorem/03_central_limit_theorem/10_total_near3.html","03_central_limit_theorem/03_central_limit_theorem/11_total_far1.html","03_central_limit_theorem/03_central_limit_theorem/11_total_far2.html","03_central_limit_theorem/03_central_limit_theorem/11_total_far3.html","03_central_limit_theorem/03_central_limit_theorem/12_binom_less1.html","03_central_limit_theorem/03_central_limit_theorem/12_binom_less2.html","03_central_limit_theorem/03_central_limit_theorem/12_binom_less3.html","03_central_limit_theorem/03_central_limit_theorem/13_binom_more1.html","03_central_limit_theorem/03_central_limit_theorem/13_binom_more2.html","03_central_limit_theorem/03_central_limit_theorem/13_binom_more3.html","03_central_limit_theorem/03_central_limit_theorem/14_binom_between1.html","03_central_limit_theorem/03_central_limit_theorem/14_binom_between2.html","03_central_limit_theorem/03_central_limit_theorem/14_binom_between3.html","03_central_limit_theorem/03_central_limit_theorem/15_prop_less1.html","03_central_limit_theorem/03_central_limit_theorem/15_prop_less2.html","03_central_limit_theorem/03_central_limit_theorem/15_prop_less3.html","03_central_limit_theorem/03_central_limit_theorem/16_prop_more1.html","03_central_limit_theorem/03_central_limit_theorem/16_prop_more2.html","03_central_limit_theorem/03_central_limit_theorem/16_prop_more3.html","03_central_limit_theorem/03_central_limit_theorem/17_prop_between1.html","03_central_limit_theorem/03_central_limit_theorem/17_prop_between2.html","03_central_limit_theorem/03_central_limit_theorem/17_prop_between3.html","03_central_limit_theorem/04_exam3/01_SNP_and_bounds1.html","03_central_limit_theorem/04_exam3/01_SNP_and_bounds2.html","03_central_limit_theorem/04_exam3/01_SNP_and_bounds3.html","03_central_limit_theorem/04_exam3/02_NP_and_bounds1.html","03_central_limit_theorem/04_exam3/02_NP_and_bounds2.html","03_central_limit_theorem/04_exam3/02_NP_and_bounds3.html","03_central_limit_theorem/04_exam3/03_intervals1.html","03_central_limit_theorem/04_exam3/03_intervals2.html","03_central_limit_theorem/04_exam3/03_intervals3.html","03_central_limit_theorem/04_exam3/04_intervals_bern_prop_binom1.html","03_central_limit_theorem/04_exam3/04_intervals_bern_prop_binom2.html","03_central_limit_theorem/04_exam3/04_intervals_bern_prop_binom3.html","03_central_limit_theorem/04_exam3/05_compare_zs_means1.html","03_central_limit_theorem/04_exam3/05_compare_zs_means2.html","03_central_limit_theorem/04_exam3/05_compare_zs_means3.html","03_central_limit_theorem/04_exam3/06_calculate_z_from_sample_total1.html","03_central_limit_theorem/04_exam3/06_calculate_z_from_sample_total2.html","03_central_limit_theorem/04_exam3/06_calculate_z_from_sample_total3.html","03_central_limit_theorem/04_exam3/07_CLT_mean_tot1.html","03_central_limit_theorem/04_exam3/07_CLT_mean_tot2.html","03_central_limit_theorem/04_exam3/07_CLT_mean_tot3.html","03_central_limit_theorem/04_exam3/08_DMLT_prop_binom1.html","03_central_limit_theorem/04_exam3/08_DMLT_prop_binom2.html","03_central_limit_theorem/04_exam3/08_DMLT_prop_binom3.html","04_inferential_statistics/01_T_dist/01_T_probs1.html","04_inferential_statistics/01_T_dist/01_T_probs2.html","04_inferential_statistics/01_T_dist/01_T_probs3.html","04_inferential_statistics/02_confidence_intervals/01_conf_int_rough1.html","04_inferential_statistics/02_confidence_intervals/01_conf_int_rough2.html","04_inferential_statistics/02_confidence_intervals/01_conf_int_rough3.html","04_inferential_statistics/02_confidence_intervals/02_conf_int_prop_rough1.html","04_inferential_statistics/02_confidence_intervals/02_conf_int_prop_rough2.html","04_inferential_statistics/02_confidence_intervals/02_conf_int_prop_rough3.html","04_inferential_statistics/02_confidence_intervals/03_conf_int_prop1.html","04_inferential_statistics/02_confidence_intervals/03_conf_int_prop2.html","04_inferential_statistics/02_confidence_intervals/03_conf_int_prop3.html","04_inferential_statistics/02_confidence_intervals/04_conf_int_z1.html","04_inferential_statistics/02_confidence_intervals/04_conf_int_z2.html","04_inferential_statistics/02_confidence_intervals/04_conf_int_z3.html","04_inferential_statistics/02_confidence_intervals/05_conf_int_t1.html","04_inferential_statistics/02_confidence_intervals/05_conf_int_t2.html","04_inferential_statistics/02_confidence_intervals/05_conf_int_t3.html","04_inferential_statistics/02_confidence_intervals/06_conf_int_t_raw1.html","04_inferential_statistics/02_confidence_intervals/06_conf_int_t_raw2.html","04_inferential_statistics/02_confidence_intervals/06_conf_int_t_raw3.html","04_inferential_statistics/02_confidence_intervals/07_conf_int_z_raw1.html","04_inferential_statistics/02_confidence_intervals/07_conf_int_z_raw2.html","04_inferential_statistics/02_confidence_intervals/07_conf_int_z_raw3.html","04_inferential_statistics/02_confidence_intervals/08_conf_int_prop_raw1.html","04_inferential_statistics/02_confidence_intervals/08_conf_int_prop_raw2.html","04_inferential_statistics/02_confidence_intervals/08_conf_int_prop_raw3.html","04_inferential_statistics/02_confidence_intervals/09_n_from_ME1.html","04_inferential_statistics/02_confidence_intervals/09_n_from_ME2.html","04_inferential_statistics/02_confidence_intervals/09_n_from_ME3.html","04_inferential_statistics/02_confidence_intervals/10_n_from_ME_prop1.html","04_inferential_statistics/02_confidence_intervals/10_n_from_ME_prop2.html","04_inferential_statistics/02_confidence_intervals/10_n_from_ME_prop3.html","04_inferential_statistics/03_hypothesis_tests_one_sample/01_hyptest_single_mean1.html","04_inferential_statistics/03_hypothesis_tests_one_sample/01_hyptest_single_mean2.html","04_inferential_statistics/03_hypothesis_tests_one_sample/01_hyptest_single_mean3.html","04_inferential_statistics/03_hypothesis_tests_one_sample/02_hyptest_one_prop1.html","04_inferential_statistics/03_hypothesis_tests_one_sample/02_hyptest_one_prop2.html","04_inferential_statistics/03_hypothesis_tests_one_sample/02_hyptest_one_prop3.html","04_inferential_statistics/03_hypothesis_tests_one_sample/03_hyptest_single_mean_raw_archery1.html","04_inferential_statistics/03_hypothesis_tests_one_sample/03_hyptest_single_mean_raw_archery2.html","04_inferential_statistics/03_hypothesis_tests_one_sample/03_hyptest_single_mean_raw_archery3.html","04_inferential_statistics/03_hypothesis_tests_one_sample/04_hyptest_one_prop_raw_coin1.html","04_inferential_statistics/03_hypothesis_tests_one_sample/04_hyptest_one_prop_raw_coin2.html","04_inferential_statistics/03_hypothesis_tests_one_sample/04_hyptest_one_prop_raw_coin3.html","04_inferential_statistics/04_hypothesis_tests_two_sample/01_hyptest_paired_data1.html","04_inferential_statistics/04_hypothesis_tests_two_sample/01_hyptest_paired_data2.html","04_inferential_statistics/04_hypothesis_tests_two_sample/01_hyptest_paired_data3.html","04_inferential_statistics/04_hypothesis_tests_two_sample/02_hyptest_2_means_data1.html","04_inferential_statistics/04_hypothesis_tests_two_sample/02_hyptest_2_means_data2.html","04_inferential_statistics/04_hypothesis_tests_two_sample/02_hyptest_2_means_data3.html","04_inferential_statistics/04_hypothesis_tests_two_sample/03_hyptest_2_props_data1.html","04_inferential_statistics/04_hypothesis_tests_two_sample/03_hyptest_2_props_data2.html","04_inferential_statistics/04_hypothesis_tests_two_sample/03_hyptest_2_props_data3.html","04_inferential_statistics/05_exam4/01_one_mean_ci_pval1.html","04_inferential_statistics/05_exam4/01_one_mean_ci_pval2.html","04_inferential_statistics/05_exam4/01_one_mean_ci_pval3.html","04_inferential_statistics/05_exam4/02_one_prop_ci_pval1.html","04_inferential_statistics/05_exam4/02_one_prop_ci_pval2.html","04_inferential_statistics/05_exam4/02_one_prop_ci_pval3.html","04_inferential_statistics/05_exam4/03_hyptest_paired_data1.html","04_inferential_statistics/05_exam4/03_hyptest_paired_data2.html","04_inferential_statistics/05_exam4/03_hyptest_paired_data3.html","04_inferential_statistics/05_exam4/04_hyptest_2_means_data1.html","04_inferential_statistics/05_exam4/04_hyptest_2_means_data2.html","04_inferential_statistics/05_exam4/04_hyptest_2_means_data3.html","04_inferential_statistics/05_exam4/05_hyptest_2_props_data1.html","04_inferential_statistics/05_exam4/05_hyptest_2_props_data2.html","04_inferential_statistics/05_exam4/05_hyptest_2_props_data3.html"];
+var as = ["01_data_basics/01_counting/01_list_counting_basic_sol1.html","01_data_basics/01_counting/01_list_counting_basic_sol2.html","01_data_basics/01_counting/01_list_counting_basic_sol3.html","01_data_basics/01_counting/02_list_counting_between_sol1.html","01_data_basics/01_counting/02_list_counting_between_sol2.html","01_data_basics/01_counting/02_list_counting_between_sol3.html","01_data_basics/01_counting/03_list_counting_large_sol1.html","01_data_basics/01_counting/03_list_counting_large_sol2.html","01_data_basics/01_counting/03_list_counting_large_sol3.html","01_data_basics/01_counting/04_make_frequency_distribution_sol1.html","01_data_basics/01_counting/04_make_frequency_distribution_sol2.html","01_data_basics/01_counting/04_make_frequency_distribution_sol3.html","01_data_basics/01_counting/05_read_frequency_distribution_sol1.html","01_data_basics/01_counting/05_read_frequency_distribution_sol2.html","01_data_basics/01_counting/05_read_frequency_distribution_sol3.html","01_data_basics/01_counting/06_read_histogram_sol1.html","01_data_basics/01_counting/06_read_histogram_sol2.html","01_data_basics/01_counting/06_read_histogram_sol3.html","01_data_basics/01_counting/07_read_histogram_discrete_sol1.html","01_data_basics/01_counting/07_read_histogram_discrete_sol2.html","01_data_basics/01_counting/07_read_histogram_discrete_sol3.html","01_data_basics/01_counting/08_read_circle_freq_sol1.html","01_data_basics/01_counting/08_read_circle_freq_sol2.html","01_data_basics/01_counting/08_read_circle_freq_sol3.html","01_data_basics/02_proportion/01_list_proportion_basic_sol1.html","01_data_basics/02_proportion/01_list_proportion_basic_sol2.html","01_data_basics/02_proportion/01_list_proportion_basic_sol3.html","01_data_basics/02_proportion/02_list_proportion_between_sol1.html","01_data_basics/02_proportion/02_list_proportion_between_sol2.html","01_data_basics/02_proportion/02_list_proportion_between_sol3.html","01_data_basics/02_proportion/03_list_proportion_large_sol1.html","01_data_basics/02_proportion/03_list_proportion_large_sol2.html","01_data_basics/02_proportion/03_list_proportion_large_sol3.html","01_data_basics/02_proportion/04_make_relfreq_dens_sol1.html","01_data_basics/02_proportion/04_make_relfreq_dens_sol2.html","01_data_basics/02_proportion/04_make_relfreq_dens_sol3.html","01_data_basics/02_proportion/05_read_frequency_distribution_prop_sol1.html","01_data_basics/02_proportion/05_read_frequency_distribution_prop_sol2.html","01_data_basics/02_proportion/05_read_frequency_distribution_prop_sol3.html","01_data_basics/02_proportion/06_read_histogram_sol1.html","01_data_basics/02_proportion/06_read_histogram_sol2.html","01_data_basics/02_proportion/06_read_histogram_sol3.html","01_data_basics/02_proportion/07_read_histogram_discrete_sol1.html","01_data_basics/02_proportion/07_read_histogram_discrete_sol2.html","01_data_basics/02_proportion/07_read_histogram_discrete_sol3.html","01_data_basics/02_proportion/08_read_circle_prop_sol1.html","01_data_basics/02_proportion/08_read_circle_prop_sol2.html","01_data_basics/02_proportion/08_read_circle_prop_sol3.html","01_data_basics/03_distributions/01_identify_distributions_sol1.html","01_data_basics/03_distributions/01_identify_distributions_sol2.html","01_data_basics/03_distributions/01_identify_distributions_sol3.html","01_data_basics/03_distributions/02_make_histogram_and_identify_shape_sol1.html","01_data_basics/03_distributions/02_make_histogram_and_identify_shape_sol2.html","01_data_basics/03_distributions/02_make_histogram_and_identify_shape_sol3.html","01_data_basics/04_center/01_get_mean_sol1.html","01_data_basics/04_center/01_get_mean_sol2.html","01_data_basics/04_center/01_get_mean_sol3.html","01_data_basics/04_center/02_get_median_sol1.html","01_data_basics/04_center/02_get_median_sol2.html","01_data_basics/04_center/02_get_median_sol3.html","01_data_basics/04_center/03_compare_mean_median_sol1.html","01_data_basics/04_center/03_compare_mean_median_sol2.html","01_data_basics/04_center/03_compare_mean_median_sol3.html","01_data_basics/04_center/04_get_phat_sol1.html","01_data_basics/04_center/04_get_phat_sol2.html","01_data_basics/04_center/04_get_phat_sol3.html","01_data_basics/05_spread/01_get_range_sol1.html","01_data_basics/05_spread/01_get_range_sol2.html","01_data_basics/05_spread/01_get_range_sol3.html","01_data_basics/05_spread/02_get_MAD_sol1.html","01_data_basics/05_spread/02_get_MAD_sol2.html","01_data_basics/05_spread/02_get_MAD_sol3.html","01_data_basics/05_spread/03_get_VAR_sol1.html","01_data_basics/05_spread/03_get_VAR_sol2.html","01_data_basics/05_spread/03_get_VAR_sol3.html","01_data_basics/05_spread/04_get_VAR2_sol1.html","01_data_basics/05_spread/04_get_VAR2_sol2.html","01_data_basics/05_spread/04_get_VAR2_sol3.html","01_data_basics/05_spread/05_get_SD_sol1.html","01_data_basics/05_spread/05_get_SD_sol2.html","01_data_basics/05_spread/05_get_SD_sol3.html","01_data_basics/05_spread/06_get_SD2_sol1.html","01_data_basics/05_spread/06_get_SD2_sol2.html","01_data_basics/05_spread/06_get_SD2_sol3.html","01_data_basics/05_spread/07_estimate_SD_sol1.html","01_data_basics/05_spread/07_estimate_SD_sol2.html","01_data_basics/05_spread/07_estimate_SD_sol3.html","01_data_basics/05_spread/08_compare_SD_same_shape_sol1.html","01_data_basics/05_spread/08_compare_SD_same_shape_sol2.html","01_data_basics/05_spread/08_compare_SD_same_shape_sol3.html","01_data_basics/05_spread/09_compare_SD_same_width_sol1.html","01_data_basics/05_spread/09_compare_SD_same_width_sol2.html","01_data_basics/05_spread/09_compare_SD_same_width_sol3.html","01_data_basics/05_spread/10_get_interval_of_typical_measurements_sol1.html","01_data_basics/05_spread/10_get_interval_of_typical_measurements_sol2.html","01_data_basics/05_spread/10_get_interval_of_typical_measurements_sol3.html","01_data_basics/05_spread/11_check_interval_of_typical_measurements_sol1.html","01_data_basics/05_spread/11_check_interval_of_typical_measurements_sol2.html","01_data_basics/05_spread/11_check_interval_of_typical_measurements_sol3.html","01_data_basics/05_spread/12_get_IQR_sol1.html","01_data_basics/05_spread/12_get_IQR_sol2.html","01_data_basics/05_spread/12_get_IQR_sol3.html","01_data_basics/05_spread/13_get_MAD_prop_sol1.html","01_data_basics/05_spread/13_get_MAD_prop_sol2.html","01_data_basics/05_spread/13_get_MAD_prop_sol3.html","01_data_basics/05_spread/14_get_VAR_prop_sol1.html","01_data_basics/05_spread/14_get_VAR_prop_sol2.html","01_data_basics/05_spread/14_get_VAR_prop_sol3.html","01_data_basics/05_spread/15_get_SD_prop_sol1.html","01_data_basics/05_spread/15_get_SD_prop_sol2.html","01_data_basics/05_spread/15_get_SD_prop_sol3.html","01_data_basics/06_boxplots/01_read_boxplot_sol1.html","01_data_basics/06_boxplots/01_read_boxplot_sol2.html","01_data_basics/06_boxplots/01_read_boxplot_sol3.html","01_data_basics/06_boxplots/02_compare_boxplots_sol1.html","01_data_basics/06_boxplots/02_compare_boxplots_sol2.html","01_data_basics/06_boxplots/02_compare_boxplots_sol3.html","01_data_basics/06_boxplots/03_identify_distributions_boxplots_sol1.html","01_data_basics/06_boxplots/03_identify_distributions_boxplots_sol2.html","01_data_basics/06_boxplots/03_identify_distributions_boxplots_sol3.html","01_data_basics/07_continuous_distributions/01_estimate_area_sol1.html","01_data_basics/07_continuous_distributions/01_estimate_area_sol2.html","01_data_basics/07_continuous_distributions/01_estimate_area_sol3.html","01_data_basics/07_continuous_distributions/02_normal_basic_sol1.html","01_data_basics/07_continuous_distributions/02_normal_basic_sol2.html","01_data_basics/07_continuous_distributions/02_normal_basic_sol3.html","01_data_basics/07_continuous_distributions/03_standard_score_sol1.html","01_data_basics/07_continuous_distributions/03_standard_score_sol2.html","01_data_basics/07_continuous_distributions/03_standard_score_sol3.html","01_data_basics/08_exam/01_summary_statistics_sol1.html","01_data_basics/08_exam/01_summary_statistics_sol2.html","01_data_basics/08_exam/01_summary_statistics_sol3.html","01_data_basics/08_exam/02_proportions_from_list_sol1.html","01_data_basics/08_exam/02_proportions_from_list_sol2.html","01_data_basics/08_exam/02_proportions_from_list_sol3.html","01_data_basics/08_exam/03_read_histogram_sol1.html","01_data_basics/08_exam/03_read_histogram_sol2.html","01_data_basics/08_exam/03_read_histogram_sol3.html","01_data_basics/08_exam/04_compare_SD_same_shape_sol1.html","01_data_basics/08_exam/04_compare_SD_same_shape_sol2.html","01_data_basics/08_exam/04_compare_SD_same_shape_sol3.html","01_data_basics/08_exam/05_compare_SD_same_width_sol1.html","01_data_basics/08_exam/05_compare_SD_same_width_sol2.html","01_data_basics/08_exam/05_compare_SD_same_width_sol3.html","01_data_basics/08_exam/06_compare_boxplots_sol1.html","01_data_basics/08_exam/06_compare_boxplots_sol2.html","01_data_basics/08_exam/06_compare_boxplots_sol3.html","01_data_basics/08_exam/07_get_interval_of_typical_measurements_sol1.html","01_data_basics/08_exam/07_get_interval_of_typical_measurements_sol2.html","01_data_basics/08_exam/07_get_interval_of_typical_measurements_sol3.html","01_data_basics/08_exam/08_empirical_rule_sol1.html","01_data_basics/08_exam/08_empirical_rule_sol2.html","01_data_basics/08_exam/08_empirical_rule_sol3.html","01_data_basics/08_exam/09_standard_score_sol1.html","01_data_basics/08_exam/09_standard_score_sol2.html","01_data_basics/08_exam/09_standard_score_sol3.html","01_data_basics/08_exam/10_make_histogram_and_identify_shape_sol1.html","01_data_basics/08_exam/10_make_histogram_and_identify_shape_sol2.html","01_data_basics/08_exam/10_make_histogram_and_identify_shape_sol3.html","02_probability/01_overview/q1_cards_sol1.html","02_probability/01_overview/q1_cards_sol2.html","02_probability/01_overview/q1_cards_sol3.html","02_probability/01_overview/q2_probdist_sol1.html","02_probability/01_overview/q2_probdist_sol2.html","02_probability/01_overview/q2_probdist_sol3.html","02_probability/01_overview/q3_comb_sol1.html","02_probability/01_overview/q3_comb_sol2.html","02_probability/01_overview/q3_comb_sol3.html","02_probability/01_overview/q4_perm_sol1.html","02_probability/01_overview/q4_perm_sol2.html","02_probability/01_overview/q4_perm_sol3.html","02_probability/01_overview/q5_binomial_sol1.html","02_probability/01_overview/q5_binomial_sol2.html","02_probability/01_overview/q5_binomial_sol3.html","02_probability/01_overview/q6_bobhappy_sol1.html","02_probability/01_overview/q6_bobhappy_sol2.html","02_probability/01_overview/q6_bobhappy_sol3.html","02_probability/01_overview/q7_winlose_sol1.html","02_probability/01_overview/q7_winlose_sol2.html","02_probability/01_overview/q7_winlose_sol3.html","03_central_limit_theorem/01_standard_normal/01_leftarea_from_z_sol1.html","03_central_limit_theorem/01_standard_normal/01_leftarea_from_z_sol2.html","03_central_limit_theorem/01_standard_normal/01_leftarea_from_z_sol3.html","03_central_limit_theorem/01_standard_normal/02_rightarea_from_z_sol1.html","03_central_limit_theorem/01_standard_normal/02_rightarea_from_z_sol2.html","03_central_limit_theorem/01_standard_normal/02_rightarea_from_z_sol3.html","03_central_limit_theorem/01_standard_normal/03_centralarea_from_z_sol1.html","03_central_limit_theorem/01_standard_normal/03_centralarea_from_z_sol2.html","03_central_limit_theorem/01_standard_normal/03_centralarea_from_z_sol3.html","03_central_limit_theorem/01_standard_normal/04_twotailarea_from_z_sol1.html","03_central_limit_theorem/01_standard_normal/04_twotailarea_from_z_sol2.html","03_central_limit_theorem/01_standard_normal/04_twotailarea_from_z_sol3.html","03_central_limit_theorem/01_standard_normal/05_area_between_two_zs_sol1.html","03_central_limit_theorem/01_standard_normal/05_area_between_two_zs_sol2.html","03_central_limit_theorem/01_standard_normal/05_area_between_two_zs_sol3.html","03_central_limit_theorem/01_standard_normal/06_z_from_left_area_sol1.html","03_central_limit_theorem/01_standard_normal/06_z_from_left_area_sol2.html","03_central_limit_theorem/01_standard_normal/06_z_from_left_area_sol3.html","03_central_limit_theorem/01_standard_normal/07_z_from_right_area_sol1.html","03_central_limit_theorem/01_standard_normal/07_z_from_right_area_sol2.html","03_central_limit_theorem/01_standard_normal/07_z_from_right_area_sol3.html","03_central_limit_theorem/01_standard_normal/08_z_from_central_area_sol1.html","03_central_limit_theorem/01_standard_normal/08_z_from_central_area_sol2.html","03_central_limit_theorem/01_standard_normal/08_z_from_central_area_sol3.html","03_central_limit_theorem/01_standard_normal/09_z_from_twotail_area_sol1.html","03_central_limit_theorem/01_standard_normal/09_z_from_twotail_area_sol2.html","03_central_limit_theorem/01_standard_normal/09_z_from_twotail_area_sol3.html","03_central_limit_theorem/02_normal/01_compare_zs_sol1.html","03_central_limit_theorem/02_normal/01_compare_zs_sol2.html","03_central_limit_theorem/02_normal/01_compare_zs_sol3.html","03_central_limit_theorem/02_normal/02_leftarea_from_x_sol1.html","03_central_limit_theorem/02_normal/02_leftarea_from_x_sol2.html","03_central_limit_theorem/02_normal/02_leftarea_from_x_sol3.html","03_central_limit_theorem/02_normal/03_rightarea_from_x_sol1.html","03_central_limit_theorem/02_normal/03_rightarea_from_x_sol2.html","03_central_limit_theorem/02_normal/03_rightarea_from_x_sol3.html","03_central_limit_theorem/02_normal/04_centralarea_from_x_sol1.html","03_central_limit_theorem/02_normal/04_centralarea_from_x_sol2.html","03_central_limit_theorem/02_normal/04_centralarea_from_x_sol3.html","03_central_limit_theorem/02_normal/05_twotailarea_from_x_sol1.html","03_central_limit_theorem/02_normal/05_twotailarea_from_x_sol2.html","03_central_limit_theorem/02_normal/05_twotailarea_from_x_sol3.html","03_central_limit_theorem/02_normal/06_betweenarea_from_x_sol1.html","03_central_limit_theorem/02_normal/06_betweenarea_from_x_sol2.html","03_central_limit_theorem/02_normal/06_betweenarea_from_x_sol3.html","03_central_limit_theorem/02_normal/07_x_from_leftarea_sol1.html","03_central_limit_theorem/02_normal/07_x_from_leftarea_sol2.html","03_central_limit_theorem/02_normal/07_x_from_leftarea_sol3.html","03_central_limit_theorem/02_normal/08_x_from_rightarea_sol1.html","03_central_limit_theorem/02_normal/08_x_from_rightarea_sol2.html","03_central_limit_theorem/02_normal/08_x_from_rightarea_sol3.html","03_central_limit_theorem/02_normal/09_bounds_from_centralarea_sol1.html","03_central_limit_theorem/02_normal/09_bounds_from_centralarea_sol2.html","03_central_limit_theorem/02_normal/09_bounds_from_centralarea_sol3.html","03_central_limit_theorem/02_normal/10_bounds_from_twotailarea_sol1.html","03_central_limit_theorem/02_normal/10_bounds_from_twotailarea_sol2.html","03_central_limit_theorem/02_normal/10_bounds_from_twotailarea_sol3.html","03_central_limit_theorem/03_central_limit_theorem/01_calculate_z_from_sample_mean_sol1.html","03_central_limit_theorem/03_central_limit_theorem/01_calculate_z_from_sample_mean_sol2.html","03_central_limit_theorem/03_central_limit_theorem/01_calculate_z_from_sample_mean_sol3.html","03_central_limit_theorem/03_central_limit_theorem/02_calculate_z_from_sample_total_sol1.html","03_central_limit_theorem/03_central_limit_theorem/02_calculate_z_from_sample_total_sol2.html","03_central_limit_theorem/03_central_limit_theorem/02_calculate_z_from_sample_total_sol3.html","03_central_limit_theorem/03_central_limit_theorem/03_compare_zs_means_sol1.html","03_central_limit_theorem/03_central_limit_theorem/03_compare_zs_means_sol2.html","03_central_limit_theorem/03_central_limit_theorem/03_compare_zs_means_sol3.html","03_central_limit_theorem/03_central_limit_theorem/04_ave_less_sol1.html","03_central_limit_theorem/03_central_limit_theorem/04_ave_less_sol2.html","03_central_limit_theorem/03_central_limit_theorem/04_ave_less_sol3.html","03_central_limit_theorem/03_central_limit_theorem/05_ave_more_sol1.html","03_central_limit_theorem/03_central_limit_theorem/05_ave_more_sol2.html","03_central_limit_theorem/03_central_limit_theorem/05_ave_more_sol3.html","03_central_limit_theorem/03_central_limit_theorem/06_ave_near_sol1.html","03_central_limit_theorem/03_central_limit_theorem/06_ave_near_sol2.html","03_central_limit_theorem/03_central_limit_theorem/06_ave_near_sol3.html","03_central_limit_theorem/03_central_limit_theorem/07_ave_far_sol1.html","03_central_limit_theorem/03_central_limit_theorem/07_ave_far_sol2.html","03_central_limit_theorem/03_central_limit_theorem/07_ave_far_sol3.html","03_central_limit_theorem/03_central_limit_theorem/08_total_dice_less_sol1.html","03_central_limit_theorem/03_central_limit_theorem/08_total_dice_less_sol2.html","03_central_limit_theorem/03_central_limit_theorem/08_total_dice_less_sol3.html","03_central_limit_theorem/03_central_limit_theorem/09_total_more_sol1.html","03_central_limit_theorem/03_central_limit_theorem/09_total_more_sol2.html","03_central_limit_theorem/03_central_limit_theorem/09_total_more_sol3.html","03_central_limit_theorem/03_central_limit_theorem/10_total_near_sol1.html","03_central_limit_theorem/03_central_limit_theorem/10_total_near_sol2.html","03_central_limit_theorem/03_central_limit_theorem/10_total_near_sol3.html","03_central_limit_theorem/03_central_limit_theorem/11_total_far_sol1.html","03_central_limit_theorem/03_central_limit_theorem/11_total_far_sol2.html","03_central_limit_theorem/03_central_limit_theorem/11_total_far_sol3.html","03_central_limit_theorem/03_central_limit_theorem/12_binom_less_sol1.html","03_central_limit_theorem/03_central_limit_theorem/12_binom_less_sol2.html","03_central_limit_theorem/03_central_limit_theorem/12_binom_less_sol3.html","03_central_limit_theorem/03_central_limit_theorem/13_binom_more_sol1.html","03_central_limit_theorem/03_central_limit_theorem/13_binom_more_sol2.html","03_central_limit_theorem/03_central_limit_theorem/13_binom_more_sol3.html","03_central_limit_theorem/03_central_limit_theorem/14_binom_between_sol1.html","03_central_limit_theorem/03_central_limit_theorem/14_binom_between_sol2.html","03_central_limit_theorem/03_central_limit_theorem/14_binom_between_sol3.html","03_central_limit_theorem/03_central_limit_theorem/15_prop_less_sol1.html","03_central_limit_theorem/03_central_limit_theorem/15_prop_less_sol2.html","03_central_limit_theorem/03_central_limit_theorem/15_prop_less_sol3.html","03_central_limit_theorem/03_central_limit_theorem/16_prop_more_sol1.html","03_central_limit_theorem/03_central_limit_theorem/16_prop_more_sol2.html","03_central_limit_theorem/03_central_limit_theorem/16_prop_more_sol3.html","03_central_limit_theorem/03_central_limit_theorem/17_prop_between_sol1.html","03_central_limit_theorem/03_central_limit_theorem/17_prop_between_sol2.html","03_central_limit_theorem/03_central_limit_theorem/17_prop_between_sol3.html","03_central_limit_theorem/04_exam3/01_SNP_and_bounds_sol1.html","03_central_limit_theorem/04_exam3/01_SNP_and_bounds_sol2.html","03_central_limit_theorem/04_exam3/01_SNP_and_bounds_sol3.html","03_central_limit_theorem/04_exam3/02_NP_and_bounds_sol1.html","03_central_limit_theorem/04_exam3/02_NP_and_bounds_sol2.html","03_central_limit_theorem/04_exam3/02_NP_and_bounds_sol3.html","03_central_limit_theorem/04_exam3/03_intervals_sol1.html","03_central_limit_theorem/04_exam3/03_intervals_sol2.html","03_central_limit_theorem/04_exam3/03_intervals_sol3.html","03_central_limit_theorem/04_exam3/04_intervals_bern_prop_binom_sol1.html","03_central_limit_theorem/04_exam3/04_intervals_bern_prop_binom_sol2.html","03_central_limit_theorem/04_exam3/04_intervals_bern_prop_binom_sol3.html","03_central_limit_theorem/04_exam3/05_compare_zs_means_sol1.html","03_central_limit_theorem/04_exam3/05_compare_zs_means_sol2.html","03_central_limit_theorem/04_exam3/05_compare_zs_means_sol3.html","03_central_limit_theorem/04_exam3/06_calculate_z_from_sample_total_sol1.html","03_central_limit_theorem/04_exam3/06_calculate_z_from_sample_total_sol2.html","03_central_limit_theorem/04_exam3/06_calculate_z_from_sample_total_sol3.html","03_central_limit_theorem/04_exam3/07_CLT_mean_tot_sol1.html","03_central_limit_theorem/04_exam3/07_CLT_mean_tot_sol2.html","03_central_limit_theorem/04_exam3/07_CLT_mean_tot_sol3.html","03_central_limit_theorem/04_exam3/08_DMLT_prop_binom_sol1.html","03_central_limit_theorem/04_exam3/08_DMLT_prop_binom_sol2.html","03_central_limit_theorem/04_exam3/08_DMLT_prop_binom_sol3.html","04_inferential_statistics/01_T_dist/01_T_probs_sol1.html","04_inferential_statistics/01_T_dist/01_T_probs_sol2.html","04_inferential_statistics/01_T_dist/01_T_probs_sol3.html","04_inferential_statistics/02_confidence_intervals/01_conf_int_rough_sol1.html","04_inferential_statistics/02_confidence_intervals/01_conf_int_rough_sol2.html","04_inferential_statistics/02_confidence_intervals/01_conf_int_rough_sol3.html","04_inferential_statistics/02_confidence_intervals/02_conf_int_prop_rough_sol1.html","04_inferential_statistics/02_confidence_intervals/02_conf_int_prop_rough_sol2.html","04_inferential_statistics/02_confidence_intervals/02_conf_int_prop_rough_sol3.html","04_inferential_statistics/02_confidence_intervals/03_conf_int_prop_sol1.html","04_inferential_statistics/02_confidence_intervals/03_conf_int_prop_sol2.html","04_inferential_statistics/02_confidence_intervals/03_conf_int_prop_sol3.html","04_inferential_statistics/02_confidence_intervals/04_conf_int_z_sol1.html","04_inferential_statistics/02_confidence_intervals/04_conf_int_z_sol2.html","04_inferential_statistics/02_confidence_intervals/04_conf_int_z_sol3.html","04_inferential_statistics/02_confidence_intervals/05_conf_int_t_sol1.html","04_inferential_statistics/02_confidence_intervals/05_conf_int_t_sol2.html","04_inferential_statistics/02_confidence_intervals/05_conf_int_t_sol3.html","04_inferential_statistics/02_confidence_intervals/06_conf_int_t_raw_sol1.html","04_inferential_statistics/02_confidence_intervals/06_conf_int_t_raw_sol2.html","04_inferential_statistics/02_confidence_intervals/06_conf_int_t_raw_sol3.html","04_inferential_statistics/02_confidence_intervals/07_conf_int_z_raw_sol1.html","04_inferential_statistics/02_confidence_intervals/07_conf_int_z_raw_sol2.html","04_inferential_statistics/02_confidence_intervals/07_conf_int_z_raw_sol3.html","04_inferential_statistics/02_confidence_intervals/08_conf_int_prop_raw_sol1.html","04_inferential_statistics/02_confidence_intervals/08_conf_int_prop_raw_sol2.html","04_inferential_statistics/02_confidence_intervals/08_conf_int_prop_raw_sol3.html","04_inferential_statistics/02_confidence_intervals/09_n_from_ME_sol1.html","04_inferential_statistics/02_confidence_intervals/09_n_from_ME_sol2.html","04_inferential_statistics/02_confidence_intervals/09_n_from_ME_sol3.html","04_inferential_statistics/02_confidence_intervals/10_n_from_ME_prop_sol1.html","04_inferential_statistics/02_confidence_intervals/10_n_from_ME_prop_sol2.html","04_inferential_statistics/02_confidence_intervals/10_n_from_ME_prop_sol3.html","04_inferential_statistics/03_hypothesis_tests_one_sample/01_hyptest_single_mean_sol1.html","04_inferential_statistics/03_hypothesis_tests_one_sample/01_hyptest_single_mean_sol2.html","04_inferential_statistics/03_hypothesis_tests_one_sample/01_hyptest_single_mean_sol3.html","04_inferential_statistics/03_hypothesis_tests_one_sample/02_hyptest_one_prop_sol1.html","04_inferential_statistics/03_hypothesis_tests_one_sample/02_hyptest_one_prop_sol2.html","04_inferential_statistics/03_hypothesis_tests_one_sample/02_hyptest_one_prop_sol3.html","04_inferential_statistics/03_hypothesis_tests_one_sample/03_hyptest_single_mean_raw_archery_sol1.html","04_inferential_statistics/03_hypothesis_tests_one_sample/03_hyptest_single_mean_raw_archery_sol2.html","04_inferential_statistics/03_hypothesis_tests_one_sample/03_hyptest_single_mean_raw_archery_sol3.html","04_inferential_statistics/03_hypothesis_tests_one_sample/04_hyptest_one_prop_raw_coin_sol1.html","04_inferential_statistics/03_hypothesis_tests_one_sample/04_hyptest_one_prop_raw_coin_sol2.html","04_inferential_statistics/03_hypothesis_tests_one_sample/04_hyptest_one_prop_raw_coin_sol3.html","04_inferential_statistics/04_hypothesis_tests_two_sample/01_hyptest_paired_data_sol1.html","04_inferential_statistics/04_hypothesis_tests_two_sample/01_hyptest_paired_data_sol2.html","04_inferential_statistics/04_hypothesis_tests_two_sample/01_hyptest_paired_data_sol3.html","04_inferential_statistics/04_hypothesis_tests_two_sample/02_hyptest_2_means_data_sol1.html","04_inferential_statistics/04_hypothesis_tests_two_sample/02_hyptest_2_means_data_sol2.html","04_inferential_statistics/04_hypothesis_tests_two_sample/02_hyptest_2_means_data_sol3.html","04_inferential_statistics/04_hypothesis_tests_two_sample/03_hyptest_2_props_data_sol1.html","04_inferential_statistics/04_hypothesis_tests_two_sample/03_hyptest_2_props_data_sol2.html","04_inferential_statistics/04_hypothesis_tests_two_sample/03_hyptest_2_props_data_sol3.html","04_inferential_statistics/05_exam4/01_one_mean_ci_pval_sol1.html","04_inferential_statistics/05_exam4/01_one_mean_ci_pval_sol2.html","04_inferential_statistics/05_exam4/01_one_mean_ci_pval_sol3.html","04_inferential_statistics/05_exam4/02_one_prop_ci_pval_sol1.html","04_inferential_statistics/05_exam4/02_one_prop_ci_pval_sol2.html","04_inferential_statistics/05_exam4/02_one_prop_ci_pval_sol3.html","04_inferential_statistics/05_exam4/03_hyptest_paired_data_sol1.html","04_inferential_statistics/05_exam4/03_hyptest_paired_data_sol2.html","04_inferential_statistics/05_exam4/03_hyptest_paired_data_sol3.html","04_inferential_statistics/05_exam4/04_hyptest_2_means_data_sol1.html","04_inferential_statistics/05_exam4/04_hyptest_2_means_data_sol2.html","04_inferential_statistics/05_exam4/04_hyptest_2_means_data_sol3.html","04_inferential_statistics/05_exam4/05_hyptest_2_props_data_sol1.html","04_inferential_statistics/05_exam4/05_hyptest_2_props_data_sol2.html","04_inferential_statistics/05_exam4/05_hyptest_2_props_data_sol3.html"];
+var cur = 0;
+function setUrl() {
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var pn = parseInt(urlParams.get("probnum"));
+    if(isNaN(pn)){
+      pn = 0;
+    }
+    if(pn<0){
+      pn=0;
+    }
+    if(pn>=qs.length){
+      pn=0;
+    }
+    cur = pn;
+    document.getElementsByName("cake")[0].src = qs[pn];
+    document.getElementsByName("duck")[0].src = as[pn];
+    var n = qs.length;
+    document.getElementById("myBtn4").onclick = function() {
+      changeUrl((((pn-1) % n ) + n ) % n);
+      };
+    document.getElementById("myBtn5").onclick = function() {
+      changeUrl((((pn+1) % n ) + n ) % n);
+      };
+    document.getElementById("myBtn6").onclick = function() {
+      changeUrl((((pn-pn%3-3) % n ) + n ) % n);
+    };
+    document.getElementById("myBtn7").onclick = function() {
+      changeUrl((((pn-pn%3+3) % n ) + n ) % n);
+    };
+    mybut = document.getElementById("but"+pn);
+    mybut.style.background="#AAFFAA";
+    mpn = mybut.parentNode.parentNode;
+    mpn.parentElement.querySelector(".nested").classList.toggle("active");
+    mpn.parentElement.querySelector(".caret").classList.toggle("sel");
+    mpn = mpn.parentNode.parentNode;
+    mpn.parentElement.querySelector(".nested").classList.toggle("active");
+    mpn.parentElement.querySelector(".caret").classList.toggle("sel");
+}
+function changeUrl(i) {
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    oldi = urlParams.get("probnum");
+    urlParams.set("probnum",parseInt(i));
+    window.history.replaceState("", "", window.location.pathname+"?probnum="+i);
+    document.getElementsByName("cake")[0].src = qs[i];
+    document.getElementsByName("duck")[0].src = as[i];
+    var n = qs.length;
+    document.getElementById("myBtn4").onclick = function() {
+      changeUrl((((i-1) % n ) + n ) % n);
+    };
+    document.getElementById("myBtn5").onclick = function() {
+      changeUrl(i+1);
+    };
+    document.getElementById("myBtn6").onclick = function() {
+      changeUrl((((i-i%3-3) % n ) + n ) % n);
+    };
+    document.getElementById("myBtn7").onclick = function() {
+      changeUrl((((i-i%3+3) % n ) + n ) % n);
+    };
+    var mybut = document.getElementById("but"+cur);
+    mybut.style.background="#AAAAAA";
+    var mpn = mybut.parentNode.parentNode;
+    mpn.parentElement.querySelector(".caret").classList.toggle("sel");
+    mpn = mpn.parentNode.parentNode;
+    mpn.parentElement.querySelector(".caret").classList.toggle("sel");
+    mybut = document.getElementById("but"+i);
+    mybut.style.background="#AAFFAA";
+    mpn = mybut.parentNode.parentNode;
+    mpn.parentElement.querySelector(".caret").classList.toggle("sel");
+    mpn = mpn.parentNode.parentNode;
+    mpn.parentElement.querySelector(".caret").classList.toggle("sel");
+    cur = i;
+}
+function topFunction() {
+  document.getElementById("top").scrollIntoView();
+}
+function qFunction() {
+  document.getElementsByName("cake")[0].scrollIntoView();
+}
+function aFunction() {
+  document.getElementsByName("duck")[0].scrollIntoView();
+}
+document.addEventListener("keypress", function onEvent(event) {
+    if (event.key === "q") {
+        document.getElementsByName("cake")[0].scrollIntoView();
+    }
+    if (event.key === "t") {
+        document.getElementById("top").scrollIntoView();
+    }
+    if (event.key === "a") {
+        document.getElementsByName("duck")[0].scrollIntoView();
+    }
+});
+</script>
+</head>
+<body onload="setUrl()">
+
+<div id="welcome" style="background:#aaeeaa;">
+Welcome to Chad Worley's statistics questions. Please also check out this
+<a href="https://github.com/ceworley/statistics" target="_blank">project's github</a>.
+
+</div>
+
+<br>
+
+<div id="top">
+<ul id="myUL">
+ <li><span class="caret">data_basics</span>
+<ul class="nested">
+  <li><span class="caret">counting</span>
+<ul class="nested">
+   <li><button class="button" id="but0" onclick="changeUrl(0)">list_counting_basic</button><button class="button" id="but1" onclick="changeUrl(1)">V2</button><button class="button" id="but2" onclick="changeUrl(2)">V3</button></li>
+   <li><button class="button" id="but3" onclick="changeUrl(3)">list_counting_between</button><button class="button" id="but4" onclick="changeUrl(4)">V2</button><button class="button" id="but5" onclick="changeUrl(5)">V3</button></li>
+   <li><button class="button" id="but6" onclick="changeUrl(6)">list_counting_large</button><button class="button" id="but7" onclick="changeUrl(7)">V2</button><button class="button" id="but8" onclick="changeUrl(8)">V3</button></li>
+   <li><button class="button" id="but9" onclick="changeUrl(9)">make_frequency_distribution</button><button class="button" id="but10" onclick="changeUrl(10)">V2</button><button class="button" id="but11" onclick="changeUrl(11)">V3</button></li>
+   <li><button class="button" id="but12" onclick="changeUrl(12)">read_frequency_distribution</button><button class="button" id="but13" onclick="changeUrl(13)">V2</button><button class="button" id="but14" onclick="changeUrl(14)">V3</button></li>
+   <li><button class="button" id="but15" onclick="changeUrl(15)">read_histogram</button><button class="button" id="but16" onclick="changeUrl(16)">V2</button><button class="button" id="but17" onclick="changeUrl(17)">V3</button></li>
+   <li><button class="button" id="but18" onclick="changeUrl(18)">read_histogram_discrete</button><button class="button" id="but19" onclick="changeUrl(19)">V2</button><button class="button" id="but20" onclick="changeUrl(20)">V3</button></li>
+   <li><button class="button" id="but21" onclick="changeUrl(21)">read_circle_freq</button><button class="button" id="but22" onclick="changeUrl(22)">V2</button><button class="button" id="but23" onclick="changeUrl(23)">V3</button></li>
+</ul></li>
+  <li><span class="caret">proportion</span>
+<ul class="nested">
+   <li><button class="button" id="but24" onclick="changeUrl(24)">list_proportion_basic</button><button class="button" id="but25" onclick="changeUrl(25)">V2</button><button class="button" id="but26" onclick="changeUrl(26)">V3</button></li>
+   <li><button class="button" id="but27" onclick="changeUrl(27)">list_proportion_between</button><button class="button" id="but28" onclick="changeUrl(28)">V2</button><button class="button" id="but29" onclick="changeUrl(29)">V3</button></li>
+   <li><button class="button" id="but30" onclick="changeUrl(30)">list_proportion_large</button><button class="button" id="but31" onclick="changeUrl(31)">V2</button><button class="button" id="but32" onclick="changeUrl(32)">V3</button></li>
+   <li><button class="button" id="but33" onclick="changeUrl(33)">make_relfreq_dens</button><button class="button" id="but34" onclick="changeUrl(34)">V2</button><button class="button" id="but35" onclick="changeUrl(35)">V3</button></li>
+   <li><button class="button" id="but36" onclick="changeUrl(36)">read_frequency_distribution_prop</button><button class="button" id="but37" onclick="changeUrl(37)">V2</button><button class="button" id="but38" onclick="changeUrl(38)">V3</button></li>
+   <li><button class="button" id="but39" onclick="changeUrl(39)">read_histogram</button><button class="button" id="but40" onclick="changeUrl(40)">V2</button><button class="button" id="but41" onclick="changeUrl(41)">V3</button></li>
+   <li><button class="button" id="but42" onclick="changeUrl(42)">read_histogram_discrete</button><button class="button" id="but43" onclick="changeUrl(43)">V2</button><button class="button" id="but44" onclick="changeUrl(44)">V3</button></li>
+   <li><button class="button" id="but45" onclick="changeUrl(45)">read_circle_prop</button><button class="button" id="but46" onclick="changeUrl(46)">V2</button><button class="button" id="but47" onclick="changeUrl(47)">V3</button></li>
+</ul></li>
+  <li><span class="caret">distributions</span>
+<ul class="nested">
+   <li><button class="button" id="but48" onclick="changeUrl(48)">identify_distributions</button><button class="button" id="but49" onclick="changeUrl(49)">V2</button><button class="button" id="but50" onclick="changeUrl(50)">V3</button></li>
+   <li><button class="button" id="but51" onclick="changeUrl(51)">make_histogram_and_identify_shape</button><button class="button" id="but52" onclick="changeUrl(52)">V2</button><button class="button" id="but53" onclick="changeUrl(53)">V3</button></li>
+</ul></li>
+  <li><span class="caret">center</span>
+<ul class="nested">
+   <li><button class="button" id="but54" onclick="changeUrl(54)">get_mean</button><button class="button" id="but55" onclick="changeUrl(55)">V2</button><button class="button" id="but56" onclick="changeUrl(56)">V3</button></li>
+   <li><button class="button" id="but57" onclick="changeUrl(57)">get_median</button><button class="button" id="but58" onclick="changeUrl(58)">V2</button><button class="button" id="but59" onclick="changeUrl(59)">V3</button></li>
+   <li><button class="button" id="but60" onclick="changeUrl(60)">compare_mean_median</button><button class="button" id="but61" onclick="changeUrl(61)">V2</button><button class="button" id="but62" onclick="changeUrl(62)">V3</button></li>
+   <li><button class="button" id="but63" onclick="changeUrl(63)">get_phat</button><button class="button" id="but64" onclick="changeUrl(64)">V2</button><button class="button" id="but65" onclick="changeUrl(65)">V3</button></li>
+</ul></li>
+  <li><span class="caret">spread</span>
+<ul class="nested">
+   <li><button class="button" id="but66" onclick="changeUrl(66)">get_range</button><button class="button" id="but67" onclick="changeUrl(67)">V2</button><button class="button" id="but68" onclick="changeUrl(68)">V3</button></li>
+   <li><button class="button" id="but69" onclick="changeUrl(69)">get_MAD</button><button class="button" id="but70" onclick="changeUrl(70)">V2</button><button class="button" id="but71" onclick="changeUrl(71)">V3</button></li>
+   <li><button class="button" id="but72" onclick="changeUrl(72)">get_VAR</button><button class="button" id="but73" onclick="changeUrl(73)">V2</button><button class="button" id="but74" onclick="changeUrl(74)">V3</button></li>
+   <li><button class="button" id="but75" onclick="changeUrl(75)">get_VAR2</button><button class="button" id="but76" onclick="changeUrl(76)">V2</button><button class="button" id="but77" onclick="changeUrl(77)">V3</button></li>
+   <li><button class="button" id="but78" onclick="changeUrl(78)">get_SD</button><button class="button" id="but79" onclick="changeUrl(79)">V2</button><button class="button" id="but80" onclick="changeUrl(80)">V3</button></li>
+   <li><button class="button" id="but81" onclick="changeUrl(81)">get_SD2</button><button class="button" id="but82" onclick="changeUrl(82)">V2</button><button class="button" id="but83" onclick="changeUrl(83)">V3</button></li>
+   <li><button class="button" id="but84" onclick="changeUrl(84)">estimate_SD</button><button class="button" id="but85" onclick="changeUrl(85)">V2</button><button class="button" id="but86" onclick="changeUrl(86)">V3</button></li>
+   <li><button class="button" id="but87" onclick="changeUrl(87)">compare_SD_same_shape</button><button class="button" id="but88" onclick="changeUrl(88)">V2</button><button class="button" id="but89" onclick="changeUrl(89)">V3</button></li>
+   <li><button class="button" id="but90" onclick="changeUrl(90)">compare_SD_same_width</button><button class="button" id="but91" onclick="changeUrl(91)">V2</button><button class="button" id="but92" onclick="changeUrl(92)">V3</button></li>
+   <li><button class="button" id="but93" onclick="changeUrl(93)">get_interval_of_typical_measurements</button><button class="button" id="but94" onclick="changeUrl(94)">V2</button><button class="button" id="but95" onclick="changeUrl(95)">V3</button></li>
+   <li><button class="button" id="but96" onclick="changeUrl(96)">check_interval_of_typical_measurements</button><button class="button" id="but97" onclick="changeUrl(97)">V2</button><button class="button" id="but98" onclick="changeUrl(98)">V3</button></li>
+   <li><button class="button" id="but99" onclick="changeUrl(99)">get_IQR</button><button class="button" id="but100" onclick="changeUrl(100)">V2</button><button class="button" id="but101" onclick="changeUrl(101)">V3</button></li>
+   <li><button class="button" id="but102" onclick="changeUrl(102)">get_MAD_prop</button><button class="button" id="but103" onclick="changeUrl(103)">V2</button><button class="button" id="but104" onclick="changeUrl(104)">V3</button></li>
+   <li><button class="button" id="but105" onclick="changeUrl(105)">get_VAR_prop</button><button class="button" id="but106" onclick="changeUrl(106)">V2</button><button class="button" id="but107" onclick="changeUrl(107)">V3</button></li>
+   <li><button class="button" id="but108" onclick="changeUrl(108)">get_SD_prop</button><button class="button" id="but109" onclick="changeUrl(109)">V2</button><button class="button" id="but110" onclick="changeUrl(110)">V3</button></li>
+</ul></li>
+  <li><span class="caret">boxplots</span>
+<ul class="nested">
+   <li><button class="button" id="but111" onclick="changeUrl(111)">read_boxplot</button><button class="button" id="but112" onclick="changeUrl(112)">V2</button><button class="button" id="but113" onclick="changeUrl(113)">V3</button></li>
+   <li><button class="button" id="but114" onclick="changeUrl(114)">compare_boxplots</button><button class="button" id="but115" onclick="changeUrl(115)">V2</button><button class="button" id="but116" onclick="changeUrl(116)">V3</button></li>
+   <li><button class="button" id="but117" onclick="changeUrl(117)">identify_distributions_boxplots</button><button class="button" id="but118" onclick="changeUrl(118)">V2</button><button class="button" id="but119" onclick="changeUrl(119)">V3</button></li>
+</ul></li>
+  <li><span class="caret">continuous_distributions</span>
+<ul class="nested">
+   <li><button class="button" id="but120" onclick="changeUrl(120)">estimate_area</button><button class="button" id="but121" onclick="changeUrl(121)">V2</button><button class="button" id="but122" onclick="changeUrl(122)">V3</button></li>
+   <li><button class="button" id="but123" onclick="changeUrl(123)">normal_basic</button><button class="button" id="but124" onclick="changeUrl(124)">V2</button><button class="button" id="but125" onclick="changeUrl(125)">V3</button></li>
+   <li><button class="button" id="but126" onclick="changeUrl(126)">standard_score</button><button class="button" id="but127" onclick="changeUrl(127)">V2</button><button class="button" id="but128" onclick="changeUrl(128)">V3</button></li>
+</ul></li>
+  <li><span class="caret">exam</span>
+<ul class="nested">
+   <li><button class="button" id="but129" onclick="changeUrl(129)">summary_statistics</button><button class="button" id="but130" onclick="changeUrl(130)">V2</button><button class="button" id="but131" onclick="changeUrl(131)">V3</button></li>
+   <li><button class="button" id="but132" onclick="changeUrl(132)">proportions_from_list</button><button class="button" id="but133" onclick="changeUrl(133)">V2</button><button class="button" id="but134" onclick="changeUrl(134)">V3</button></li>
+   <li><button class="button" id="but135" onclick="changeUrl(135)">read_histogram</button><button class="button" id="but136" onclick="changeUrl(136)">V2</button><button class="button" id="but137" onclick="changeUrl(137)">V3</button></li>
+   <li><button class="button" id="but138" onclick="changeUrl(138)">compare_SD_same_shape</button><button class="button" id="but139" onclick="changeUrl(139)">V2</button><button class="button" id="but140" onclick="changeUrl(140)">V3</button></li>
+   <li><button class="button" id="but141" onclick="changeUrl(141)">compare_SD_same_width</button><button class="button" id="but142" onclick="changeUrl(142)">V2</button><button class="button" id="but143" onclick="changeUrl(143)">V3</button></li>
+   <li><button class="button" id="but144" onclick="changeUrl(144)">compare_boxplots</button><button class="button" id="but145" onclick="changeUrl(145)">V2</button><button class="button" id="but146" onclick="changeUrl(146)">V3</button></li>
+   <li><button class="button" id="but147" onclick="changeUrl(147)">get_interval_of_typical_measurements</button><button class="button" id="but148" onclick="changeUrl(148)">V2</button><button class="button" id="but149" onclick="changeUrl(149)">V3</button></li>
+   <li><button class="button" id="but150" onclick="changeUrl(150)">empirical_rule</button><button class="button" id="but151" onclick="changeUrl(151)">V2</button><button class="button" id="but152" onclick="changeUrl(152)">V3</button></li>
+   <li><button class="button" id="but153" onclick="changeUrl(153)">standard_score</button><button class="button" id="but154" onclick="changeUrl(154)">V2</button><button class="button" id="but155" onclick="changeUrl(155)">V3</button></li>
+   <li><button class="button" id="but156" onclick="changeUrl(156)">make_histogram_and_identify_shape</button><button class="button" id="but157" onclick="changeUrl(157)">V2</button><button class="button" id="but158" onclick="changeUrl(158)">V3</button></li>
+</ul></li>
+</ul></li>
+ <li><span class="caret">probability</span>
+<ul class="nested">
+  <li><span class="caret">overview</span>
+<ul class="nested">
+   <li><button class="button" id="but159" onclick="changeUrl(159)">cards</button><button class="button" id="but160" onclick="changeUrl(160)">V2</button><button class="button" id="but161" onclick="changeUrl(161)">V3</button></li>
+   <li><button class="button" id="but162" onclick="changeUrl(162)">probdist</button><button class="button" id="but163" onclick="changeUrl(163)">V2</button><button class="button" id="but164" onclick="changeUrl(164)">V3</button></li>
+   <li><button class="button" id="but165" onclick="changeUrl(165)">comb</button><button class="button" id="but166" onclick="changeUrl(166)">V2</button><button class="button" id="but167" onclick="changeUrl(167)">V3</button></li>
+   <li><button class="button" id="but168" onclick="changeUrl(168)">perm</button><button class="button" id="but169" onclick="changeUrl(169)">V2</button><button class="button" id="but170" onclick="changeUrl(170)">V3</button></li>
+   <li><button class="button" id="but171" onclick="changeUrl(171)">binomial</button><button class="button" id="but172" onclick="changeUrl(172)">V2</button><button class="button" id="but173" onclick="changeUrl(173)">V3</button></li>
+   <li><button class="button" id="but174" onclick="changeUrl(174)">bobhappy</button><button class="button" id="but175" onclick="changeUrl(175)">V2</button><button class="button" id="but176" onclick="changeUrl(176)">V3</button></li>
+   <li><button class="button" id="but177" onclick="changeUrl(177)">winlose</button><button class="button" id="but178" onclick="changeUrl(178)">V2</button><button class="button" id="but179" onclick="changeUrl(179)">V3</button></li>
+</ul></li>
+</ul></li>
+ <li><span class="caret">central_limit_theorem</span>
+<ul class="nested">
+  <li><span class="caret">standard_normal</span>
+<ul class="nested">
+   <li><button class="button" id="but180" onclick="changeUrl(180)">leftarea_from_z</button><button class="button" id="but181" onclick="changeUrl(181)">V2</button><button class="button" id="but182" onclick="changeUrl(182)">V3</button></li>
+   <li><button class="button" id="but183" onclick="changeUrl(183)">rightarea_from_z</button><button class="button" id="but184" onclick="changeUrl(184)">V2</button><button class="button" id="but185" onclick="changeUrl(185)">V3</button></li>
+   <li><button class="button" id="but186" onclick="changeUrl(186)">centralarea_from_z</button><button class="button" id="but187" onclick="changeUrl(187)">V2</button><button class="button" id="but188" onclick="changeUrl(188)">V3</button></li>
+   <li><button class="button" id="but189" onclick="changeUrl(189)">twotailarea_from_z</button><button class="button" id="but190" onclick="changeUrl(190)">V2</button><button class="button" id="but191" onclick="changeUrl(191)">V3</button></li>
+   <li><button class="button" id="but192" onclick="changeUrl(192)">area_between_two_zs</button><button class="button" id="but193" onclick="changeUrl(193)">V2</button><button class="button" id="but194" onclick="changeUrl(194)">V3</button></li>
+   <li><button class="button" id="but195" onclick="changeUrl(195)">z_from_left_area</button><button class="button" id="but196" onclick="changeUrl(196)">V2</button><button class="button" id="but197" onclick="changeUrl(197)">V3</button></li>
+   <li><button class="button" id="but198" onclick="changeUrl(198)">z_from_right_area</button><button class="button" id="but199" onclick="changeUrl(199)">V2</button><button class="button" id="but200" onclick="changeUrl(200)">V3</button></li>
+   <li><button class="button" id="but201" onclick="changeUrl(201)">z_from_central_area</button><button class="button" id="but202" onclick="changeUrl(202)">V2</button><button class="button" id="but203" onclick="changeUrl(203)">V3</button></li>
+   <li><button class="button" id="but204" onclick="changeUrl(204)">z_from_twotail_area</button><button class="button" id="but205" onclick="changeUrl(205)">V2</button><button class="button" id="but206" onclick="changeUrl(206)">V3</button></li>
+</ul></li>
+  <li><span class="caret">normal</span>
+<ul class="nested">
+   <li><button class="button" id="but207" onclick="changeUrl(207)">compare_zs</button><button class="button" id="but208" onclick="changeUrl(208)">V2</button><button class="button" id="but209" onclick="changeUrl(209)">V3</button></li>
+   <li><button class="button" id="but210" onclick="changeUrl(210)">leftarea_from_x</button><button class="button" id="but211" onclick="changeUrl(211)">V2</button><button class="button" id="but212" onclick="changeUrl(212)">V3</button></li>
+   <li><button class="button" id="but213" onclick="changeUrl(213)">rightarea_from_x</button><button class="button" id="but214" onclick="changeUrl(214)">V2</button><button class="button" id="but215" onclick="changeUrl(215)">V3</button></li>
+   <li><button class="button" id="but216" onclick="changeUrl(216)">centralarea_from_x</button><button class="button" id="but217" onclick="changeUrl(217)">V2</button><button class="button" id="but218" onclick="changeUrl(218)">V3</button></li>
+   <li><button class="button" id="but219" onclick="changeUrl(219)">twotailarea_from_x</button><button class="button" id="but220" onclick="changeUrl(220)">V2</button><button class="button" id="but221" onclick="changeUrl(221)">V3</button></li>
+   <li><button class="button" id="but222" onclick="changeUrl(222)">betweenarea_from_x</button><button class="button" id="but223" onclick="changeUrl(223)">V2</button><button class="button" id="but224" onclick="changeUrl(224)">V3</button></li>
+   <li><button class="button" id="but225" onclick="changeUrl(225)">x_from_leftarea</button><button class="button" id="but226" onclick="changeUrl(226)">V2</button><button class="button" id="but227" onclick="changeUrl(227)">V3</button></li>
+   <li><button class="button" id="but228" onclick="changeUrl(228)">x_from_rightarea</button><button class="button" id="but229" onclick="changeUrl(229)">V2</button><button class="button" id="but230" onclick="changeUrl(230)">V3</button></li>
+   <li><button class="button" id="but231" onclick="changeUrl(231)">bounds_from_centralarea</button><button class="button" id="but232" onclick="changeUrl(232)">V2</button><button class="button" id="but233" onclick="changeUrl(233)">V3</button></li>
+   <li><button class="button" id="but234" onclick="changeUrl(234)">bounds_from_twotailarea</button><button class="button" id="but235" onclick="changeUrl(235)">V2</button><button class="button" id="but236" onclick="changeUrl(236)">V3</button></li>
+</ul></li>
+  <li><span class="caret">central_limit_theorem</span>
+<ul class="nested">
+   <li><button class="button" id="but237" onclick="changeUrl(237)">calculate_z_from_sample_mean</button><button class="button" id="but238" onclick="changeUrl(238)">V2</button><button class="button" id="but239" onclick="changeUrl(239)">V3</button></li>
+   <li><button class="button" id="but240" onclick="changeUrl(240)">calculate_z_from_sample_total</button><button class="button" id="but241" onclick="changeUrl(241)">V2</button><button class="button" id="but242" onclick="changeUrl(242)">V3</button></li>
+   <li><button class="button" id="but243" onclick="changeUrl(243)">compare_zs_means</button><button class="button" id="but244" onclick="changeUrl(244)">V2</button><button class="button" id="but245" onclick="changeUrl(245)">V3</button></li>
+   <li><button class="button" id="but246" onclick="changeUrl(246)">ave_less</button><button class="button" id="but247" onclick="changeUrl(247)">V2</button><button class="button" id="but248" onclick="changeUrl(248)">V3</button></li>
+   <li><button class="button" id="but249" onclick="changeUrl(249)">ave_more</button><button class="button" id="but250" onclick="changeUrl(250)">V2</button><button class="button" id="but251" onclick="changeUrl(251)">V3</button></li>
+   <li><button class="button" id="but252" onclick="changeUrl(252)">ave_near</button><button class="button" id="but253" onclick="changeUrl(253)">V2</button><button class="button" id="but254" onclick="changeUrl(254)">V3</button></li>
+   <li><button class="button" id="but255" onclick="changeUrl(255)">ave_far</button><button class="button" id="but256" onclick="changeUrl(256)">V2</button><button class="button" id="but257" onclick="changeUrl(257)">V3</button></li>
+   <li><button class="button" id="but258" onclick="changeUrl(258)">total_dice_less</button><button class="button" id="but259" onclick="changeUrl(259)">V2</button><button class="button" id="but260" onclick="changeUrl(260)">V3</button></li>
+   <li><button class="button" id="but261" onclick="changeUrl(261)">total_more</button><button class="button" id="but262" onclick="changeUrl(262)">V2</button><button class="button" id="but263" onclick="changeUrl(263)">V3</button></li>
+   <li><button class="button" id="but264" onclick="changeUrl(264)">total_near</button><button class="button" id="but265" onclick="changeUrl(265)">V2</button><button class="button" id="but266" onclick="changeUrl(266)">V3</button></li>
+   <li><button class="button" id="but267" onclick="changeUrl(267)">total_far</button><button class="button" id="but268" onclick="changeUrl(268)">V2</button><button class="button" id="but269" onclick="changeUrl(269)">V3</button></li>
+   <li><button class="button" id="but270" onclick="changeUrl(270)">binom_less</button><button class="button" id="but271" onclick="changeUrl(271)">V2</button><button class="button" id="but272" onclick="changeUrl(272)">V3</button></li>
+   <li><button class="button" id="but273" onclick="changeUrl(273)">binom_more</button><button class="button" id="but274" onclick="changeUrl(274)">V2</button><button class="button" id="but275" onclick="changeUrl(275)">V3</button></li>
+   <li><button class="button" id="but276" onclick="changeUrl(276)">binom_between</button><button class="button" id="but277" onclick="changeUrl(277)">V2</button><button class="button" id="but278" onclick="changeUrl(278)">V3</button></li>
+   <li><button class="button" id="but279" onclick="changeUrl(279)">prop_less</button><button class="button" id="but280" onclick="changeUrl(280)">V2</button><button class="button" id="but281" onclick="changeUrl(281)">V3</button></li>
+   <li><button class="button" id="but282" onclick="changeUrl(282)">prop_more</button><button class="button" id="but283" onclick="changeUrl(283)">V2</button><button class="button" id="but284" onclick="changeUrl(284)">V3</button></li>
+   <li><button class="button" id="but285" onclick="changeUrl(285)">prop_between</button><button class="button" id="but286" onclick="changeUrl(286)">V2</button><button class="button" id="but287" onclick="changeUrl(287)">V3</button></li>
+</ul></li>
+  <li><span class="caret">exam3</span>
+<ul class="nested">
+   <li><button class="button" id="but288" onclick="changeUrl(288)">SNP_and_bounds</button><button class="button" id="but289" onclick="changeUrl(289)">V2</button><button class="button" id="but290" onclick="changeUrl(290)">V3</button></li>
+   <li><button class="button" id="but291" onclick="changeUrl(291)">NP_and_bounds</button><button class="button" id="but292" onclick="changeUrl(292)">V2</button><button class="button" id="but293" onclick="changeUrl(293)">V3</button></li>
+   <li><button class="button" id="but294" onclick="changeUrl(294)">intervals</button><button class="button" id="but295" onclick="changeUrl(295)">V2</button><button class="button" id="but296" onclick="changeUrl(296)">V3</button></li>
+   <li><button class="button" id="but297" onclick="changeUrl(297)">intervals_bern_prop_binom</button><button class="button" id="but298" onclick="changeUrl(298)">V2</button><button class="button" id="but299" onclick="changeUrl(299)">V3</button></li>
+   <li><button class="button" id="but300" onclick="changeUrl(300)">compare_zs_means</button><button class="button" id="but301" onclick="changeUrl(301)">V2</button><button class="button" id="but302" onclick="changeUrl(302)">V3</button></li>
+   <li><button class="button" id="but303" onclick="changeUrl(303)">calculate_z_from_sample_total</button><button class="button" id="but304" onclick="changeUrl(304)">V2</button><button class="button" id="but305" onclick="changeUrl(305)">V3</button></li>
+   <li><button class="button" id="but306" onclick="changeUrl(306)">CLT_mean_tot</button><button class="button" id="but307" onclick="changeUrl(307)">V2</button><button class="button" id="but308" onclick="changeUrl(308)">V3</button></li>
+   <li><button class="button" id="but309" onclick="changeUrl(309)">DMLT_prop_binom</button><button class="button" id="but310" onclick="changeUrl(310)">V2</button><button class="button" id="but311" onclick="changeUrl(311)">V3</button></li>
+</ul></li>
+</ul></li>
+ <li><span class="caret">inferential_statistics</span>
+<ul class="nested">
+  <li><span class="caret">T_dist</span>
+<ul class="nested">
+   <li><button class="button" id="but312" onclick="changeUrl(312)">T_probs</button><button class="button" id="but313" onclick="changeUrl(313)">V2</button><button class="button" id="but314" onclick="changeUrl(314)">V3</button></li>
+</ul></li>
+  <li><span class="caret">confidence_intervals</span>
+<ul class="nested">
+   <li><button class="button" id="but315" onclick="changeUrl(315)">conf_int_rough</button><button class="button" id="but316" onclick="changeUrl(316)">V2</button><button class="button" id="but317" onclick="changeUrl(317)">V3</button></li>
+   <li><button class="button" id="but318" onclick="changeUrl(318)">conf_int_prop_rough</button><button class="button" id="but319" onclick="changeUrl(319)">V2</button><button class="button" id="but320" onclick="changeUrl(320)">V3</button></li>
+   <li><button class="button" id="but321" onclick="changeUrl(321)">conf_int_prop</button><button class="button" id="but322" onclick="changeUrl(322)">V2</button><button class="button" id="but323" onclick="changeUrl(323)">V3</button></li>
+   <li><button class="button" id="but324" onclick="changeUrl(324)">conf_int_z</button><button class="button" id="but325" onclick="changeUrl(325)">V2</button><button class="button" id="but326" onclick="changeUrl(326)">V3</button></li>
+   <li><button class="button" id="but327" onclick="changeUrl(327)">conf_int_t</button><button class="button" id="but328" onclick="changeUrl(328)">V2</button><button class="button" id="but329" onclick="changeUrl(329)">V3</button></li>
+   <li><button class="button" id="but330" onclick="changeUrl(330)">conf_int_t_raw</button><button class="button" id="but331" onclick="changeUrl(331)">V2</button><button class="button" id="but332" onclick="changeUrl(332)">V3</button></li>
+   <li><button class="button" id="but333" onclick="changeUrl(333)">conf_int_z_raw</button><button class="button" id="but334" onclick="changeUrl(334)">V2</button><button class="button" id="but335" onclick="changeUrl(335)">V3</button></li>
+   <li><button class="button" id="but336" onclick="changeUrl(336)">conf_int_prop_raw</button><button class="button" id="but337" onclick="changeUrl(337)">V2</button><button class="button" id="but338" onclick="changeUrl(338)">V3</button></li>
+   <li><button class="button" id="but339" onclick="changeUrl(339)">n_from_ME</button><button class="button" id="but340" onclick="changeUrl(340)">V2</button><button class="button" id="but341" onclick="changeUrl(341)">V3</button></li>
+   <li><button class="button" id="but342" onclick="changeUrl(342)">n_from_ME_prop</button><button class="button" id="but343" onclick="changeUrl(343)">V2</button><button class="button" id="but344" onclick="changeUrl(344)">V3</button></li>
+</ul></li>
+  <li><span class="caret">hypothesis_tests_one_sample</span>
+<ul class="nested">
+   <li><button class="button" id="but345" onclick="changeUrl(345)">hyptest_single_mean</button><button class="button" id="but346" onclick="changeUrl(346)">V2</button><button class="button" id="but347" onclick="changeUrl(347)">V3</button></li>
+   <li><button class="button" id="but348" onclick="changeUrl(348)">hyptest_one_prop</button><button class="button" id="but349" onclick="changeUrl(349)">V2</button><button class="button" id="but350" onclick="changeUrl(350)">V3</button></li>
+   <li><button class="button" id="but351" onclick="changeUrl(351)">hyptest_single_mean_raw_archery</button><button class="button" id="but352" onclick="changeUrl(352)">V2</button><button class="button" id="but353" onclick="changeUrl(353)">V3</button></li>
+   <li><button class="button" id="but354" onclick="changeUrl(354)">hyptest_one_prop_raw_coin</button><button class="button" id="but355" onclick="changeUrl(355)">V2</button><button class="button" id="but356" onclick="changeUrl(356)">V3</button></li>
+</ul></li>
+  <li><span class="caret">hypothesis_tests_two_sample</span>
+<ul class="nested">
+   <li><button class="button" id="but357" onclick="changeUrl(357)">hyptest_paired_data</button><button class="button" id="but358" onclick="changeUrl(358)">V2</button><button class="button" id="but359" onclick="changeUrl(359)">V3</button></li>
+   <li><button class="button" id="but360" onclick="changeUrl(360)">hyptest_2_means_data</button><button class="button" id="but361" onclick="changeUrl(361)">V2</button><button class="button" id="but362" onclick="changeUrl(362)">V3</button></li>
+   <li><button class="button" id="but363" onclick="changeUrl(363)">hyptest_2_props_data</button><button class="button" id="but364" onclick="changeUrl(364)">V2</button><button class="button" id="but365" onclick="changeUrl(365)">V3</button></li>
+</ul></li>
+  <li><span class="caret">exam4</span>
+<ul class="nested">
+   <li><button class="button" id="but366" onclick="changeUrl(366)">one_mean_ci_pval</button><button class="button" id="but367" onclick="changeUrl(367)">V2</button><button class="button" id="but368" onclick="changeUrl(368)">V3</button></li>
+   <li><button class="button" id="but369" onclick="changeUrl(369)">one_prop_ci_pval</button><button class="button" id="but370" onclick="changeUrl(370)">V2</button><button class="button" id="but371" onclick="changeUrl(371)">V3</button></li>
+   <li><button class="button" id="but372" onclick="changeUrl(372)">hyptest_paired_data</button><button class="button" id="but373" onclick="changeUrl(373)">V2</button><button class="button" id="but374" onclick="changeUrl(374)">V3</button></li>
+   <li><button class="button" id="but375" onclick="changeUrl(375)">hyptest_2_means_data</button><button class="button" id="but376" onclick="changeUrl(376)">V2</button><button class="button" id="but377" onclick="changeUrl(377)">V3</button></li>
+   <li><button class="button" id="but378" onclick="changeUrl(378)">hyptest_2_props_data</button><button class="button" id="but379" onclick="changeUrl(379)">V2</button><button class="button" id="but380" onclick="changeUrl(380)">V3</button></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<button onclick="topFunction()" id="myBtn1" title="Go to top">Top</button>
+<button onclick="qFunction()" id="myBtn2" title="Go to question (shortcut=`q`)">Q</button>
+<button onclick="aFunction()" id="myBtn3" title="Go to answer (shortcut=`a`)">A</button>
+<button onclick="changeUrl(1)" id="myBtn4" title="Previous version">&#8592</button>
+<button onclick="changeUrl(1)" id="myBtn5" title="Next version">&#8594</button>
+<button onclick="changeUrl(1)" id="myBtn6" title="Previous question">&#8593</button>
+<button onclick="changeUrl(1)" id="myBtn7" title="Next question">&#8595</button>
+<center>
+<iframe src=qs[1] frameborder=0 name="cake" id="cake" style ="border:2px solid black;height:95vh;background-color:#dadaff;" width="95%"></></iframe>
+</center>
+<center>
+<iframe src=as[1] frameborder=0 name="duck" id="duck" style ="border:2px solid black;height:95vh;background-color:#ffdada;" width="95%"></></iframe>
+</center>
+<script>
+var toggler = document.getElementsByClassName("caret");
+var jjj;
+for (jjj = 0; jjj < toggler.length; jjj++) {
+  toggler[jjj].addEventListener("click", function() {
+    this.parentElement.querySelector(".nested").classList.toggle("active");
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>solution_01_data_basics/02_proportion/02_list_proportion_between_v1</i></small>
+<p><a href="https://vimeo.com/531901348" target="_blank">video</a></p>
+<p>First, it helps to sort the data. <span class="math display">\[\text{sort}(\mathbf{x}) = 81, 82, 83, 83, 84, 85, 85, 87, 88, 88\]</span></p>
+<p>You could use R to sort the data:</p>
+<pre><code>sort(c(88,85,87,82,81,85,84,83,88,83))</code></pre>
+<pre><code>##  [1] 81 82 83 83 84 85 85 87 88 88</code></pre>
+<p>You could also use a spreadsheet. Import the table into a spreadsheet. Then, highlight the column of measurements and use <code>Sort</code> function.</p>
+<br/>
+<ol type="a">
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=0.3) The proportion of measurements between 85.5 and 88.5 is 0.3. <span class="math display">\[\text{prop}[85.5&lt;\mathbf{x}&lt;88.5]=0.3\]</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=0.7) The proportion of measurements outside 84.5 and 87.5 is 0.7. <span class="math display">\[\text{prop}[\texttt{NOT}(84.5&lt;\mathbf{x}&lt;87.5)]=0.7\]</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=0.9) The proportion of measurements closer than 3.5 cm from 85 cm is 0.9. <span class="math display">\[\text{prop}\left[\big|\mathbf{x}-85\big|&lt;3.5\right] = 0.9\]</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=0.5) The proportion of measurements farther than 1.5 cm from 84 cm is 0.5. <span class="math display">\[\text{prop}\left[\big|\mathbf{x}-84\big|&gt;1.5\right] = 0.5\]</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=3.5) You can guess and check until you find a half-integer that satisfies the equation. It turns out that <span class="math inline">\(r = 3.5\)</span> satisfies the equation, because <span class="math display">\[\text{prop}\left[\big|\mathbf{x}-85\big|&lt;3.5\right] ~=~ 0.9\]</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=0.5) You can guess and check until you find a half-integer that satisfies the equation. It turns out that <span class="math inline">\(r = 0.5\)</span> satisfies the equation, because <span class="math display">\[\text{prop}\left[\big|\mathbf{x}-81\big|&gt;0.5\right] ~=~ 0.9\]</span> </div>
+</li>
+</ol>
+<br/>
+
+
+</body>
+</html>

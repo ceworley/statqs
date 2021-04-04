@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>solution_01_data_basics/01_counting/04_make_frequency_distribution_v3</i></small>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>You will want to use a computer to answer these questions.</p>
+<h3 id="spreadsheet">Spreadsheet</h3>
+<p><a href="https://vimeo.com/531556006" target="_blank">video (using a spreadsheet)</a></p>
+<p>In a spreadsheet, open the data, add the breaks as a column; then, use the <a href="https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_FREQUENCY_function" target="blank"><code>FREQUENCY function</code></a>.</p>
+<h3 id="r">R</h3>
+<p><a href="https://vimeo.com/531555988" target="blank">video (using R)</a></p>
+<p>In R, open the data and use the <a href="https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/hist"><code>hist</code></a> function. You supply the breaks and read the counts:</p>
+<pre class="text"><code>mydata = read.csv(&quot;make_freq_dist.csv&quot;)</code></pre>
+<pre class="text"><code>x = mydata$x</code></pre>
+<pre class="text"><code>myhist = hist(x,breaks=c(50,55,60,65,70))</code></pre>
+<pre class="text"><code>myhist$counts</code></pre>
+<pre><code>## [1]  2 20 22 86</code></pre>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+interval
+</th>
+<th style="text-align:center;">
+frequency
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+50 to 55
+</td>
+<td style="text-align:center;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+55 to 60
+</td>
+<td style="text-align:center;">
+20
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+60 to 65
+</td>
+<td style="text-align:center;">
+22
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+65 to 70
+</td>
+<td style="text-align:center;">
+86
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+<li>
+<div id='A' style='background: #FFAAAA'> 2 </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> 20 </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> 22 </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> 86 </div>
+</li>
+</ol>
+<br/>
+
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>01_data_basics/02_proportion/03_list_proportion_large_v2</i></small>
+<p>Jordan is practicing <a href="https://en.wikipedia.org/wiki/Free_throw">free throws</a>. She has recorded the results of many free throws.</p>
+<p>Hit Miss Miss Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Miss Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Miss Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Miss Hit Hit Hit Miss Hit Miss Hit Hit Hit Hit Hit Hit Miss Hit Hit Hit Miss Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Miss Hit Hit Hit Miss Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Miss Hit Hit Hit Miss Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Miss Hit Hit Hit Miss Hit Hit Hit Hit Hit Hit Hit Hit Miss Hit Miss Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit Hit</p>
+<p>You can download the data as a csv: <a href="data:text/csv;base64,aSxoaXRfb3JfbWlzcwoxLEhpdAoyLE1pc3MKMyxNaXNzCjQsSGl0CjUsSGl0CjYsSGl0CjcsSGl0CjgsSGl0CjksSGl0CjEwLEhpdAoxMSxIaXQKMTIsSGl0CjEzLEhpdAoxNCxNaXNzCjE1LEhpdAoxNixIaXQKMTcsSGl0CjE4LEhpdAoxOSxIaXQKMjAsSGl0CjIxLEhpdAoyMixIaXQKMjMsSGl0CjI0LEhpdAoyNSxIaXQKMjYsTWlzcwoyNyxIaXQKMjgsSGl0CjI5LEhpdAozMCxIaXQKMzEsSGl0CjMyLEhpdAozMyxIaXQKMzQsSGl0CjM1LEhpdAozNixIaXQKMzcsSGl0CjM4LE1pc3MKMzksSGl0CjQwLEhpdAo0MSxIaXQKNDIsTWlzcwo0MyxIaXQKNDQsTWlzcwo0NSxIaXQKNDYsSGl0CjQ3LEhpdAo0OCxIaXQKNDksSGl0CjUwLEhpdAo1MSxNaXNzCjUyLEhpdAo1MyxIaXQKNTQsSGl0CjU1LE1pc3MKNTYsSGl0CjU3LEhpdAo1OCxIaXQKNTksSGl0CjYwLEhpdAo2MSxIaXQKNjIsSGl0CjYzLEhpdAo2NCxIaXQKNjUsSGl0CjY2LEhpdAo2NyxIaXQKNjgsSGl0CjY5LEhpdAo3MCxIaXQKNzEsSGl0CjcyLEhpdAo3MyxIaXQKNzQsSGl0Cjc1LEhpdAo3NixIaXQKNzcsSGl0Cjc4LEhpdAo3OSxIaXQKODAsSGl0CjgxLEhpdAo4MixIaXQKODMsSGl0Cjg0LE1pc3MKODUsSGl0Cjg2LEhpdAo4NyxIaXQKODgsTWlzcwo4OSxIaXQKOTAsSGl0CjkxLEhpdAo5MixIaXQKOTMsSGl0Cjk0LEhpdAo5NSxIaXQKOTYsSGl0Cjk3LEhpdAo5OCxIaXQKOTksSGl0CjEwMCxNaXNzCjEwMSxIaXQKMTAyLEhpdAoxMDMsSGl0CjEwNCxNaXNzCjEwNSxIaXQKMTA2LEhpdAoxMDcsSGl0CjEwOCxIaXQKMTA5LEhpdAoxMTAsSGl0CjExMSxIaXQKMTEyLEhpdAoxMTMsSGl0CjExNCxIaXQKMTE1LEhpdAoxMTYsTWlzcwoxMTcsSGl0CjExOCxIaXQKMTE5LEhpdAoxMjAsTWlzcwoxMjEsSGl0CjEyMixIaXQKMTIzLEhpdAoxMjQsSGl0CjEyNSxIaXQKMTI2LEhpdAoxMjcsSGl0CjEyOCxIaXQKMTI5LE1pc3MKMTMwLEhpdAoxMzEsTWlzcwoxMzIsSGl0CjEzMyxIaXQKMTM0LEhpdAoxMzUsSGl0CjEzNixIaXQKMTM3LEhpdAoxMzgsSGl0CjEzOSxIaXQKMTQwLEhpdAoxNDEsSGl0CjE0MixIaXQKMTQzLEhpdAoxNDQsSGl0CjE0NSxIaXQKMTQ2LEhpdAoxNDcsSGl0CjE0OCxIaXQKMTQ5LEhpdAo=" download="basketball_proportion.csv">basketball_proportion.csv</a>. The header and first four rows are shown below.</p>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+i
+</th>
+<th style="text-align:center;">
+hit_or_miss
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+Hit
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+Miss
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+Miss
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+Hit
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\vdots\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\vdots\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+<li>
+<div id='Q' style='background: #AAAAFF'> How many shots did Jordan attempt? (Evaluate <span class="math inline">\(n\)</span>.) </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> How many shots were successful? (Evaluate <span class="math inline">\(n_\text{s}\)</span>.) </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> How many shots were failures? (Evaluate <span class="math inline">\(n_\text{f}\)</span>.) </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What proportion of Jordan’s shots were successful? (Evaluate <span class="math inline">\(\hat{p}\)</span>.) </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What proportion of Jordan’s shots were failures? (Evaluate <span class="math inline">\(\hat{q}\)</span>.) </div>
+</li>
+</ol>
+<br/>
+
+
+</body>
+</html>
