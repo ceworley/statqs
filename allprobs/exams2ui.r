@@ -4,7 +4,7 @@ set.seed(100)
 
 nov = 3 #number of versions
 outdir = "out"
-fn = "index"
+fn = "statqs"
 s = gsub(".Rmd","",list.files(pattern=".Rmd",recursive = T))
 
 html1 = '<!DOCTYPE html>
