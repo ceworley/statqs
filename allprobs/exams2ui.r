@@ -265,7 +265,7 @@ document.addEventListener("keypress", function onEvent(event) {
 });
 </script>
 </head>
-<body onload="setUrl()">
+<body onload="setUrl();document.getElementById("top").scrollIntoView();">
 
 <div id="welcome" style="background:#aaeeaa;">
 Welcome to Chad Worley\'s statistics questions. Please also check out this
