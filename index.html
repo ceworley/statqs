@@ -20,8 +20,8 @@ ul, #myUL {
 }
 /* Create the caret/arrow with a unicode, and style it */
 .caret::before {
-  content: "\25B6";
-  color: black;
+  content: "\2B24";
+  color: #AAAAAA;
   display: inline-block;
 }
 .erase::before {
@@ -255,7 +255,7 @@ document.addEventListener("keypress", function onEvent(event) {
 function ScrollToTarget()
 {
      document.getElementById("top").scrollIntoView(true);
-}
+};
 </script>
 </head>
 <body onload="setUrl();ScrollToTarget();">
