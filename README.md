@@ -1,8 +1,8 @@
 # statistics
 
-Intro-stats materials made with [R/exams](http://www.r-exams.org/). Students use R or spreadsheet formulas. Questions use embedded csv files and have links to wikipedia. In addition to density curves and cumulative curves, I make heavy use of spinners to visualize the concepts.
+Intro-stats materials made with R/exams. Students use R or spreadsheet formulas. Questions use embedded csv files and have links to wikipedia. In addition to density curves and cumulative curves, I make heavy use of spinners to visualize the concepts.
 
-Please preview the questions on my [static github site](https://ceworley.github.io). You can see the script I used to generate that static site in [allprobs](https://github.com/ceworley/statistics/tree/main/allprobs).
+Please preview the questions on my [static github site](https://ceworley.github.io/statqs). You can see the script I used to generate that static site in [allprobs](https://github.com/ceworley/statistics/tree/main/allprobs).
 
 There are also a couple Shiny apps. They are rough, but my students prefer using them to using tables. You can preview them:
 
