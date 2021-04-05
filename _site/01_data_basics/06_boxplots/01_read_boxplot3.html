@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>01_data_basics/06_boxplots/01_read_boxplot_v3</i></small>
+<p>A sample was taken from an unknown population. The values were organized into a <a href="https://en.wikipedia.org/wiki/Box_plot" target="blank">boxplot</a>.</p>
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-1" /><br />
+</p>
+<p>For simplicity, assume no measurements lie on the hinges, median, or whisker tips (so we do not worry about inclusive vs. exclusive boundaries). This assumption is approximately true with a very large sample from a continuous distribution.</p>
+<br/>
+<ol type="a">
+<li>
+<div id='Q' style='background: #AAAAFF'> What proportion of measurements are below 34.3? <span class="math display">\[\text{prop}[\mathbf{x}&lt; 34.3] = \text{?}\]</span> </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What proportion of measurements are above 27.3? <span class="math display">\[\text{prop}[\mathbf{x}&gt; 27.3] = \text{?}\]</span> </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What proportion of measurements are between 27.3 and 38.6? <span class="math display">\[\text{prop}[27.3&lt; \mathbf{x} &lt; 38.6] = \text{?}\]</span> </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What proportion of measurements are closer than 6.45 units from 27.85? <span class="math display">\[\text{prop}[|\mathbf{x}-27.85|&lt;6.45] = \text{?}\]</span> </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> Determine boundary <span class="math inline">\(b\)</span> such that <span class="math inline">\(\text{prop}[\mathbf{x}&lt;b]=0.5\)</span>. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> Determine boundary <span class="math inline">\(b\)</span> such that <span class="math inline">\(\text{prop}[\mathbf{x}&gt;b]=0.75\)</span>. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What is the range? </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What is the interquartile range (IQR)? </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What is the median? </div>
+</li>
+</ol>
+<br/>
+
+
+</body>
+</html>

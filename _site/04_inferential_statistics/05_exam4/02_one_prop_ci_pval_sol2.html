@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>solution_04_inferential_statistics/05_exam4/02_one_prop_ci_pval_v2</i></small>
+<p>By hand, this is easiest to do with a normal approximation without the continuity correction.</p>
+<p><span class="math display">\[n = 104\]</span> <span class="math display">\[\hat{p} = 0.4327\]</span> <span class="math display">\[z^\star = 1.96 \]</span> <span class="math display">\[\text{CI}_\text{boundaries} = \hat{p} \pm z^\star\sqrt{\frac{\hat{p}(1-\hat{p})}{n}} \]</span> <span class="math display">\[\text{CI}_\text{boundaries} = (0.3374701,0.5279145)\]</span> <span class="math display">\[z = \frac{\hat{p}-p_0}{\sqrt{p_0(1-p_0)/n}} = 2.7053821\]</span></p>
+<p><span class="math display">\[p\text{-value} = P\left(|Z|&gt;2.7053821\right) = 0.0068226\]</span></p>
+<br/>
+<ol type="a">
+<li>
+<div id='A' style='background: #FFAAAA'> Normal approx: <span class="math inline">\(0.3374701\)</span>. Wilson: <span class="math inline">\(0.34155\)</span>. Wilson with CC: <span class="math inline">\(0.3370367\)</span>. Exact Clopper-Pearson: <span class="math inline">\(0.3358519\)</span>. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> Normal approx: <span class="math inline">\(0.5279145\)</span>. Wilson: <span class="math inline">\(0.5286298\)</span>. Wilson with CC: <span class="math inline">\(0.5333807\)</span>. Exact Clopper-Pearson: <span class="math inline">\(0.5334663\)</span>. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> Normal approx: <span class="math inline">\(0.0068226\)</span>. Chi squared: <span class="math inline">\(0.0068226\)</span>. Chi squared with CC: <span class="math inline">\(0.0093395\)</span>. Exact: <span class="math inline">\(0.0080146\)</span>. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> The p-value is less than 0.05, so the difference is significant. /  </div>
+</li>
+</ol>
+<br/>
+
+
+</body>
+</html>

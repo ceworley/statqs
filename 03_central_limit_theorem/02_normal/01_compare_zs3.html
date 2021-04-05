@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>03_central_limit_theorem/02_normal/01_compare_zs_v3</i></small>
+<p>A farm produces 4 types of fruit: plums, oranges, grapefruits, and lemons. The fruits’ masses follow normal distributions, with population parameters dependent on the type of fruit.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">_ Type of fruit _</th>
+<th align="center">_ Mean mass (g) _</th>
+<th align="center">_ Standard deviation of mass (g) _</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">plums</td>
+<td align="center">93</td>
+<td align="center">6</td>
+</tr>
+<tr class="even">
+<td align="center">oranges</td>
+<td align="center">144</td>
+<td align="center">8</td>
+</tr>
+<tr class="odd">
+<td align="center">grapefruits</td>
+<td align="center">192</td>
+<td align="center">13</td>
+</tr>
+<tr class="even">
+<td align="center">lemons</td>
+<td align="center">117</td>
+<td align="center">10</td>
+</tr>
+</tbody>
+</table>
+<p>One specimen of each type is weighed. The results are shown below.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">_ Specimen type _</th>
+<th align="center">_ Mass of specimen (g) _</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">plum</td>
+<td align="center">81.54</td>
+</tr>
+<tr class="even">
+<td align="center">orange</td>
+<td align="center">156.2</td>
+</tr>
+<tr class="odd">
+<td align="center">grapefruit</td>
+<td align="center">204.1</td>
+</tr>
+<tr class="even">
+<td align="center">lemon</td>
+<td align="center">109.4</td>
+</tr>
+</tbody>
+</table>
+<p>The population parameters and specimen masses can be <a href="data:text/csv;base64,IkZydWl0IHR5cGUiLCJQb3B1bGF0aW9uIG1lYW4iLCJQb3B1bGF0aW9uIHN0YW5kYXJkIGRldmlhdGlvbiIsIk1lYXN1cmVtZW50IgoicGx1bSIsOTMsNiw4MS41NAoib3JhbmdlIiwxNDQsOCwxNTYuMgoiZ3JhcGVmcnVpdCIsMTkyLDEzLDIwNC4xCiJsZW1vbiIsMTE3LDEwLDEwOS40Cg==" download="fruit.csv" target="blank">downloaded as a csv</a>.</p>
+<p>For each measurement, determine the <a href="https://en.wikipedia.org/wiki/Standard_score">standard score</a> and the <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function" target="blank">cumulative probability</a>. Then determine which specimen is most unusually large, most unusually small, most typically sized, and most unusually sized.</p>
+<br/>
+<ol type="a">
+<li>
+<div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span> score for the plum specimen. (Round to the nearest hundredth.) </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What proportion of plums have less mass than the plum specimen? </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span> score for the orange specimen. (Round to the nearest hundredth.) </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What proportion of oranges have less mass than the orange specimen? </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span> score for the grapefruit specimen. (Round to the nearest hundredth.) </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What proportion of grapefruits have less mass than the grapefruit specimen? </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span> score for the lemon specimen. (Round to the nearest hundredth.) </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What proportion of lemons have less mass than the lemon specimen? </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> The plum specimen is most unusually large. / The orange specimen is most unusually large. / The grapefruit specimen is most unusually large. / The lemon specimen is most unusually large. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> The plum specimen is most unusually small. / The orange specimen is most unusually small. / The grapefruit specimen is most unusually small. / The lemon specimen is most unusually small. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> The plum specimen is most typically sized. / The orange specimen is most typically sized. / The grapefruit specimen is most typically sized. / The lemon specimen is most typically sized. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> The plum specimen is most unusually sized. / The orange specimen is most unusually sized. / The grapefruit specimen is most unusually sized. / The lemon specimen is most unusually sized. </div>
+</li>
+</ol>
+<br/>
+
+
+</body>
+</html>

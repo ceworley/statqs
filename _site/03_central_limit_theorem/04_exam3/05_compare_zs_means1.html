@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>03_central_limit_theorem/04_exam3/05_compare_zs_means_v1</i></small>
+<p>A farm produces 4 types of fruit: oranges, pineapples, kiwis, and persimmons. The fruits’ masses have population parameters dependent on the type of fruit. (All values are in grams.)</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">_ Type of fruit _</th>
+<th align="center">_ Population mean (<span class="math inline">\(\mu\)</span>) _</th>
+<th align="center">_ Population standard deviation (<span class="math inline">\(\sigma\)</span>) _</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">oranges</td>
+<td align="center">194</td>
+<td align="center">12</td>
+</tr>
+<tr class="even">
+<td align="center">pineapples</td>
+<td align="center">1474</td>
+<td align="center">130</td>
+</tr>
+<tr class="odd">
+<td align="center">kiwis</td>
+<td align="center">66</td>
+<td align="center">4</td>
+</tr>
+<tr class="even">
+<td align="center">persimmons</td>
+<td align="center">137</td>
+<td align="center">11</td>
+</tr>
+</tbody>
+</table>
+<p>A sample of each type is weighed. The results are shown below.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">_ Type of fruit _</th>
+<th align="center">_ Sample size (<span class="math inline">\(n\)</span>) _</th>
+<th align="center">_ Sample mean (<span class="math inline">\(\bar{x}\)</span>) _</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">orange</td>
+<td align="center">100</td>
+<td align="center">193.1</td>
+</tr>
+<tr class="even">
+<td align="center">pineapple</td>
+<td align="center">144</td>
+<td align="center">1478</td>
+</tr>
+<tr class="odd">
+<td align="center">kiwi</td>
+<td align="center">36</td>
+<td align="center">65.28</td>
+</tr>
+<tr class="even">
+<td align="center">persimmon</td>
+<td align="center">25</td>
+<td align="center">135.7</td>
+</tr>
+</tbody>
+</table>
+<p>The population parameters and sample statistics can be <a href="data:text/csv;base64,ImZydWl0IiwibXUiLCJzaWdtYSIsIm4iLCJ4YmFyIgoib3JhbmdlIiwxOTQsMTIsMTAwLDE5My4xCiJwaW5lYXBwbGUiLDE0NzQsMTMwLDE0NCwxNDc4CiJraXdpIiw2Niw0LDM2LDY1LjI4CiJwZXJzaW1tb24iLDEzNywxMSwyNSwxMzUuNwo=" download="fruit.csv" target="blank">downloaded as a csv</a>.</p>
+<p>For each sample, determine the mean’s standard score and the mean’s <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function" target="blank">cumulative probability</a> by assuming the requirements for the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="blank">central limit theorem</a> are met. Then determine which sample mean is most unusually large, most unusually small, most typically sized, and most unusually sized.</p>
+<p>The standard score of a sample mean: <span class="math display">\[z = \frac{\bar{x}-\mu}{\sigma/\sqrt{n}}\]</span> Some people prefer to call this denominator <a href="https://en.wikipedia.org/wiki/Standard_error" target="blank">the standard error</a>. <span class="math display">\[\text{standard error of mean} = \text{SEM} = \frac{\sigma}{\sqrt{n}} \]</span> So the standard score (<span class="math inline">\(z\)</span>-score) of a sample mean can also be expressed as <span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SEM}} \]</span></p>
+<br/>
+<ol type="a">
+<li>
+<div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span>-score for the orange sample mean. (Round to the nearest hundredth.) </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What proportion of orange samples of size <span class="math inline">\(n=100\)</span> have a smaller mean than the orange sample? </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span>-score for the pineapple sample mean. (Round to the nearest hundredth.) </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What proportion of pineapple samples of size <span class="math inline">\(n=144\)</span> have a smaller mean than the pineapple sample? </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span>-score for the kiwi sample mean. (Round to the nearest hundredth.) </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What proportion of kiwi samples of size <span class="math inline">\(n=36\)</span> have a smaller mean than the kiwi sample? </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span>-score for the persimmon sample mean. (Round to the nearest hundredth.) </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What proportion of persimmon samples of size <span class="math inline">\(n=25\)</span> have a smaller mean than the persimmon sample? </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> The orange sample mean is most unusually large. / The pineapple sample mean is most unusually large. / The kiwi sample mean is most unusually large. / The persimmon sample mean is most unusually large. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> The orange sample mean is most unusually small. / The pineapple sample mean is most unusually small. / The kiwi sample mean is most unusually small. / The persimmon sample mean is most unusually small. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> The orange sample mean is most typically sized. / The pineapple sample mean is most typically sized. / The kiwi sample mean is most typically sized. / The persimmon sample mean is most typically sized. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> The orange sample mean is most unusually sized. / The pineapple sample mean is most unusually sized. / The kiwi sample mean is most unusually sized. / The persimmon sample mean is most unusually sized. </div>
+</li>
+</ol>
+<br/>
+
+
+</body>
+</html>
