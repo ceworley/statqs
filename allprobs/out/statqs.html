@@ -252,9 +252,13 @@ document.addEventListener("keypress", function onEvent(event) {
         document.getElementsByName("duck")[0].scrollIntoView();
     }
 });
+function ScrollToTarget()
+{
+     document.getElementById("top").scrollIntoView(true);
+};
 </script>
 </head>
-<body onload="setUrl();document.getElementById("top").scrollIntoView();">
+<body onload="setUrl();ScrollToTarget();">
 
 <div id="welcome" style="background:#aaeeaa;">
 Welcome to Chad Worley's statistics questions. Please also check out this
