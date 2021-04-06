@@ -1,4 +1,3 @@
-
 ```{r data generation, echo = FALSE, results = "hide"}
 while(T){
     n = sample(5:8,1)
@@ -81,14 +80,34 @@ for(perc in seq(0,1,0.01)){
   the = perc*2*pi
   lines(c(1,1.02)*sin(the),c(1,1.02)*cos(the))
 }
+
+mydf = data.frame(x,p)
+colnames(mydf) = c("$x$","$\\mathbb{P}[x]$")
+
 ```
 \
 
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
 The spinner's probability distribution is shown below.
 
-| $x$ | $\mathbb{P}[x]$ |
-|:---:|:---:|
-`r s`
+```{r tab1, results="asis", echo=F}
+knitr::kable(mydf,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
 
 It can also be [downloaded as a csv](probdist.csv){target="blank"}.
 
@@ -123,17 +142,42 @@ s3 = paste(s3, '\\hline\n')
 s3 = paste(s3, "& & $\\sum x \\cdot \\mathbb{P}[x]=",mu,"$& & & $\\sigma^2 =",sum(c6),"$ \\\\ \\hline\n")
 s3 = paste(s3, "& & $\\mu=",mu,"$& & & $\\sigma =",sig,"$ \\\\ \\hline\n")
 s3 = paste(s3,"\\end{tabular}\n\\end{center}",sep="")
+
+mydf2 = data.frame(x,p,c3,c4,c5,c6)
+colnames(mydf2) = c("$x$","$\\mathbb{P}[x]$","$x\\cdot\\mathbb{P}[x]$",
+                    "$x-\\mu$","$(x-\\mu)^2$","$(x-\\mu)^2 \\cdot \\mathbb{P}[x]$")
+```
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r tab2, results="asis", echo=F}
+mydf2 = type.convert(mydf2, as.is = TRUE)
+mydf2 = rbind(mydf2,rep("",6))
+mydf2 = rbind(mydf2,c("","",
+                      sprintf("$\\sum x \\cdot \\mathbb{P}[x]=%.2f$",mu),"","",
+                      sprintf("$\\sigma^2=%.2f$",sum(c6))))
+mydf2 = rbind(mydf2,c("","",
+                      sprintf("$\\mu = %.2f$",mu),"","",
+                      sprintf("$\\sigma=%.2f$",sig)))
+knitr::kable(mydf2,format="html",table.attr='class="bordered-table"', align = "cccccc",row.names=F)
 ```
 
 
-| $x$ | $\mathbb{P}[x]$ | $x\cdot\mathbb{P}[x]$ | $x-\mu$ | $(x-\mu)^2$ | $(x-\mu)^2 \cdot \mathbb{P}[x]$|
-|:---:|:---:|:---:|:---:|:---:|:---:|
-`r s2`
-|=========|=========|=========|=========|=========|=========|
-|     |     | $\sum x \cdot \mathbb{P}[x] = `r mu`$ |   |   | $\sigma^2 = `r sum(c6)`$   |
-|     |     | $\mu = `r mu`$ |   |   | $\sigma = `r sig`$   |
 
-<!-- `r s3` -->
 
 Answerlist
 --------

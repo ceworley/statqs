@@ -12,7 +12,7 @@ Question
 
 ### Background
 
-Sometimes a population is well characterized. In this case we know its mean and standard deviation. We use greek letters $\mu$ ("mu") and $\sigma$ ("sigma") when describing the population (instead of the $\bar{x}$ ("xbar") and $s$ used for sample mean and sample standard deviation).
+Sometimes a population is well characterized, meaning we know its mean and standard deviation. We use greek letters $\mu$ ("mu") and $\sigma$ ("sigma") when describing the population (instead of the $\bar{x}$ ("xbar") and $s$ used for sample mean and sample standard deviation).
 $$\mu = \text{population mean} $$
 $$\sigma = \text{population standard deviation} $$
 

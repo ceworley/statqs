@@ -22,7 +22,7 @@ while(T){
 Question
 ========
 Random variable $`r rv`$ is normally distributed with mean $\mu = `r mu`$ and standard deviation $\sigma = `r sig`$.
-$$`r rv` = \text{N}(`r mu`,\,`r sig`) $$
+$$`r rv` \sim \text{N}(`r mu`,\,`r sig`) $$
 Evaluate $P(`r rv` > `r x`)$.
 
 

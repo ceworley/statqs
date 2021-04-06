@@ -18,6 +18,8 @@ Determine $z$ such that $P(Z>z)=`r ra`$. In other words, what $z$-score is less 
 Solution
 ========
 
+(ANS=`r z`)
+
 [video](https://vimeo.com/531931611){target="_blank"}
 
 Start with a sketch. Rightward numbers (toward $+\infty$) will be more than our boundary $z$, so we shade a rightward region with area `r ra`.
@@ -58,6 +60,7 @@ axis(1,at=c(-3,z,3),line = 0,labels=c("-3","?","3"))
 axis(1,at=seq(-3,3,1),line=2)
 mtext('Z',1,5)
 ```
+\
 
 
 ```{r, echo=F}
@@ -165,12 +168,12 @@ text(0.4*sin(2*pi*pe[1]),0.4*cos(2*pi*pe[1]),round(z,7),srt=(180-360*pe[1])%%180
 text(0.4*sin(2*pi*pe[2]),0.4*cos(2*pi*pe[2]),"positve infinity",srt=(180-360*pe[2])%%180-90)
 text(1.25*sin(2*pi*pe[1]),1.25*cos(2*pi*pe[1]),round(pe[1],4),srt=-(pe[1]*360-90)%%180-90,cex=0.8)
 text(1.25*sin(2*pi*pe[2]),1.25*cos(2*pi*pe[2]),round(pe[2],4),srt=-(pe[2]*360-90)%%180-90,cex=0.8)
-text(sin(pm*2*pi)*1.25,
-     cos(pm*2*pi)*1.25,
+text(sin(pm*2*pi)*1.16,
+     cos(pm*2*pi)*1.16,
      sprintf("%.4f",round(pe[2],4)-round(pe[1],4)),
      srt=-(pm*360-90)%%180-90)
-text(sin(pm2*2*pi)*1.25,
-     cos(pm2*2*pi)*1.25,
+text(sin(pm2*2*pi)*1.16,
+     cos(pm2*2*pi)*1.16,
      sprintf("%.4f",1-(round(pe[2],4)-round(pe[1],4))),
      srt=-(pm2*360-90)%%180-90)
 ```

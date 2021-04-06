@@ -193,6 +193,8 @@ make_exams_write_html <- function(template = "plain", name = NULL,
               html_body <- c(html_body, "<li>", sl, "</li>")
             html_body <- c(html_body, "</ol>", "<br/>")
           }
+          html_body <- c(html_body,paste0("ANSWERS: ",paste0(exm[[j]]$metainfo$solution,collapse=", "),"<br>",collapse=""))
+          html_body <- c(html_body,paste0("TOLERANCES: ",paste0(exm[[j]]$metainfo$tol,collapse=", "),collapse=""))
         }
         html_body <- c(html_body, "</li>")
         

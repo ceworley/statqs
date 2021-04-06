@@ -33,6 +33,11 @@ Question
 
 In some game, each trial has a $p = `r p`$ probability of success. A player will attempt `r n` trials. What is the probability that the number of successes is less than `r xt`?
 
+(Even though single trials are **not** normally distributed [they follow a [Bernoulli distribution](https://en.wikipedia.org/wiki/Bernoulli_distribution){target="_blank"}], the random totals will be normally distributed.
+See [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem){target="_blank"}.
+Also, I have already made the [continuity correction](https://en.wikipedia.org/wiki/Continuity_correction){target="_blank"} by setting the boundary to a [half-integer](https://en.wikipedia.org/wiki/Half-integer){target="_blank"}. )
+
+
 
 Solution
 ========

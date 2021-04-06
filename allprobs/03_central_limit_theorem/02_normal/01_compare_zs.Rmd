@@ -35,6 +35,11 @@ colnames(data) = c("Fruit type",
                     "Measurement")
 
 write.csv(data,"fruit.csv",row.names=F)
+
+tab1 = data.frame(fs,mus,sigs)
+colnames(tab1) = c("Type of fruit","$\\mu$, population mean mass in grams","$\\sigma$, population standard deviation in grams")
+tab2 = data.frame(f,xs)
+colnames(tab2) = c("Specimen type","$x$, mass of specimen in grams")
 ```
 
 Question
@@ -42,25 +47,51 @@ Question
 
 A farm produces 4 types of fruit: `r fs[1]`, `r fs[2]`, `r fs[3]`, and `r fs[4]`. The fruits' masses follow normal distributions, with population parameters dependent on the type of fruit.
 
-| _ Type of fruit _ | _ Mean mass (g) _ | _ Standard deviation of mass (g) _ |
-|:---:|:---:|:---:|
-|`r fs[1]` | `r mus[1]` | `r sigs[1]` | 
-|`r fs[2]` | `r mus[2]` | `r sigs[2]` |
-|`r fs[3]` | `r mus[3]` | `r sigs[3]` |
-|`r fs[4]` | `r mus[4]` | `r sigs[4]` |
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r tab1, results="asis",echo=F}
+knitr::kable(tab1,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
+
 
 One specimen of each type is weighed. The results are shown below.
 
-| _ Specimen type _ | _ Mass of specimen (g) _ |
-|:---:|:---:|
-|`r f[1]` | `r xs[1]` |
-|`r f[2]` | `r xs[2]` |
-|`r f[3]` | `r xs[3]` |
-|`r f[4]` | `r xs[4]` |
+```{r tab2, results="asis",echo=F}
+knitr::kable(tab2,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
 
 The population parameters and specimen masses can be [downloaded as a csv](fruit.csv){target="blank"}.
 
 For each measurement, determine the [standard score](https://en.wikipedia.org/wiki/Standard_score) and the [cumulative probability](https://en.wikipedia.org/wiki/Cumulative_distribution_function){target="blank"}. Then determine which specimen is most unusually large, most unusually small, most typically sized, and most unusually sized.
+
+
+a. ##ANSWER1##
+b. ##ANSWER2##
+c. ##ANSWER3##
+d. ##ANSWER4##
+e. ##ANSWER5##
+f. ##ANSWER6##
+g. ##ANSWER7##
+h. ##ANSWER8##
+i. Which specimen is the most unusually large? ##ANSWER9##
+j. Which specimen is the most unusually small? ##ANSWER10##
+k. Which specimen is most typically sized? ##ANSWER11##
+l. Which specimen is most unusually sized? ##ANSWER12##
+
 
 Answerlist
 --------

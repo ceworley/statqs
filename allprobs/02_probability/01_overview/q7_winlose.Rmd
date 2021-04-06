@@ -20,6 +20,7 @@ Answerlist
 Solution
 ========
 
+
 [video](https://vimeo.com/531918967){target="_blank"}
 
 $$P(WW) = `r p1` \times `r p2` = `r p1*p2` $$

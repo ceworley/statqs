@@ -17,6 +17,8 @@ Determine $z$ such that $P(Z<z)=`r ell`$. In other words, what $z$-score is grea
 Solution
 ========
 
+(ANS=`r z`)
+
 [video](https://vimeo.com/531931611){target="_blank"}
 
 Start with a sketch. Leftward numbers (toward $-\infty$) will be less than our boundary $z$, so we shade a left region with area `r ell`.
@@ -51,6 +53,8 @@ You should go to your $z$-table and find the $z$-score with the left area closes
 | **`r z2[4]`** | **`r format(round(pnorm(z2[4]),4),4)`** |
 | `r z2[5]` | `r format(round(pnorm(z2[5]),4),4)` |
 | `r z2[6]` | `r format(round(pnorm(z2[6]),4),4)` |
+
+
 
 It turns out the exact answer is $z=`r z`$, which could be found by using an inverse normal function. On a spreadsheet:
 ```
@@ -136,8 +140,8 @@ text(0.5*sin(2*pi*pe[1]),0.5*cos(2*pi*pe[1]),"negative infinity",srt=(180-360*pe
 text(0.5*sin(2*pi*pe[2]),0.5*cos(2*pi*pe[2]),round(z,7),srt=(180-360*pe[2])%%180-90)
 text(1.25*sin(2*pi*pe[1]),1.25*cos(2*pi*pe[1]),round(pe[1],4),srt=-(pe[1]*360-90)%%180-90,cex=0.8)
 text(1.25*sin(2*pi*pe[2]),1.25*cos(2*pi*pe[2]),round(pe[2],4),srt=-(pe[2]*360-90)%%180-90,cex=0.8)
-text(sin(pm*2*pi)*1.25,
-     cos(pm*2*pi)*1.25,
+text(sin(pm*2*pi)*1.16,
+     cos(pm*2*pi)*1.16,
      sprintf("%.4f",round(pe[2],4)-round(pe[1],4)),
      srt=-(pm*360-90)%%180-90)
 ```

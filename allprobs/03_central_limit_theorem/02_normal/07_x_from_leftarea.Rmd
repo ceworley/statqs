@@ -25,7 +25,7 @@ while(T){
 Question
 ========
 Random variable $`r Xl`$ is normally distributed with mean $\mu = `r mu`$ and standard deviation $\sigma = `r sig`$.
-$$`r Xl` = \text{N}(`r mu`,\,`r sig`) $$
+$$`r Xl` \sim \text{N}(`r mu`,\,`r sig`) $$
 Evaluate $`r xl`$ such that $P(`r Xl`<`r xl`) = `r la`$. In other words, determine an upper boundary such that a normal spinner with mean `r mu` and standard deviation `r sig` `r wrd` that boundary `r la*100`% of the time. 
 
 

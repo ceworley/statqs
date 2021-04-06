@@ -10,11 +10,11 @@
 <body>
 
 <small><i>solution_01_data_basics/01_counting/02_list_counting_between_v3</i></small>
-<p>First, it helps to sort the data. <span class="math display">\[\text{sort}(\mathbf{x}) = 52, 53, 54, 55, 55, 56, 57, 57, 58, 59\]</span></p>
+<p>First, it helps to sort the data. <span class="math display">\[\text{sort}(\mathbf{x}) = 23, 23, 25, 25, 26, 27, 27, 29, 29, 29\]</span></p>
 <h3 id="r">R</h3>
 <p>You could use R to sort the data:</p>
-<pre><code>sort(c(52,55,54,59,55,56,57,57,53,58))</code></pre>
-<pre><code>##  [1] 52 53 54 55 55 56 57 57 58 59</code></pre>
+<pre><code>sort(c(29,29,29,25,27,27,23,23,26,25))</code></pre>
+<pre><code>##  [1] 23 23 25 25 26 27 27 29 29 29</code></pre>
 <p><a href="https://vimeo.com/531555871" target="_blank">Video of a similar problem solved with R</a></p>
 <h3 id="spreadsheet">Spreadsheet</h3>
 <p>You could also use a spreadsheet. Import the table into a spreadsheet. Then, highlight the column of measurements and use <code>Sort</code> function.</p>
@@ -22,25 +22,27 @@
 <br/>
 <ol type="a">
 <li>
-<div id='A' style='background: #FFAAAA'> (ANS=1) There are 1 measurements between 53.5 and 54.5. <span class="math display">\[\#[53.5&lt;\mathbf{x}&lt;54.5]=1\]</span> </div>
+<div id='A' style='background: #FFAAAA'> (ANS=8) There are 8 measurements between 24.5 and 29.5. <span class="math display">\[\#[24.5&lt;\mathbf{x}&lt;29.5]=8\]</span> </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> (ANS=8) There are 8 measurements outside 57.5 and 59.5. <span class="math display">\[\#[\mathbf{x}&lt;57.5\texttt{ OR } \mathbf{x}&gt;59.5]=8\]</span> </div>
+<div id='A' style='background: #FFAAAA'> (ANS=7) There are 7 measurements outside 25.5 and 28.5. <span class="math display">\[\#[\mathbf{x}&lt;25.5\texttt{ OR } \mathbf{x}&gt;28.5]=7\]</span> </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> (ANS=3) There are 3 measurements closer than 1 units from 57.5. It might help to rephrase the problem as finding how many measurements are between 56.5 and 58.5. These boundaries are found by subtracting 1 from 57.5 and adding 1 to 57.5. <span class="math display">\[\#\left[\big|\mathbf{x}-57.5\big|&lt;1\right]=3\]</span> </div>
+<div id='A' style='background: #FFAAAA'> (ANS=8) There are 8 measurements closer than 2.5 units from 27. It might help to rephrase the problem as finding how many measurements are between 24.5 and 29.5. These boundaries are found by subtracting 2.5 from 27 and adding 2.5 to 27. <span class="math display">\[\#\left[\big|\mathbf{x}-27\big|&lt;2.5\right]=8\]</span> </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> (ANS=1) There are 1 measurements farther than 3.5 units from 55. It might help to rephrase the problem as finding how many measurements are outside 51.5 and 58.5. These boundaries are found by subtracting 3.5 from 55 and adding 3.5 to 55. <span class="math display">\[\#\left[\big|\mathbf{x}-55\big|&gt;3.5\right]=1\]</span> </div>
+<div id='A' style='background: #FFAAAA'> (ANS=0) There are 0 measurements farther than 3.5 units from 26. It might help to rephrase the problem as finding how many measurements are outside 22.5 and 29.5. These boundaries are found by subtracting 3.5 from 26 and adding 3.5 to 26. <span class="math display">\[\#\left[\big|\mathbf{x}-26\big|&gt;3.5\right]=0\]</span> </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> (ANS=2) You can guess and check until you find an integer that satisfies the equation. It turns out that <span class="math inline">\(r = 2\)</span> satisfies the equation, because <span class="math inline">\(\#\left[\big|\mathbf{x}-56.5\big|&lt;2\right] ~=~ 6\)</span>. Notice the boundaries are 54.5 and 58.5, which are found by adding/subtracting 2 to/from 56.5. <span class="math display">\[\#\left[\big|\mathbf{x}-56.5\big|&lt;2\right] ~=~ 6\]</span> </div>
+<div id='A' style='background: #FFAAAA'> (ANS=2.5) You can guess and check until you find a <a href="https://en.wikipedia.org/wiki/Half-integer" target="blank">half-integer</a> that satisfies the equation. It turns out that <span class="math inline">\(r = 2.5\)</span> satisfies the equation, because <span class="math inline">\(\#\left[\big|\mathbf{x}-23\big|&lt;2.5\right] ~=~ 4\)</span>. Notice the boundaries are 20.5 and 25.5, which are found by adding/subtracting 2.5 to/from 23. <span class="math display">\[\#\left[\big|\mathbf{x}-23\big|&lt;2.5\right] ~=~ 4\]</span> </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> (ANS=1.5) You can guess and check until you find a <a href="https://en.wikipedia.org/wiki/Half-integer" target="blank">half-integer</a> that satisfies the equation. It turns out that <span class="math inline">\(r = 1.5\)</span> satisfies the equation, because <span class="math inline">\(\#\left[\big|\mathbf{x}-58\big|&gt;1.5\right] ~=~ 6\)</span>. Notice the boundaries are 56.5 and 59.5, which are found by adding/subtracting 1.5 to/from 58. <span class="math display">\[\#\left[\big|\mathbf{x}-58\big|&gt;1.5\right] ~=~ 6\]</span> </div>
+<div id='A' style='background: #FFAAAA'> (ANS=0.5) You can guess and check until you find a <a href="https://en.wikipedia.org/wiki/Half-integer" target="blank">half-integer</a> that satisfies the equation. It turns out that <span class="math inline">\(r = 0.5\)</span> satisfies the equation, because <span class="math inline">\(\#\left[\big|\mathbf{x}-27\big|&gt;0.5\right] ~=~ 8\)</span>. Notice the boundaries are 26.5 and 27.5, which are found by adding/subtracting 0.5 to/from 27. <span class="math display">\[\#\left[\big|\mathbf{x}-27\big|&gt;0.5\right] ~=~ 8\]</span> </div>
 </li>
 </ol>
 <br/>
+ANSWERS: 8, 7, 8, 0, 2.5, 0.5<br>
+TOLERANCES: 0, 0, 0, 0, 0, 0
 
 
 </body>

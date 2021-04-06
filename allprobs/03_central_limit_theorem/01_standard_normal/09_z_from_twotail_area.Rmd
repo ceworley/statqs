@@ -21,6 +21,8 @@ Determine $z$ such that $P(|Z|>z)=`r ta`$. In other words, how far from 0 should
 Solution
 ========
 
+(ANS=`r z`)
+
 [video](https://vimeo.com/531931611){target="_blank"}
 
 Start with a sketch. The total two-tail area is `r ta`, so each tail has half that area.
@@ -217,8 +219,8 @@ text(0.4*sin(2*pi*pe[1]),0.4*cos(2*pi*pe[1]),round(-z,7),srt=(180-360*pe[1])%%18
 text(0.4*sin(2*pi*pe[2]),0.4*cos(2*pi*pe[2]),round(z,7),srt=(180-360*pe[2])%%180-90)
 text(1.25*sin(2*pi*pe[1]),1.25*cos(2*pi*pe[1]),round(pe[1],4),srt=-(pe[1]*360-90)%%180-90,cex=0.8)
 text(1.25*sin(2*pi*pe[2]),1.25*cos(2*pi*pe[2]),round(pe[2],4),srt=-(pe[2]*360-90)%%180-90,cex=0.8)
-text(sin(pm*2*pi)*1.25,
-     cos(pm*2*pi)*1.25,
+text(sin(pm*2*pi)*1.16,
+     cos(pm*2*pi)*1.16,
      sprintf("%.4f",1-(round(pe[2],4)-round(pe[1],4))),
      srt=-(pm*360-90)%%180-90)
 ```

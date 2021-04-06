@@ -79,13 +79,19 @@ Answerlist
 Solution
 ========
 
+[video](https://vimeo.com/531912457){target="_blank"}
 
-A.  You find the sample with a whisker that goes furthest to the right.
-B.  You find the sample with a whisker that goes furthest to the left.
-C.  You find the sample with the median (thick line in middle of box) furthest to the right.
-D.  You find the sample with the median (thick line in middle of box) furthest to the left.
-E.  You find the sample with the widest box.
-F.  You find the sample with the narrowest box.
+```{r echo=F}
+AA = c("V","W","X","Y","Z")
+```
+
+A.  `r AA[strsplit(ans1,"")[[1]]=="1"]`. You find the sample with a whisker that goes furthest to the right.
+B.  `r AA[strsplit(ans2,"")[[1]]=="1"]`. You find the sample with a whisker that goes furthest to the left.
+C.  `r AA[strsplit(ans3,"")[[1]]=="1"]`. You find the sample with the median (thick line in middle of box) furthest to the right.
+D.  `r AA[strsplit(ans4,"")[[1]]=="1"]`. You find the sample with the median (thick line in middle of box) furthest to the left.
+E.  `r AA[strsplit(ans5,"")[[1]]=="1"]`. You find the sample with the widest box.
+F.  `r AA[strsplit(ans6,"")[[1]]=="1"]`. You find the sample with the narrowest box.
+
 
 
 Meta-information

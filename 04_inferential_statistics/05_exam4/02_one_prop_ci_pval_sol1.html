@@ -11,24 +11,26 @@
 
 <small><i>solution_04_inferential_statistics/05_exam4/02_one_prop_ci_pval_v1</i></small>
 <p>By hand, this is easiest to do with a normal approximation without the continuity correction.</p>
-<p><span class="math display">\[n = 68\]</span> <span class="math display">\[\hat{p} = 0.2059\]</span> <span class="math display">\[z^\star = 1.96 \]</span> <span class="math display">\[\text{CI}_\text{boundaries} = \hat{p} \pm z^\star\sqrt{\frac{\hat{p}(1-\hat{p})}{n}} \]</span> <span class="math display">\[\text{CI}_\text{boundaries} = (0.1097757,0.301989)\]</span> <span class="math display">\[z = \frac{\hat{p}-p_0}{\sqrt{p_0(1-p_0)/n}} = -2.6476806\]</span></p>
-<p><span class="math display">\[p\text{-value} = P\left(|Z|&gt;2.6476806\right) = 0.0081046\]</span></p>
+<p><span class="math display">\[n = 40\]</span> <span class="math display">\[\hat{p} = 0.225\]</span> <span class="math display">\[z^\star = 1.96 \]</span> <span class="math display">\[\text{CI}_\text{boundaries} = \hat{p} \pm z^\star\sqrt{\frac{\hat{p}(1-\hat{p})}{n}} \]</span> <span class="math display">\[\text{CI}_\text{boundaries} = (0.0955899,0.3544101)\]</span> <span class="math display">\[z = \frac{\hat{p}-p_0}{\sqrt{p_0(1-p_0)/n}} = -1.5353819\]</span></p>
+<p><span class="math display">\[p\text{-value} = P\left(|Z|&gt;1.5353819\right) = 0.1246901\]</span></p>
 <br/>
 <ol type="a">
 <li>
-<div id='A' style='background: #FFAAAA'> Normal approx: <span class="math inline">\(0.1097757\)</span>. Wilson: <span class="math inline">\(0.1267956\)</span>. Wilson with CC: <span class="math inline">\(0.121012\)</span>. Exact Clopper-Pearson: <span class="math inline">\(0.1173799\)</span>. </div>
+<div id='A' style='background: #FFAAAA'> Normal approx: <span class="math inline">\(0.0955899\)</span>. Wilson: <span class="math inline">\(0.1231609\)</span>. Wilson with CC: <span class="math inline">\(0.114008\)</span>. Exact Clopper-Pearson: <span class="math inline">\(0.1083966\)</span>. </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> Normal approx: <span class="math inline">\(0.301989\)</span>. Wilson: <span class="math inline">\(0.3164228\)</span>. Wilson with CC: <span class="math inline">\(0.3245158\)</span>. Exact Clopper-Pearson: <span class="math inline">\(0.3212379\)</span>. </div>
+<div id='A' style='background: #FFAAAA'> Normal approx: <span class="math inline">\(0.3544101\)</span>. Wilson: <span class="math inline">\(0.375031\)</span>. Wilson with CC: <span class="math inline">\(0.3885505\)</span>. Exact Clopper-Pearson: <span class="math inline">\(0.3845117\)</span>. </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> Normal approx: <span class="math inline">\(0.0081046\)</span>. Chi squared: <span class="math inline">\(0.0081046\)</span>. Chi squared with CC: <span class="math inline">\(0.0116902\)</span>. Exact: <span class="math inline">\(0.0076685\)</span>. </div>
+<div id='A' style='background: #FFAAAA'> Normal approx: <span class="math inline">\(0.1246901\)</span>. Chi squared: <span class="math inline">\(0.1246901\)</span>. Chi squared with CC: <span class="math inline">\(0.171158\)</span>. Exact: <span class="math inline">\(0.1358331\)</span>. </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> The p-value is less than 0.05, so the difference is significant. /  </div>
+<div id='A' style='background: #FFAAAA'> The p-value is more than 0.05, so the difference is NOT significant. /  </div>
 </li>
 </ol>
 <br/>
+ANSWERS: :NUMERICAL:=0.123160913235407:0.005~%100%0.114008048984376:0.005~%100%0.108396638984072:0.005~%100%0.0955898960668063:0.005, :NUMERICAL:=0.3750309674231:0.005~%100%0.388550485529803:0.005~%100%0.384511677303423:0.005, :NUMERICAL:=0.124690053027987:0.005~%100%0.171157955055019:0.005~%100%0.135833096269614:0.005~%100%0.124690053027987:0.005, c(FALSE, TRUE)<br>
+TOLERANCES: 0.005, 0.005, 0.005, 0
 
 
 </body>

@@ -32,7 +32,8 @@ To help you along, I will calculate the mean and standard deviation of **single*
 $$\mu_{ X} ~=~ \frac{N+1}{2} ~=~ \frac{`r N`+1}{2} ~=~ `r mu` $$
 $$\sigma_{ X} ~=~ \sqrt{\frac{N^2-1}{12}} ~=~ \sqrt{\frac{`r N`^2-1}{12}} ~=~ `r sig`$$
 
-Please use a normal approximation based on the central limit theorem. 
+(Even though single rolls are **not** normally distributed, the random totals will be normally distributed.
+See [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem){target="_blank"}.)
 
 
 Solution

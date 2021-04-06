@@ -12,135 +12,237 @@
 <small><i>solution_02_probability/01_overview/q2_probdist_v1</i></small>
 <p><a href="https://vimeo.com/531915788" target="_blank">video</a></p>
 <p>Make a table (for parts mean and standard deviation).</p>
-<table style="width:100%;">
-<colgroup>
-<col width="16%" />
-<col width="16%" />
-<col width="16%" />
-<col width="16%" />
-<col width="16%" />
-<col width="16%" />
-</colgroup>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<table class="bordered-table">
 <thead>
-<tr class="header">
-<th align="center"><span class="math inline">\(x\)</span></th>
-<th align="center"><span class="math inline">\(\mathbb{P}[x]\)</span></th>
-<th align="center"><span class="math inline">\(x\cdot\mathbb{P}[x]\)</span></th>
-<th align="center"><span class="math inline">\(x-\mu\)</span></th>
-<th align="center"><span class="math inline">\((x-\mu)^2\)</span></th>
-<th align="center"><span class="math inline">\((x-\mu)^2 \cdot \mathbb{P}[x]\)</span></th>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathbb{P}[x]\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\cdot\mathbb{P}[x]\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x-\mu\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\((x-\mu)^2\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\((x-\mu)^2 \cdot \mathbb{P}[x]\)</span>
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="center">6</td>
-<td align="center">0.37</td>
-<td align="center">2.22</td>
-<td align="center">-5</td>
-<td align="center">25</td>
-<td align="center">9.25</td>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+0.16
+</td>
+<td style="text-align:center;">
+0.64
+</td>
+<td style="text-align:center;">
+-12
+</td>
+<td style="text-align:center;">
+144
+</td>
+<td style="text-align:center;">
+23.04
+</td>
 </tr>
-<tr class="even">
-<td align="center">10</td>
-<td align="center">0.14</td>
-<td align="center">1.4</td>
-<td align="center">-1</td>
-<td align="center">1</td>
-<td align="center">0.14</td>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+0.12
+</td>
+<td style="text-align:center;">
+0.72
+</td>
+<td style="text-align:center;">
+-10
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+12
+</td>
 </tr>
-<tr class="odd">
-<td align="center">11</td>
-<td align="center">0.18</td>
-<td align="center">1.98</td>
-<td align="center">0</td>
-<td align="center">0</td>
-<td align="center">0</td>
+<tr>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+0.18
+</td>
+<td style="text-align:center;">
+2.7
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0.18
+</td>
 </tr>
-<tr class="even">
-<td align="center">14</td>
-<td align="center">0.09</td>
-<td align="center">1.26</td>
-<td align="center">3</td>
-<td align="center">9</td>
-<td align="center">0.81</td>
+<tr>
+<td style="text-align:center;">
+17
+</td>
+<td style="text-align:center;">
+0.1
+</td>
+<td style="text-align:center;">
+1.7
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0.1
+</td>
 </tr>
-<tr class="odd">
-<td align="center">18</td>
-<td align="center">0.13</td>
-<td align="center">2.34</td>
-<td align="center">7</td>
-<td align="center">49</td>
-<td align="center">6.37</td>
+<tr>
+<td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
+0.36
+</td>
+<td style="text-align:center;">
+7.92
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+36
+</td>
+<td style="text-align:center;">
+12.96
+</td>
 </tr>
-<tr class="even">
-<td align="center">20</td>
-<td align="center">0.09</td>
-<td align="center">1.8</td>
-<td align="center">9</td>
-<td align="center">81</td>
-<td align="center">7.29</td>
+<tr>
+<td style="text-align:center;">
+29
+</td>
+<td style="text-align:center;">
+0.08
+</td>
+<td style="text-align:center;">
+2.32
+</td>
+<td style="text-align:center;">
+13
+</td>
+<td style="text-align:center;">
+169
+</td>
+<td style="text-align:center;">
+13.52
+</td>
 </tr>
-<tr class="odd">
-<td align="center">=========</td>
-<td align="center">=========</td>
-<td align="center">=========</td>
-<td align="center">=========</td>
-<td align="center">=========</td>
-<td align="center">=========</td>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
 </tr>
-<tr class="even">
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"><span class="math inline">\(\sum x \cdot \mathbb{P}[x] = 11\)</span></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"><span class="math inline">\(\sigma^2 = 23.86\)</span></td>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\sum x \cdot \mathbb{P}[x]=16.00\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\sigma^2=61.80\)</span>
+</td>
 </tr>
-<tr class="odd">
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"><span class="math inline">\(\mu = 11\)</span></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"><span class="math inline">\(\sigma = 4.8846699\)</span></td>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\mu = 16.00\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\sigma=7.86\)</span>
+</td>
 </tr>
 </tbody>
 </table>
-<!-- \begin{center}
-\begin{tabular}{|c|c|c|c|c|c|} \hline
- $x$ & $\mathbb{P}[x]$ & $x\cdot\mathbb{P}[x]$ & $x-\mu$ & $(x-\mu)^2$ & $(x-\mu)^2 \cdot \mathbb{P}[x]$ \\ \hline
- 6 & 0.37 & 2.22 & -5 & 25 & 9.25 \\ 
- 10 & 0.14 & 1.4 & -1 & 1 & 0.14 \\ 
- 11 & 0.18 & 1.98 & 0 & 0 & 0 \\ 
- 14 & 0.09 & 1.26 & 3 & 9 & 0.81 \\ 
- 18 & 0.13 & 2.34 & 7 & 49 & 6.37 \\ 
- 20 & 0.09 & 1.8 & 9 & 81 & 7.29 \\ \hline
- & & $\sum x \cdot \mathbb{P}[x]= 11 $& & & $\sigma^2 = 23.86 $ \\ \hline
- & & $\mu= 11 $& & & $\sigma = 4.88466989672793 $ \\ \hline
-\end{tabular}
-\end{center} -->
 <br/>
 <ol type="a">
 <li>
-<div id='A' style='background: #FFAAAA'> 0.13 </div>
+<div id='A' style='background: #FFAAAA'> 0.18 </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> <span class="math inline">\(0.14 + 0.13\)</span> = <strong>0.27</strong> </div>
+<div id='A' style='background: #FFAAAA'> <span class="math inline">\(0.1 + 0.08\)</span> = <strong>0.18</strong> </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> <span class="math inline">\(0.14 \times 0.13\)</span> = <strong>0.0182</strong> </div>
+<div id='A' style='background: #FFAAAA'> <span class="math inline">\(0.1 \times 0.08\)</span> = <strong>0.008</strong> </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> 0.69 </div>
+<div id='A' style='background: #FFAAAA'> 0.84 </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> <span class="math inline">\(\mu = 11\)</span> </div>
+<div id='A' style='background: #FFAAAA'> <span class="math inline">\(\mu = 16\)</span> </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> <span class="math inline">\(\sigma = 4.8846699\)</span> </div>
+<div id='A' style='background: #FFAAAA'> <span class="math inline">\(\sigma = 7.8612976\)</span> </div>
 </li>
 </ol>
 <br/>
+ANSWERS: 0.18, 0.18, 0.008, 0.84, 16, 7.8612976<br>
+TOLERANCES: 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
 
 
 </body>

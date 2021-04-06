@@ -13,6 +13,8 @@ Determine the probability that the standard normal variable is more than `r z`. 
 Solution
 ========
 
+(ANS=`r sol`)
+
 [video](https://vimeo.com/531931017){target="_blank"}
 
 First, you need to identify that we are looking for a right area. This is because large values of $Z$ satisfy $Z>`r z`$.

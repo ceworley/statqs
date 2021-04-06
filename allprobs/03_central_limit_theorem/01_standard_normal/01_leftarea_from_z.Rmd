@@ -12,6 +12,8 @@ Determine the probability that the standard normal variable is less than `r z`. 
 Solution
 ========
 
+(ANS=`r ell`)
+
 [video](https://vimeo.com/531931017){target="_blank"}
 
 The numbers that satisfy $Z<`r z`$ are on the left side of a number line (toward $-\infty$). The probability equals a left area under the density curve.

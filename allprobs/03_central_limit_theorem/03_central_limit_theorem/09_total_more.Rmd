@@ -93,7 +93,8 @@ text(0,0.2,"Random Variable X")
 That spinner ($X$) will be fairly spun `r n` times, and the **total** of the spins will be recorded. Determine the probability that the random total is more than `r xt`.
 $$P\left(\sum{X}>`r xt`\right) ~=~ \,? $$
 
-Please approximate the random total as a normal distribution with parameters suggested by the central limit theorem.
+(Even though single spins are **not** normally distributed, the random totals will be normally distributed.
+See [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem){target="_blank"}.)
 
 
 Solution

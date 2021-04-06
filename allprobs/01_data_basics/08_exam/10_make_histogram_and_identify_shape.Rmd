@@ -1,10 +1,6 @@
 ```{r,data,generation,echo=FALSE,results="hide"}
 types = c("Bell","Uniform","Bimodal","Right-skew","Left-skew")
 
-# reseed for exam question
-set.seed(runif(1,88,99))
-
-
 n = 200
 beta1 = c(3,1,0.5,0.6,1.5)
 beta2 = c(3,1,0.5,1.5,0.6)
@@ -74,6 +70,8 @@ Answerlist
 
 Solution
 ========
+
+[video](https://vimeo.com/531905389){target="_blank"}
 
 You should make a histogram. This is easy in R.
 

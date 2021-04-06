@@ -36,11 +36,11 @@ polygon(0.01*cos(theta),0.01*sin(theta),col="red")
 
 The average of a Bernoulli random variable is equal to $p$.
 $$\mu=p$$
-Determine $\mu$. ##ANSWER1##
+ ##ANSWER1##
 
 The standard deviation of a Bernoulli random variable is equal to $\sqrt{p(1-p)}$.
 $$\sigma = \sqrt{p(1-p)} $$
-Determine $\sigma$. ##ANSWER2##
+ ##ANSWER2##
 (Round to thousandths place.)
 
 
@@ -51,11 +51,38 @@ $$\text{interval of typical successes} = \left(np-2\sqrt{np(1-p)}, \, np+2\sqrt{
 
 For the listed values of $n$, determine the bounds. (Round to nearest integer.)
 
-| $n$ | _ lower bound of typical successes _ | _ upper bound of typical successes _ |
-|:---:|:---:|:---:|
-| 25  | ##ANSWER3## | ##ANSWER4## |
-| 100  | ##ANSWER5## | ##ANSWER6## |
-| 400  | ##ANSWER7## | ##ANSWER8## |
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r anstab1}
+n = c(25,100,400)
+col2 = c("##ANSWER3##","##ANSWER5##","##ANSWER7##")
+col3 = c("##ANSWER4##","##ANSWER6##","##ANSWER8##")
+anstab1 = data.frame(n,col2,col3)
+colnames(anstab1) = c("$n$","lower bound of typical success count",
+                      "upper bound of typical success count")
+knitr::kable(anstab1,format="html",table.attr='class="bordered-table"', align = "ccc",row.names=F)
+```
+
+
+<!-- | $n$ | _ lower bound of typical successes _ | _ upper bound of typical successes _ | -->
+<!-- |:---:|:---:|:---:| -->
+<!-- | 25  | ##ANSWER3## | ##ANSWER4## | -->
+<!-- | 100  | ##ANSWER5## | ##ANSWER6## | -->
+<!-- | 400  | ##ANSWER7## | ##ANSWER8## | -->
 
 
 
@@ -66,11 +93,40 @@ Let the interval of typical proportions be defined as having lower bound $p-2\sq
 $$\text{interval of typical proportions} = \left(p-2\sqrt{\frac{p(1-p)}{n}}, \, p+2\sqrt{\frac{p(1-p)}{n}}\right)$$
 For the listed values of $n$, determine the bounds. (Round to nearest hundredth.)
 
-| $n$ | _ lower bound of typical proportions _ | _ upper bound of typical proportions _ |
-|:---:|:---:|:---:|
-| 25  | ##ANSWER9## | ##ANSWER10## |
-| 100  | ##ANSWER11## | ##ANSWER12## |
-| 400  | ##ANSWER13## | ##ANSWER14## |
+
+```{r anstab2}
+n = c(25,100,400)
+col2 = c("##ANSWER9##","##ANSWER11##","##ANSWER13##")
+col3 = c("##ANSWER10##","##ANSWER12##","##ANSWER14##")
+anstab2 = data.frame(n,col2,col3)
+colnames(anstab2) = c("$n$","lower bound of typical proportions",
+                      "upper bound of typical proportions")
+knitr::kable(anstab2,format="html",table.attr='class="bordered-table"', align = "ccc",row.names=F)
+```
+
+<!-- | $n$ | _ lower bound of typical proportions _ | _ upper bound of typical proportions _ | -->
+<!-- |:---:|:---:|:---:| -->
+<!-- | 25  | ##ANSWER9## | ##ANSWER10## | -->
+<!-- | 100  | ##ANSWER11## | ##ANSWER12## | -->
+<!-- | 400  | ##ANSWER13## | ##ANSWER14## | -->
+
+
+Answerlist
+--------
+* Determine $\mu$. 
+* Determine $\sigma$.
+* .
+* .
+* .
+* .
+* .
+* .
+* .
+* .
+* .
+* .
+* .
+* .
 
 
 
@@ -86,19 +142,55 @@ $$\sigma = `r sigma` $$
 
 ### Interval of typical successes
 
-| $n$ | _ lower bound of typical successes _ | _ upper bound of typical successes _ |
-|:---:|:---:|:---:|
-| 25  | `r totlb[1]` | `r totub[1]` |
-| 100  | `r totlb[2]` | `r totub[2]` |
-| 400  | `r totlb[3]` | `r totub[3]` |
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r soltab1}
+n = c(25,100,400)
+col2 = c(totlb[1],totlb[2],totlb[3])
+col3 = c(totub[1],totub[2],totub[3])
+soltab1 = data.frame(n,col2,col3)
+colnames(soltab1) = c("$n$","lower bound of typical success counts",
+                      "upper bound of typical success counts")
+knitr::kable(soltab1,format="html",table.attr='class="bordered-table"', align = "ccc",row.names=F)
+```
+
+<!-- | $n$ | _ lower bound of typical successes _ | _ upper bound of typical successes _ | -->
+<!-- |:---:|:---:|:---:| -->
+<!-- | 25  | `r totlb[1]` | `r totub[1]` | -->
+<!-- | 100  | `r totlb[2]` | `r totub[2]` | -->
+<!-- | 400  | `r totlb[3]` | `r totub[3]` | -->
 
 ### Interval of typical proportions
 
-| $n$ | _ lower bound of typical proportions _ | _ upper bound of typical proportions _ |
-|:---:|:---:|:---:|
-| 25  | `r round(avelb[1],2)` | `r round(aveub[1],2)` |
-| 100  | `r round(avelb[2],2)` | `r round(aveub[2],2)` |
-| 400  | `r round(avelb[3],2)` | `r round(aveub[3],2)` |
+```{r soltab2}
+n = c(25,100,400)
+col2 = c(avelb[1],avelb[2],avelb[3])
+col3 = c(aveub[1],aveub[2],aveub[3])
+soltab1 = data.frame(n,col2,col3)
+colnames(soltab1) = c("$n$","lower bound of typical proportions",
+                      "upper bound of typical proportions")
+knitr::kable(soltab1,format="html",table.attr='class="bordered-table"', align = "ccc",row.names=F)
+```
+
+<!-- | $n$ | _ lower bound of typical proportions _ | _ upper bound of typical proportions _ | -->
+<!-- |:---:|:---:|:---:| -->
+<!-- | 25  | `r round(avelb[1],2)` | `r round(aveub[1],2)` | -->
+<!-- | 100  | `r round(avelb[2],2)` | `r round(aveub[2],2)` | -->
+<!-- | 400  | `r round(avelb[3],2)` | `r round(aveub[3],2)` | -->
 
 
 Meta-information

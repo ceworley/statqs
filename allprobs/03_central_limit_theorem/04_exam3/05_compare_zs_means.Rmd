@@ -1,4 +1,3 @@
-
 ```{r data generation, echo = FALSE, results = "hide"}
 library(exams)
 options(scipen=100)
@@ -28,16 +27,18 @@ scs1 = mchoice2string(zs==max(zs))
 scs2 = mchoice2string(zs==min(zs))
 scs3 = mchoice2string(abs(zs)==min(abs(zs)))
 scs4 = mchoice2string(abs(zs)==max(abs(zs)))
-
-
 data = data.frame(f,mus,sigs,ns,xbars)
 colnames(data) = c("fruit",
                    "mu",
                    "sigma",
                    "n",
                    "xbar")
-
 write.csv(data,"fruit.csv",row.names=F)
+
+tab1 = data.frame(fs,mus,sigs)
+colnames(tab1) = c("Type of fruit","$\\mu$, population mean mass in grams","$\\sigma$, population standard deviation in grams")
+tab2 = data.frame(f,ns,xbars)
+colnames(tab2) = c("Type of fruit","$n$, sample size","$\\bar{x}$, sample mean")
 ```
 
 Question
@@ -45,21 +46,32 @@ Question
 
 A farm produces 4 types of fruit: `r fs[1]`, `r fs[2]`, `r fs[3]`, and `r fs[4]`. The fruits' masses have population parameters dependent on the type of fruit. (All values are in grams.)
 
-| _ Type of fruit _ | _ Population mean ($\mu$) _ | _ Population standard deviation ($\sigma$) _|
-|:---:|:---:|:---:|
-|`r fs[1]` | `r mus[1]` | `r sigs[1]` | 
-|`r fs[2]` | `r mus[2]` | `r sigs[2]` |
-|`r fs[3]` | `r mus[3]` | `r sigs[3]` |
-|`r fs[4]` | `r mus[4]` | `r sigs[4]` |
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r tab1, results="asis",echo=F}
+knitr::kable(tab1,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
+
 
 A sample of each type is weighed. The results are shown below.
 
-| _ Type of fruit _ | _ Sample size ($n$) _ | _ Sample mean ($\bar{x}$) _ |
-|:---:|:---:|:---:|
-|`r f[1]` | `r ns[1]` | `r xbars[1]` |
-|`r f[2]` | `r ns[2]` | `r xbars[2]` |
-|`r f[3]` | `r ns[3]` | `r xbars[3]` |
-|`r f[4]` | `r ns[4]` | `r xbars[4]` |
+```{r tab2, results="asis",echo=F}
+knitr::kable(tab2,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
 
 The population parameters and sample statistics can be [downloaded as a csv](fruit.csv){target="blank"}.
 
@@ -71,6 +83,19 @@ Some people prefer to call this denominator [the standard error](https://en.wiki
 $$\text{standard error of mean} = \text{SEM} = \frac{\sigma}{\sqrt{n}} $$
 So the standard score ($z$-score) of a sample mean can also be expressed as
 $$z = \frac{\bar{x}-\mu}{\text{SEM}} $$
+
+a. ##ANSWER1##
+b. ##ANSWER2##
+c. ##ANSWER3##
+d. ##ANSWER4##
+e. ##ANSWER5##
+f. ##ANSWER6##
+g. ##ANSWER7##
+h. ##ANSWER8##
+i. Which sample mean is most unusually large? ##ANSWER9##
+j. Which sample mean is most unusually small? ##ANSWER10##
+k. Which sample mean is most typically sized? ##ANSWER11##
+l. Which sample mean is most unusually sized? ##ANSWER12##
 
 Answerlist
 --------
@@ -102,7 +127,7 @@ Answerlist
 Solution
 ========
 
-[video](https://vimeo.com/531945861){target="_blank"}
+[video](https://vimeo.com/531938648){target="_blank"}
 
 The formula to determine the $z$-score of a **sample mean** is the ratio with numerator the difference between measurement and population mean and denominator the standard error of the mean.
 
@@ -170,7 +195,7 @@ draw_ss(data2)
 
 ### To do this in R:
 
-```{r echo=TRUE}
+```{r}
 data = read.csv("fruit.csv", as.is=TRUE)
 fruit = data$fruit
 mu = data$mu

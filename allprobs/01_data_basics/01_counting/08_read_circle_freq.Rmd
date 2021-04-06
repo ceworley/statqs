@@ -52,7 +52,7 @@ Question
 
 A standard `r strdie`-sided [die](https://en.wikipedia.org/wiki/Dice) was rolled `r n` times, and the results were organized into the [pie chart](https://en.wikipedia.org/wiki/Pie_chart){target="blank"} shown below.
 
-```{r echo=F,fig.width=6,fig.height=6}
+```{r echo=F,fig.width=4,fig.height=4}
 size = 1.2
 ps = counts/100
 cp = cumsum(c(0,ps,1))

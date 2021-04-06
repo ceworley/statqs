@@ -9,6 +9,7 @@ while(T){
   lets = strsplit("ABCDEFGHIJKMQRVWXY",split=NULL)
   rvi = sample(1:length(lets[[1]]),size=1)
   rv = lets[[1]][rvi]
+  rvlow = tolower(rv)
   xl = tolower(rv)
   x = round(z*sig+mu,-mag+1)
   x1 = x[1]
@@ -26,8 +27,8 @@ while(T){
 Question
 ========
 Random variable $`r rv`$ is normally distributed with mean $\mu = `r mu`$ and standard deviation $\sigma = `r sig`$.
-$$`r rv` = \text{N}(`r mu`,\,`r sig`) $$
-Evaluate $P\left(`r x1` < X < `r x2`\right)$. In other words, what is the probability that $`r rv`$ is between $`r x1`$ and $`r x2`$?
+$$`r rv` \sim \text{N}(`r mu`,\,`r sig`) $$
+Evaluate $P\left(`r x1` < `r rv` < `r x2`\right)$. In other words, what is the probability that $`r rv`$ is between $`r x1`$ and $`r x2`$?
 
 
 Solution
@@ -37,7 +38,7 @@ Solution
 
 [video (using app)](https://vimeo.com/531933725){target="_blank"}: the [app](http://18.191.167.248:3838/nprob/){target="_blank"}
 
-First, draw a sketch. We can label the $`r rv`$ axis by adding integer multiples of `r sig` to `r mu`. We know to shade the between $`r x1`$ and $`r x2`$ because those values satisfy the condition $`r x1` < X < `r x2`$. 
+First, draw a sketch. We can label the $`r rv`$ axis by adding integer multiples of `r sig` to `r mu`. We know to shade the between $`r x1`$ and $`r x2`$ because those values satisfy the condition $`r x1` < `r rv` < `r x2`$. 
 
 ```{r, fig.width=6, fig.height=3}
 par(mar=c(7,3,0,0))
@@ -64,7 +65,7 @@ mtext("density",2,line=1)
 
 We calculate the $z$ values of the boundaries. Left boundary:
 $$\begin{aligned}
-z_1 &= \frac{x_1-\mu}{\sigma} \\\\
+z_1 &= \frac{`r rvlow`_1-\mu}{\sigma} \\\\
 &= \frac{`r x1`-`r mu`}{`r sig`} \\\\
 &= `r z1`
 \end{aligned}$$
@@ -72,14 +73,14 @@ z_1 &= \frac{x_1-\mu}{\sigma} \\\\
 Right boundary:
 
 $$\begin{aligned}
-z_2 &= \frac{x_2-\mu}{\sigma} \\\\
+z_2 &= \frac{`r rvlow`_2-\mu}{\sigma} \\\\
 &= \frac{`r x2`-`r mu`}{`r sig`} \\\\
 &= `r z2`
 \end{aligned}$$
 
 We rephrase our problem into a **standard normal** probability problem:
 
-$$P\left(`r x1` < X < `r x2`\right) ~=~ P(`r z1`<Z<`r z2`)$$
+$$P\left(`r x1` < `r rv` < `r x2`\right) ~=~ P(`r z1`<Z<`r z2`)$$
 
 So, we just need to evaluate $P(`r z1`<Z<`r z2`)$.
 

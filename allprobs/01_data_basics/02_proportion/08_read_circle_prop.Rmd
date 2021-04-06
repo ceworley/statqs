@@ -113,14 +113,14 @@ The first 4 questions involve adding up relative frequencies of the indicated in
 
 Answerlist
 --------
-* (`r signif(n1/n,3)`) The proportion of measurements less than `r b1` is `r n1/n`. $$\text{prop}[\mathbf{x}<`r b1`]=`r n1/n`$$
-* (`r signif(n2/n,3)`) The proportion of measurements more than `r b2` is `r n2/n`. $$\text{prop}[\mathbf{x}>`r b2`]=`r n2/n`$$
-* (`r signif(n3/n,3)`) The proportion of measurements closer than `r r3` units from `r c3` is `r n3/n`. $$\text{prop}[|\mathbf{x}-`r c3`|<`r r3`]=`r n3/n`$$
-* (`r signif(n4/n,3)`) The proportion of measurements farther than `r r4` units from `r c4` is `r n4/n`. $$\text{prop}[|\mathbf{x}-`r c4`|>`r r4`]=`r n4/n`$$
-* .(`r b5`) The proportion of measurements less than `r b5` is `r n5/n`. $$\text{prop}[\mathbf{x}<`r b5`]=`r n5/n`$$
-* .(`r b6`) The proportion of measurements more than `r b6` is `r n6/n`. $$\text{prop}[\mathbf{x}>`r b6`]=`r n6/n`$$
-* .(`r r7`) The proportion of measurements closer than `r r7` units from `r c7` is `r n7/n`. $$\text{prop}[|\mathbf{x}-`r c7`|<`r r7`]=`r n7/n`$$
-* .(`r r8`) The proportion of measurements farther than `r r8` units from `r c8` is `r n8/n`. $$\text{prop}[|\mathbf{x}-`r c8`|>`r r8`]=`r n8/n`$$
+* (ANS=`r signif(n1/n,3)`) The proportion of measurements less than `r b1` is `r n1/n`. $$\text{prop}[\mathbf{x}<`r b1`]=`r n1/n`$$
+* (ANS=`r signif(n2/n,3)`) The proportion of measurements more than `r b2` is `r n2/n`. $$\text{prop}[\mathbf{x}>`r b2`]=`r n2/n`$$
+* (ANS=`r signif(n3/n,3)`) The proportion of measurements closer than `r r3` units from `r c3` is `r n3/n`. $$\text{prop}[|\mathbf{x}-`r c3`|<`r r3`]=`r n3/n`$$
+* (ANS=`r signif(n4/n,3)`) The proportion of measurements farther than `r r4` units from `r c4` is `r n4/n`. $$\text{prop}[|\mathbf{x}-`r c4`|>`r r4`]=`r n4/n`$$
+* (ANS=`r b5`) The proportion of measurements less than `r b5` is `r n5/n`. $$\text{prop}[\mathbf{x}<`r b5`]=`r n5/n`$$
+* (ANS=`r b6`) The proportion of measurements more than `r b6` is `r n6/n`. $$\text{prop}[\mathbf{x}>`r b6`]=`r n6/n`$$
+* (ANS=`r r7`) The proportion of measurements closer than `r r7` units from `r c7` is `r n7/n`. $$\text{prop}[|\mathbf{x}-`r c7`|<`r r7`]=`r n7/n`$$
+* (ANS=`r r8`) The proportion of measurements farther than `r r8` units from `r c8` is `r n8/n`. $$\text{prop}[|\mathbf{x}-`r c8`|>`r r8`]=`r n8/n`$$
 
 
 Meta-information

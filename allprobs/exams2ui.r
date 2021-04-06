@@ -271,10 +271,16 @@ function ScrollToTarget()
 </head>
 <body onload="setUrl();ScrollToTarget();">
 
-<div id="welcome" style="background:#aaeeaa;">
+<div id="welcome" style="background:#dddddd; font: italic" >
 Welcome to Chad Worley\'s statistics questions. Please also check out this
 <a href="https://github.com/ceworley/statistics" target="_blank">project\'s github</a>.
-
+These problems were originally used in Moodle, but they
+should be easy to export to many other formats (see <a href="http://www.r-exams.org">R/exams</a>)... feel
+free to reuse this work in a copyleft fashion.
+<br><br>
+You may find <a href="http://18.191.167.248:3838" target="_blank">these Shiny apps</a> helpful.
+<br><br>
+If the math equations are small, try clicking on an equation; you should be able to change your zoom settings.
 </div>
 
 <br>
@@ -367,6 +373,8 @@ page = sprintf(html2,
 page = paste0(html1,page,collapse="\n")
 write.table(page,paste0(outdir,"/",fn,".html",collapse=""),quote=F,col.names=F,qmethod="d",row.names=F)
 
+
+seed = 0
 for(prob in s){
   bits = unlist(strsplit(prob,"/"))
   n = length(bits)
@@ -376,10 +384,10 @@ for(prob in s){
   dir.create(mydir,recursive=T,showWarnings=F)
   qname = paste0(mydir,"/",bits[n],1,".html",collapse="")
   if(!file.exists(qname)){
-    exams2html_mod(myexam,n=nov,seed=1:nov,name=bits[n],template="plain8B.html",mathjax=T,
+    exams2html_mod(myexam,n=nov,seed=seed:(seed+nov-1),name=bits[n],template="plain8B.html",mathjax=T,
                dir = mydir,solution=F,converter = "pandoc-mathjax",question=prob
     )
-    exams2html_mod(myexam,n=nov,seed=1:nov,name=paste0(bits[n],"_sol"),template="plain8B.html",mathjax=T,
+    exams2html_mod(myexam,n=nov,seed=seed:(seed+nov-1),name=paste0(bits[n],"_sol"),template="plain8B.html",mathjax=T,
                dir = mydir,question=F,converter = "pandoc-mathjax",solution=paste0("solution_",prob,collapse="")
     )
     for(i in 1:nov){
@@ -406,5 +414,6 @@ for(prob in s){
       # write.table(mystyle,paste0(mydir,"/mystyle.css"),row.names=F,col.names=F,qmethod="d",quote=F)
     }
   }
+  seed = seed+nov
 }
 

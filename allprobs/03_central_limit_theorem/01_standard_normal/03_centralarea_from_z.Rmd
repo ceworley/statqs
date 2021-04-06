@@ -15,6 +15,8 @@ Determine the probability that the **absolute** standard normal variable is less
 Solution
 ========
 
+(ANS=`r sol`)
+
 [video](https://vimeo.com/531931017){target="_blank"}
 
 First, you need to identify that we are looking for a central area. This is because $z$-scores near 0 satisfy $|Z|<`r z`$, while $z$-scores far from 0 (either positive or negative) do not satisfy the inequality.

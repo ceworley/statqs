@@ -22,10 +22,8 @@ Random variable $X$ has mean $\mu=`r mu`$ and standard deviation $\sigma=`r sigm
 Let the interval of typical measurements be defined as having lower bound $\mu-2\sigma$ and upper bound $\mu+2\sigma$.
 $$\text{interval of typical measurements} = (\mu-2\sigma, \, \mu+2\sigma)$$
 
-Calculate the lower bound of the interval of typical measurements.
 ##ANSWER1##
 
-Calculate the upper bound of the interval of typical measurements.
 ##ANSWER2##
 
 ### Interval of typical totals
@@ -90,6 +88,25 @@ knitr::kable(anstab2,format="html",table.attr='class="bordered-table"', align = 
 <!-- | 25  | ##ANSWER9## | ##ANSWER10## | -->
 <!-- | 100  | ##ANSWER11## | ##ANSWER12## | -->
 <!-- | 400  | ##ANSWER13## | ##ANSWER14## | -->
+
+
+Answerlist
+--------
+* Calculate the lower bound of the interval of typical measurements.
+* Calculate the upper bound of the interval of typical measurements.
+* .
+* .
+* .
+* .
+* .
+* .
+* .
+* .
+* .
+* .
+* .
+* .
+
 
 
 Solution

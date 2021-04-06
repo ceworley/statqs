@@ -11,33 +11,33 @@
 
 <small><i>01_data_basics/02_proportion/01_list_proportion_basic_v3</i></small>
 <p>A <a href="https://en.wikipedia.org/wiki/Random_number_generation" target="blank">random procedure</a> generated the following sample (sequence of measurements):</p>
-<p><span class="math display">\[\mathbf{x} = 59, 57, 53, 59, 57, 53, 56, 57, 59, 56 \]</span></p>
-<p>You can download the data as a CSV file (for importing into a spreadsheet or R): <a href="data:text/csv;base64,aSx4CjEsNTkKMiw1NwozLDUzCjQsNTkKNSw1Nwo2LDUzCjcsNTYKOCw1Nwo5LDU5CjEwLDU2Cg==" download="list_proportion_basic_data.csv">list_proportion_basic_data.csv</a></p>
+<p><span class="math display">\[\mathbf{x} = 81, 82, 85, 83, 88, 82, 89, 85, 85, 86 \]</span></p>
+<p>You can download the data as a CSV file (for importing into a spreadsheet or R): <a href="data:text/csv;base64,aSx4CjEsODEKMiw4MgozLDg1CjQsODMKNSw4OAo2LDgyCjcsODkKOCw4NQo5LDg1CjEwLDg2Cg==" download="list_proportion_basic_data.csv">list_proportion_basic_data.csv</a></p>
 <br/>
 <ol type="a">
 <li>
-<div id='Q' style='background: #AAAAFF'> What proportion of the measurements are less than 59? In other words, determine <span class="math inline">\(\text{prop}[\mathbf{x}&lt;59]\)</span>. </div>
+<div id='Q' style='background: #AAAAFF'> What proportion of the measurements are less than 82? In other words, determine <span class="math inline">\(\text{prop}[\mathbf{x}&lt;82]\)</span>. </div>
 </li>
 <li>
-<div id='Q' style='background: #AAAAFF'> What proportion of the measurements are less than or equal to 59? In other words, determine <span class="math inline">\(\text{prop}[\mathbf{x}\le59]\)</span>. </div>
+<div id='Q' style='background: #AAAAFF'> What proportion of the measurements are less than or equal to 85? In other words, determine <span class="math inline">\(\text{prop}[\mathbf{x}\le85]\)</span>. </div>
 </li>
 <li>
-<div id='Q' style='background: #AAAAFF'> What proportion of the measurements are greater than 57? In other words, determine <span class="math inline">\(\text{prop}[\mathbf{x}&gt;57]\)</span>. </div>
+<div id='Q' style='background: #AAAAFF'> What proportion of the measurements are greater than 85? In other words, determine <span class="math inline">\(\text{prop}[\mathbf{x}&gt;85]\)</span>. </div>
 </li>
 <li>
-<div id='Q' style='background: #AAAAFF'> What proportion of the measurements are greater than or equal to 53? In other words, determine <span class="math inline">\(\text{prop}[\mathbf{x}\ge53]\)</span>. </div>
+<div id='Q' style='background: #AAAAFF'> What proportion of the measurements are greater than or equal to 85? In other words, determine <span class="math inline">\(\text{prop}[\mathbf{x}\ge85]\)</span>. </div>
 </li>
 <li>
-<div id='Q' style='background: #AAAAFF'> If the proportion of measurements less than <span class="math inline">\(x_{\text{c}}\)</span> is 0.7, and <span class="math inline">\(x_{\text{c}}\)</span> is a measurement from sample <span class="math inline">\(\mathbf{x}\)</span>, then what is <span class="math inline">\(x_{\text{c}}\)</span>? In other words, determine a measurement <span class="math inline">\(x_{\text{c}}\)</span> from sequence <span class="math inline">\(\mathbf{x}\)</span> such that <span class="math inline">\(\text{prop}[\mathbf{x}&lt;x_{\text{c}}] = 0.7\)</span>. </div>
+<div id='Q' style='background: #AAAAFF'> If the proportion of measurements less than <span class="math inline">\(x_{\text{c}}\)</span> is 0.3, and <span class="math inline">\(x_{\text{c}}\)</span> is a measurement from sample <span class="math inline">\(\mathbf{x}\)</span>, then what is <span class="math inline">\(x_{\text{c}}\)</span>? In other words, determine a measurement <span class="math inline">\(x_{\text{c}}\)</span> from sequence <span class="math inline">\(\mathbf{x}\)</span> such that <span class="math inline">\(\text{prop}[\mathbf{x}&lt;x_{\text{c}}] = 0.3\)</span>. </div>
 </li>
 <li>
-<div id='Q' style='background: #AAAAFF'> If the proportion of measurements less than or equal to <span class="math inline">\(x_{\text{c}}\)</span> is 0.4, and <span class="math inline">\(x_{\text{c}}\)</span> is a measurement from sample <span class="math inline">\(\mathbf{x}\)</span>, then what is <span class="math inline">\(x_{\text{c}}\)</span>? In other words, determine a measurement <span class="math inline">\(x_{\text{c}}\)</span> from sequence <span class="math inline">\(\mathbf{x}\)</span> such that <span class="math inline">\(\text{prop}[\mathbf{x}\le x_{\text{c}}] = 0.4\)</span>. </div>
+<div id='Q' style='background: #AAAAFF'> If the proportion of measurements less than or equal to <span class="math inline">\(x_{\text{c}}\)</span> is 1, and <span class="math inline">\(x_{\text{c}}\)</span> is a measurement from sample <span class="math inline">\(\mathbf{x}\)</span>, then what is <span class="math inline">\(x_{\text{c}}\)</span>? In other words, determine a measurement <span class="math inline">\(x_{\text{c}}\)</span> from sequence <span class="math inline">\(\mathbf{x}\)</span> such that <span class="math inline">\(\text{prop}[\mathbf{x}\le x_{\text{c}}] = 1\)</span>. </div>
 </li>
 <li>
-<div id='Q' style='background: #AAAAFF'> If the proportion of measurements greater than <span class="math inline">\(x_{\text{c}}\)</span> is 0.8, and <span class="math inline">\(x_{\text{c}}\)</span> is a measurement from sample <span class="math inline">\(\mathbf{x}\)</span>, then what is <span class="math inline">\(x_{\text{c}}\)</span>? In other words, determine a measurement <span class="math inline">\(x_{\text{c}}\)</span> from sequence <span class="math inline">\(\mathbf{x}\)</span> such that <span class="math inline">\(\text{prop}[\mathbf{x}&gt;x_{\text{c}}] = 0.8\)</span>. </div>
+<div id='Q' style='background: #AAAAFF'> If the proportion of measurements greater than <span class="math inline">\(x_{\text{c}}\)</span> is 0.2, and <span class="math inline">\(x_{\text{c}}\)</span> is a measurement from sample <span class="math inline">\(\mathbf{x}\)</span>, then what is <span class="math inline">\(x_{\text{c}}\)</span>? In other words, determine a measurement <span class="math inline">\(x_{\text{c}}\)</span> from sequence <span class="math inline">\(\mathbf{x}\)</span> such that <span class="math inline">\(\text{prop}[\mathbf{x}&gt;x_{\text{c}}] = 0.2\)</span>. </div>
 </li>
 <li>
-<div id='Q' style='background: #AAAAFF'> If the proportion of measurements greater than or equal to <span class="math inline">\(x_{\text{c}}\)</span> is 0.6, and <span class="math inline">\(x_{\text{c}}\)</span> is a measurement from sample <span class="math inline">\(\mathbf{x}\)</span>, then what is <span class="math inline">\(x_{\text{c}}\)</span>? In other words, determine a measurement <span class="math inline">\(x_{\text{c}}\)</span> from sequence <span class="math inline">\(\mathbf{x}\)</span> such that <span class="math inline">\(\text{prop}[\mathbf{x}\ge x_{\text{c}}] = 0.6\)</span>. </div>
+<div id='Q' style='background: #AAAAFF'> If the proportion of measurements greater than or equal to <span class="math inline">\(x_{\text{c}}\)</span> is 1, and <span class="math inline">\(x_{\text{c}}\)</span> is a measurement from sample <span class="math inline">\(\mathbf{x}\)</span>, then what is <span class="math inline">\(x_{\text{c}}\)</span>? In other words, determine a measurement <span class="math inline">\(x_{\text{c}}\)</span> from sequence <span class="math inline">\(\mathbf{x}\)</span> such that <span class="math inline">\(\text{prop}[\mathbf{x}\ge x_{\text{c}}] = 1\)</span>. </div>
 </li>
 </ol>
 <br/>

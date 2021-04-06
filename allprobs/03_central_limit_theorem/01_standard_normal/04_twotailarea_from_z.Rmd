@@ -14,6 +14,8 @@ Determine the probability that the **absolute** standard normal variable is more
 Solution
 ========
 
+(ANS=`r sol`)
+
 [video](https://vimeo.com/531931017){target="_blank"}
 
 First, you need to identify that we are looking for a two-tail area (the sum of the left and right tails). This is because $z$-scores far from 0 satisfy $|Z|>`r z`$, while $z$-scores near 0 do not satisfy the inequality.

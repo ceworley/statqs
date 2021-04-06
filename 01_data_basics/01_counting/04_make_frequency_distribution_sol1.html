@@ -34,9 +34,9 @@
 <p>In R, open the data and use the <a href="https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/hist"><code>hist</code></a> function. You supply the breaks and read the counts:</p>
 <pre class="text"><code>mydata = read.csv(&quot;make_freq_dist.csv&quot;)</code></pre>
 <pre class="text"><code>x = mydata$x</code></pre>
-<pre class="text"><code>myhist = hist(x,breaks=c(50,51,52,53,54,55))</code></pre>
+<pre class="text"><code>myhist = hist(x,breaks=c(45,50,55,60))</code></pre>
 <pre class="text"><code>myhist$counts</code></pre>
-<pre><code>## [1] 13 23 18 17  9</code></pre>
+<pre><code>## [1] 39 10 41</code></pre>
 <table class="bordered-table">
 <thead>
 <tr>
@@ -51,42 +51,26 @@ frequency
 <tbody>
 <tr>
 <td style="text-align:center;">
-50 to 51
+45 to 50
 </td>
 <td style="text-align:center;">
-13
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-51 to 52
-</td>
-<td style="text-align:center;">
-23
+39
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-52 to 53
+50 to 55
 </td>
 <td style="text-align:center;">
-18
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-53 to 54
-</td>
-<td style="text-align:center;">
-17
+10
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-54 to 55
+55 to 60
 </td>
 <td style="text-align:center;">
-9
+41
 </td>
 </tr>
 </tbody>
@@ -94,22 +78,18 @@ frequency
 <br/>
 <ol type="a">
 <li>
-<div id='A' style='background: #FFAAAA'> 13 </div>
+<div id='A' style='background: #FFAAAA'> 39 </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> 23 </div>
+<div id='A' style='background: #FFAAAA'> 10 </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> 18 </div>
-</li>
-<li>
-<div id='A' style='background: #FFAAAA'> 17 </div>
-</li>
-<li>
-<div id='A' style='background: #FFAAAA'> 9 </div>
+<div id='A' style='background: #FFAAAA'> 41 </div>
 </li>
 </ol>
 <br/>
+ANSWERS: 39, 10, 41<br>
+TOLERANCES: 0, 0, 0
 
 
 </body>

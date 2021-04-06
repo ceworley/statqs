@@ -41,7 +41,7 @@ You need to sum the values ($\sum \mathbf{x}$, see [summation](https://en.wikipe
 $$\bar{x} = \frac{\sum \mathbf{x}}{n} = \frac{`r sum(x)`}{`r length(x)`} = `r round(mean(x),4)`$$
 You can round $\bar{x}$ to the nearest tenth: `r round(mean(x),1)`.
 
-```{r echo=F}
+```{r echo=F,fig.width=6,fig.height=7}
 sol = data.frame(i,x)
 sol = rbind(sol,c("",""),c("","average(x)"),c("",paste0("=average(B2:B",n+1,")",collapse="")))
 write.csv(sol,"mean_solution.csv",row.names=F)

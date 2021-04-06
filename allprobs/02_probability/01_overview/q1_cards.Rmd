@@ -105,8 +105,8 @@ if(p7[1]>p7[2]){
 }
 t7 = paste("Is a ",is[i7[1]]," or a ",is[i7[2]]," more likely to be ",cs[c7],"?",sep="")
 
-t7 = c(paste("A ", is[i7[1]], " is more likely than a ", is[i7[2]], " to be ", cs[c7], ".", sep=""),
-       paste("A ", is[i7[2]], " is more likely than a ", is[i7[1]], " to be ", cs[c7], ".", sep=""))
+t7 = c(paste("A ", is[i7[1]],".", sep=""),
+       paste("A ", is[i7[2]],".", sep=""))
 
 s7 = c(paste("$\\mathbb{P}[\\text{",cs[c7]," given ",is[i7[1]],"}] = ",p7[1],"$ and $\\mathbb{P}[\\text{",cs[c7]," given  ",is[i7[2]],"}] = ",p7[2],"$, so a ",big," is more likely to be ",cs[c7]," than a ",small," is.",sep=""),".")
 
@@ -116,11 +116,22 @@ types = c(rep("num",6),"schoice")
 sols = list(p1,p2,p3,p4,p5,p6,sol7)
 ord = sample(1:7)
 
-
 tt = ts[ord]
 ss = sss[ord]
 type = types[ord]
 sol = sols[ord]
+
+mystr1 = paste0("##ANSWER",which(ord==1),"##",collapse="")
+mystr2 = paste0("##ANSWER",which(ord==2),"##",collapse="")
+mystr3 = paste0("##ANSWER",which(ord==3),"##",collapse="")
+mystr4 = paste0("##ANSWER",which(ord==4),"##",collapse="")
+mystr5 = paste0("##ANSWER",which(ord==5),"##",collapse="")
+mystr6 = paste0("##ANSWER",which(ord==6),"##",collapse="")
+mystr7 = paste0("Between a ",is[i7[1]]," and a ",is[i7[2]],", which is more likely to be a ",cs[c7],"? ##ANSWER",which(ord==7),"##",collapse="")
+
+
+
+mystr = c(mystr1,mystr2,mystr3,mystr4,mystr5,mystr6,mystr7)[ord]
 
 nums <- cbind(nums, Total = rowSums(nums))
 nums <- rbind(nums, Total = colSums(nums))
@@ -174,6 +185,14 @@ abline(v = ni+0.5)
 \
 
 (Answers can be rounded to nearest hundredth.)
+
+a. `r mystr[1]`
+b. `r mystr[2]`
+c. `r mystr[3]`
+d. `r mystr[4]`
+e. `r mystr[5]`
+f. `r mystr[6]`
+g. `r mystr[7]`
 
 ```{r questionlist, echo = FALSE, results = "asis"}
 answerlist(unlist(tt), markup = "markdown")

@@ -19,6 +19,8 @@ After the game, you notice Bob is happy. What is the probability that Bob won hi
 Solution
 ========
 
+(ANS=`r pwgh`)
+
 [video](https://vimeo.com/531918707){target="_blank"}
 
 Use the definition of [conditional probability](https://en.wikipedia.org/wiki/Conditional_probability){target="blank"}.

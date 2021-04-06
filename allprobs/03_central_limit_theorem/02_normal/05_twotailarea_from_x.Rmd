@@ -27,7 +27,7 @@ while(T){
 Question
 ========
 Random variable $`r rv`$ is normally distributed with mean $\mu = `r mu`$ and standard deviation $\sigma = `r sig`$.
-$$`r rv` = \text{N}(`r mu`,\,`r sig`) $$
+$$`r rv` \sim \text{N}(`r mu`,\,`r sig`) $$
 Evaluate $P\left(\big|`r rv`-`r mu`\big| > `r d`\right)$. In other words, what is the probability that $`r rv`$ is outside $\pm`r x-mu`$ units from the mean?
 
 

@@ -11,33 +11,35 @@
 
 <small><i>solution_01_data_basics/02_proportion/02_list_proportion_between_v2</i></small>
 <p><a href="https://vimeo.com/531901348" target="_blank">video</a></p>
-<p>First, it helps to sort the data. <span class="math display">\[\text{sort}(\mathbf{x}) = 12, 13, 13, 13, 14, 14, 14, 15, 18, 19\]</span></p>
+<p>First, it helps to sort the data. <span class="math display">\[\text{sort}(\mathbf{x}) = 81, 82, 82, 83, 85, 86, 87, 88, 89, 89\]</span></p>
 <p>You could use R to sort the data:</p>
-<pre><code>sort(c(13,12,14,18,15,14,14,13,19,13))</code></pre>
-<pre><code>##  [1] 12 13 13 13 14 14 14 15 18 19</code></pre>
+<pre><code>sort(c(81,88,89,82,87,82,83,85,89,86))</code></pre>
+<pre><code>##  [1] 81 82 82 83 85 86 87 88 89 89</code></pre>
 <p>You could also use a spreadsheet. Import the table into a spreadsheet. Then, highlight the column of measurements and use <code>Sort</code> function.</p>
 <br/>
 <ol type="a">
 <li>
-<div id='A' style='background: #FFAAAA'> (ANS=1) The proportion of measurements between 11.5 and 19.5 is 1. <span class="math display">\[\text{prop}[11.5&lt;\mathbf{x}&lt;19.5]=1\]</span> </div>
+<div id='A' style='background: #FFAAAA'> (ANS=0.7) The proportion of measurements between 82.5 and 89.5 is 0.7. <span class="math display">\[\text{prop}[82.5&lt;\mathbf{x}&lt;89.5]=0.7\]</span> </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> (ANS=0.9) The proportion of measurements outside 14.5 and 15.5 is 0.9. <span class="math display">\[\text{prop}[\texttt{NOT}(14.5&lt;\mathbf{x}&lt;15.5)]=0.9\]</span> </div>
+<div id='A' style='background: #FFAAAA'> (ANS=0.5) The proportion of measurements outside 85.5 and 89.5 is 0.5. <span class="math display">\[\text{prop}[\texttt{NOT}(85.5&lt;\mathbf{x}&lt;89.5)]=0.5\]</span> </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> (ANS=0.8) The proportion of measurements closer than 3.5 cm from 14 cm is 0.8. <span class="math display">\[\text{prop}\left[\big|\mathbf{x}-14\big|&lt;3.5\right] = 0.8\]</span> </div>
+<div id='A' style='background: #FFAAAA'> (ANS=0.7) The proportion of measurements closer than 3.5 cm from 84 cm is 0.7. <span class="math display">\[\text{prop}\left[\big|\mathbf{x}-84\big|&lt;3.5\right] = 0.7\]</span> </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> (ANS=0.6) The proportion of measurements farther than 1.5 cm from 15 cm is 0.6. <span class="math display">\[\text{prop}\left[\big|\mathbf{x}-15\big|&gt;1.5\right] = 0.6\]</span> </div>
+<div id='A' style='background: #FFAAAA'> (ANS=0.8) The proportion of measurements farther than 1 cm from 85.5 cm is 0.8. <span class="math display">\[\text{prop}\left[\big|\mathbf{x}-85.5\big|&gt;1\right] = 0.8\]</span> </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> (ANS=2.5) You can guess and check until you find a half-integer that satisfies the equation. It turns out that <span class="math inline">\(r = 2.5\)</span> satisfies the equation, because <span class="math display">\[\text{prop}\left[\big|\mathbf{x}-17\big|&lt;2.5\right] ~=~ 0.3\]</span> </div>
+<div id='A' style='background: #FFAAAA'> (ANS=0.5) You can guess and check until you find a half-integer that satisfies the equation. It turns out that <span class="math inline">\(r = 0.5\)</span> satisfies the equation, because <span class="math display">\[\text{prop}\left[\big|\mathbf{x}-87\big|&lt;0.5\right] ~=~ 0.1\]</span> </div>
 </li>
 <li>
-<div id='A' style='background: #FFAAAA'> (ANS=1.5) You can guess and check until you find a half-integer that satisfies the equation. It turns out that <span class="math inline">\(r = 1.5\)</span> satisfies the equation, because <span class="math display">\[\text{prop}\left[\big|\mathbf{x}-16\big|&gt;1.5\right] ~=~ 0.9\]</span> </div>
+<div id='A' style='background: #FFAAAA'> (ANS=0.5) You can guess and check until you find a half-integer that satisfies the equation. It turns out that <span class="math inline">\(r = 0.5\)</span> satisfies the equation, because <span class="math display">\[\text{prop}\left[\big|\mathbf{x}-85\big|&gt;0.5\right] ~=~ 0.9\]</span> </div>
 </li>
 </ol>
 <br/>
+ANSWERS: 0.7, 0.5, 0.7, 0.8, 0.5, 0.5<br>
+TOLERANCES: 0, 0, 0, 0, 0, 0
 
 
 </body>
