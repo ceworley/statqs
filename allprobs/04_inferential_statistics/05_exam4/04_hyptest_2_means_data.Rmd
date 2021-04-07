@@ -113,6 +113,8 @@ $$P(T<`r round(t,2)`) = `r round(cump,4)` $$
 $$P(|T|>`r round(t,2)`) = `r round(pval,4)` $$
 $$p\text{-value} = `r round(pval,4)` $$
 
+`r s2`
+
 ### Spreadsheet
 
 ```{r}

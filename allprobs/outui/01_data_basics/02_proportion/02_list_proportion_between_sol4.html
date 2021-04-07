@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>solution_01_data_basics/02_proportion/02_list_proportion_between_v4</i></small>
+<p><a href="https://vimeo.com/531901348" target="_blank">video</a></p>
+<p>First, it helps to sort the data. <span class="math display">\[\text{sort}(\mathbf{x}) = 81, 82, 82, 83, 83, 83, 85, 85, 86, 87\]</span></p>
+<p>You could use R to sort the data:</p>
+<pre><code>sort(c(83,81,83,82,86,83,85,82,87,85))</code></pre>
+<pre><code>##  [1] 81 82 82 83 83 83 85 85 86 87</code></pre>
+<p>You could also use a spreadsheet. Import the table into a spreadsheet. Then, highlight the column of measurements and use <code>Sort</code> function.</p>
+<br/>
+<ol type="a">
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=0.3) The proportion of measurements between 82.5 and 84.5 is 0.3. <span class="math display">\[\text{prop}[82.5&lt;\mathbf{x}&lt;84.5]=0.3\]</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=0.7) The proportion of measurements outside 82.5 and 83.5 is 0.7. <span class="math display">\[\text{prop}[\texttt{NOT}(82.5&lt;\mathbf{x}&lt;83.5)]=0.7\]</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=1) The proportion of measurements closer than 3.5 cm from 84 cm is 1. <span class="math display">\[\text{prop}\left[\big|\mathbf{x}-84\big|&lt;3.5\right] = 1\]</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=0.8) The proportion of measurements farther than 1 cm from 84.5 cm is 0.8. <span class="math display">\[\text{prop}\left[\big|\mathbf{x}-84.5\big|&gt;1\right] = 0.8\]</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=1) You can guess and check until you find an integer that satisfies the equation. It turns out that <span class="math inline">\(r = 1\)</span> satisfies the equation, because <span class="math display">\[\text{prop}\left[\big|\mathbf{x}-84.5\big|&lt;1\right] ~=~ 0.2\]</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=3) You can guess and check until you find an integer that satisfies the equation. It turns out that <span class="math inline">\(r = 3\)</span> satisfies the equation, because <span class="math display">\[\text{prop}\left[\big|\mathbf{x}-85.5\big|&gt;3\right] ~=~ 0.3\]</span> </div>
+</li>
+</ol>
+<br/>
+ANSWERS: 0.3, 0.7, 1, 0.8, 1, 3<br>
+TOLERANCES: 0, 0, 0, 0, 0, 0
+
+
+</body>
+</html>

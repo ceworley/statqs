@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>solution_03_central_limit_theorem/03_central_limit_theorem/13_binom_more_v4</i></small>
+<p><a href="https://vimeo.com/531944003" target="_blank">video</a></p>
+<p>We determine the mean and standard deviation of the binomial distribution. <span class="math display">\[\mu ~=~ np ~=~ (168)(0.25) ~=~ 42\]</span> <span class="math display">\[\sigma ~=~ \sqrt{np(1-p)} ~=~ \sqrt{(168)(0.25)(0.75)} ~=~ 5.6124861 \]</span></p>
+<p>We determine a <span class="math inline">\(z\)</span>-score. (In the de Moivre-Laplace notes, I used <span class="math inline">\(\sum x\)</span> to emphasize that a binomial variable is a sum of Bernoulli trials. Here, I will just use <span class="math inline">\(x\)</span> as the boundary for number of successes, because this is the more common notation.) <span class="math display">\[\begin{aligned}
+z &amp;= \frac{x - \mu}{\sigma} \\\\
+&amp;= \frac{37.5-42}{5.6124861} \\\\
+&amp;= -0.8017837
+\end{aligned}\]</span></p>
+<p>Then, find the standard normal probability.</p>
+<p><span class="math display">\[P(Z &gt; -0.8017837) ~=~ 0.788661 \]</span></p>
+<p>Of course, you could have rounded <span class="math inline">\(z\)</span>, so the following will also get credit. <span class="math display">\[P(Z &gt; -0.81) ~=~ 0.791 \]</span> <span class="math display">\[P(Z &gt; -0.8) ~=~ 0.7881 \]</span></p>
+<br/>
+ANSWERS: 0.788661<br>
+TOLERANCES: 0.00319
+
+
+</body>
+</html>

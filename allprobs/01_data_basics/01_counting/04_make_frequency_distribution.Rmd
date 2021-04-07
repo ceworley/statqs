@@ -25,6 +25,14 @@ knit_hooks$set(source = function(x, options) {
 Question
 ========
 
+```{r echo=F}
+write.csv(data.frame(i,x),file="make_freq_dist.csv",row.names = FALSE)
+```
+
+A random procedure generated many measurements: [download data](make_freq_dist.csv)
+
+Please complete the [frequency distribution](https://en.wikipedia.org/wiki/Frequency_distribution){target="blank"} using breaks `r brks`:
+
 <style type="text/css" rel="stylesheet">
 .bordered-table {
     border-collapse: collapse;
@@ -40,14 +48,6 @@ Question
     padding: 4px;
 }
 </style>
-
-```{r echo=F}
-write.csv(data.frame(i,x),file="make_freq_dist.csv",row.names = FALSE)
-```
-
-A random procedure generated many measurements: [download data](make_freq_dist.csv)
-
-Please complete the [frequency distribution](https://en.wikipedia.org/wiki/Frequency_distribution){target="blank"} using breaks `r brks`:
 
 ```{r tab1, results="asis",echo=F}
 interval = paste(brks[1:length(counts)]," to ", brks[2:(length(counts)+1)])
@@ -58,22 +58,6 @@ knitr::kable(data.frame(interval,frequency),format="html",table.attr='class="bor
 
 Solution
 ========
-
-<style type="text/css" rel="stylesheet">
-.bordered-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    border:2px solid #000000;
-}
-.bordered-table th {
-    border:2px solid #000000;
-    padding: 4px;
-}
-.bordered-table td{
-    border:1px solid #000000;
-    padding: 4px;
-}
-</style>
 
 You will want to use a computer to answer these questions. 
 
@@ -108,6 +92,21 @@ myhist$counts
 ```
 
 
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
 
 ```{r tab2, results="asis", echo=F}
 interval = paste(brks[1:length(counts)]," to ", brks[2:(length(counts)+1)])
@@ -132,4 +131,4 @@ exclozetype: `r paste0(rep("num",length(counts)),collapse="|")`
 exsolution: `r paste0(counts,collapse="|")`
 exname: make_frequency_distribution
 extol: 0
-exextra[numwidth,numeric]: 10
+exextra[numwidth,numeric]: 6

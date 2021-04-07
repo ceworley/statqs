@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>01_data_basics/01_counting/03_list_counting_large_v4</i></small>
+<p>A random procedure generated many measurements: <a href="data:text/csv;base64,aSx4CjEsMzkuNTkKMiwzOC42OAozLDM1Ljg1CjQsMzcuMTYKNSwzNy43Mwo2LDM5LjQzCjcsMzkuMTcKOCwzNi40Mwo5LDMzLjE5CjEwLDMyLjIKMTEsMzIuNDcKMTIsMzMuMzYKMTMsMzguOTUKMTQsMzguNzMKMTUsMzMuOTgKMTYsMzUuNjYKMTcsMzcuOQoxOCwzMC4wNAoxOSwzMy45NQoyMCwzOC4xNgoyMSwzNS42NQoyMiwzNi45NQoyMywzMC4zMQoyNCwzNS40MwoyNSwzMS4yNAoyNiwzNS41OAoyNywzMC44CjI4LDM5LjU1CjI5LDM4LjE2CjMwLDM3Ljc4CjMxLDM1Ljc5CjMyLDM4Ljg3CjMzLDMwLjg2CjM0LDMzLjMzCjM1LDM1LjcyCjM2LDMzLjcyCjM3LDM2LjQyCjM4LDM3LjM0CjM5LDM4Ljk4CjQwLDM3LjA4CjQxLDM5LjU3CjQyLDM4LjM1CjQzLDM0Ljc3CjQ0LDMwLjY1CjQ1LDM4Ljk2CjQ2LDM1LjczCjQ3LDM4LjE4CjQ4LDM0LjcxCjQ5LDM2LjM4CjUwLDM4LjgyCjUxLDMzLjczCjUyLDMwLjU5CjUzLDMzLjA0CjU0LDM4LjQzCjU1LDM5LjUxCjU2LDMyLjIxCjU3LDM4LjA5CjU4LDM2LjkzCjU5LDMzLjE3CjYwLDMxLjE4CjYxLDM0LjU0CjYyLDMwLjE0CjYzLDMxLjU2CjY0LDM0LjgxCjY1LDMxLjEyCjY2LDM1LjI1CjY3LDM0LjQKNjgsMzguODgKNjksMzYuNzEKNzAsMzIuODYKNzEsMzkuMTMKNzIsMzguOTIKNzMsMzQuMzQKNzQsMzcuMDgKNzUsMzcuMjEKNzYsMzUuODkKNzcsMzUuNzEKNzgsMzguNDQKNzksMzQuMzEKODAsMzEuMjgKODEsMzcuNDMKODIsMzguNzIKODMsMzYuMDgKODQsMzQuMTQKODUsMzQuNjkKODYsMzkuODIKODcsMzkuOTIKODgsMzguMTUKODksMzMuOTgKOTAsMzcuMDEKOTEsMzYuMzUKOTIsMzguMTQKOTMsMzkuMzMKOTQsMzEuMzUKOTUsMzkuMDkKOTYsMzYuNQo5NywzNi4xNgo5OCwzOC41MQo5OSwzMi43MgoxMDAsMzEuNTIKMTAxLDM3LjM1CjEwMiwzMS40NgoxMDMsMzkuNTEKMTA0LDM4LjIKMTA1LDM1LjE4CjEwNiwzOS42NAoxMDcsMzguNAoxMDgsMzAuOQoxMDksMzkuNDkKMTEwLDM5Ljg2CjExMSwzNi4wMQoxMTIsMzAuNDUKMTEzLDM1LjIKMTE0LDMxLjYzCjExNSwzNi40MgoxMTYsMzYuMTIKMTE3LDM1LjE2CjExOCwzOC4yNAoxMTksMzIuNDUKMTIwLDMwLjY2CjEyMSwzOS45MgoxMjIsMzMuMjUKMTIzLDMwLjQ4CjEyNCwzMi42MwoxMjUsMzQuNDMKMTI2LDMxLjg5CjEyNywzMS4xNQoxMjgsMzEuNjkKMTI5LDMwCjEzMCwzMy4wMQoxMzEsMzkuMzUKMTMyLDM0LjAzCjEzMywzOS42NwoxMzQsMzkuMjMKMTM1LDM4Ljg4CjEzNiwzNi42NAoxMzcsMzQuNDIKMTM4LDM2LjE0CjEzOSwzMy44CjE0MCwzNS42OAoxNDEsMzguMjUKMTQyLDMzLjU0CjE0MywzNy40OAoxNDQsMzcuMzMKMTQ1LDM2LjY1CjE0NiwzMy45NgoxNDcsMzQuMgoxNDgsMzkuOTcKMTQ5LDMwLjg1CjE1MCwzNC42CjE1MSwzOS42MQoxNTIsMzAuNTIKMTUzLDMxLjIyCjE1NCwzNS40MgoxNTUsMzAuNjEKMTU2LDM2LjcxCjE1NywzNC45NwoxNTgsMzkuNjgKMTU5LDM0LjQ1CjE2MCwzOC4yMgoxNjEsMzQuNzgKMTYyLDMzLjU0CjE2MywzNy4zNwoxNjQsMzMuMjEKMTY1LDM5LjE3CjE2NiwzOS40MgoxNjcsMzcuODgKMTY4LDM5Ljc4CjE2OSwzOS40NwoxNzAsMzEuMjkKMTcxLDM1LjIKMTcyLDM2LjIKMTczLDM5LjMKMTc0LDMyLjk0CjE3NSwzNC44Mgo=" download="list_counting_large_data.csv">list_counting_large_data.csv</a></p>
+<p>39.59, 38.68, 35.85, 37.16, 37.73, 39.43, 39.17, 36.43, 33.19, 32.20, 32.47, 33.36, 38.95, 38.73, 33.98, 35.66, 37.90, 30.04, 33.95, 38.16, 35.65, 36.95, 30.31, 35.43, 31.24, 35.58, 30.80, 39.55, 38.16, 37.78, 35.79, 38.87, 30.86, 33.33, 35.72, 33.72, 36.42, 37.34, 38.98, 37.08, 39.57, 38.35, 34.77, 30.65, 38.96, 35.73, 38.18, 34.71, 36.38, 38.82, 33.73, 30.59, 33.04, 38.43, 39.51, 32.21, 38.09, 36.93, 33.17, 31.18, 34.54, 30.14, 31.56, 34.81, 31.12, 35.25, 34.40, 38.88, 36.71, 32.86, 39.13, 38.92, 34.34, 37.08, 37.21, 35.89, 35.71, 38.44, 34.31, 31.28, 37.43, 38.72, 36.08, 34.14, 34.69, 39.82, 39.92, 38.15, 33.98, 37.01, 36.35, 38.14, 39.33, 31.35, 39.09, 36.50, 36.16, 38.51, 32.72, 31.52, 37.35, 31.46, 39.51, 38.20, 35.18, 39.64, 38.40, 30.90, 39.49, 39.86, 36.01, 30.45, 35.20, 31.63, 36.42, 36.12, 35.16, 38.24, 32.45, 30.66, 39.92, 33.25, 30.48, 32.63, 34.43, 31.89, 31.15, 31.69, 30.00, 33.01, 39.35, 34.03, 39.67, 39.23, 38.88, 36.64, 34.42, 36.14, 33.80, 35.68, 38.25, 33.54, 37.48, 37.33, 36.65, 33.96, 34.20, 39.97, 30.85, 34.60, 39.61, 30.52, 31.22, 35.42, 30.61, 36.71, 34.97, 39.68, 34.45, 38.22, 34.78, 33.54, 37.37, 33.21, 39.17, 39.42, 37.88, 39.78, 39.47, 31.29, 35.20, 36.20, 39.30, 32.94, 34.82</p>
+<br/>
+<ol type="a">
+<li>
+<div id='Q' style='background: #AAAAFF'> How many measurements are in the sample? In other words, determine <span class="math inline">\(\#[\mathbf{x}]\)</span>. In the future, we will use <span class="math inline">\(n\)</span> to denote the number of measurements in the sample. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> How many of the measurements are less than 39.9? In other words, determine <span class="math inline">\(\#[\mathbf{x}&lt;39.9]\)</span>. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> How many of the measurements are greater than 36? In other words, determine <span class="math inline">\(\#[\mathbf{x}&gt;36]\)</span>. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> How many of the measurements are closer than 2.5 units from 36.9? In other words, determine <span class="math inline">\(\#\left[\big|\mathbf{x}-36.9\big|&lt;2.5\right]\)</span>. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> How many of the measurements are farther than 4 units from 34.5? In other words, determine <span class="math inline">\(\#\left[\big|\mathbf{x}-34.5\big|&gt;4\right]\)</span>. </div>
+</li>
+</ol>
+<br/>
+
+
+</body>
+</html>

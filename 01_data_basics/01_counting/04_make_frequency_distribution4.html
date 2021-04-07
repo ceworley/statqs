@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>01_data_basics/01_counting/04_make_frequency_distribution_v4</i></small>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>A random procedure generated many measurements: <a href="data:text/csv;base64,ImkiLCJ4IgoxLDQwLjA5ODU2NTQ1ODUxMTcKMiwzNy4wMTAwODI3OTUxODU3CjMsNDIuNjE0MzY0MjgzNzQzMwo0LDM4LjA4Mjk3MDU2ODY5ODcKNSwzNS40MDQwNzIzMDUzNDU1CjYsMzQuMDk2NjYxMzcyNjU4NAo3LDM1LjY0NzEzODM3NDI4MzcKOCw0NC45MzQzOTE3MTAzNDI0CjksNDEuOTQ3OTEyMjc1OTkzOAoxMCwzOS40NjAxMjY3MDUxNDYzCjExLDM4LjIzNTQ1ODM2NDQ3MTMKMTIsMzkuOTM4OTgzOTAwNzgzNwoxMywzNi43ODg5NDY1NTM1NjE2CjE0LDQyLjMzMjQ1MDQ5NzAzNTkKMTUsNDAuMDAwMDY2MzM1NDQ1MwoxNiwzOS41NTUyNjEzMDU3Mjc0CjE3LDMyLjI5NjY2MDQwNjIwMjIKMTgsMzkuOTAzMjQyMTU2MTkzNQoxOSwzNS42NDU2MDMxNjkwMTQ3CjIwLDQyLjMyNzY4ODgyMDY0NzgKMjEsMzcuNjM3MTQ5OTgyMjUzNgoyMiw0My4wOTYyODcyNDAwNTM1CjIzLDM5LjUzMzI3Njg4OTEwODkKMjQsMzMuNTk4ODI1Nzk0ODg5MQoyNSwzNy4zODg5MTc3NDMyMjYyCjI2LDQxLjYzOTk1MTE5NzE1MjgKMjcsNDIuNzgyOTM2MTAyMjk3NgoyOCwzOC4xNjAwNjU2OTkxNjQzCjI5LDM4LjQ4MjM1NjEyNDQ2OTgKMzAsMzkuNjY4OTE4ODA1ODY1OAozMSwzNi4xMTc3MDYwODI4OTc3CjMyLDQwLjY4MjM2MDA2MTE0NjMKMzMsNDAuODY3NDA4NTAyMDg3NQozNCw0MC44ODYyNDMwNDk4MjEzCjM1LDQzLjM2NTk2MTU2MDMyMTcKMzYsMzguOTU2MDAzNDY4NDU3OQozNywzNi44ODEwMjg1MTk1NDE3CjM4LDQxLjM3NjU5Mjk0ODUxOTEKMzksMzcuOTA1OTg4NDY4NTExNgo0MCw0MS4yMTQ3MDg4NzY5NzM4CjQxLDQyLjU1MDc3NjUxNzgzOTYKNDIsNDEuNjcxOTAzMDEwODAxNgo0MywzOC4xMjU5NTYxMDY0NTkyCjQ0LDQzLjM4MzE0NzcwMTgyNTMKNDUsMzYuODQ3ODMwNTE5NzE0NAo0NiwzNy41MTcxMDYyMDgxNTM2CjQ3LDM4LjQ4MDczNzI3ODI4ODkKNDgsMzkuNDU2Mzg4OTg5OTA5CjQ5LDQ0LjM5OTc3Nzc3OTYzMDkKNTAsNDEuOTI0MDYxNDgwMTk0OQo1MSw0MS43MTcxNDc3MTI3MDQ1CjUyLDQyLjM0OTY0NTcwOTEyMTUKNTMsMzYuMzcxNDc1ODE3MzUwNQo1NCwzNS4zMjEwMTk0NDM3OTQzCjU1LDM5LjI3OTk1NTk0MTQ5ODQKNTYsNDEuNjQ3NTA5MzIwNDI2NAo1Nyw0OC4wODk5NjY1NjQwNDI1CjU4LDQwLjE3MzU4NjI5ODU2NTMKNTksNDIuMjk2Mzg1Mjk0NTEyOAo2MCwzNi42ODI2MDQ4NTgzMjE2Cg==" download="make_freq_dist.csv">download data</a></p>
+<p>Please complete the <a href="https://en.wikipedia.org/wiki/Frequency_distribution" target="blank">frequency distribution</a> using breaks 30, 35, 40, 45, 50:</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+interval
+</th>
+<th style="text-align:center;">
+frequency
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+30 to 35
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+35 to 40
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+40 to 45
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+45 to 50
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+
+
+</body>
+</html>

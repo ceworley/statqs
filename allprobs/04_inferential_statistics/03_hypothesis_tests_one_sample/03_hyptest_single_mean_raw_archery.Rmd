@@ -20,10 +20,12 @@ while(T){
 
 x2=x
 
-if(pval<0.05){
+if(pval < 0.05){
   ans = "10"
+  myst = "Yes; Archie adjusts her sight."
 } else {
   ans = "01"
+  myst = "No; Archie does not adjust her sight."
 }
 
 default_source_hook <- knitr::knit_hooks$get('source')
@@ -101,6 +103,8 @@ Answerlist
 
 Solution
 ========
+
+(ANS=`r pval`. `r myst`)
 
 [video](https://vimeo.com/531953271){target="_blank"}
 

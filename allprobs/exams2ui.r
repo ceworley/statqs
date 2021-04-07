@@ -2,8 +2,8 @@ library("exams")
 source("exams2html_mod.r")
 set.seed(100)
 
-nov = 3 #number of versions
-outdir = "out"
+nov = 5 #number of versions
+outdir = "outui"
 fn = "statqs"
 s = gsub(".Rmd","",list.files(pattern=".Rmd",recursive = T))
 
@@ -380,7 +380,7 @@ for(prob in s){
   n = length(bits)
   dir = paste0(bits[1:(n-1)],collapse="/")
   myexam <- c(paste0(prob,".Rmd",sep=""))
-  mydir = paste0("out/",dir,collapse="")
+  mydir = paste0(outdir,"/",dir,collapse="")
   dir.create(mydir,recursive=T,showWarnings=F)
   qname = paste0(mydir,"/",bits[n],1,".html",collapse="")
   if(!file.exists(qname)){

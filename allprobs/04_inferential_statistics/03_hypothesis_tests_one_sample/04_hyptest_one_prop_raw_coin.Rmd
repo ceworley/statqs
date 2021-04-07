@@ -38,8 +38,10 @@ ans = sprintf(ans,pval,pvallo,pvalhi,pval2,pval3)
 
 if(pval<0.05){
   ans2 = "10"
+  myst = "Yes, the coin is unfair."
 } else {
   ans2 = "01"
+  myst = "No, the coin might be fair."
 }
 ```
 
@@ -89,6 +91,8 @@ Answerlist
 
 Solution
 ========
+
+(ANS=[`r pval`,`r pval2`, or `r pval3`]. `r myst`)
 
 [video](https://vimeo.com/531953541){target="_blank"}
 

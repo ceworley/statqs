@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>solution_02_probability/01_overview/q5_binomial_v4</i></small>
+<p><a href="https://vimeo.com/531918396" target="_blank">video</a></p>
+<p>This is a binomial distribution, so use the appropriate formulas. <span class="math display">\[\mathbb{P}[X=x] ~=~ _n\text{C}_x \cdot p^x(1-p)^{n-x}\]</span> where <span class="math inline">\(p\)</span> is the probability of success on each trial, <span class="math inline">\(x\)</span> is a specific number of successes, <span class="math inline">\(n\)</span> is the number of trials, and <span class="math inline">\(C\)</span> is the combinations operator (so that <span class="math inline">\({_n}C_x = \frac{n!}{(n-x)! \, x!}\)</span>). Some people prefer to also use <span class="math inline">\(q\)</span> as the probability of failure, such that <span class="math inline">\(q=1-p\)</span>. <span class="math display">\[\mathbb{P}[X=x] ~=~ _n\text{C}_x \cdot p^xq^{n-x}\]</span></p>
+<p>You will also need to add <a href="https://en.wikipedia.org/wiki/Mutual_exclusivity" target="blank">mutually exclusive</a> probabilities (when multiple <span class="math inline">\(x\)</span>-values satisfy the probability’s condition). It is also helpful to be aware of the <a href="https://en.wikipedia.org/wiki/Complementary_event#Complement_rule" target="blank">complement rule</a>.</p>
+<br/>
+<ol type="a">
+<li>
+<div id='A' style='background: #FFAAAA'> <span class="math inline">\(\text{Pr}(X=7) ~=~ \left({_{10}}C_{7}\right)\left(0.57^{7}\right) \left(0.43^{3}\right) ~=~ 0.1865136\)</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> <span class="math inline">\(\text{Pr}(X=8) ~=~ \left({_{10}}C_{8}\right)\left(0.57^{8}\right)\left(0.43^{2}\right) ~=~ 0.0927146\)</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> <span class="math inline">\(\text{Pr}(X &gt; 8) ~=~ 0.0309316\)</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> <span class="math inline">\(\text{Pr}(X \ge 8) ~=~ 0.1236462\)</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> <span class="math inline">\(\text{Pr}(X &lt; 8) ~=~ 0.8763538\)</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> <span class="math inline">\(\text{Pr}(X \le 8) ~=~ 0.9690684\)</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> Because this is a binomial distribution, <span class="math inline">\(\mu = np\)</span>, so <span class="math inline">\(\mu = 5.7\)</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> Because this is a binomial distribution, <span class="math inline">\(\sigma = \sqrt{npq}\)</span>, so <span class="math inline">\(\sigma = 1.565567\)</span> </div>
+</li>
+</ol>
+<br/>
+ANSWERS: 0.1865136, 0.0927146, 0.0309316, 0.1236462, 0.8763538, 0.9690684, 5.7, 1.565567<br>
+TOLERANCES: 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+
+
+</body>
+</html>

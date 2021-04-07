@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>01_data_basics/01_counting/04_make_frequency_distribution_v5</i></small>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>A random procedure generated many measurements: <a href="data:text/csv;base64,ImkiLCJ4IgoxLDUzLjU0ODM3MjEyMDg5NzMKMiw1NC43ODQyOTI0Mzg1MTg4CjMsNTQuNTI4MTIzMjc2ODQ4OQo0LDU1LjM1MzA5MjU4NTMwMjEKNSw1OS40NjU2OTMyNzM0OTExCjYsNTUuMjExODI3NDI2ODE3Mgo3LDU5LjU3NDIyMjEyNzU3NDUKOCw1NC41MTkxOTAyODQ0OTQ3CjksNTkuMjk4MjU1NjgzMTY0NAoxMCw0OS4zNDAyMjkxNDQ5MDg4CjExLDU5Ljk3MzcyMjE3MTM3NTQKMTIsNTcuMDA4OTQ1NTc4OTQzNQoxMyw1OS45MDQ4ODg3Mzk0NjE5CjE0LDU5LjM2Mjg4Mzk0NzYxNzEKMTUsNTUuOTM5MzA2NTk2NzQzNwoxNiw1OS45OTg4NzQxNjk1OTE0CjE3LDU4LjUwODAxMjQ2MDMzOTMKMTgsNTkuNDQ3Mzc0ODA4MzYzOQoxOSw1OC4zMDI4MTY3NzE2NzA0CjIwLDUwLjU2NTE2MzE5NDQzNjkKMjEsNTguMTg4MTE3NjIyODE4NQoyMiw1My41NzI5NTM3OTM1MzE1CjIzLDU2LjE0ODI5MTI2ODUyMjIKMjQsNTkuNDQ1NjU4MDk5NTc5MwoyNSw1OS43NTc4NjkzNjUyNTU5CjI2LDU5Ljk1ODg4NzczODg0NDYKMjcsNTguMTQyMDc4NzI2NzI1MgoyOCw1OS45OTE5NzY3Njg3NTMxCjI5LDU0LjUzNjgzOTM1MjcwNjEKMzAsNTUuMDA0NzAzMDc4MTU1CjMxLDU5LjcxOTcxOTA4OTU1MjUKMzIsNTguNDMxODA4NjMyMjIzMwozMyw1OC4yMDQ1NzI0NzkxMDE1CjM0LDUzLjcyODcxOTEzMzA5MjYKMzUsNTkuNzA3NzQ1MjcxMDExNwozNiw1OS44NDUxODY2MTIyOTc0CjM3LDU5LjIxMTY0NDg5NzM3NjcKMzgsNTIuMDYzMjEzOTYxMjQ4MgozOSw1Mi4yNTEwMzA5NjA4MzQ2CjQwLDU4LjgxMzQ5NjY4MDI3NzgKNDEsNTkuMjk2NTM3MzUyMjY1MQo0Miw1OS4zMzE2Nzk4MDM5Mzc3CjQzLDQ4LjAwNTU3NDIyMDI4OTIKNDQsNTkuNzU0MjkzOTY5MzA0MQo0NSw1Ny41MTA0MTE0NTMxMjAxCjQ2LDU0LjU4Njc1MDQ3MTk4NjYKNDcsNTguMzczMjAyNTkwNzYxNwo0OCw1NS43NTgwNjA2ODU2MzMzCjQ5LDU5LjE5NTA5NjY0OTY2ODkKNTAsNTcuOTY0OTQwNTg3NTI2NQo1MSw1OS43ODUzODY5MzUwODg0CjUyLDU5LjcxNjIyMzMwMzIzMzcKNTMsNDcuNjQ1MzkyNjYwNjc1NQo1NCw1OS45OTA2NTA1MTU2OTgyCjU1LDU3LjE2NDQ2NDE0MDQyMTIKNTYsNTkuNzI1NTgzMTIxOTIxNwo1Nyw1OS45OTk4MTQwNjQyMTcKNTgsNTcuOTM1OTc1NDc5NTY0NAo1OSw1OS4yMjc0MDY3NDMzNzk5CjYwLDU5LjgyMDU0MDkwMzkzMjQKNjEsNTkuOTA0Mjc0OTExMzc2CjYyLDU0LjY3MTY3OTY1ODY4OTUKNjMsNTYuMDc4Njk5NjA2MzM0OAo2NCw1NC4yOTczMTgyNjg5Mzc0CjY1LDU4LjgyNDUzMzI3NTgxMTIKNjYsNTMuMjYxNzE4OTU3OTQyMgo2Nyw1OS45MTI5Njk1OTY0MTg5CjY4LDU5LjkzODU0NDM1Nzc0NzcKNjksNTkuOTcwMzQxNzUyMjE2OQo3MCw0OS45NjM2MzM2MDg5OTI3CjcxLDU5LjE1NjkyNzEzMTk0MjMKNzIsNTcuNjE4NTExNTA3NjczMgo3Myw1OS45OTk5NTUzNTE5MjY1Cjc0LDU5Ljk5MTcyMjg4OTA2MzMKNzUsNTguMzY5NzU1MDg3OTM0NAo3Niw1OS45MzU4MjYwMDM1NTc1Cjc3LDU4LjY1OTUyNzA1NTE5NzgKNzgsNTcuMTM4NDc2ODExMTEKNzksNTkuOTAwOTQwOTUxMDc1Mgo4MCw1OS42NDcwNTA0NzUzNDk1CjgxLDU4Ljg0MDcxOTE5MjYwNzMKODIsNTguNTY3OTA5Nzg4MzIxNwo4Myw1OS45NTE4NzYwMzIwNjIKODQsNTkuOTkyNzA4MTE2MjI0Nwo4NSw1OC4wMjMxODc5ODg0NzExCjg2LDU5LjQ2NDg3Mjg4NTUwNTkKODcsNTkuNjM0ODQyODU3ODQ1Mgo4OCw1Ni4yNzExNzE4MjkwODkKODksNTQuMjI1ODkzNzgwOTA4Mgo5MCw1OS40NzE0MTkzODk3MDQ2CjkxLDU1LjExODUwMjUxOTA1NjUKOTIsNDYuNDcxMzM2OTcxNDMwMwo5Myw1OS44Nzc2NTU2MDg1Mjk2Cjk0LDU3LjIxNzcxNjAxOTAxNzgKOTUsNTkuOTg1NTY1ODY1ODgzMQo5Niw1Ni42Njc2OTA5MjAyMjY0Cjk3LDU5Ljg4MzgzMDc1NTMyMDEKOTgsNTguNjk4MTI2MzQ5Njg5MQo5OSw1OC43MTIwNDU5NDQ5NjAxCjEwMCw1Ni44NjQ1NzgyOTEyMzI0CjEwMSw1NS44MzEyMjY4NDkwMTQyCjEwMiw1OS43OTkxNTc1Mzc4MzYxCjEwMyw1OS44Mjc1OTg3MDM5MDIxCjEwNCw1NS42Mzc2ODE5ODczNjUzCjEwNSw1OS40NjQyMDk3NTkzMTg5CjEwNiw1NS41NTIxMTA4MzMzNDI5CjEwNyw1MC45MDQ0MDc2MTgxMjk2CjEwOCw1Ni4yODg4MDc3NDg3MjYyCjEwOSw1NS4xODg4NTcwNzQ2MTg4CjExMCw1OS45NTc0OTAxMjcxNzY0CjExMSw1Ny4yODQxMzQxNjI2ODY4CjExMiw1OS45OTY1NDkzODY0OTI5CjExMyw1OS4zNDIwMTQwMjUwOTcKMTE0LDU5LjIwNTc0NDgzNjAyNzUKMTE1LDU0LjEyNTQ3MDA2ODg2MTUKMTE2LDU3LjkzNTcyODEyMTU5ODcKMTE3LDU0Ljg1NDI2MzQxNTc2MzgKMTE4LDU0LjY2NTI2MDg3Nzk0NDMKMTE5LDU5LjcxNzUwMzAzMzA0NTYKMTIwLDU4LjIwNjQ5OTI2MTAxNTIKMTIxLDU2LjcyNzcxNTA4NzU2MzIKMTIyLDU5LjYxNTY3MTU0ODc0NAoxMjMsNTkuOTUzMzAxNDY1MTMxOAoxMjQsNTYuMDE3Njk4NTA0MDgxCjEyNSw1My42MjMyMjk5MjA0MDYKMTI2LDU5LjU3MTAzNjc4OTY2NjMKMTI3LDU5Ljk3NTkyNzI1MzE3NTgKMTI4LDU1LjAyOTAwMjI1ODUyODkKMTI5LDU1LjU3MTExMjUyOTc2MzYKMTMwLDU5LjUyODA3NTg4MTczOTEK" download="make_freq_dist.csv">download data</a></p>
+<p>Please complete the <a href="https://en.wikipedia.org/wiki/Frequency_distribution" target="blank">frequency distribution</a> using breaks 46, 48, 50, 52, 54, 56, 58, 60:</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+interval
+</th>
+<th style="text-align:center;">
+frequency
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+46 to 48
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+48 to 50
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+50 to 52
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+52 to 54
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+54 to 56
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+56 to 58
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+58 to 60
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+
+
+</body>
+</html>

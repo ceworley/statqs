@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>01_data_basics/02_proportion/04_make_relfreq_dens_v5</i></small>
+<p>A random procedure generated <span class="math inline">\(n=130\)</span> measurements: <a href="data:text/csv;base64,ImkiLCJ4IgoxLDIwLjAwMDEzMTAwNjYxMjQKMiwyMC4wMDAwMDAwMDg1MzY3CjMsNDQuNzU0NzM3NDM2Njg4NQo0LDQ0Ljc3MjU3MTg2MTM0NDMKNSwyOC44OTA5MTQxOTA0Mjk0CjYsMjcuMDE2OTAzODkyNDkxNgo3LDM3LjY5NjU4NjQwNTE3MjYKOCw0NC45ODMwNjIyMzc0MDU0CjksNDQuOTk5ODc2Mzk4MDg0MgoxMCw0NC44MDAyODg5Nzg1MzE5CjExLDQxLjYwNjY2MjE4NDg0NTkKMTIsMjUuOTI3NDYxNTAxOTgyMgoxMyw0NC45NzU4NTY1MjQzNTc5CjE0LDIwLjU4NjQwNzEyMzY0ODgKMTUsMzguNDY1ODcxNDQ3NjAxMQoxNiwyMC4wMDMzNDEzOTgwODM2CjE3LDQ0LjU5NTAwOTE2NTM4NwoxOCwyNC43MTYyNzQwMjU3OTUzCjE5LDIwLjcwMDg1Nzg5OTM2NTgKMjAsMjQuMjI0MjU1ODg4NzQ5NQoyMSw0NC4yNDQxMjk5MzUxOTQ1CjIyLDQ0LjIxNTY4MDMwNjMxNzEKMjMsNDEuMDU1MTg0MzU5MTI4OAoyNCwyMy43OTA1MDk1MjU3Nzk2CjI1LDQ0LjYwMjYzNzQ4NDMzMzkKMjYsMzkuMzI1MDQ2ODg3NzU1NwoyNyw0NC45OTk5OTk5ODI4ODM5CjI4LDIwLjUyNTYzNTAyMTI2ODkKMjksMzQuMzQzNDcyMjE1OTkwNQozMCwyNC4wMzIxODA3MDQyODU3CjMxLDQ0Ljk5OTk5OTY1NDkxOTcKMzIsMjAuMDAwMDE4MzI4ODgzNgozMywyMC40ODkxNTE1MDk0MDU0CjM0LDQ0Ljk5MjIzODg5NTg0NjEKMzUsMjAuMDAwODgyMzc0NjU2CjM2LDIxLjA2ODQ4MjA4MTUyNzUKMzcsMjkuMzAxNzYxMTEyNzQ4MQozOCwyMC4xNDc5NTk5NDc4MDc0CjM5LDIxLjA4NDc0OTA2NDU2NzgKNDAsMjAuMTQzNDIxOTgwMzYzMwo0MSwzOS4xMjMzNDkzOTgxOTEyCjQyLDIyLjY2OTc0ODc0NzA2OAo0MywyMS43NDQzNDk1MTMwODkKNDQsMzAuNjE0NDg3Mjk5OTcyNQo0NSw0NC44NjYxMzcxODE0ODI1CjQ2LDQzLjg1ODI5NjQ2NzgzMjYKNDcsMjAuOTAxODAxMzEzMjE4NQo0OCw0My41MDMwMzMyMTU4NzQ2CjQ5LDIwLjAwMDAwMDAwMDAwNDUKNTAsMjQuMTQ0MDExOTkwMjMzNwo1MSwyNi42Nzc3Mjc1Nzk0MTYxCjUyLDIzLjY4MjE4Mzg1MzgxMTEKNTMsNDQuOTU2NDM1NDI0MTc5NAo1NCwyMS4xMTIxMjMyOTg0OTU5CjU1LDIwLjAwMjAzOTU3NDAzNDgKNTYsNDQuODY1ODM3ODM3MjI4NAo1NywyMC4wMTE4Njk1OTEwNDQ3CjU4LDIwLjExODYyMDQ2NTYzNDgKNTksNDQuOTk5MzM0MzQ0NzA0NQo2MCwyMC42NTk3NDMwMTI1MzQyCjYxLDIwLjAwMDAyMzA0ODM3OTMKNjIsMzkuODI4OTE2MjUwNjIwNwo2Myw0My4zNjg2MDc4NTk3MTE3CjY0LDQ0Ljk5OTk3Njk0NzA2MDcKNjUsMjAuMDAwMDgzODg0MjYyCjY2LDQ0Ljk5OTk2ODI4OTg3NTYKNjcsMjAuMDA1OTY1MDYzMDkxNwo2OCwyMC4xNjY4MjM4OTgyNTY4CjY5LDIzLjQ5NzAxNTQ3OTU5ODUKNzAsNDQuOTg1Njg0NzU0OTYzNwo3MSw0NC45MTgyMzY3MjgwNzU2CjcyLDIxLjc5Mzc5MDYzOTMxODgKNzMsNDQuMjI5OTE1Mjc4MTIzMgo3NCw0NC45NTg2MTU1MTUxNTYxCjc1LDQwLjc0NDcwMzM2OTQ2NDEKNzYsNDMuNTE1MTc5NjM4MjUwMwo3NywyMC4wOTQ4NDQyODMxNTk2Cjc4LDQ0Ljg1MTI4NjQxOTkzMQo3OSwyMC4wMTE3ODQxOTI0NTM0CjgwLDIwLjA3MTM2NzE1MjYxMTQKODEsMjAuMDAzNjg3MTE2MjM4CjgyLDIwLjAwMDAzODgxODQzMDUKODMsMjUuMzM5MzkxMTkxNzg4OQo4NCw0NC45OTk0OTMxNjU4ODMyCjg1LDIwLjAzNzk5OTc4MjQzNAo4Niw0NC44NzkyNzE3OTkzNDY2Cjg3LDIwLjg2Njc0OTQxNzEyMjIKODgsNDEuMzQ4MjkxOTE2ODczMQo4OSwyMC4wMDAwNTA5NTM4MDQKOTAsNDQuODc5MzQzMjQzOTk3Mgo5MSw0Mi40MTA1NjMxMjk1NDExCjkyLDIwLjAxMDAxMjgzNDA2ODIKOTMsMjUuNzk4OTIzMDMwMTI5Cjk0LDI0LjIxNzcwMDM1NDI1MDUKOTUsNDQuMDM3NTk2MjA3NDM5Cjk2LDIzLjAxMjgzOTI5MzgyNzkKOTcsNDQuMzE3MjYxMTU0MDMzMgo5OCwyMC42MzAwNjY5MDg1MDc1Cjk5LDIwLjAyNTQ5NzQ5MTM5NzYKMTAwLDIwLjA3NDExNjMyNDM5NwoxMDEsNDQuOTk0MDYwNjgzNDA5CjEwMiwyMC4wMzI5NjA5NzE5ODk1CjEwMywyNS4xNjE5NTE2MDMyODkzCjEwNCwyNy4zOTMzMjMyNDE0OTM2CjEwNSw0NC4yNzU1NzQ1NTAxODMyCjEwNiw0NC42NjIxMjU2MTQzNDYxCjEwNyw0MS45OTk4MzQ4MzA2ODQ4CjEwOCwyOS44MDQyODM4MDgxNTM0CjEwOSw0NC43Mjk1NjYwMjYwMTU3CjExMCwyMC4wMDAwMDAwMzMyNjkyCjExMSw0NC45NTEwMjQ2MDUzMzUzCjExMiwzNy41NDcyNzQ4MTg2NDU5CjExMyw0NC43MjA4MTYxMjc5MzczCjExNCw0NC45NTExNzQ4MjEzNDg1CjExNSwyNi4zNzQ1MTgxNDIzMDYyCjExNiwzOC4zMjEzMzI2NDIyNzQ0CjExNywzNS4yNzQ2Mzc1MjgxODE3CjExOCw0Mi40NjY0NTY3NzAzNjc2CjExOSw0NC45OTk0NDYwMzMyMjA2CjEyMCwzNC4zODMwNTI0NTg4MzUxCjEyMSwyMS40NDQwNjI1NTA2NTY3CjEyMiwyMC4wMDAwMTY3NTQ5NjczCjEyMyw0NC43MzQ4NDAwODU1NjY0CjEyNCwyMC4wMTkxMzExOTk0OTE3CjEyNSwzMS4xNjc0NjQ4MDk3MjI1CjEyNiwyMC4wMDYxNjU4MjE0NzgyCjEyNywyMC44OTA1ODc5ODM1NjE2CjEyOCwyMC45NjI0NzE1ODgzNDU1CjEyOSwzMy44NTYyNDgxNzY0MDcyCjEzMCwyMC4wMTM0NTQ5MDExMDI1Cg==" download="make_freq_dist.csv">download data</a></p>
+<p>I’ve already determined the frequencies. Please determine the relative frequencies and the densities. A brief description of relative frequency and density can be found <a href="https://en.wikipedia.org/wiki/Histogram" target="blank">here</a>.</p>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+Interval
+</th>
+<th style="text-align:center;">
+Frequency
+</th>
+<th style="text-align:center;">
+Relative_frequency
+</th>
+<th style="text-align:center;">
+Density
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+20 to 25
+</td>
+<td style="text-align:center;">
+57
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+25 to 30
+</td>
+<td style="text-align:center;">
+11
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+30 to 35
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+35 to 40
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+40 to 45
+</td>
+<td style="text-align:center;">
+49
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>01_data_basics/02_proportion/04_make_relfreq_dens_v4</i></small>
+<p>A random procedure generated <span class="math inline">\(n=110\)</span> measurements: <a href="data:text/csv;base64,ImkiLCJ4IgoxLDM0LjQyNTU0MDIwMjM3ODQKMiwyNS4wNzE4MDUxMjI5NTkxCjMsMjYuNTg2MzQ4Njk1MzE0MQo0LDI1LjQwMzk4NDIxNzk5OTIKNSwyNi45NzUzMDA4MzM4MjU2CjYsMjYuMzQ0Njg0NjIxMjM4Nwo3LDI2LjAzNzY5MzE3MTUwNzIKOCwzNC45OTMzODYyODAyOTQxCjksMjUuMDAwODc3MjM5OTYyNgoxMCwzMy45NDYxNjYzMTMzNTMzCjExLDI3LjMzMjg2MjI4NjgzOTMKMTIsMzQuODk0OTM3MTAwODI5NwoxMywzNC45OTk3NTQzODc4NDU5CjE0LDM0Ljk2NjA1MDEwMjE4NDIKMTUsMjguNjc5NDg0Mzg1MzQKMTYsMjUuMDc1NTEyNjI4Mjg1NgoxNywyNS4wMTE0OTQxMDAxMzU5CjE4LDI1LjQ5MTgyMTQxNDUyMzIKMTksMjUuODk5MDg3Mjk5Njc3NQoyMCwzNC4xNjgyODMxODQyMDI5CjIxLDI1LjA3MDYwOTU3OTcyMjYKMjIsMjYuMDE4NTkyNjA3OTY2NwoyMywyNS4wMDIxNzA1MjAyMzYyCjI0LDMyLjIzMzIyMjgyOTY4MzEKMjUsMjUuMDAxMzk4MTE5MzA1NwoyNiwzNC4zODQyMDk5MjM5MzI2CjI3LDMwLjg2NTU2Nzc1NTU3MTQKMjgsMjUuMDUwMjA3NzI1OTIwOAoyOSwzNC45OTk5OTk5OTk5OTYyCjMwLDM0Ljk5OTcxNTY5NjA2OTEKMzEsMzQuOTQ1NDU3MzYyNTcyMQozMiwzMC43NTU4MzIzODc0MzI0CjMzLDM0Ljg3MTY5NzUxNDk1MDIKMzQsMzQuOTk5ODIzNjQ2MzY5OQozNSwzNC41MDI0OTExOTIyMDk1CjM2LDI1LjM4NTAyNjM5MzkwMgozNywzMC45ODM4OTg5NDc3MDk1CjM4LDM0Ljk5OTk3MjM3ODQyMDkKMzksMzQuOTk4OTY0NDcxMDQ3OAo0MCwyNS4wNjY4NjY2NDQ2MzczCjQxLDMxLjAzNjM5Mjk0OTIzMDMKNDIsMzQuOTY2MzA5NjYxMTI0Mwo0MywyNS4yMjQxMDU2MTY3MjQzCjQ0LDI5Ljk0MzU1OTA2NjIwMjMKNDUsMzQuOTkwMDE0ODEzNTE1Mwo0NiwzNC45ODAwNjMyODI2MTY0CjQ3LDI1LjA5MzIxNzM3NzY0NzcKNDgsMzQuOTc0NjMzMjg4MjAzNgo0OSwzNC45ODM1OTY1NzUzMDQyCjUwLDM0Ljg3MDgyODkzODQ4NjgKNTEsMjUuMjQ2MzY5NDA5MDI4MQo1MiwyNS44OTM4NjE3Njg0MzAzCjUzLDM0Ljk5OTk4NzgzMzY5MTIKNTQsMzQuODgwODQ2OTcwNTY0MQo1NSwyNy42OTM4NjQ5ODY2MjYyCjU2LDI1LjAxNjIyMDQ1NjU1NDcKNTcsMjYuMDk2MDM4MzUzODU2MQo1OCwyNS4wMTE4OTg4MDA3NjY0CjU5LDMxLjUzNzY2NzQzNjM4NzUKNjAsMjguNjc3NjAyMDI4NzcwOQo2MSwzNC45OTc5Njg1MTYzNzY2CjYyLDMzLjU4MzQxNTM4NjA3MTIKNjMsMjguNzQxNDUzMDkxNjczCjY0LDI1LjAzMDUyOTkzMTI0NjcKNjUsMzEuNzg5NTM1ODYyNDk1OQo2NiwzNC41MDE5MTY0OTU3NDg0CjY3LDI1Ljg0MTE4NDgyODExMjQKNjgsMzMuMTA0MDE2MzcxNTM5Ngo2OSwyNi43MjUzODY0ODE3Nzc3CjcwLDI1LjE3MTU5Njc1MzkxMjQKNzEsMzQuOTk5OTk1NDkyMDk2NQo3MiwzNC45OTk5OTIzNjg1NTQ4CjczLDM0LjYxMzQ3NzIxMzE1NAo3NCwzNC45ODkyNDEzNTMzNjE0Cjc1LDM0LjkzNzQ4ODg0ODcxOTUKNzYsMzIuNzY0ODcyNTI3MzQ5NAo3NywyOC40NzE3OTcyODk3MjE5Cjc4LDI1LjAwMDAwODE3NjUzOTUKNzksMzQuOTk4MDAzMTg2NjQ5MQo4MCwyNS4wMDMxMjM4NTMxNDEKODEsMzQuNTM3MDE2MjcwMTUzNAo4MiwzNC44NDEwODgxMTIxMDg2CjgzLDI5LjkyODE2NTkwOTQ3NTYKODQsMzQuMjU0MDMyMjIwNTQxNAo4NSwzNC43MTEyMTQzMjAxNzg5Cjg2LDI1LjU2NTg5MDIxNTMwMDIKODcsMzQuNTMyMjYxNTcwNjY1Nwo4OCwyNS4yNjExMDEyMjkxMTk3Cjg5LDM0LjYwNjgxNzkzMzU0NDQKOTAsMjUuNzA2Mjc5MjQzNDY3Mgo5MSwyNS4wMDAwMTY1NzMyNDMzCjkyLDI1LjAwNzk2ODIyNjcxMjcKOTMsMzQuODYwMzUzODE3Mjk3OAo5NCwzNC43Mzg0MTgzMDkyODg4Cjk1LDM0LjY3Njg3OTM1NzYzNzQKOTYsMzMuMjg4MzQyMjc3MzQ2Cjk3LDMxLjgzMTA1OTk4ODcxNDcKOTgsMjUuODgzMjc5NTM1MDg1Ngo5OSwyOS4zNzQzMjg1OTM4OTA3CjEwMCwzNC4xMjU1NjE3NzI5MTc4CjEwMSwzNC45OTgxNDA4MjgwMTM3CjEwMiwyNi44Njc3NTYzNjYwMjExCjEwMywyNS4wMTI2MTM2OTMzNTY5CjEwNCwzMS44MTIxMzYwNjc4MTU5CjEwNSwyNy44NTc3MDQxNzE5MzE2CjEwNiwzNC45OTk2OTQ1NDk0MjEKMTA3LDMzLjkwMTQwMzc1NzE5NjMKMTA4LDI4Ljg1MTE5MDA1NzYxODgKMTA5LDI3Ljg2NDU5ODg0NjcyODIKMTEwLDI4LjkwMjg1MDk4MTUzNTYK" download="make_freq_dist.csv">download data</a></p>
+<p>I’ve already determined the frequencies. Please determine the relative frequencies and the densities. A brief description of relative frequency and density can be found <a href="https://en.wikipedia.org/wiki/Histogram" target="blank">here</a>.</p>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+Interval
+</th>
+<th style="text-align:center;">
+Frequency
+</th>
+<th style="text-align:center;">
+Relative_frequency
+</th>
+<th style="text-align:center;">
+Density
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+24 to 26
+</td>
+<td style="text-align:center;">
+31
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+26 to 28
+</td>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+28 to 30
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+30 to 32
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+32 to 34
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+34 to 36
+</td>
+<td style="text-align:center;">
+43
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+
+
+</body>
+</html>

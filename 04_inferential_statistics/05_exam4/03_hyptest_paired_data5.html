@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>04_inferential_statistics/05_exam4/03_hyptest_paired_data_v5</i></small>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>A study asked individuals to time a mile run (in seconds). After a month, the same individuals timed another mile run. You are asked to perform a paired-data <span class="math inline">\(t\)</span> test to investigate whether fitness changed.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:center;">
+x1
+</th>
+<th style="text-align:center;">
+x2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Alonzo
+</td>
+<td style="text-align:center;">
+492
+</td>
+<td style="text-align:center;">
+505
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ayan
+</td>
+<td style="text-align:center;">
+400
+</td>
+<td style="text-align:center;">
+371
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Daliah
+</td>
+<td style="text-align:center;">
+293
+</td>
+<td style="text-align:center;">
+235
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Daniel
+</td>
+<td style="text-align:center;">
+632
+</td>
+<td style="text-align:center;">
+622
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Donovan
+</td>
+<td style="text-align:center;">
+347
+</td>
+<td style="text-align:center;">
+312
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Eli
+</td>
+<td style="text-align:center;">
+288
+</td>
+<td style="text-align:center;">
+265
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Elliot
+</td>
+<td style="text-align:center;">
+377
+</td>
+<td style="text-align:center;">
+364
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ericka
+</td>
+<td style="text-align:center;">
+422
+</td>
+<td style="text-align:center;">
+387
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Haven
+</td>
+<td style="text-align:center;">
+418
+</td>
+<td style="text-align:center;">
+458
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jaelani
+</td>
+<td style="text-align:center;">
+301
+</td>
+<td style="text-align:center;">
+270
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jayla
+</td>
+<td style="text-align:center;">
+558
+</td>
+<td style="text-align:center;">
+571
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kameron
+</td>
+<td style="text-align:center;">
+350
+</td>
+<td style="text-align:center;">
+336
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Leo
+</td>
+<td style="text-align:center;">
+426
+</td>
+<td style="text-align:center;">
+396
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Maisie
+</td>
+<td style="text-align:center;">
+429
+</td>
+<td style="text-align:center;">
+433
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mikai
+</td>
+<td style="text-align:center;">
+775
+</td>
+<td style="text-align:center;">
+789
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sandra
+</td>
+<td style="text-align:center;">
+550
+</td>
+<td style="text-align:center;">
+496
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sidney
+</td>
+<td style="text-align:center;">
+315
+</td>
+<td style="text-align:center;">
+333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zoe
+</td>
+<td style="text-align:center;">
+312
+</td>
+<td style="text-align:center;">
+334
+</td>
+</tr>
+</tbody>
+</table>
+<p>(<a href="data:text/csv;base64,Im5hbWUiLCJ4MSIsIngyIgoiQWxvbnpvIiw0OTIsNTA1CiJBeWFuIiw0MDAsMzcxCiJEYWxpYWgiLDI5MywyMzUKIkRhbmllbCIsNjMyLDYyMgoiRG9ub3ZhbiIsMzQ3LDMxMgoiRWxpIiwyODgsMjY1CiJFbGxpb3QiLDM3NywzNjQKIkVyaWNrYSIsNDIyLDM4NwoiSGF2ZW4iLDQxOCw0NTgKIkphZWxhbmkiLDMwMSwyNzAKIkpheWxhIiw1NTgsNTcxCiJLYW1lcm9uIiwzNTAsMzM2CiJMZW8iLDQyNiwzOTYKIk1haXNpZSIsNDI5LDQzMwoiTWlrYWkiLDc3NSw3ODkKIlNhbmRyYSIsNTUwLDQ5NgoiU2lkbmV5IiwzMTUsMzMzCiJab2UiLDMxMiwzMzQK" download="run_times.csv" target="blank">download as run_times.csv</a>)</p>
+<p>Please run a paired <span class="math inline">\(t\)</span>-test to check whether there was a significant change in running times.</p>
+<p><div id='Q' style='background: #AAAAFF'> Calculate the <span class="math inline">\(p\)</span>-value. </div></p>
+<p>Using a significance level of <span class="math inline">\(\alpha=0.05\)</span>, is there a significant change in run times?</p>
+<p><div id='Q' style='background: #AAAAFF'> Yes / No </div></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+
+
+</body>
+</html>

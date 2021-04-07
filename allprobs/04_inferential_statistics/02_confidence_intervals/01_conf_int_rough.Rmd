@@ -34,8 +34,8 @@ Plug the numbers into the expressions.
 
 Answerlist
 --------
-* Lower bound = $~`r xbar`-2(`r s`)/\sqrt{`r n`} ~=~ `r LB`$
-* Upper bound = $~`r xbar`+2(`r s`)/\sqrt{`r n`} ~=~ `r UB`$
+* Lower bound = $`r xbar`-2(`r s`)/\sqrt{`r n`} ~=~ `r LB`$
+* Upper bound = $`r xbar`+2(`r s`)/\sqrt{`r n`} ~=~ `r UB`$
 
 
 Meta-information

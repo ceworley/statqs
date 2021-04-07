@@ -226,4 +226,3 @@ exclozetype: num|num
 exname: confidence interval Z
 extol: `r tol`
 exextra[numwidth,numeric]: 6
-

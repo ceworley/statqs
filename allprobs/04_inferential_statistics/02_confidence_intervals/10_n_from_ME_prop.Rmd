@@ -26,7 +26,6 @@ If we know $\hat{p}$ will be approximately `r phat`, and we want the margin of e
 You can round your answer to two significant digits.
 
 
-
 Solution
 ========
 

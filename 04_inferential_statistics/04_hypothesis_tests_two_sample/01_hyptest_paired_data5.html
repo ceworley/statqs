@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>04_inferential_statistics/04_hypothesis_tests_two_sample/01_hyptest_paired_data_v5</i></small>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>A study asked individuals to time a mile run (in seconds). After a month, the same individuals timed another mile run. You are asked to perform a paired-data <span class="math inline">\(t\)</span> test to investigate whether fitness changed.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:center;">
+x1
+</th>
+<th style="text-align:center;">
+x2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Alexa
+</td>
+<td style="text-align:center;">
+301
+</td>
+<td style="text-align:center;">
+312
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Alonzo
+</td>
+<td style="text-align:center;">
+287
+</td>
+<td style="text-align:center;">
+302
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brandon
+</td>
+<td style="text-align:center;">
+461
+</td>
+<td style="text-align:center;">
+455
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Colin
+</td>
+<td style="text-align:center;">
+640
+</td>
+<td style="text-align:center;">
+659
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jibril
+</td>
+<td style="text-align:center;">
+781
+</td>
+<td style="text-align:center;">
+776
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kenley
+</td>
+<td style="text-align:center;">
+1005
+</td>
+<td style="text-align:center;">
+990
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kyra
+</td>
+<td style="text-align:center;">
+291
+</td>
+<td style="text-align:center;">
+350
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Landon
+</td>
+<td style="text-align:center;">
+668
+</td>
+<td style="text-align:center;">
+724
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paislee
+</td>
+<td style="text-align:center;">
+356
+</td>
+<td style="text-align:center;">
+321
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paisley
+</td>
+<td style="text-align:center;">
+845
+</td>
+<td style="text-align:center;">
+871
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sebastian
+</td>
+<td style="text-align:center;">
+432
+</td>
+<td style="text-align:center;">
+441
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Timothy
+</td>
+<td style="text-align:center;">
+293
+</td>
+<td style="text-align:center;">
+317
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zoey
+</td>
+<td style="text-align:center;">
+469
+</td>
+<td style="text-align:center;">
+564
+</td>
+</tr>
+</tbody>
+</table>
+<p>(<a href="data:text/csv;base64,Im5hbWUiLCJ4MSIsIngyIgoiQWxleGEiLDMwMSwzMTIKIkFsb256byIsMjg3LDMwMgoiQnJhbmRvbiIsNDYxLDQ1NQoiQ29saW4iLDY0MCw2NTkKIkppYnJpbCIsNzgxLDc3NgoiS2VubGV5IiwxMDA1LDk5MAoiS3lyYSIsMjkxLDM1MAoiTGFuZG9uIiw2NjgsNzI0CiJQYWlzbGVlIiwzNTYsMzIxCiJQYWlzbGV5Iiw4NDUsODcxCiJTZWJhc3RpYW4iLDQzMiw0NDEKIlRpbW90aHkiLDI5MywzMTcKIlpvZXkiLDQ2OSw1NjQK" download="run_times.csv" target="blank">download as run_times.csv</a>)</p>
+<p>To do this, first determine the list of differences. For each individual, <span class="math inline">\(i\)</span>, determine their difference <span class="math inline">\(d_i\)</span>. <span class="math display">\[d_i = x_{2,i}-x_{1,i}\]</span></p>
+<p>Then, determine the mean (<span class="math inline">\(\bar{d}\)</span>) and standard deviation (<span class="math inline">\(s_d\)</span>) of the differences. The <span class="math inline">\(t\)</span> score is then calculated to determine the <span class="math inline">\(p\)</span>-value.</p>
+<p><span class="math display">\[p\text{-value} = P\left(|T|&gt;\frac{|\overline{d}-\mu_0|}{s_d/\sqrt{n}}\right) \]</span> The null hypothesis predicts there is no change in fitness, so <span class="math inline">\(\mu_0=0\)</span>. The alternative hypothesis predicts a change in fitness. The degree of freedom is one less than the number of individuals.</p>
+<p><div id='Q' style='background: #AAAAFF'> Calculate the <span class="math inline">\(p\)</span>-value. </div></p>
+<p>Using a significance level of <span class="math inline">\(\alpha=0.05\)</span>, is there a significant change in run times?</p>
+<p><div id='Q' style='background: #AAAAFF'> Yes / No </div></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+
+
+</body>
+</html>

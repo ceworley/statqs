@@ -165,6 +165,8 @@ $$P(|Z|>`r round(z,2)`) = (2)(1-`r round(pnorm(z),4)`) = `r 2*(1-pnorm(z))` $$
 $$p\text{-value} = `r pval2` $$
 This $p$-value did not use the continuity correction.
 
+`r s2`
+
 
 ### Spreadsheet
 

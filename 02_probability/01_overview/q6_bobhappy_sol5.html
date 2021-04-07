@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>solution_02_probability/01_overview/q6_bobhappy_v5</i></small>
+<p>(ANS=0.4647822)</p>
+<p><a href="https://vimeo.com/531918707" target="_blank">video</a></p>
+<p>Use the definition of <a href="https://en.wikipedia.org/wiki/Conditional_probability" target="blank">conditional probability</a>. <span class="math display">\[P(\text{win given happy}) = \frac{P(\text{win and happy})}{P(\text{happy})}\]</span> We can first determine all the joint probabilities. <span class="math display">\[P(A\text{ and }B) = P(A)\cdot P(B\text{ given } A) \]</span> <span class="math display">\[\begin{aligned}
+P(\text{win and happy}) &amp;= 0.34\times0.59 = 0.2006\\
+P(\text{win and sad}) &amp;= 0.34\times(1-0.59) = 0.1394\\
+P(\text{lose and happy}) &amp;= (1-0.34)\times0.35 = 0.231\\
+P(\text{lose and sad}) &amp;= (1-0.34)\times(1-0.35) = 0.429\\
+\end{aligned}\]</span></p>
+<p>Notice there are two disjoint ways Bob could be happy. <span class="math display">\[\begin{aligned}
+P(\text{happy}) &amp;= P\left(\text{[win and happy] OR [lose and happy]}\right) \\
+&amp;= P(\text{win and happy}) + P(\text{lose and happy}) \\
+&amp;= 0.2006+0.231 \\
+&amp;= 0.4316
+\end{aligned}\]</span> So, back to the conditional probability. <span class="math display">\[P(\text{win given happy}) = \frac{0.2006}{0.4316} = 0.465\]</span></p>
+<br/>
+ANSWERS: 0.4647822<br>
+TOLERANCES: 0.01
+
+
+</body>
+</html>

@@ -37,9 +37,12 @@ tol = max(abs(pvalhi-pvallo),0.001)
 
 if(pval < 0.05){
   ans2 = "10"
+  myst = "The difference is significant; the chemical seems to alter the growth of the organism."
 } else {
   ans2 = "01"
+  myst = "The difference is not significant; we don't know whether the chemical alters the growth of the organism."
 }
+
 
 ```
 
@@ -57,6 +60,10 @@ It is common to compare the $p$-value to 0.05.
 
 * If $p\text{-value} < 0.05$ then "significant"
 * If $p\text{-value} \ge 0.05$ then "not significant"
+
+
+a. ##ANSWER1##
+b. Is the difference significant? ##ANSWER2##
 
 
 Answerlist
@@ -83,6 +90,8 @@ Of course you could have rounded the $z$ score. Either of the following will als
 
 $$p\text{-value} ~=~ \left(\big|Z\big| > `r zlo` \right) ~=~ `r pvallo`$$
 $$p\text{-value} ~=~ \left(\big|Z\big| > `r zhi` \right) ~=~ `r pvalhi`$$
+
+`r myst`
 
 Answerlist
 --------

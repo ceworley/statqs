@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>solution_01_data_basics/02_proportion/03_list_proportion_large_v5</i></small>
+<p><a href="https://vimeo.com/531902962" target="_blank">video</a></p>
+<p>I recommend using either R or a spreadsheet.</p>
+<h2 id="using-r">Using R</h2>
+<p>First, download the csv. Also, write the following script, and save it as <code>basketball_proportion.r</code>. Put both files in the same directory (folder). Run the script.</p>
+<pre class="text"><code>mydata = read.csv(&quot;basketball_proportion.csv&quot;)
+x = mydata$hit_or_miss
+n = length(x)
+ns = sum(x==&quot;Hit&quot;)
+nf = sum(x==&quot;Miss&quot;)
+phat = ns/n
+qhat = nf/n
+mydata = data.frame(n,ns,nf,phat,qhat)
+print(mydata,row.names=F)</code></pre>
+<pre><code>##   n ns nf      phat      qhat
+##  97 12 85 0.1237113 0.8762887</code></pre>
+<p>If you are using Rstudio, you may need to click <code>Session</code>, <code>Set Working Directory</code>, <code>Source File Location</code> while the script (<code>basketball_proportion.r</code>) is the open tab.</p>
+<h2 id="using-a-spreadsheet">Using a spreadsheet</h2>
+<p>First, if you scroll down, it should be clear there are 97 rows of data, because the last row has <span class="math inline">\(i=97\)</span>. In column C use <code>IF(B2="Hit",1,0)</code> and in column D use <code>IF(B2="Miss",1,0)</code>, and extend the formulas down, to get columns of 0s and 1s, then use <code>SUM(C2:C97)</code> and <code>SUM(D2:D97)</code> to get <span class="math inline">\(n_s\)</span> and <span class="math inline">\(n_f\)</span>. You can divide these by <span class="math inline">\(n\)</span> to determine <span class="math inline">\(\hat{p}\)</span> and <span class="math inline">\(\hat{q}\)</span>.</p>
+<p>You can see a solution CSV: <a href="data:text/csv;base64,aSxoaXRfb3JfbWlzcyxoaXRfb3JfbWlzcz1IaXQsaGl0X29yX21pc3M9TWlzcwoxLE1pc3MsIj1JRihCMj0iIkhpdCIiLDEsMCkiLCI9SUYoQjI9IiJNaXNzIiIsMSwwKSIKMixIaXQsIj1JRihCMz0iIkhpdCIiLDEsMCkiLCI9SUYoQjM9IiJNaXNzIiIsMSwwKSIKMyxNaXNzLCI9SUYoQjQ9IiJIaXQiIiwxLDApIiwiPUlGKEI0PSIiTWlzcyIiLDEsMCkiCjQsTWlzcywiPUlGKEI1PSIiSGl0IiIsMSwwKSIsIj1JRihCNT0iIk1pc3MiIiwxLDApIgo1LEhpdCwiPUlGKEI2PSIiSGl0IiIsMSwwKSIsIj1JRihCNj0iIk1pc3MiIiwxLDApIgo2LE1pc3MsIj1JRihCNz0iIkhpdCIiLDEsMCkiLCI9SUYoQjc9IiJNaXNzIiIsMSwwKSIKNyxIaXQsIj1JRihCOD0iIkhpdCIiLDEsMCkiLCI9SUYoQjg9IiJNaXNzIiIsMSwwKSIKOCxNaXNzLCI9SUYoQjk9IiJIaXQiIiwxLDApIiwiPUlGKEI5PSIiTWlzcyIiLDEsMCkiCjksTWlzcywiPUlGKEIxMD0iIkhpdCIiLDEsMCkiLCI9SUYoQjEwPSIiTWlzcyIiLDEsMCkiCjEwLE1pc3MsIj1JRihCMTE9IiJIaXQiIiwxLDApIiwiPUlGKEIxMT0iIk1pc3MiIiwxLDApIgoxMSxNaXNzLCI9SUYoQjEyPSIiSGl0IiIsMSwwKSIsIj1JRihCMTI9IiJNaXNzIiIsMSwwKSIKMTIsSGl0LCI9SUYoQjEzPSIiSGl0IiIsMSwwKSIsIj1JRihCMTM9IiJNaXNzIiIsMSwwKSIKMTMsTWlzcywiPUlGKEIxND0iIkhpdCIiLDEsMCkiLCI9SUYoQjE0PSIiTWlzcyIiLDEsMCkiCjE0LE1pc3MsIj1JRihCMTU9IiJIaXQiIiwxLDApIiwiPUlGKEIxNT0iIk1pc3MiIiwxLDApIgoxNSxNaXNzLCI9SUYoQjE2PSIiSGl0IiIsMSwwKSIsIj1JRihCMTY9IiJNaXNzIiIsMSwwKSIKMTYsSGl0LCI9SUYoQjE3PSIiSGl0IiIsMSwwKSIsIj1JRihCMTc9IiJNaXNzIiIsMSwwKSIKMTcsTWlzcywiPUlGKEIxOD0iIkhpdCIiLDEsMCkiLCI9SUYoQjE4PSIiTWlzcyIiLDEsMCkiCjE4LE1pc3MsIj1JRihCMTk9IiJIaXQiIiwxLDApIiwiPUlGKEIxOT0iIk1pc3MiIiwxLDApIgoxOSxNaXNzLCI9SUYoQjIwPSIiSGl0IiIsMSwwKSIsIj1JRihCMjA9IiJNaXNzIiIsMSwwKSIKMjAsTWlzcywiPUlGKEIyMT0iIkhpdCIiLDEsMCkiLCI9SUYoQjIxPSIiTWlzcyIiLDEsMCkiCjIxLE1pc3MsIj1JRihCMjI9IiJIaXQiIiwxLDApIiwiPUlGKEIyMj0iIk1pc3MiIiwxLDApIgoyMixNaXNzLCI9SUYoQjIzPSIiSGl0IiIsMSwwKSIsIj1JRihCMjM9IiJNaXNzIiIsMSwwKSIKMjMsTWlzcywiPUlGKEIyND0iIkhpdCIiLDEsMCkiLCI9SUYoQjI0PSIiTWlzcyIiLDEsMCkiCjI0LE1pc3MsIj1JRihCMjU9IiJIaXQiIiwxLDApIiwiPUlGKEIyNT0iIk1pc3MiIiwxLDApIgoyNSxNaXNzLCI9SUYoQjI2PSIiSGl0IiIsMSwwKSIsIj1JRihCMjY9IiJNaXNzIiIsMSwwKSIKMjYsTWlzcywiPUlGKEIyNz0iIkhpdCIiLDEsMCkiLCI9SUYoQjI3PSIiTWlzcyIiLDEsMCkiCjI3LE1pc3MsIj1JRihCMjg9IiJIaXQiIiwxLDApIiwiPUlGKEIyOD0iIk1pc3MiIiwxLDApIgoyOCxNaXNzLCI9SUYoQjI5PSIiSGl0IiIsMSwwKSIsIj1JRihCMjk9IiJNaXNzIiIsMSwwKSIKMjksTWlzcywiPUlGKEIzMD0iIkhpdCIiLDEsMCkiLCI9SUYoQjMwPSIiTWlzcyIiLDEsMCkiCjMwLE1pc3MsIj1JRihCMzE9IiJIaXQiIiwxLDApIiwiPUlGKEIzMT0iIk1pc3MiIiwxLDApIgozMSxNaXNzLCI9SUYoQjMyPSIiSGl0IiIsMSwwKSIsIj1JRihCMzI9IiJNaXNzIiIsMSwwKSIKMzIsTWlzcywiPUlGKEIzMz0iIkhpdCIiLDEsMCkiLCI9SUYoQjMzPSIiTWlzcyIiLDEsMCkiCjMzLE1pc3MsIj1JRihCMzQ9IiJIaXQiIiwxLDApIiwiPUlGKEIzND0iIk1pc3MiIiwxLDApIgozNCxNaXNzLCI9SUYoQjM1PSIiSGl0IiIsMSwwKSIsIj1JRihCMzU9IiJNaXNzIiIsMSwwKSIKMzUsTWlzcywiPUlGKEIzNj0iIkhpdCIiLDEsMCkiLCI9SUYoQjM2PSIiTWlzcyIiLDEsMCkiCjM2LE1pc3MsIj1JRihCMzc9IiJIaXQiIiwxLDApIiwiPUlGKEIzNz0iIk1pc3MiIiwxLDApIgozNyxNaXNzLCI9SUYoQjM4PSIiSGl0IiIsMSwwKSIsIj1JRihCMzg9IiJNaXNzIiIsMSwwKSIKMzgsTWlzcywiPUlGKEIzOT0iIkhpdCIiLDEsMCkiLCI9SUYoQjM5PSIiTWlzcyIiLDEsMCkiCjM5LE1pc3MsIj1JRihCNDA9IiJIaXQiIiwxLDApIiwiPUlGKEI0MD0iIk1pc3MiIiwxLDApIgo0MCxNaXNzLCI9SUYoQjQxPSIiSGl0IiIsMSwwKSIsIj1JRihCNDE9IiJNaXNzIiIsMSwwKSIKNDEsSGl0LCI9SUYoQjQyPSIiSGl0IiIsMSwwKSIsIj1JRihCNDI9IiJNaXNzIiIsMSwwKSIKNDIsTWlzcywiPUlGKEI0Mz0iIkhpdCIiLDEsMCkiLCI9SUYoQjQzPSIiTWlzcyIiLDEsMCkiCjQzLE1pc3MsIj1JRihCNDQ9IiJIaXQiIiwxLDApIiwiPUlGKEI0ND0iIk1pc3MiIiwxLDApIgo0NCxNaXNzLCI9SUYoQjQ1PSIiSGl0IiIsMSwwKSIsIj1JRihCNDU9IiJNaXNzIiIsMSwwKSIKNDUsTWlzcywiPUlGKEI0Nj0iIkhpdCIiLDEsMCkiLCI9SUYoQjQ2PSIiTWlzcyIiLDEsMCkiCjQ2LE1pc3MsIj1JRihCNDc9IiJIaXQiIiwxLDApIiwiPUlGKEI0Nz0iIk1pc3MiIiwxLDApIgo0NyxNaXNzLCI9SUYoQjQ4PSIiSGl0IiIsMSwwKSIsIj1JRihCNDg9IiJNaXNzIiIsMSwwKSIKNDgsTWlzcywiPUlGKEI0OT0iIkhpdCIiLDEsMCkiLCI9SUYoQjQ5PSIiTWlzcyIiLDEsMCkiCjQ5LE1pc3MsIj1JRihCNTA9IiJIaXQiIiwxLDApIiwiPUlGKEI1MD0iIk1pc3MiIiwxLDApIgo1MCxNaXNzLCI9SUYoQjUxPSIiSGl0IiIsMSwwKSIsIj1JRihCNTE9IiJNaXNzIiIsMSwwKSIKNTEsTWlzcywiPUlGKEI1Mj0iIkhpdCIiLDEsMCkiLCI9SUYoQjUyPSIiTWlzcyIiLDEsMCkiCjUyLE1pc3MsIj1JRihCNTM9IiJIaXQiIiwxLDApIiwiPUlGKEI1Mz0iIk1pc3MiIiwxLDApIgo1MyxNaXNzLCI9SUYoQjU0PSIiSGl0IiIsMSwwKSIsIj1JRihCNTQ9IiJNaXNzIiIsMSwwKSIKNTQsTWlzcywiPUlGKEI1NT0iIkhpdCIiLDEsMCkiLCI9SUYoQjU1PSIiTWlzcyIiLDEsMCkiCjU1LE1pc3MsIj1JRihCNTY9IiJIaXQiIiwxLDApIiwiPUlGKEI1Nj0iIk1pc3MiIiwxLDApIgo1NixNaXNzLCI9SUYoQjU3PSIiSGl0IiIsMSwwKSIsIj1JRihCNTc9IiJNaXNzIiIsMSwwKSIKNTcsSGl0LCI9SUYoQjU4PSIiSGl0IiIsMSwwKSIsIj1JRihCNTg9IiJNaXNzIiIsMSwwKSIKNTgsTWlzcywiPUlGKEI1OT0iIkhpdCIiLDEsMCkiLCI9SUYoQjU5PSIiTWlzcyIiLDEsMCkiCjU5LE1pc3MsIj1JRihCNjA9IiJIaXQiIiwxLDApIiwiPUlGKEI2MD0iIk1pc3MiIiwxLDApIgo2MCxNaXNzLCI9SUYoQjYxPSIiSGl0IiIsMSwwKSIsIj1JRihCNjE9IiJNaXNzIiIsMSwwKSIKNjEsSGl0LCI9SUYoQjYyPSIiSGl0IiIsMSwwKSIsIj1JRihCNjI9IiJNaXNzIiIsMSwwKSIKNjIsSGl0LCI9SUYoQjYzPSIiSGl0IiIsMSwwKSIsIj1JRihCNjM9IiJNaXNzIiIsMSwwKSIKNjMsTWlzcywiPUlGKEI2ND0iIkhpdCIiLDEsMCkiLCI9SUYoQjY0PSIiTWlzcyIiLDEsMCkiCjY0LE1pc3MsIj1JRihCNjU9IiJIaXQiIiwxLDApIiwiPUlGKEI2NT0iIk1pc3MiIiwxLDApIgo2NSxNaXNzLCI9SUYoQjY2PSIiSGl0IiIsMSwwKSIsIj1JRihCNjY9IiJNaXNzIiIsMSwwKSIKNjYsTWlzcywiPUlGKEI2Nz0iIkhpdCIiLDEsMCkiLCI9SUYoQjY3PSIiTWlzcyIiLDEsMCkiCjY3LE1pc3MsIj1JRihCNjg9IiJIaXQiIiwxLDApIiwiPUlGKEI2OD0iIk1pc3MiIiwxLDApIgo2OCxIaXQsIj1JRihCNjk9IiJIaXQiIiwxLDApIiwiPUlGKEI2OT0iIk1pc3MiIiwxLDApIgo2OSxNaXNzLCI9SUYoQjcwPSIiSGl0IiIsMSwwKSIsIj1JRihCNzA9IiJNaXNzIiIsMSwwKSIKNzAsTWlzcywiPUlGKEI3MT0iIkhpdCIiLDEsMCkiLCI9SUYoQjcxPSIiTWlzcyIiLDEsMCkiCjcxLE1pc3MsIj1JRihCNzI9IiJIaXQiIiwxLDApIiwiPUlGKEI3Mj0iIk1pc3MiIiwxLDApIgo3MixNaXNzLCI9SUYoQjczPSIiSGl0IiIsMSwwKSIsIj1JRihCNzM9IiJNaXNzIiIsMSwwKSIKNzMsTWlzcywiPUlGKEI3ND0iIkhpdCIiLDEsMCkiLCI9SUYoQjc0PSIiTWlzcyIiLDEsMCkiCjc0LE1pc3MsIj1JRihCNzU9IiJIaXQiIiwxLDApIiwiPUlGKEI3NT0iIk1pc3MiIiwxLDApIgo3NSxNaXNzLCI9SUYoQjc2PSIiSGl0IiIsMSwwKSIsIj1JRihCNzY9IiJNaXNzIiIsMSwwKSIKNzYsTWlzcywiPUlGKEI3Nz0iIkhpdCIiLDEsMCkiLCI9SUYoQjc3PSIiTWlzcyIiLDEsMCkiCjc3LE1pc3MsIj1JRihCNzg9IiJIaXQiIiwxLDApIiwiPUlGKEI3OD0iIk1pc3MiIiwxLDApIgo3OCxNaXNzLCI9SUYoQjc5PSIiSGl0IiIsMSwwKSIsIj1JRihCNzk9IiJNaXNzIiIsMSwwKSIKNzksTWlzcywiPUlGKEI4MD0iIkhpdCIiLDEsMCkiLCI9SUYoQjgwPSIiTWlzcyIiLDEsMCkiCjgwLE1pc3MsIj1JRihCODE9IiJIaXQiIiwxLDApIiwiPUlGKEI4MT0iIk1pc3MiIiwxLDApIgo4MSxIaXQsIj1JRihCODI9IiJIaXQiIiwxLDApIiwiPUlGKEI4Mj0iIk1pc3MiIiwxLDApIgo4MixNaXNzLCI9SUYoQjgzPSIiSGl0IiIsMSwwKSIsIj1JRihCODM9IiJNaXNzIiIsMSwwKSIKODMsTWlzcywiPUlGKEI4ND0iIkhpdCIiLDEsMCkiLCI9SUYoQjg0PSIiTWlzcyIiLDEsMCkiCjg0LE1pc3MsIj1JRihCODU9IiJIaXQiIiwxLDApIiwiPUlGKEI4NT0iIk1pc3MiIiwxLDApIgo4NSxNaXNzLCI9SUYoQjg2PSIiSGl0IiIsMSwwKSIsIj1JRihCODY9IiJNaXNzIiIsMSwwKSIKODYsTWlzcywiPUlGKEI4Nz0iIkhpdCIiLDEsMCkiLCI9SUYoQjg3PSIiTWlzcyIiLDEsMCkiCjg3LE1pc3MsIj1JRihCODg9IiJIaXQiIiwxLDApIiwiPUlGKEI4OD0iIk1pc3MiIiwxLDApIgo4OCxNaXNzLCI9SUYoQjg5PSIiSGl0IiIsMSwwKSIsIj1JRihCODk9IiJNaXNzIiIsMSwwKSIKODksTWlzcywiPUlGKEI5MD0iIkhpdCIiLDEsMCkiLCI9SUYoQjkwPSIiTWlzcyIiLDEsMCkiCjkwLE1pc3MsIj1JRihCOTE9IiJIaXQiIiwxLDApIiwiPUlGKEI5MT0iIk1pc3MiIiwxLDApIgo5MSxIaXQsIj1JRihCOTI9IiJIaXQiIiwxLDApIiwiPUlGKEI5Mj0iIk1pc3MiIiwxLDApIgo5MixNaXNzLCI9SUYoQjkzPSIiSGl0IiIsMSwwKSIsIj1JRihCOTM9IiJNaXNzIiIsMSwwKSIKOTMsTWlzcywiPUlGKEI5ND0iIkhpdCIiLDEsMCkiLCI9SUYoQjk0PSIiTWlzcyIiLDEsMCkiCjk0LE1pc3MsIj1JRihCOTU9IiJIaXQiIiwxLDApIiwiPUlGKEI5NT0iIk1pc3MiIiwxLDApIgo5NSxNaXNzLCI9SUYoQjk2PSIiSGl0IiIsMSwwKSIsIj1JRihCOTY9IiJNaXNzIiIsMSwwKSIKOTYsTWlzcywiPUlGKEI5Nz0iIkhpdCIiLDEsMCkiLCI9SUYoQjk3PSIiTWlzcyIiLDEsMCkiCjk3LE1pc3MsIj1JRihCOTg9IiJIaXQiIiwxLDApIiwiPUlGKEI5OD0iIk1pc3MiIiwxLDApIgosLCwKLG4sc3VtLHN1bQosPWNvdW50KEEyOkE5OCksPVNVTShDMjpDOTgpLD1TVU0oRDI6RDk4KQosLHAgaGF0LHEgaGF0CiwsPUMxMDEvQjEwMSw9RDEwMS9CMTAxCg==" download="proportion_solution.csv">proportion_solution.csv</a>. Remember, you can hit <code>ctrl+~</code> to see the formulas. You may need to enlarge a cell if it shows <code>###</code>.</p>
+<br/>
+<ol type="a">
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=97) </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=12) This is simply the number of times “Hit” is in the list. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=85) This is simply the number of times “Miss” is in the list. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=<span class="math inline">\(0.1237113\pm 0.01\)</span>) <span class="math inline">\(\frac{n_s}{n}=\frac{12}{97}=0.124\)</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=<span class="math inline">\(0.8762887\pm 0.01\)</span>) <span class="math inline">\(\frac{n_f}{n}=\frac{85}{97}=0.876\)</span> </div>
+</li>
+</ol>
+<br/>
+ANSWERS: 97, 12, 85, 0.1237113, 0.8762887<br>
+TOLERANCES: 0, 0, 0, 0.01, 0.01
+
+
+</body>
+</html>
