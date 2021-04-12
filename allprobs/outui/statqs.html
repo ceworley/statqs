@@ -183,10 +183,10 @@ function setUrl() {
       changeUrl((((pn+1) % n ) + n ) % n);
       };
     document.getElementById("myBtn6").onclick = function() {
-      changeUrl((((pn-pn%3-3) % n ) + n ) % n);
+      changeUrl((((pn-pn%5-5) % n ) + n ) % n);
     };
     document.getElementById("myBtn7").onclick = function() {
-      changeUrl((((pn-pn%3+3) % n ) + n ) % n);
+      changeUrl((((pn-pn%5+5) % n ) + n ) % n);
     };
     mybut = document.getElementById("but"+pn);
     mybut.style.background="#AAFFAA";
@@ -213,10 +213,10 @@ function changeUrl(i) {
       changeUrl(i+1);
     };
     document.getElementById("myBtn6").onclick = function() {
-      changeUrl((((i-i%3-3) % n ) + n ) % n);
+      changeUrl((((i-i%5-5) % n ) + n ) % n);
     };
     document.getElementById("myBtn7").onclick = function() {
-      changeUrl((((i-i%3+3) % n ) + n ) % n);
+      changeUrl((((i-i%5+5) % n ) + n ) % n);
     };
     var mybut = document.getElementById("but"+cur);
     mybut.style.background="#AAAAAA";

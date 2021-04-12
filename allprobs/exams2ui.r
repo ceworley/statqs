@@ -194,10 +194,10 @@ function setUrl() {
       changeUrl((((pn+1) %% n ) + n ) %% n);
       };
     document.getElementById("myBtn6").onclick = function() {
-      changeUrl((((pn-pn%%3-3) %% n ) + n ) %% n);
+      changeUrl((((pn-pn%%%d-%d) %% n ) + n ) %% n);
     };
     document.getElementById("myBtn7").onclick = function() {
-      changeUrl((((pn-pn%%3+3) %% n ) + n ) %% n);
+      changeUrl((((pn-pn%%%d+%d) %% n ) + n ) %% n);
     };
     mybut = document.getElementById("but"+pn);
     mybut.style.background="#AAFFAA";
@@ -224,10 +224,10 @@ function changeUrl(i) {
       changeUrl(i+1);
     };
     document.getElementById("myBtn6").onclick = function() {
-      changeUrl((((i-i%%3-3) %% n ) + n ) %% n);
+      changeUrl((((i-i%%%d-%d) %% n ) + n ) %% n);
     };
     document.getElementById("myBtn7").onclick = function() {
-      changeUrl((((i-i%%3+3) %% n ) + n ) %% n);
+      changeUrl((((i-i%%%d+%d) %% n ) + n ) %% n);
     };
     var mybut = document.getElementById("but"+cur);
     mybut.style.background="#AAAAAA";
@@ -369,6 +369,7 @@ for(i in 1:length(s)){
 page = sprintf(html2,
                paste0(qs,collapse='","'),
                paste0(as,collapse='","'),
+               nov,nov,nov,nov,nov,nov,nov,nov,
                mys)
 page = paste0(html1,page,collapse="\n")
 write.table(page,paste0(outdir,"/",fn,".html",collapse=""),quote=F,col.names=F,qmethod="d",row.names=F)
