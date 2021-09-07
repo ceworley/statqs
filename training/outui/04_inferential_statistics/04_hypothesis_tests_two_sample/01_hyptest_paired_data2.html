@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>04_inferential_statistics/04_hypothesis_tests_two_sample/01_hyptest_paired_data_v2</i></small>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>A study asked individuals to time a mile run (in seconds). After a month, the same individuals timed another mile run. You are asked to perform a paired-data <span class="math inline">\(t\)</span> test to investigate whether fitness changed.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:center;">
+x1
+</th>
+<th style="text-align:center;">
+x2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Angelo
+</td>
+<td style="text-align:center;">
+520
+</td>
+<td style="text-align:center;">
+519
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bella
+</td>
+<td style="text-align:center;">
+733
+</td>
+<td style="text-align:center;">
+714
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fanny
+</td>
+<td style="text-align:center;">
+750
+</td>
+<td style="text-align:center;">
+756
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Joaquin
+</td>
+<td style="text-align:center;">
+285
+</td>
+<td style="text-align:center;">
+256
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Journey
+</td>
+<td style="text-align:center;">
+279
+</td>
+<td style="text-align:center;">
+280
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kerrington
+</td>
+<td style="text-align:center;">
+351
+</td>
+<td style="text-align:center;">
+326
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Layla
+</td>
+<td style="text-align:center;">
+526
+</td>
+<td style="text-align:center;">
+518
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Maxwell
+</td>
+<td style="text-align:center;">
+850
+</td>
+<td style="text-align:center;">
+841
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mika
+</td>
+<td style="text-align:center;">
+513
+</td>
+<td style="text-align:center;">
+515
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Theodore
+</td>
+<td style="text-align:center;">
+369
+</td>
+<td style="text-align:center;">
+372
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Winston
+</td>
+<td style="text-align:center;">
+303
+</td>
+<td style="text-align:center;">
+278
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zamir
+</td>
+<td style="text-align:center;">
+775
+</td>
+<td style="text-align:center;">
+745
+</td>
+</tr>
+</tbody>
+</table>
+<p>(<a href="data:text/csv;base64,Im5hbWUiLCJ4MSIsIngyIgoiQW5nZWxvIiw1MjAsNTE5CiJCZWxsYSIsNzMzLDcxNAoiRmFubnkiLDc1MCw3NTYKIkpvYXF1aW4iLDI4NSwyNTYKIkpvdXJuZXkiLDI3OSwyODAKIktlcnJpbmd0b24iLDM1MSwzMjYKIkxheWxhIiw1MjYsNTE4CiJNYXh3ZWxsIiw4NTAsODQxCiJNaWthIiw1MTMsNTE1CiJUaGVvZG9yZSIsMzY5LDM3MgoiV2luc3RvbiIsMzAzLDI3OAoiWmFtaXIiLDc3NSw3NDUK" download="run_times.csv" target="blank">download as run_times.csv</a>)</p>
+<p>To do this, first determine the list of differences. For each individual, <span class="math inline">\(i\)</span>, determine their difference <span class="math inline">\(d_i\)</span>. <span class="math display">\[d_i = x_{2,i}-x_{1,i}\]</span></p>
+<p>Then, determine the mean (<span class="math inline">\(\bar{d}\)</span>) and standard deviation (<span class="math inline">\(s_d\)</span>) of the differences. The <span class="math inline">\(t\)</span> score is then calculated to determine the <span class="math inline">\(p\)</span>-value.</p>
+<p><span class="math display">\[p\text{-value} = P\left(|T|&gt;\frac{|\overline{d}-\mu_0|}{s_d/\sqrt{n}}\right) \]</span> The null hypothesis predicts there is no change in fitness, so <span class="math inline">\(\mu_0=0\)</span>. The alternative hypothesis predicts a change in fitness. The degree of freedom is one less than the number of individuals.</p>
+<p><div id='Q' style='background: #AAAAFF'> Calculate the <span class="math inline">\(p\)</span>-value. </div></p>
+<p>Using a significance level of <span class="math inline">\(\alpha=0.05\)</span>, is there a significant change in run times?</p>
+<p><div id='Q' style='background: #AAAAFF'> Yes / No </div></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+
+
+</body>
+</html>

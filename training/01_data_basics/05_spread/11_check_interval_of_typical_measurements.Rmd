@@ -1,0 +1,185 @@
+```{r,data,generation,echo=FALSE,results="hide",fig.show='hide'}
+n = 200
+mu = sample(seq(30,70,5),1)
+sig = sample(c(1,2,5,10),1)
+x = round(rnorm(n,mu,sig),4)
+lbt = round(mu-2*sig)
+ubt = round(mu+2*sig)
+dst = round(2*sig)
+mut = round(mu)
+n = length(x)
+count_outside = sum(x<lbt | x>ubt)
+prop_outside = count_outside/n
+
+library(knitr)
+library(stringr)
+default_source_hook <- knit_hooks$get('source')
+
+knit_hooks$set(source = function(x, options) {
+  x <- str_replace_all(x, pattern = 'lbt', paste(lbt))
+  x <- str_replace_all(x, pattern = 'ubt', paste(ubt))
+  x <- str_replace_all(x, pattern = 'dst', paste(dst))
+  x <- str_replace_all(x, pattern = 'mut', paste(mut))
+  default_source_hook(x, options)
+})
+```
+
+
+Question
+========
+
+The following spinner has a [population mean](https://en.wikipedia.org/wiki/Mean){target="blank"} $\mu = `r mu`$ and a population standard deviation $\sigma=`r sig`$. We can think of a spinner as an infinite population from which we can take as many independent measurements from as we want.
+
+```{r echo=F, fig.width=5,fig.height=5}
+thetas = seq(0,2*pi,length.out=1000)
+par(mar=c(0,0,0,0))
+plot(cos(thetas),sin(thetas),xlim=c(-1,1),ylim=c(-1,1),type="l")
+for(i in -3:3){
+  p = pnorm(i)
+  lines(c(0.85*cos(p*2*pi),cos(p*2*pi)),c(0.85*sin(p*2*pi),sin(p*2*pi)),lwd=3)
+  p = max(min(p,0.996),0.004)
+  text(0.8*cos(p*2*pi),0.8*sin(p*2*pi),round(mu+i*sig),cex=0.8)
+}
+for(i in c(-2.5,seq(-2,2,0.1),2.5)){
+  if(i%%1 != 0){
+    p = pnorm(i)
+    lines(c(0.95*cos(p*2*pi),cos(p*2*pi)),c(0.95*sin(p*2*pi),sin(p*2*pi)))
+    text(0.88*cos(p*2*pi),0.88*sin(p*2*pi),round(mu+i*sig,2),srt=p*360+180*(p>0.25 & p<0.75),cex=0.6)
+  }
+}
+polygon(0.05*cos(thetas),0.05*sin(thetas),lwd=4,col=rgb(0.6,0.6,0.6))
+arrows(-0.7,-0.1,0.7,0.1,lwd=5)
+```
+\
+
+A sample (`r n` measurements) was taken.
+
+```{r echo=F,comment=NA}
+write.csv(data.frame(i=1:n,x),"check_interval_typical_measurements.csv",row.names=F)
+x2 = lapply(x,function(x){sprintf("%.4f",x)})
+xmat = matrix(x2,ncol=10)
+cat(paste0(apply(xmat,1,function(x){paste0(x,collapse=", ")}),collapse=",\n"))
+```
+
+You can [download the data as a CSV file](check_interval_typical_measurements.csv).
+
+### Actual question
+
+What **proportion** of the `r n` measurements are **outside** the interval of typical measurements?
+
+
+
+Solution
+========
+
+(ANS=`r prop_outside`)
+
+[video](https://vimeo.com/531910349){target="_blank"}
+
+First, determine the interval of typical measurements.
+
+$$\begin{aligned}
+\text{interval of typical measurements} &= (\mu-2\sigma,\,\mu+2\sigma)\\ &= (`r mu-2*sig`,`r mu+2*sig`)
+\end{aligned}$$
+
+Now, determine how many measurements (and divide by 200 for what proportion) are either less than `r mu-2*sig` or more than `r mu+2*sig`. You'll want to use a computer.
+
+### R
+
+
+```{r}
+x = read.csv("check_interval_typical_measurements.csv")$x
+n = length(x)
+count_outside = sum(x<lbt | x>ubt)
+prop_outside = count_outside/n
+print(prop_outside)
+```
+
+In R, [the "|" operator means "or"](https://www.statmethods.net/management/operators.html){target="blank"}.
+
+You could also write the equality as an absolute deviation from the mean. Any measurement more than `r 2*sig` units from `r mu` (in either direction) would be outside the interval.
+
+```{r}
+x = read.csv("check_interval_typical_measurements.csv")$x
+n = length(x)
+count_outside = sum( abs(x-mut)>dst )
+prop_outside = count_outside/n
+print(prop_outside)
+```
+
+
+### Spreadsheet
+
+In a spreadsheet you can use the [`IF` function](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_IF_function){target="blank"} along with the [`OR` function](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_OR_function){target="blank"} to determine which measurements are under `r lbt` or over `r ubt`. You then use the [`SUM` function](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_SUM_function){target="blank"} to count the 1s.
+
+```{r echo=F,fig.width=8}
+draw_ss = function(df,cex=1){
+  nrow = length(df[,1])
+  ncol = length(df[1,])
+  par(mar=c(0,0,0,0))
+  plot(0,0,type="n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+  hi = 1:((nrow+2)*2+1)
+  vi = 1:((ncol+1)*2+1)
+  hpos = seq(1,0,length.out=(nrow+2)*2+1)
+  vpos = seq(0,1,length.out=(ncol+1)*2+1)
+  hlin = hpos[hi%%2==1]
+  ytex = hpos[hi%%2==0]
+  vlin = vpos[vi%%2==1]
+  xtex = vpos[vi%%2==0]
+  abline(h=hlin)
+  abline(h=hlin[2],lwd=3)
+  abline(v=vlin)
+  abline(v=vlin[2],lwd=3)
+  for(i in 2:(ncol+1)){
+    text(xtex[i],ytex[1],LETTERS[i-1],col=rgb(0.5,0.5,0.5),cex=cex)
+    text(xtex[i],ytex[2],colnames(df)[i-1],cex=cex)
+  }    
+  for(i in 2:(nrow+2)){
+    text(xtex[1],ytex[i],i-1,col=rgb(0.5,0.5,0.5),cex=cex)
+  }
+  for(i in 1:nrow){
+    for(j in 1:ncol){
+      text(xtex[j+1],ytex[i+2],df[i,j],cex=cex)
+    }
+  }
+}
+
+ss1 = data.frame(i=1:n,x)
+if_x_outside = paste0("=IF(OR(B",2:(n+1),"<",lbt,",B",2:(n+1),">",ubt,
+                   "),1,0)")
+count_outside = c(paste0("=SUM(C2:C",n+1,")"),"","proportion",
+                  paste0("=D2/",n),rep("",n-4))
+ss1 = cbind(ss1,if_x_outside,count_outside)
+draw_ss(head(ss1),cex=0.7)
+write.csv(ss1,"check_outside_sol1.csv",row.names=F)
+```
+\
+
+You can download this [solution CSV](check_outside_sol1.csv).
+
+
+Another (simpler?) way is to use the [`COUNTIF` function](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_COUNTIF_function){target="blank"} with the [`ABS` function](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_ABS_function){target="blank"}.
+
+```{r echo=F,fig.width=8}
+i = 1:n
+ss2 = data.frame(i,x)
+abs_dev = paste0("=ABS(B",i+1,"-",mu,")")
+count_outside = c(paste0('=COUNTIF(C2:C',n+1,',">',dst,'")'),
+                  "","proportion",
+                  paste0("=D2/",n),rep("",n-4))
+ss2 = cbind(ss2,abs_dev,count_outside)
+draw_ss(head(ss2),cex=0.7)
+write.csv(ss2,"check_outside_sol2.csv",row.names=F)
+```
+\
+
+You can download this [second solution CSV](check_outside_sol2.csv).
+
+
+Meta-information
+================
+extype: num
+exsolution: `r prop_outside`
+exname: check_interval_of_typical_measurements
+extol: 0.005
+exextra[numwidth]: 999.999

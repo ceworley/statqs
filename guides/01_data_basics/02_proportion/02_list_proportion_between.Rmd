@@ -1,0 +1,145 @@
+```{r,data,generation,echo=FALSE,results="hide"}
+myseed = sample(10000:99999,1)
+set.seed(myseed)
+n = 10 #must be bigger than 8, or change xcom to replacement sampling with T
+f = sample(1:9,1)*10
+while(T){
+  x = c(94,99,97,94,95,96,93,97,96,92) #sample(1:9,n,TRUE)+f
+  
+  b1 = c(96.5,98.5) #sort(sample(0:9+0.5+f,2))  #boundaries
+  c1 = mean(b1) #center of boundaries
+  d1 = b1[2]-c1 #distance of boundaries from center
+  nb1 = sum(x>b1[1] & x<b1[2]) #number between
+  no1 = sum(x<b1[1] | x>b1[2]) #number outside
+  p1 = nb1/n
+  
+  b2 = c(92.5,94.5) #sort(sample(0:9+0.5+f,2))  #boundaries
+  c2 = mean(b2) #center of boundaries
+  d2 = b2[2]-c2 #distance of boundaries from center
+  nb2 = sum(x>b2[1] & x<b2[2]) #number between
+  no2 = sum(x<b2[1] | x>b2[2]) #number outside
+  p2 = no2/n
+  
+  b3 = c(95-4.5,95+4.5) #sort(sample(0:9+0.5+f,2))  #boundaries
+  c3 = mean(b3) #center of boundaries
+  d3 = b3[2]-c3 #distance of boundaries from center
+  nb3 = sum(x>b3[1] & x<b3[2]) #number between
+  no3 = sum(x<b3[1] | x>b3[2]) #number outside
+  p3 = nb3/n
+  
+  b4 = c(93.5-2,93.5+2) #sort(sample(0:9+0.5+f,2))  #boundaries
+  c4 = mean(b4) #center of boundaries
+  d4 = b4[2]-c4 #distance of boundaries from center
+  nb4 = sum(x>b4[1] & x<b4[2]) #number between
+  no4 = sum(x<b4[1] | x>b4[2]) #number outside
+  p4 = no4/n
+
+  b5 = c(93.5,95.5) #sort(sample(0:9+0.5+f,2))  #boundaries
+  c5 = mean(b5) #center of boundaries
+  d5 = b5[2]-c5 #distance of boundaries from center
+  nb5 = sum(x>b5[1] & x<b5[2]) #number between
+  no5 = sum(x<b5[1] | x>b5[2]) #number outside
+  nb5l = sum(x>(b5[1]+1) & x<(b5[2]-1))
+  nb5h = sum(x>(b5[1]-1) & x<(b5[2]+1))
+  p5 = nb5/n
+  
+  b6 = c(91.5,95.5) #sort(sample(0:9+0.5+f,2))  #boundaries
+  c6 = mean(b6) #center of boundaries
+  d6 = b6[2]-c6 #distance of boundaries from center
+  nb6 = sum(x>b6[1] & x<b6[2]) #number between
+  no6 = sum(x<b6[1] | x>b6[2]) #number outside
+  nb6l = sum(x>(b6[1]+1) & x<(b6[2]-1))
+  nb6h = sum(x>(b6[1]-1) & x<(b6[2]+1))
+  p6 = no6/n
+  
+  if(nb5 != nb5l & nb5 != nb5h & 2*d5==round(2*d5) & nb6 != nb6l & nb6 != nb6h & 2*d6==round(2*d6)){
+    if(d5==round(d5)){
+      wrdint5 = "an integer"
+    } else {
+      wrdint5 = "a half-integer"
+    }
+    if(d6==round(d6)){
+      wrdint6 = "an integer"
+    } else {
+      wrdint6 = "a half-integer"
+    }
+    break
+  }
+}
+
+i = 1:n
+```
+
+
+Question
+========
+
+The lengths (in centimeters) of 10 lizards were recorded.
+
+$$\mathbf{x} = `r x` $$
+
+```{r echo=F}
+fn = paste0("lizard_data.csv")
+write.csv(data.frame(i,x), file = fn, quote = FALSE, row.names = FALSE)
+```
+
+You can download the data as a CSV file (for importing into a spreadsheet or R): 
+[`r fn`](`r fn`)
+
+
+
+Answerlist
+--------
+* What proportion of the measurements are inside `r b1[1]` cm to `r b1[2]` cm? In other words, determine $\text{prop}[\mathbf{x}>`r b1[1]`\texttt{ AND } \mathbf{x}<`r b1[2]`]$. In other words, determine $\text{prop}[`r b1[1]`<\mathbf{x}<`r b1[2]`]$.
+* What proportion of the measurements are outside `r b2[1]` cm to `r b2[2]` cm? In other words, determine $\text{prop}[\mathbf{x}<`r b2[1]`\texttt{ OR } \mathbf{x}>`r b2[2]`]$. In other words, determine $\text{prop}[\texttt{NOT}(`r b2[1]`<\mathbf{x}<`r b2[2]`)]$.
+* What proportion of the measurements are closer than `r d3` cm from `r c3` cm? In other words, determine $\text{prop}\left[\big|\mathbf{x}-`r c3`\big|<`r d3`\right]$.
+* What proportion of the measurements are farther than `r d4` cm from `r c4` cm? In other words, determine $\text{prop}\left[\big|\mathbf{x}-`r c4`\big|>`r d4`\right]$.
+* Determine `r wrdint5` radius $r$ of an interval with center `r c5` cm such that $\text{prop}\left[\big|\mathbf{x}-`r c5`\big|<r\right] ~=~ `r p5`$.
+* Determine `r wrdint6` radius $r$ of an interval with center `r c6` cm such that $\text{prop}\left[\big|\mathbf{x}-`r c6`\big|>r\right] ~=~ `r p6`$.
+
+
+Solution
+========
+
+[video](https://vimeo.com/531901348){target="_blank"}
+
+First, it helps to sort the data.
+$$\text{sort}(\mathbf{x}) = `r sort(x)`$$
+
+You could use R to sort the data:
+
+```{r echo=FALSE,comment=NA}
+str1 = paste('sort(c(',paste(x,collapse=","),'))',collapse="")
+str2 = gsub(" ", "", str1, fixed = TRUE)
+cat(str2)
+```
+
+```{r echo=FALSE}
+sort(x)
+```
+
+You could also use a spreadsheet. Import the table into a spreadsheet. Then, highlight the column of measurements and use ``Sort`` function.
+
+
+Answerlist
+--------
+* (ANS=`r p1`) The proportion of measurements between `r b1[1]` and `r b1[2]` is `r p1`.
+$$\text{prop}[`r b1[1]`<\mathbf{x}<`r b1[2]`]=`r p1`$$
+* (ANS=`r p2`) The proportion of measurements outside `r b2[1]` and `r b2[2]` is `r p2`.
+$$\text{prop}[\texttt{NOT}(`r b2[1]`<\mathbf{x}<`r b2[2]`)]=`r p2`$$
+* (ANS=`r p3`) The proportion of measurements closer than `r d3` cm from `r c3` cm is `r p3`.
+$$\text{prop}\left[\big|\mathbf{x}-`r c3`\big|<`r d3`\right] = `r p3`$$
+* (ANS=`r p4`) The proportion of measurements farther than `r d4` cm from `r c4` cm is `r p4`. 
+$$\text{prop}\left[\big|\mathbf{x}-`r c4`\big|>`r d4`\right] = `r p4`$$
+* (ANS=`r d5`) You can guess and check until you find `r wrdint5` that satisfies the equation. It turns out that $r = `r d5`$ satisfies the equation, because $$\text{prop}\left[\big|\mathbf{x}-`r c5`\big|<`r d5`\right] ~=~ `r p5`$$
+* (ANS=`r d6`) You can guess and check until you find `r wrdint6` that satisfies the equation. It turns out that $r = `r d6`$ satisfies the equation, because $$\text{prop}\left[\big|\mathbf{x}-`r c6`\big|>`r d6`\right] ~=~ `r p6`$$
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|num|num
+exsolution: `r p1`|`r p2`|`r p3`|`r p4`|`r d5`|`r d6`
+exname: list_counting_between
+extol: 0|0|0|0|0|0
+exextra[numwidth,character]: 999.999

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>solution_04_inferential_statistics/05_exam4/02_one_prop_ci_pval_v2</i></small>
+<p>By hand, this is easiest to do with a normal approximation without the continuity correction.</p>
+<p><span class="math display">\[n = 123\]</span> <span class="math display">\[\hat{p} = 0.7073\]</span> <span class="math display">\[z^\star = 1.96 \]</span> <span class="math display">\[\text{CI}_\text{boundaries} = \hat{p} \pm z^\star\sqrt{\frac{\hat{p}(1-\hat{p})}{n}} \]</span> <span class="math display">\[\text{CI}_\text{boundaries} = (0.6269072,0.7877269)\]</span> <span class="math display">\[z = \frac{\hat{p}-p_0}{\sqrt{p_0(1-p_0)/n}} = -2.5697585\]</span></p>
+<p><span class="math display">\[p\text{-value} = P\left(|Z|&gt;2.5697585\right) = 0.0101769\]</span></p>
+<br/>
+<ol type="a">
+<li>
+<div id='A' style='background: #FFAAAA'> Normal approx: <span class="math inline">\(0.6269072\)</span>. Wilson: <span class="math inline">\(0.6216084\)</span>. Wilson with CC: <span class="math inline">\(0.6173585\)</span>. Exact Clopper-Pearson: <span class="math inline">\(0.6185043\)</span>. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> Normal approx: <span class="math inline">\(0.7877269\)</span>. Wilson: <span class="math inline">\(0.7804683\)</span>. Wilson with CC: <span class="math inline">\(0.784095\)</span>. Exact Clopper-Pearson: <span class="math inline">\(0.7858625\)</span>. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> Normal approx: <span class="math inline">\(0.0101769\)</span>. Chi squared: <span class="math inline">\(0.0101769\)</span>. Chi squared with CC: <span class="math inline">\(0.0140083\)</span>. Exact: <span class="math inline">\(0.0129577\)</span>. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> The p-value is less than 0.05, so the difference is significant. /  </div>
+</li>
+</ol>
+<br/>
+ANSWERS: :NUMERICAL:=0.621608411555776:0.005~%100%0.61735853671714:0.005~%100%0.618504333302832:0.005~%100%0.626907217815227:0.005, :NUMERICAL:=0.780468326398608:0.005~%100%0.784094976747432:0.005~%100%0.785862536945643:0.005, :NUMERICAL:=0.0101769445029601:0.005~%100%0.014008328404041:0.005~%100%0.0129576877176914:0.005~%100%0.01017694450296:0.005, c(TRUE, FALSE)<br>
+TOLERANCES: 0.005, 0.005, 0.005, 0
+
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>01_data_basics/01_counting/02_list_counting_between_v3</i></small>
+<p>A random procedure generated the following sample (sequence of measurements):</p>
+<p><span class="math display">\[\mathbf{x} = 37, 37, 32, 31, 31, 31, 32, 39, 31, 38 \]</span></p>
+<p>You can download the data as a CSV file (for importing into a spreadsheet or R): <a href="data:text/csv;base64,aSx4CjEsMzcKMiwzNwozLDMyCjQsMzEKNSwzMQo2LDMxCjcsMzIKOCwzOQo5LDMxCjEwLDM4Cg==" download="list_counting_between_data.csv">list_counting_between_data.csv</a></p>
+<br/>
+<ol type="a">
+<li>
+<div id='Q' style='background: #AAAAFF'> How many of the measurements are inside 38.5 to 39.5? In other words, determine <span class="math inline">\(\#[\mathbf{x}&gt;38.5\texttt{ AND } \mathbf{x}&lt;39.5]\)</span>. In other words, determine <span class="math inline">\(\#[38.5&lt;\mathbf{x}&lt;39.5]\)</span>. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> How many of the measurements are outside 33.5 to 35.5? In other words, determine <span class="math inline">\(\#[\mathbf{x}&lt;33.5\texttt{ OR } \mathbf{x}&gt;35.5]\)</span>. In other words, determine <span class="math inline">\(\#[\texttt{NOT}(33.5&lt;\mathbf{x}&lt;35.5)]\)</span>. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> How many of the measurements are closer than 2 units from 35.5? In other words, determine <span class="math inline">\(\#\left[\big|\mathbf{x}-35.5\big|&lt;2\right]\)</span>. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> How many of the measurements are farther than 1 unit from 36.5? In other words, determine <span class="math inline">\(\#\left[\big|\mathbf{x}-36.5\big|&gt;1\right]\)</span>. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> Determine a <a href="https://en.wikipedia.org/wiki/Half-integer" target="blank">half-integer</a> radius <span class="math inline">\(r\)</span> of an interval with center 38 such that <span class="math inline">\(\#\left[\big|\mathbf{x}-38\big|&lt;r\right] ~=~ 1\)</span>. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> Determine a <a href="https://en.wikipedia.org/wiki/Half-integer" target="blank">half-integer</a> radius <span class="math inline">\(r\)</span> of an interval with center 32 such that <span class="math inline">\(\#\left[\big|\mathbf{x}-32\big|&gt;r\right] ~=~ 8\)</span>. </div>
+</li>
+</ol>
+<br/>
+
+
+</body>
+</html>

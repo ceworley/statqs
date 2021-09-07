@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>01_data_basics/02_proportion/04_make_relfreq_dens_v3</i></small>
+<p>A random procedure generated <span class="math inline">\(n=60\)</span> measurements: <a href="data:text/csv;base64,ImkiLCJ4IgoxLDQzLjY4ODcyNzYwMTI0MTcKMiw0Ni41MzI5NjkwNjA3MTc4CjMsNDIuNzY2ODIzNDc4MzY3Mwo0LDQ1LjcxOTQ0MzM1NTk1MTIKNSw0NS4yMjkzNjAxMjgyMzYzCjYsNDAuODA5ODI2MDM3NDQwOAo3LDQwLjUwODkxOTAxOTExODMKOCw0NC4zMzY0NjE2OTE4OTM1CjksNDYuMDU4NDEwMDE5NDIxNwoxMCw0Ny4yNjI3OTM2MDkxMTY1CjExLDQwLjY2MjE3OTI5MDkxODkKMTIsNDIuMTQwNzY3NDk0OTIxNAoxMyw0My4wODkzNTQxMDYzNzk1CjE0LDQwLjIyODE3NjAzMTc2MDEKMTUsNDUuMTc4MzI1NTcwMjgzNAoxNiw0MS41MDc2Mjg0MDk1MzM5CjE3LDM5LjY3OTgyMzkwNDA4NzMKMTgsNDIuNzM1NDU1ODcwODE4NgoxOSw0MS44MjY0OTAzOTMzNzI1CjIwLDQyLjU0ODQ4NTU3NTI5ODgKMjEsNDIuNzc5NjA0NTgxMzI1OAoyMiw0Ny4wODAwOTI3OTI0MTAxCjIzLDQ0LjUzMzg3MDAyMzE2NQoyNCw0Mi42ODkzMjY5Mjg5MjYzCjI1LDQxLjIxMzIyNzM0NTkwOQoyNiw0MS4xNzUyMjE1NDgxOTExCjI3LDQ0LjIwMTc0OTY3MjYwNTYKMjgsNDEuMzMxMzU2NTA1NDY4MwoyOSw0NC41MTYyMTY1MTQ1MTIxCjMwLDQyLjg2MTc2MjkzMjE0MjIKMzEsMzkuMjk2MTU4MDQ4Mzg4NwozMiw0Mi4yODUyNTkyMTQwMTA3CjMzLDQwLjk2MzgyMzcwODk4MDkKMzQsNDMuOTYwMzQyOTIyMzI0MQozNSw0MS45NDE1NzQyNDUyMDI5CjM2LDQyLjE1MjQ2NTUwNjIzNjcKMzcsNDIuNzkwNTExMjMxNzA5OQozOCw0My4zNTE1ODI2NDU3NDE1CjM5LDQzLjQ3MjI5MzI1NTEyMzYKNDAsNDQuNDQ0OTMxMjEwNzkxCjQxLDQyLjgzNTU1NDI2ODIwNTYKNDIsNDIuNDQ3MDUwNTM1MjYwMQo0Myw0NS4zMTcxODkzNDAxMzQ3CjQ0LDQyLjQ0OTc1NTA2MzE2NQo0NSw0My43MjU4NjE5MDYxNDM4CjQ2LDQ0LjM5MTIwNjM4MDIyNTIKNDcsNDIuMzYxOTMyNjcxNTU3Ngo0OCw0My41NDQxNzQ5NTM4NDg5CjQ5LDQ0LjI0MDE4NDk0MDEyMTIKNTAsNDAuMjgyNzI1NDQ5ODIyCjUxLDQ0LjY5NjA4NDU1NDAxMjkKNTIsNDIuMjg5NTAwNjMxODg5Mgo1Myw0MS4zNzE0MTc3MDM3NzA0CjU0LDQ0LjY4ODQzMjE4MDI4MTgKNTUsNDAuNjE1ODQ0NjUzMTY2NQo1Niw0MS42NjM2MjAyNDM3MzA2CjU3LDQ1LjMwODYzMzA3NzYxMzYKNTgsNDMuNzY0NDIzMDk3NzI1NAo1OSw0MC4zMzI2OTIyODMxNzkyCjYwLDQwLjY2NjAwMDkyNDAxMTYK" download="make_freq_dist.csv">download data</a></p>
+<p>I’ve already determined the frequencies. Please determine the relative frequencies and the densities. A brief description of relative frequency and density can be found <a href="https://en.wikipedia.org/wiki/Histogram" target="blank">here</a>.</p>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+Interval
+</th>
+<th style="text-align:center;">
+Frequency
+</th>
+<th style="text-align:center;">
+Relative_frequency
+</th>
+<th style="text-align:center;">
+Density
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+38 to 40
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+40 to 42
+</td>
+<td style="text-align:center;">
+17
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+42 to 44
+</td>
+<td style="text-align:center;">
+23
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+44 to 46
+</td>
+<td style="text-align:center;">
+14
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+46 to 48
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+<td style="text-align:center;">
+<div id='Q' style='background: #AAAAFF'>  </div>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+
+
+</body>
+</html>

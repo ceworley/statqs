@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>03_central_limit_theorem/02_normal/01_compare_zs_v2</i></small>
+<p>A farm produces 4 types of fruit: watermelons, plums, mangos, and kiwis. The fruits’ masses follow normal distributions, with population parameters dependent on the type of fruit.</p>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+Type of fruit
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mu\)</span>, population mean mass in grams
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\sigma\)</span>, population standard deviation in grams
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+watermelons
+</td>
+<td style="text-align:center;">
+10078
+</td>
+<td style="text-align:center;">
+930
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+plums
+</td>
+<td style="text-align:center;">
+85
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+mangos
+</td>
+<td style="text-align:center;">
+317
+</td>
+<td style="text-align:center;">
+28
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+kiwis
+</td>
+<td style="text-align:center;">
+101
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+</tbody>
+</table>
+<p>One specimen of each type is weighed. The results are shown below.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+Specimen type
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>, mass of specimen in grams
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+watermelon
+</td>
+<td style="text-align:center;">
+9297.00
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+plum
+</td>
+<td style="text-align:center;">
+73.64
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+mango
+</td>
+<td style="text-align:center;">
+322.00
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+kiwi
+</td>
+<td style="text-align:center;">
+109.70
+</td>
+</tr>
+</tbody>
+</table>
+<p>The population parameters and specimen masses can be <a href="data:text/csv;base64,IkZydWl0IHR5cGUiLCJQb3B1bGF0aW9uIG1lYW4iLCJQb3B1bGF0aW9uIHN0YW5kYXJkIGRldmlhdGlvbiIsIk1lYXN1cmVtZW50Igoid2F0ZXJtZWxvbiIsMTAwNzgsOTMwLDkyOTcKInBsdW0iLDg1LDgsNzMuNjQKIm1hbmdvIiwzMTcsMjgsMzIyCiJraXdpIiwxMDEsNSwxMDkuNwo=" download="fruit.csv" target="blank">downloaded as a csv</a>.</p>
+<p>For each measurement, determine the <a href="https://en.wikipedia.org/wiki/Standard_score">standard score</a> and the <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function" target="blank">cumulative probability</a>. Then determine which specimen is most unusually large, most unusually small, most typically sized, and most unusually sized.</p>
+<ol style="list-style-type: lower-alpha">
+<li><div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span> score for the watermelon specimen. (Round to the nearest hundredth.) </div></li>
+<li><div id='Q' style='background: #AAAAFF'> What proportion of watermelons have less mass than the watermelon specimen? </div></li>
+<li><div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span> score for the plum specimen. (Round to the nearest hundredth.) </div></li>
+<li><div id='Q' style='background: #AAAAFF'> What proportion of plums have less mass than the plum specimen? </div></li>
+<li><div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span> score for the mango specimen. (Round to the nearest hundredth.) </div></li>
+<li><div id='Q' style='background: #AAAAFF'> What proportion of mangos have less mass than the mango specimen? </div></li>
+<li><div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span> score for the kiwi specimen. (Round to the nearest hundredth.) </div></li>
+<li><div id='Q' style='background: #AAAAFF'> What proportion of kiwis have less mass than the kiwi specimen? </div></li>
+<li>Which specimen is the most unusually large? <div id='Q' style='background: #AAAAFF'> The watermelon specimen is most unusually large. / The plum specimen is most unusually large. / The mango specimen is most unusually large. / The kiwi specimen is most unusually large. </div></li>
+<li>Which specimen is the most unusually small? <div id='Q' style='background: #AAAAFF'> The watermelon specimen is most unusually small. / The plum specimen is most unusually small. / The mango specimen is most unusually small. / The kiwi specimen is most unusually small. </div></li>
+<li>Which specimen is most typically sized? <div id='Q' style='background: #AAAAFF'> The watermelon specimen is most typically sized. / The plum specimen is most typically sized. / The mango specimen is most typically sized. / The kiwi specimen is most typically sized. </div></li>
+<li>Which specimen is most unusually sized? <div id='Q' style='background: #AAAAFF'> The watermelon specimen is most unusually sized. / The plum specimen is most unusually sized. / The mango specimen is most unusually sized. / The kiwi specimen is most unusually sized. </div></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+
+
+</body>
+</html>

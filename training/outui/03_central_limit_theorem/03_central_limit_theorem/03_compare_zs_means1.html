@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>03_central_limit_theorem/03_central_limit_theorem/03_compare_zs_means_v1</i></small>
+<p>A farm produces 4 types of fruit: bananas, mangos, apples, and pineapples. The fruits’ masses have population parameters dependent on the type of fruit. (All values are in grams.)</p>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+Type of fruit
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mu\)</span>, population mean mass in grams
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\sigma\)</span>, population standard deviation in grams
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+bananas
+</td>
+<td style="text-align:center;">
+142
+</td>
+<td style="text-align:center;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+mangos
+</td>
+<td style="text-align:center;">
+183
+</td>
+<td style="text-align:center;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+apples
+</td>
+<td style="text-align:center;">
+134
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+pineapples
+</td>
+<td style="text-align:center;">
+2222
+</td>
+<td style="text-align:center;">
+154
+</td>
+</tr>
+</tbody>
+</table>
+<p>A sample of each type is weighed. The results are shown below.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+Type of fruit
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n\)</span>, sample size
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\bar{x}\)</span>, sample mean
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+banana
+</td>
+<td style="text-align:center;">
+144
+</td>
+<td style="text-align:center;">
+142.4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+mango
+</td>
+<td style="text-align:center;">
+64
+</td>
+<td style="text-align:center;">
+181.8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+apple
+</td>
+<td style="text-align:center;">
+36
+</td>
+<td style="text-align:center;">
+135.3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+pineapple
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+2224.0
+</td>
+</tr>
+</tbody>
+</table>
+<p>The population parameters and sample statistics can be <a href="data:text/csv;base64,ImZydWl0IiwibXUiLCJzaWdtYSIsIm4iLCJ4YmFyIgoiYmFuYW5hIiwxNDIsOSwxNDQsMTQyLjQKIm1hbmdvIiwxODMsMTIsNjQsMTgxLjgKImFwcGxlIiwxMzQsOCwzNiwxMzUuMwoicGluZWFwcGxlIiwyMjIyLDE1NCwxMDAsMjIyNAo=" download="fruit.csv" target="blank">downloaded as a csv</a>.</p>
+<p>For each sample, determine the mean’s standard score and the mean’s <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function" target="blank">cumulative probability</a> by assuming the requirements for the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="blank">central limit theorem</a> are met. Then determine which sample mean is most unusually large, most unusually small, most typically sized, and most unusually sized.</p>
+<p>The standard score of a sample mean: <span class="math display">\[z = \frac{\bar{x}-\mu}{\sigma/\sqrt{n}}\]</span> Some people prefer to call this denominator <a href="https://en.wikipedia.org/wiki/Standard_error" target="blank">the standard error</a>. <span class="math display">\[\text{standard error of mean} = \text{SEM} = \frac{\sigma}{\sqrt{n}} \]</span> So the standard score (<span class="math inline">\(z\)</span>-score) of a sample mean can also be expressed as <span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SEM}} \]</span></p>
+<ol style="list-style-type: lower-alpha">
+<li><div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span>-score for the banana sample mean. (Round to the nearest hundredth.) </div></li>
+<li><div id='Q' style='background: #AAAAFF'> What proportion of banana samples of size <span class="math inline">\(n=144\)</span> have a smaller mean than the banana sample? </div></li>
+<li><div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span>-score for the mango sample mean. (Round to the nearest hundredth.) </div></li>
+<li><div id='Q' style='background: #AAAAFF'> What proportion of mango samples of size <span class="math inline">\(n=64\)</span> have a smaller mean than the mango sample? </div></li>
+<li><div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span>-score for the apple sample mean. (Round to the nearest hundredth.) </div></li>
+<li><div id='Q' style='background: #AAAAFF'> What proportion of apple samples of size <span class="math inline">\(n=36\)</span> have a smaller mean than the apple sample? </div></li>
+<li><div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span>-score for the pineapple sample mean. (Round to the nearest hundredth.) </div></li>
+<li><div id='Q' style='background: #AAAAFF'> What proportion of pineapple samples of size <span class="math inline">\(n=100\)</span> have a smaller mean than the pineapple sample? </div></li>
+<li>Which sample mean is most unusually large? <div id='Q' style='background: #AAAAFF'> The banana sample mean is most unusually large. / The mango sample mean is most unusually large. / The apple sample mean is most unusually large. / The pineapple sample mean is most unusually large. </div></li>
+<li>Which sample mean is most unusually small? <div id='Q' style='background: #AAAAFF'> The banana sample mean is most unusually small. / The mango sample mean is most unusually small. / The apple sample mean is most unusually small. / The pineapple sample mean is most unusually small. </div></li>
+<li>Which sample mean is most typically sized? <div id='Q' style='background: #AAAAFF'> The banana sample mean is most typically sized. / The mango sample mean is most typically sized. / The apple sample mean is most typically sized. / The pineapple sample mean is most typically sized. </div></li>
+<li>Which sample mean is most unusually sized? <div id='Q' style='background: #AAAAFF'> The banana sample mean is most unusually sized. / The mango sample mean is most unusually sized. / The apple sample mean is most unusually sized. / The pineapple sample mean is most unusually sized. </div></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+
+
+</body>
+</html>

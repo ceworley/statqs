@@ -1,0 +1,111 @@
+```{r,data,generation,echo=FALSE,results="hide",fig.show='hide'}
+while(T){
+  type = 1 #sample(1:5,1) #uniform, bell, bimodal, skewright, skewleft
+  n = 80 #sample(c(60,75,80,90,100,110,120,125,130,150),1)
+  # beta1 = c(1,10,0.2,0.5,2)[type]
+  # beta2 = c(1,10,0.2,2,0.5)[type]
+  # bottom = sample(seq(20,70,5),1)
+  # width = sample(seq(5,30,5),1)
+  i = 1:n
+  val = seq(62,87,5)
+  fre = c(14,13,12,17,9,15)
+  x = rep(val,fre) #rbeta(n,beta1,beta2)*width+bottom
+  myhist = hist(x,breaks=5)
+  brks = myhist$breaks
+  counts = myhist$counts
+  relf = counts/n
+  dens = relf/(brks[2]-brks[1])
+  if(brks[2]-brks[1] != 1){
+    break
+  }
+}
+
+sol = signif(c(rbind(relf,dens)),6)
+soln = paste0(sol,collapse="|")
+tol = paste0(sol/10,collapse="|")
+```
+
+
+Question
+========
+
+```{r echo=F}
+write.csv(data.frame(i,x),file="make_freq_dist.csv",row.names = FALSE)
+```
+
+A random procedure generated $n=`r n`$ measurements: [download data](make_freq_dist.csv)
+
+I've already determined the frequencies. Please determine the relative frequencies and the densities. A brief description of relative frequency and density can be found [here](https://en.wikipedia.org/wiki/Histogram){target="blank"}.
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r anstab, results="asis", echo=F}
+NN = length(counts)
+Interval = paste(brks[1:NN],"to",brks[2:(NN+1)])
+Frequency = counts
+Relative_frequency = paste("##ANSWER",seq(1,NN*2-1,2),"##",sep="")
+Density = paste("##ANSWER",seq(2,2*NN,2),"##",sep="")
+anstab = data.frame(Interval,Frequency,Relative_frequency,Density)
+knitr::kable(anstab,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
+
+
+Solution
+========
+
+[video](https://vimeo.com/531903568){target="_blank"}
+
+To determine the relative frequencies, just divide each frequency by `r n` (because $n=`r n`$). To determine the densities, divide the relative frequencies by the width of the interval, which in this case is the same for each interval ($`r brks[2]`-`r brks[1]`=`r brks[2]-brks[1]`$).
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+
+```{r soltab, results="asis", echo=F}
+NN = length(counts)
+Interval = paste(brks[1:NN],"to",brks[2:(NN+1)])
+Frequency = counts
+Relative_frequency = signif(counts/n,4)
+Density = signif(counts/n/(brks[2]-brks[1]),4)
+soltab = data.frame(Interval,Frequency,Relative_frequency,Density)
+knitr::kable(soltab,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
+
+
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: `r paste0(rep("num",length(counts)*2),collapse="|")`
+exsolution: `r soln`
+exname: relfreq_and_dens
+extol: `r tol`
+exextra[numwidth,logical]: TRUE

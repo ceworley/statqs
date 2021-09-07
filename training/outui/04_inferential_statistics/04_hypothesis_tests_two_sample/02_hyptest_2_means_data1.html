@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>04_inferential_statistics/04_hypothesis_tests_two_sample/02_hyptest_2_means_data_v1</i></small>
+<p>A doctor runs a <a href="https://en.wikipedia.org/wiki/Randomized_controlled_trial" target="blank">controlled experiment</a>. The participants are randomly assigned to two groups: control and treatment. The participants in the control group are given a <a href="https://en.wikipedia.org/wiki/Placebo-controlled_study" target="blank">placebo</a>. The participants in the treatment group are given a drug.</p>
+<p>After a month, each participant’s triglyceride level (in mg/dL) is measured. Those measurements are shown below. They can also be <a href="data:text/csv;base64,IngxIiwieDIiCjQ5MS4yLDUxNy44CjQ5NS42LDQ2Mi41CjQ5Ni44LDQ5OS45CjQ1NS45LDUzMi4zCjQ0MS41LDU1OAo0OTcuNSw1MzIuMgo0NTAuOCw1MDEuMgo0OTQuMSw1MDEuMgo0ODYuOCw1MDguNQo0MjEuNyw1MDcuNQo0ODYuNCw0NjYuNQo1MDkuMSw1NDYuMgo1MDkuNCw0OTQKNDYwLjksNTM4LjYKNTQ4LjksNDY1LjkKNTE5LjIsNDc4LjYKNDkxLjcsNTIzLjkKNDg3LjIsNTUxLjkKNTU4LjcsNTY2LjUKNDk0LjIsNTI5LjEKNTE3LjMsNTQwLjcKNDY3LjksNTA1LjEKNDkxLjMsNDI5LjMKNTExLjIsNDcyLjIKNTAyLjYsNTI2LjEKNTA1LjEsNTQ1CjU0Ni41LDU0MC45CjQ3NC44LDQ5Mi45CjUyNi45LDUzMy44CjQzNS4yLDUyMC43CjUxMC40LAo1MjQuMiwKNTExLAo1MDIsCjQ3NCwKNTAxLjEsCjUxOC4xLAo0NTkuOSwKNTg5LjgsCjU0Mi4zLAo=" download="triglyceride.csv" target="blank">downloaded as a csv</a>.</p>
+<pre><code>## Control: 491.2, 495.6, 496.8, 455.9, 441.5, 497.5, 450.8, 494.1, 486.8, 421.7, 486.4, 509.1, 509.4, 460.9, 548.9, 519.2, 491.7, 487.2, 558.7, 494.2, 517.3, 467.9, 491.3, 511.2, 502.6, 505.1, 546.5, 474.8, 526.9, 435.2, 510.4, 524.2, 511, 502, 474, 501.1, 518.1, 459.9, 589.8, 542.3
+## 
+## Treatment: 517.8, 462.5, 499.9, 532.3, 558, 532.2, 501.2, 501.2, 508.5, 507.5, 466.5, 546.2, 494, 538.6, 465.9, 478.6, 523.9, 551.9, 566.5, 529.1, 540.7, 505.1, 429.3, 472.2, 526.1, 545, 540.9, 492.9, 533.8, 520.7</code></pre>
+<p>You are asked to perform a two-tail <a href="https://en.wikipedia.org/wiki/Welch%27s_t-test" target="blank">two-sample Welch’s <span class="math inline">\(t\)</span> test</a> to determine whether there is a significant difference of means in the two samples.</p>
+<p>To do this by hand, you would first determine the absolute <span class="math inline">\(t\)</span> score as defined here. <span class="math display">\[|t| = \frac{|\overline{x}_1-\overline{x}_2|}{\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}}\]</span> You’d also need to calculate the degrees of freedom.</p>
+<p><span class="math display">\[\text{df} = \frac{\left(\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}\right)^2}{\frac{s_1^4}{n_1^2(n_1-1)}+\frac{s_2^4}{n_2^2(n_2-1)}}\]</span> And then, the <span class="math inline">\(p\)</span>-value:</p>
+<p><span class="math display">\[p\text{-value} = P\left(|T|&gt;|t|\right) \]</span></p>
+<p>However, this problem is easy when using a spreadsheet or R, so I would recommend using one of those tools.</p>
+<p>In a spreadsheet, you can use <a href="https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_TTEST_function" target="blank"><code>T.TEST</code></a> with mode=2 for a two-tail test and type=3 for Welch’s test.</p>
+<p>In R, you can use <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/t.test" target="blank"><code>t.test</code></a> with the default settings.</p>
+<p><div id='Q' style='background: #AAAAFF'> Determine the <span class="math inline">\(p\)</span>-value. </div></p>
+<p>Is the difference of means significant (using a significance level of 0.05)?</p>
+<p><div id='Q' style='background: #AAAAFF'> Yes, the drug causes a difference in average triglyceride level. / No, we don’t know whether the drug causes a difference. </div></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+
+
+</body>
+</html>

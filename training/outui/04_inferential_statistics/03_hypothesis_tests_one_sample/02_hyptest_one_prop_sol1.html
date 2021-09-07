@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>solution_04_inferential_statistics/03_hypothesis_tests_one_sample/02_hyptest_one_prop_v1</i></small>
+<p><a href="https://vimeo.com/531952952" target="_blank">video</a></p>
+<p>We need to calculate the <span class="math inline">\(p\)</span>-value. <span class="math display">\[\begin{aligned}
+p\text{-value} &amp;= P\left(\big|Z\big| &gt; \frac{\big|\hat{p}-p_0\big|}{\sqrt{\frac{p_0(1-p_0)}{n}}} \right) \\\\
+&amp;= P\left(\big|Z\big| &gt; \frac{\big|0.4912-0.3333\big|}{\sqrt{\frac{(0.3333)(0.6667)}{57}}} \right) \\\\
+&amp;= P\left(\big|Z\big| &gt; 2.5289292 \right) \\\\
+&amp;= 0.0114411
+\end{aligned}\]</span></p>
+<p>Of course you could have rounded the <span class="math inline">\(z\)</span> score. Either of the following will also get credit.</p>
+<p><span class="math display">\[p\text{-value} ~=~ \left(\big|Z\big| &gt; 2.52 \right) ~=~ 0.0118\]</span> <span class="math display">\[p\text{-value} ~=~ \left(\big|Z\big| &gt; 2.53 \right) ~=~ 0.0114\]</span></p>
+<p>The difference is significant; the chemical seems to alter the growth of the organism.</p>
+<br/>
+<ol type="a">
+<li>
+<div id='A' style='background: #FFAAAA'> 0.0114411 </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> TRUE / FALSE </div>
+</li>
+</ol>
+<br/>
+ANSWERS: 0.0114411, c(TRUE, FALSE)<br>
+TOLERANCES: 0.001, 0.001
+
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>solution_04_inferential_statistics/01_T_dist/01_T_probs_v1</i></small>
+<p><a href="https://vimeo.com/531947446" target="_blank">video</a></p>
+<p><a href="http://18.191.167.248:3838/Tprob/" target="_blank">app</a></p>
+<p>You can use a <span class="math inline">\(t\)</span> table. Remember, the degree of freedom (df or <span class="math inline">\(\nu\)</span>) is one less than <span class="math inline">\(n\)</span>. <span class="math display">\[\text{df} = n-1 \]</span></p>
+<h3 id="spreadsheet">Spreadsheet</h3>
+<p>You can use <code>T.DIST</code> and <code>T.INV</code> to calculate the values. But remember these functions return/use LEFT-area probabilities.</p>
+<h3 id="r">R</h3>
+<p>You can use <code>pt</code> and <code>qt</code> to calculate the values. But remember these functions return/use LEFT-area probabilities.</p>
+<br/>
+<ol type="a">
+<li>
+<div id='A' style='background: #FFAAAA'> When <span class="math inline">\(n=33\)</span>, then <span class="math inline">\(\text{df}=32\)</span> and <span class="math inline">\(P(T&lt;2.04)=0.975\)</span>. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> When <span class="math inline">\(n=38\)</span>, then <span class="math inline">\(\text{df}=37\)</span> and <span class="math inline">\(P(T&gt;2.72)=0.005\)</span>. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> When <span class="math inline">\(n=6\)</span>, then <span class="math inline">\(\text{df}=5\)</span> and <span class="math inline">\(P(|T|&lt;1.48)=0.8\)</span>. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> When <span class="math inline">\(n=11\)</span>, then <span class="math inline">\(\text{df}=10\)</span> and <span class="math inline">\(P(|T|&gt;2.36)=0.04\)</span>. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> When <span class="math inline">\(n=25\)</span>, then <span class="math inline">\(\text{df}=24\)</span> and <span class="math inline">\(P(T&lt;1.32)=0.9\)</span>, so <span class="math inline">\(t=1.32\)</span>. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> When <span class="math inline">\(n=26\)</span>, then <span class="math inline">\(\text{df}=25\)</span> and <span class="math inline">\(P(T&gt;2.49)=0.01\)</span>, so <span class="math inline">\(t=2.49\)</span>. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> When <span class="math inline">\(n=7\)</span>, then <span class="math inline">\(\text{df}=6\)</span> and <span class="math inline">\(P(|T|&lt;1.94)=0.9\)</span>, so <span class="math inline">\(t=1.94\)</span>. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> When <span class="math inline">\(n=15\)</span>, then <span class="math inline">\(\text{df}=14\)</span> and <span class="math inline">\(P(|T|&gt;2.98)=0.01\)</span>, so <span class="math inline">\(t=2.98\)</span>. </div>
+</li>
+</ol>
+<br/>
+ANSWERS: 0.975, 0.005, 0.8, 0.04, 1.32, 2.49, 1.94, 2.98<br>
+TOLERANCES: 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01
+
+
+</body>
+</html>

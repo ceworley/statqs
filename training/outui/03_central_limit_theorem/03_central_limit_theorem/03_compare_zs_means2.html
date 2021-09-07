@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>03_central_limit_theorem/03_central_limit_theorem/03_compare_zs_means_v2</i></small>
+<p>A farm produces 4 types of fruit: coconuts, papayas, watermelons, and lemons. The fruits’ masses have population parameters dependent on the type of fruit. (All values are in grams.)</p>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+Type of fruit
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mu\)</span>, population mean mass in grams
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\sigma\)</span>, population standard deviation in grams
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+coconuts
+</td>
+<td style="text-align:center;">
+721
+</td>
+<td style="text-align:center;">
+44
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+papayas
+</td>
+<td style="text-align:center;">
+559
+</td>
+<td style="text-align:center;">
+54
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+watermelons
+</td>
+<td style="text-align:center;">
+8159
+</td>
+<td style="text-align:center;">
+877
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+lemons
+</td>
+<td style="text-align:center;">
+120
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+</tbody>
+</table>
+<p>A sample of each type is weighed. The results are shown below.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+Type of fruit
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n\)</span>, sample size
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\bar{x}\)</span>, sample mean
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+coconut
+</td>
+<td style="text-align:center;">
+36
+</td>
+<td style="text-align:center;">
+724.8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+papaya
+</td>
+<td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
+538.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+watermelon
+</td>
+<td style="text-align:center;">
+49
+</td>
+<td style="text-align:center;">
+8133.0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+lemon
+</td>
+<td style="text-align:center;">
+144
+</td>
+<td style="text-align:center;">
+120.8
+</td>
+</tr>
+</tbody>
+</table>
+<p>The population parameters and sample statistics can be <a href="data:text/csv;base64,ImZydWl0IiwibXUiLCJzaWdtYSIsIm4iLCJ4YmFyIgoiY29jb251dCIsNzIxLDQ0LDM2LDcyNC44CiJwYXBheWEiLDU1OSw1NCwyNSw1MzguNQoid2F0ZXJtZWxvbiIsODE1OSw4NzcsNDksODEzMwoibGVtb24iLDEyMCwxMCwxNDQsMTIwLjgK" download="fruit.csv" target="blank">downloaded as a csv</a>.</p>
+<p>For each sample, determine the mean’s standard score and the mean’s <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function" target="blank">cumulative probability</a> by assuming the requirements for the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="blank">central limit theorem</a> are met. Then determine which sample mean is most unusually large, most unusually small, most typically sized, and most unusually sized.</p>
+<p>The standard score of a sample mean: <span class="math display">\[z = \frac{\bar{x}-\mu}{\sigma/\sqrt{n}}\]</span> Some people prefer to call this denominator <a href="https://en.wikipedia.org/wiki/Standard_error" target="blank">the standard error</a>. <span class="math display">\[\text{standard error of mean} = \text{SEM} = \frac{\sigma}{\sqrt{n}} \]</span> So the standard score (<span class="math inline">\(z\)</span>-score) of a sample mean can also be expressed as <span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SEM}} \]</span></p>
+<ol style="list-style-type: lower-alpha">
+<li><div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span>-score for the coconut sample mean. (Round to the nearest hundredth.) </div></li>
+<li><div id='Q' style='background: #AAAAFF'> What proportion of coconut samples of size <span class="math inline">\(n=36\)</span> have a smaller mean than the coconut sample? </div></li>
+<li><div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span>-score for the papaya sample mean. (Round to the nearest hundredth.) </div></li>
+<li><div id='Q' style='background: #AAAAFF'> What proportion of papaya samples of size <span class="math inline">\(n=25\)</span> have a smaller mean than the papaya sample? </div></li>
+<li><div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span>-score for the watermelon sample mean. (Round to the nearest hundredth.) </div></li>
+<li><div id='Q' style='background: #AAAAFF'> What proportion of watermelon samples of size <span class="math inline">\(n=49\)</span> have a smaller mean than the watermelon sample? </div></li>
+<li><div id='Q' style='background: #AAAAFF'> Calculate a <span class="math inline">\(z\)</span>-score for the lemon sample mean. (Round to the nearest hundredth.) </div></li>
+<li><div id='Q' style='background: #AAAAFF'> What proportion of lemon samples of size <span class="math inline">\(n=144\)</span> have a smaller mean than the lemon sample? </div></li>
+<li>Which sample mean is most unusually large? <div id='Q' style='background: #AAAAFF'> The coconut sample mean is most unusually large. / The papaya sample mean is most unusually large. / The watermelon sample mean is most unusually large. / The lemon sample mean is most unusually large. </div></li>
+<li>Which sample mean is most unusually small? <div id='Q' style='background: #AAAAFF'> The coconut sample mean is most unusually small. / The papaya sample mean is most unusually small. / The watermelon sample mean is most unusually small. / The lemon sample mean is most unusually small. </div></li>
+<li>Which sample mean is most typically sized? <div id='Q' style='background: #AAAAFF'> The coconut sample mean is most typically sized. / The papaya sample mean is most typically sized. / The watermelon sample mean is most typically sized. / The lemon sample mean is most typically sized. </div></li>
+<li>Which sample mean is most unusually sized? <div id='Q' style='background: #AAAAFF'> The coconut sample mean is most unusually sized. / The papaya sample mean is most unusually sized. / The watermelon sample mean is most unusually sized. / The lemon sample mean is most unusually sized. </div></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+
+
+</body>
+</html>

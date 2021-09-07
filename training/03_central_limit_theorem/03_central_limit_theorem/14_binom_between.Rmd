@@ -1,0 +1,95 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+
+while(TRUE){
+  la = sort(runif(2,0.01,0.99))
+  n = sample(30:200,1)
+  p = round(runif(1,0.01,0.99),2)
+  mu = p
+  sig = sqrt(p*(1-p))
+  mut = mu*n
+  sigt = sig*sqrt(n)
+  zapp = round(qnorm(la),2)
+  xt1 = round(floor(mut+zapp[1]*sigt)+0.5,1)
+  xt2 = round(floor(mut+zapp[2]*sigt)+0.5,1)
+  z1 = (xt1-mut)/sigt
+  z2 = (xt2-mut)/sigt
+  z1lo = floor(z1*100)/100
+  z1hi = ceiling(z1*100)/100
+  z2lo = floor(z2*100)/100
+  z2hi = ceiling(z2*100)/100
+  
+  la1 = pnorm(z1)
+  la1lo = round(pnorm(z1lo),4)
+  la1hi = round(pnorm(z1hi),4)
+  la2 = pnorm(z2)
+  la2lo = round(pnorm(z2lo),4)
+  la2hi = round(pnorm(z2hi),4)
+  
+  ca = la2-la1
+  calo = round(la2lo-la1lo,4)
+  cahi = round(la2hi-la1hi,4)
+  camin = round(la2hi-la1lo,4)
+  camax = round(la2lo-la1hi,4)
+  
+  tol = max(abs(camax-camin)*1.1,0.001)
+  if(n*p>10 & n*(1-p)>10 & ca>0){
+    break
+  }
+}
+```
+
+Question
+========
+
+In some game, each trial has a $p = `r p`$ probability of success. A player will attempt `r n` trials. What is the probability that the number of successes is between `r xt1` and `r xt2`?
+
+(Even though single trials are **not** normally distributed [they follow a [Bernoulli distribution](https://en.wikipedia.org/wiki/Bernoulli_distribution){target="_blank"}], the random totals will be normally distributed.
+See [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem){target="_blank"}.
+Also, I have already made the [continuity correction](https://en.wikipedia.org/wiki/Continuity_correction){target="_blank"} by setting the boundary to a [half-integer](https://en.wikipedia.org/wiki/Half-integer){target="_blank"}. )
+
+Solution
+========
+
+[video](https://vimeo.com/531944376){target="_blank"}
+
+We determine the mean and standard deviation of the binomial distribution.
+$$\mu ~=~ np ~=~ (`r n`)(`r p`) ~=~ `r mut`$$
+$$\sigma ~=~ \sqrt{np(1-p)} ~=~ \sqrt{(`r n`)(`r p`)(`r 1-p`)} ~=~ `r sigt` $$
+
+We determine both $z$-scores. (In the de Moivre-Laplace notes, I used $\sum x$ to emphasize that a binomial variable is a sum of Bernoulli trials. Here, I will just use $x$ as the boundary for number of successes, because this is the more common notation.) We get the first $z$-score.
+
+$$\begin{aligned}
+z_1 &= \frac{x_1 - \mu}{\sigma} \\\\
+&= \frac{`r xt1`-`r mut`}{`r sigt`} \\\\
+&= `r z1`
+\end{aligned}$$
+
+We get the second $z$-score.
+
+$$\begin{aligned}
+z_2 &= \frac{x_2 - \mu}{\sigma} \\\\
+&= \frac{`r xt2`-`r mut`}{`r sigt`} \\\\
+&= `r z2`
+\end{aligned}$$
+
+Then, find the standard normal probability.
+
+$$P(`r z1` < Z < `r z2`) ~=~ `r ca` $$
+
+Of course, you could have rounded the $z$-scores, so any of the following will also get credit.
+$$P(`r z1lo` < Z < `r z2lo`) ~=~ `r calo` $$
+$$P(`r z1hi` < Z < `r z2hi`) ~=~ `r cahi` $$
+$$P(`r z1lo` < Z < `r z2hi`) ~=~ `r camax` $$
+$$P(`r z1hi` < Z < `r z2lo`) ~=~ `r camin` $$
+
+
+
+
+Meta-information
+================
+extype: num
+exsolution: `r ca`
+exname: prob binom between
+extol: `r tol`

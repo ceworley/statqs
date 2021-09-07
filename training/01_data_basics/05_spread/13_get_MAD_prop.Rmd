@@ -1,0 +1,170 @@
+```{r,data,generation,echo=FALSE,results="hide"}
+while(T){
+  n = sample(8:20,1)
+  p = runif(1,0.05,0.95)
+  x = sample(c(0,1),n,T)
+  phat = mean(x)
+  devs = x-phat
+  adevs = abs(devs)
+  MAD = mean(adevs)
+  i = 1:n
+  mydf = data.frame(i,x,devs,adevs)
+  colnames(mydf) = c("$$i$$","$$\\mathbf{x}$$","deviations = $\\mathbf{x}-\\hat{p}$","AbsDev = $\\vert\\mathbf{x}-\\hat{p}\\vert$")
+  if(sum(x)>1 & sum(x)<(n-1) & round(phat,3)==phat){break}
+}
+```
+
+
+Question
+========
+
+A sample was gathered. 
+
+$$\mathbf{x} = `r paste(lapply(x,function(x) sprintf("%d",x)),collapse=", ")` $$
+
+
+```{r echo=F}
+write.csv(data.frame(i,x),file="get_MAD.csv", quote = FALSE, row.names = FALSE)
+```
+
+You can download the data as a [CSV file](get_MAD.csv).
+
+Determine the sample's [mean absolute deviation (MAD) around the sample proportion](https://en.wikipedia.org/wiki/Average_absolute_deviation#Mean_absolute_deviation_around_a_central_point){target="blank"}.  You can round your answer to the [hundredths place](https://en.wikipedia.org/wiki/Orders_of_magnitude_(numbers)#10%E2%88%922){target="blank"}.
+
+
+Solution
+========
+
+(ANS=`r MAD`)
+
+First, determine the sample proportion (mean of 0s and 1s).
+
+$$\hat{p} = \frac{`r sum(x)`}{`r n`} =`r mean(x)` $$
+
+Determine the absolute deviations (distances from $\hat{p}$).
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r tab1, results="asis", echo=F}
+knitr::kable(mydf,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
+
+Now, take the mean of the absolute deviations.
+
+$$\text{MAD}_\text{prop} = \frac{\sum \vert\mathbf{x}-\hat{p}\vert}{n} =  `r MAD` $$
+
+
+
+
+### spreadsheet
+
+```{r echo=F}
+xbar = mean(x)
+sol = data.frame(i,x)
+
+sol = rbind(sol,
+            c("",""),
+            c("","phat"),
+            c("",paste0("=average(B2:B",n+1,")",collapse=""))
+            )
+
+deviations = c(paste0("=B",2:(n+1),"-B$",n+4),rep("",3))
+absdev = c(paste0("=abs(C",2:(n+1),")"),
+           "",
+           "MAD_prop",
+           paste0("=average(D2:D",n+1,")"))
+sol = cbind(sol,deviations,absdev)
+write.csv(sol,file="get_MAD_sol.csv", row.names=F)
+
+```
+
+You can do this with [a spreadsheet](get_MAD_sol.csv).
+
+```{r fig.height=6,fig.width=8,echo=F}
+draw_ss = function(df){
+  nrow = length(df[,1])
+  ncol = length(df[1,])
+  par(mar=c(0,0,0,0))
+  plot(0,0,type="n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+  hi = 1:((nrow+2)*2+1)
+  vi = 1:((ncol+1)*2+1)
+  hpos = seq(1,0,length.out=(nrow+2)*2+1)
+  vpos = seq(0,1,length.out=(ncol+1)*2+1)
+  hlin = hpos[hi%%2==1]
+  ytex = hpos[hi%%2==0]
+  vlin = vpos[vi%%2==1]
+  xtex = vpos[vi%%2==0]
+  abline(h=hlin)
+  abline(h=hlin[2],lwd=3)
+  abline(v=vlin)
+  abline(v=vlin[2],lwd=3)
+  for(i in 2:(ncol+1)){
+    text(xtex[i],ytex[1],LETTERS[i-1],col=rgb(0.5,0.5,0.5))
+    text(xtex[i],ytex[2],colnames(df)[i-1])
+  }    
+  for(i in 2:(nrow+2)){
+    text(xtex[1],ytex[i],i-1,col=rgb(0.5,0.5,0.5))
+  }
+  for(i in 1:nrow){
+    for(j in 1:ncol){
+      text(xtex[j+1],ytex[i+2],df[i,j])
+    }
+  }
+}
+
+draw_ss(sol)
+```
+\
+
+
+### R
+
+You can do this with R
+
+```{r}
+x = read.csv("get_MAD.csv")$x
+phat = mean(x)
+deviations = x-phat
+AbsDev = abs(deviations)
+MAD = mean(AbsDev)
+x
+phat
+deviations
+AbsDev
+MAD
+```
+
+
+### Algebra
+
+With a little bit of algebra, we can simplify the formula for $\text{MAD}_\text{prop}$. (I've not shown the algebra...)
+
+$$\text{MAD}_\text{prop} = 2(1-\hat{p})\hat{p}$$
+
+In other words, if $n_0$ is the number of 0s and $n_1$ is the number of 1s, then
+$$\text{MAD}_\text{prop} = 2 \cdot \frac{n_0}{n} \cdot \frac{n_1}{n}$$
+So, in this case:
+$$\text{MAD}_\text{prop} = 2 \cdot \frac{`r sum(x==0)`}{`r n`}\cdot \frac{`r sum(x)`}{`r n`} = `r MAD`$$
+
+
+Meta-information
+================
+extype: num
+exsolution: `r MAD`
+exname: get_MAD
+extol: 0.01
+exextra[numwidth]: 999.999

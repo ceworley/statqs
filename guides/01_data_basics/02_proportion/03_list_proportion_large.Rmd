@@ -1,0 +1,113 @@
+```{r,data,generation,echo=FALSE,results="hide"}
+# ppop = sample(seq(0.05,0.95,0.01),size=1)
+n = 95 #sample(80:150,1)
+i = 1:n
+hit_or_miss = c("Miss", "Miss", "Miss", "Hit", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Hit", "Miss", "Miss", "Hit", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Hit", "Miss", "Miss", "Miss", "Hit", "Miss", "Miss", "Miss", "Hit", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Hit", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Hit", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Hit", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Miss", "Hit", "Miss", "Miss", "Miss", "Miss")
+fn = paste0("basketball_proportion.csv")
+df = data.frame(i,hit_or_miss)
+write.csv(df, file = fn, quote = FALSE, row.names = FALSE)
+```
+
+Question
+========
+
+Jordan is practicing [free throws](https://en.wikipedia.org/wiki/Free_throw). She has recorded the results of many free throws.
+
+```{r echo=F, results="asis"}
+cat(hit_or_miss)
+```
+
+You can download the data as a csv: [`r fn`](`r fn`). The header and first four rows are shown below.
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r echo=F}
+i2 = 1:4
+hit_or_miss2 = hit_or_miss[1:4]
+mydf2 = data.frame(i2,hit_or_miss2)
+colnames(mydf2) = c("i","hit_or_miss")
+mydf2 = type.convert(mydf2, as.is = TRUE)
+mydf2 = rbind(mydf2,c("$\\vdots$","$\\vdots$"))
+knitr::kable(mydf2,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+Answerlist
+--------
+* How many shots did Jordan attempt? (Evaluate $n$.)
+* How many shots were successful? (Evaluate $n_\text{s}$.)
+* How many shots were failures? (Evaluate $n_\text{f}$.)
+* What proportion of Jordan's shots were successful? (Evaluate $\hat{p}$.)
+* What proportion of Jordan's shots were failures? (Evaluate $\hat{q}$.)
+
+Solution
+========
+
+[video](https://vimeo.com/531902962){target="_blank"}
+
+I recommend using either R or a spreadsheet. 
+
+## Using R
+
+First, download the csv. Also, write the following script, and save it as ``basketball_proportion.r``. Put both files in the same directory (folder). Run the script.
+
+```{r}
+mydata = read.csv("basketball_proportion.csv")
+x = mydata$hit_or_miss
+n = length(x)
+ns = sum(x=="Hit")
+nf = sum(x=="Miss")
+phat = ns/n
+qhat = nf/n
+mydata = data.frame(n,ns,nf,phat,qhat)
+print(mydata,row.names=F)
+```
+
+If you are using Rstudio, you may need to click ``Session``, ``Set Working Directory``, ``Source File Location`` while the script (``basketball_proportion.r``) is the open tab.
+
+## Using a spreadsheet
+
+```{r echo=F}
+mydf = data.frame(c(i,"","","","",""),c(hit_or_miss,"","n",paste0("=count(A2:A",n+1,")"),"",""))
+mydf = cbind(mydf,c(paste0("\"=IF(B",i+1,'=""Hit"",1,0)\"'),"","sum",paste0("=SUM(C2:C",n+1,")"),
+                    "p hat",paste0("=C",n+4,"/B",n+4)))
+mydf = cbind(mydf,c(paste0("\"=IF(B",i+1,'=""Miss"",1,0)\"'),"","sum",paste0("=SUM(D2:D",n+1,")"),
+                    "q hat",paste0("=D",n+4,"/B",n+4)))
+colnames(mydf) = c("i","hit_or_miss","hit_or_miss=Hit","hit_or_miss=Miss")
+fn2 = paste0("proportion_solution.csv") 
+write.csv(mydf, file = fn2, quote = FALSE, row.names = FALSE)
+```
+
+First, if you scroll down, it should be clear there are `r n` rows of data, because the last row has $i=`r n`$. In column C use `IF(B2="Hit",1,0)` and in column D use `IF(B2="Miss",1,0)`, and extend the formulas down, to get columns of 0s and 1s, then use ``SUM(C2:C`r n`)`` and ``SUM(D2:D`r n`)`` to get $n_s$ and $n_f$. You can divide these by $n$ to determine $\hat{p}$ and $\hat{q}$.
+
+You can see a solution CSV: [`r fn2`](`r fn2`). Remember, you can hit `ctrl+~` to see the formulas. You may need to enlarge a cell if it shows `###`.
+
+Answerlist
+--------
+* (ANS=`r n`)
+* (ANS=`r ns`) This is simply the number of times "Hit" is in the list.
+* (ANS=`r nf`) This is simply the number of times "Miss" is in the list.
+* (ANS=$`r phat`\pm 0.01$) $\frac{n_s}{n}=\frac{`r ns`}{`r n`}=`r round(phat,3)`$
+* (ANS=$`r qhat`\pm 0.01$) $\frac{n_f}{n}=\frac{`r nf`}{`r n`}=`r round(qhat,3)`$
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|num
+exsolution: `r n`|`r ns`|`r nf`|`r phat`|`r qhat`|
+exname: list_counting_large
+extol: 0|0|0|0.01|0.01
+exextra[numwidth,character]: 999.999

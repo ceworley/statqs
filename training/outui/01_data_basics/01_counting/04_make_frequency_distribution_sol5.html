@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>solution_01_data_basics/01_counting/04_make_frequency_distribution_v5</i></small>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>You will want to use a computer to answer these questions.</p>
+<h3 id="spreadsheet">Spreadsheet</h3>
+<p><a href="https://vimeo.com/531556006" target="_blank">video (using a spreadsheet)</a></p>
+<p>In a spreadsheet, open the data, add the breaks as a column; then, use the <a href="https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_FREQUENCY_function" target="blank"><code>FREQUENCY function</code></a>.</p>
+<h3 id="r">R</h3>
+<p><a href="https://vimeo.com/531555988" target="blank">video (using R)</a></p>
+<p>In R, open the data and use the <a href="https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/hist"><code>hist</code></a> function. You supply the breaks and read the counts:</p>
+<pre class="text"><code>mydata = read.csv(&quot;make_freq_dist.csv&quot;)</code></pre>
+<pre class="text"><code>x = mydata$x</code></pre>
+<pre class="text"><code>myhist = hist(x,breaks=c(46,48,50,52,54,56,58,60))</code></pre>
+<pre class="text"><code>myhist$counts</code></pre>
+<pre><code>## [1]  2  3  2  7 23 18 75</code></pre>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+interval
+</th>
+<th style="text-align:center;">
+frequency
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+46 to 48
+</td>
+<td style="text-align:center;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+48 to 50
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+50 to 52
+</td>
+<td style="text-align:center;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+52 to 54
+</td>
+<td style="text-align:center;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+54 to 56
+</td>
+<td style="text-align:center;">
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+56 to 58
+</td>
+<td style="text-align:center;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+58 to 60
+</td>
+<td style="text-align:center;">
+75
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+<li>
+<div id='A' style='background: #FFAAAA'> 2 </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> 3 </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> 2 </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> 7 </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> 23 </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> 18 </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> 75 </div>
+</li>
+</ol>
+<br/>
+ANSWERS: 2, 3, 2, 7, 23, 18, 75<br>
+TOLERANCES: 0, 0, 0, 0, 0, 0, 0
+
+
+</body>
+</html>

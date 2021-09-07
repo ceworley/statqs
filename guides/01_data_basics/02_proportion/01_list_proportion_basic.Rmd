@@ -1,0 +1,106 @@
+```{r,data,generation,echo=FALSE,results="hide"}
+n = 10 #must be bigger than 8, or change xcom to replacement sampling with T
+#f = sample(1:9,1)*10
+x = c(61,64,69,63,63,60,64,61,62,60) #sort(sample(0:9,n,TRUE))+f
+xcom = c(63,63,61,69,62,60,60,64) #sample(x,8,FALSE)
+x1 = xcom[1]
+x2 = xcom[2]
+x3 = xcom[3]
+x4 = xcom[4]
+i1 = sum(x<xcom[1])
+i2 = sum(x<=xcom[2])
+i3 = sum(x>xcom[3])
+i4 = sum(x>=xcom[4])
+p1 = i1/n
+p2 = i2/n
+p3 = i3/n
+p4 = i4/n
+x5 = xcom[5]
+x6 = xcom[6]
+x7 = xcom[7]
+x8 = xcom[8]
+i5 = sum(x<xcom[5])
+i6 = sum(x<=xcom[6])
+i7 = sum(x>xcom[7])
+i8 = sum(x>=xcom[8])
+p5 = i5/n
+p6 = i6/n
+p7 = i7/n
+p8 = i8/n
+# xrand = sample(x)
+# x = xrand
+i = 1:n
+```
+
+
+Question
+========
+
+A [random procedure](https://en.wikipedia.org/wiki/Random_number_generation){target="blank"} generated the following sample (sequence of measurements):
+
+$$\mathbf{x} = `r x` $$
+
+```{r echo=F}
+fn = paste0("list_proportion_basic_data.csv")
+write.csv(data.frame(i,x), file = fn, quote = FALSE, row.names = FALSE)
+```
+
+You can download the data as a CSV file (for importing into a spreadsheet or R): 
+[`r fn`](`r fn`)
+
+Answerlist
+--------
+* What proportion of the measurements are less than `r x1`? In other words, determine $\text{prop}[\mathbf{x}<`r x1`]$.
+* What proportion of the measurements are less than or equal to `r x2`? In other words, determine $\text{prop}[\mathbf{x}\le`r x2`]$.
+* What proportion of the measurements are greater than `r x3`? In other words, determine $\text{prop}[\mathbf{x}>`r x3`]$.
+* What proportion of the measurements are greater than or equal to `r x4`? In other words, determine $\text{prop}[\mathbf{x}\ge`r x4`]$.
+* If the proportion of measurements less than $x_{\text{c}}$ is `r p5`, and $x_{\text{c}}$ is a measurement from sample $\mathbf{x}$, then what is $x_{\text{c}}$? In other words, determine a measurement $x_{\text{c}}$ from sequence $\mathbf{x}$ such that $\text{prop}[\mathbf{x}<x_{\text{c}}] = `r p5`$.
+* If the proportion of measurements less than or equal to $x_{\text{c}}$ is `r p6`, and $x_{\text{c}}$ is a measurement from sample $\mathbf{x}$, then what is $x_{\text{c}}$? In other words, determine a measurement $x_{\text{c}}$ from sequence $\mathbf{x}$ such that $\text{prop}[\mathbf{x}\le x_{\text{c}}] = `r p6`$.
+* If the proportion of measurements greater than $x_{\text{c}}$ is `r p7`, and $x_{\text{c}}$ is a measurement from sample $\mathbf{x}$, then what is $x_{\text{c}}$? In other words, determine a measurement $x_{\text{c}}$ from sequence $\mathbf{x}$ such that $\text{prop}[\mathbf{x}>x_{\text{c}}] = `r p7`$.
+* If the proportion of measurements greater than or equal to $x_{\text{c}}$ is `r p8`, and $x_{\text{c}}$ is a measurement from sample $\mathbf{x}$, then what is $x_{\text{c}}$? In other words, determine a measurement $x_{\text{c}}$ from sequence $\mathbf{x}$ such that $\text{prop}[\mathbf{x}\ge x_{\text{c}}] = `r p8`$.
+
+
+Solution
+========
+
+[video](https://vimeo.com/531899914){target="_blank"}
+
+First, it helps to sort the data.
+$$`r sort(x)`$$
+
+You could use R to sort the data:
+
+```{r echo=FALSE,comment=NA}
+str1 = paste('sort(c(',paste(x,collapse=","),'))',collapse="")
+str2 = gsub(" ", "", str1, fixed = TRUE)
+cat(str2)
+```
+
+```{r echo=FALSE}
+sort(x)
+```
+
+You could also use a spreadsheet. Import the table into a spreadsheet. Then, highlight the column of measurements and use ``Sort`` function.
+
+
+
+Answerlist
+--------
+* (ANS=`r p1`) The proportion of measurements less than `r x1` is `r p1`. $$\text{prop}[\mathbf{x}<`r x1`]=`r p1`$$
+* (ANS=`r p2`) The proportion of measurements less than or equal to `r x2` is `r p2`. $$\text{prop}[\mathbf{x}\le `r x2`]=`r p2`$$
+* (ANS=`r p3`) The proportion of measurements greater than `r x3` is `r p3`. $$\text{prop}[\mathbf{x}> `r x3`]=`r p3`$$
+* (ANS=`r p4`) The proportion of measurements greater than or equal to `r x4` is `r p4`. $$\text{prop}[\mathbf{x}\ge `r x4`]=`r p4`$$
+* (ANS=`r x5`) The proportion of measurements less than `r x5` is `r p5`. $$\text{prop}[\mathbf{x}<`r x5`]=`r p5`$$
+* (ANS=`r x6`) The proportion of measurements less than or equal to `r x6` is `r p6`. $$\text{prop}[\mathbf{x}\le `r x6`]=`r p6`$$
+* (ANS=`r x7`) The proportion of measurements greater than `r x7` is `r p7`. $$\text{prop}[\mathbf{x}> `r x7`]=`r p7`$$
+* (ANS=`r x8`) The proportion of measurements greater than or equal to `r x8` is `r p8`. $$\text{prop}[\mathbf{x}\ge `r x8`]=`r p8`$$
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: num|num|num|num|num|num|num|num
+exsolution: `r p1`|`r p2`|`r p3`|`r p4`|`r x5`|`r x6`|`r x7`|`r x8`
+exname: list_proportion_basic
+extol: 0
+exextra[numwidth,character]: 999.999

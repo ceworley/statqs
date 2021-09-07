@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>04_inferential_statistics/05_exam4/03_hyptest_paired_data_v2</i></small>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>A study asked individuals to time a mile run (in seconds). After a month, the same individuals timed another mile run. You are asked to perform a paired-data <span class="math inline">\(t\)</span> test to investigate whether fitness changed.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:center;">
+x1
+</th>
+<th style="text-align:center;">
+x2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Alias
+</td>
+<td style="text-align:center;">
+1175
+</td>
+<td style="text-align:center;">
+1188
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Chase
+</td>
+<td style="text-align:center;">
+554
+</td>
+<td style="text-align:center;">
+525
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Easton
+</td>
+<td style="text-align:center;">
+532
+</td>
+<td style="text-align:center;">
+520
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Elena
+</td>
+<td style="text-align:center;">
+349
+</td>
+<td style="text-align:center;">
+407
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Evelyn
+</td>
+<td style="text-align:center;">
+346
+</td>
+<td style="text-align:center;">
+395
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+June
+</td>
+<td style="text-align:center;">
+504
+</td>
+<td style="text-align:center;">
+489
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Karim
+</td>
+<td style="text-align:center;">
+293
+</td>
+<td style="text-align:center;">
+302
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Karson
+</td>
+<td style="text-align:center;">
+379
+</td>
+<td style="text-align:center;">
+409
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kayde
+</td>
+<td style="text-align:center;">
+347
+</td>
+<td style="text-align:center;">
+337
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Maliya
+</td>
+<td style="text-align:center;">
+318
+</td>
+<td style="text-align:center;">
+341
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Otto
+</td>
+<td style="text-align:center;">
+304
+</td>
+<td style="text-align:center;">
+279
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+River
+</td>
+<td style="text-align:center;">
+307
+</td>
+<td style="text-align:center;">
+367
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Riya
+</td>
+<td style="text-align:center;">
+1155
+</td>
+<td style="text-align:center;">
+1208
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ryker
+</td>
+<td style="text-align:center;">
+763
+</td>
+<td style="text-align:center;">
+837
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Skye
+</td>
+<td style="text-align:center;">
+338
+</td>
+<td style="text-align:center;">
+352
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Stormy
+</td>
+<td style="text-align:center;">
+281
+</td>
+<td style="text-align:center;">
+247
+</td>
+</tr>
+</tbody>
+</table>
+<p>(<a href="data:text/csv;base64,Im5hbWUiLCJ4MSIsIngyIgoiQWxpYXMiLDExNzUsMTE4OAoiQ2hhc2UiLDU1NCw1MjUKIkVhc3RvbiIsNTMyLDUyMAoiRWxlbmEiLDM0OSw0MDcKIkV2ZWx5biIsMzQ2LDM5NQoiSnVuZSIsNTA0LDQ4OQoiS2FyaW0iLDI5MywzMDIKIkthcnNvbiIsMzc5LDQwOQoiS2F5ZGUiLDM0NywzMzcKIk1hbGl5YSIsMzE4LDM0MQoiT3R0byIsMzA0LDI3OQoiUml2ZXIiLDMwNywzNjcKIlJpeWEiLDExNTUsMTIwOAoiUnlrZXIiLDc2Myw4MzcKIlNreWUiLDMzOCwzNTIKIlN0b3JteSIsMjgxLDI0Nwo=" download="run_times.csv" target="blank">download as run_times.csv</a>)</p>
+<p>Please run a paired <span class="math inline">\(t\)</span>-test to check whether there was a significant change in running times.</p>
+<p><div id='Q' style='background: #AAAAFF'> Calculate the <span class="math inline">\(p\)</span>-value. </div></p>
+<p>Using a significance level of <span class="math inline">\(\alpha=0.05\)</span>, is there a significant change in run times?</p>
+<p><div id='Q' style='background: #AAAAFF'> Yes / No </div></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+
+
+</body>
+</html>

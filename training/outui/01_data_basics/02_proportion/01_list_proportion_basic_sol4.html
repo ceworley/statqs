@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>solution_01_data_basics/02_proportion/01_list_proportion_basic_v4</i></small>
+<p><a href="https://vimeo.com/531899914" target="_blank">video</a></p>
+<p>First, it helps to sort the data. <span class="math display">\[81, 81, 83, 84, 84, 86, 86, 87, 87, 89\]</span></p>
+<p>You could use R to sort the data:</p>
+<pre><code>sort(c(86,87,89,84,81,83,81,84,87,86))</code></pre>
+<pre><code>##  [1] 81 81 83 84 84 86 86 87 87 89</code></pre>
+<p>You could also use a spreadsheet. Import the table into a spreadsheet. Then, highlight the column of measurements and use <code>Sort</code> function.</p>
+<br/>
+<ol type="a">
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=0.5) The proportion of measurements less than 86 is 0.5. <span class="math display">\[\text{prop}[\mathbf{x}&lt;86]=0.5\]</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=0.7) The proportion of measurements less than or equal to 86 is 0.7. <span class="math display">\[\text{prop}[\mathbf{x}\le 86]=0.7\]</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=0) The proportion of measurements greater than 89 is 0. <span class="math display">\[\text{prop}[\mathbf{x}&gt; 89]=0\]</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=1) The proportion of measurements greater than or equal to 81 is 1. <span class="math display">\[\text{prop}[\mathbf{x}\ge 81]=1\]</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=87) The proportion of measurements less than 87 is 0.7. <span class="math display">\[\text{prop}[\mathbf{x}&lt;87]=0.7\]</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=84) The proportion of measurements less than or equal to 84 is 0.5. <span class="math display">\[\text{prop}[\mathbf{x}\le 84]=0.5\]</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=84) The proportion of measurements greater than 84 is 0.5. <span class="math display">\[\text{prop}[\mathbf{x}&gt; 84]=0.5\]</span> </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=83) The proportion of measurements greater than or equal to 83 is 0.8. <span class="math display">\[\text{prop}[\mathbf{x}\ge 83]=0.8\]</span> </div>
+</li>
+</ol>
+<br/>
+ANSWERS: 0.5, 0.7, 0, 1, 87, 84, 84, 83<br>
+TOLERANCES: 0, 0, 0, 0, 0, 0, 0, 0
+
+
+</body>
+</html>

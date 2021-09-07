@@ -1,0 +1,137 @@
+```{r,data,generation,echo=FALSE,results="hide",fig.show='hide'}
+type = 3 #sample(1:5,1) #uniform, bell, bimodal, skewright, skewleft
+# n = sample(c(60,70,75,80,90,100,110,120,125,130,150),1)
+# beta1 = c(1,10,0.2,0.5,2)[type]
+# beta2 = c(1,10,0.2,2,0.5)[type]
+# bottom = sample(seq(20,70,5),1)
+# width = sample(seq(5,30,5),1)
+x = c(69.6683218788764, 63.7421091532898, 69.9992683719082, 40.3988938828413, 59.6725426453399, 52.5459307222235, 40.0124860196312, 50.1049544407052, 40.1647596538469, 47.9001365319895, 40.0008613707022, 69.999755408866, 67.9877892894921, 69.9967707904693, 40.0021778142219, 41.6934404467943, 40.0019335380355, 43.8513578520482, 49.6558587397407, 40.6349594051129, 57.8657435747657, 40.6687161657787, 44.1536937961637, 61.5660453674808, 67.6281704678767, 40.000013460324, 40.0016367205065, 69.9945867168447, 42.0353681487238, 40.0205758624224, 69.9998182437068, 63.8535800526381, 40.0437053278993, 67.4392311603739, 69.970590236656, 69.4962698146873, 45.0747474871833, 67.0108607296989, 42.1195858140689, 69.9905468828223, 40.0001444508387, 69.1299761223391, 65.9638025362366, 40.0016853770534, 60.2229186666748, 40.0000000390606, 42.8828526462125, 42.6801595603956, 40.0000093167003, 40.0004859181045, 40.087365353125, 40.2225768441641, 69.737554752496, 43.8643396438177, 40.0649202840077, 69.9953742562948, 69.1921248000401, 44.4328502774669, 40.4377321889774, 52.766121442153, 69.9958497612492, 40.5838703450399, 67.4925568157975, 43.7776921354283, 69.0080176800315, 69.5057196085498, 43.505111803522, 42.6444873492597, 62.4572696738954, 68.7711098270816)
+n = length(x)
+i = 1:n
+myhist = hist(x,breaks=5)
+brks = myhist$breaks
+counts = myhist$counts
+
+
+
+library(knitr)
+library(stringr)
+default_source_hook <- knit_hooks$get('source')
+
+knit_hooks$set(source = function(x, options) {
+  x <- str_replace_all(x, pattern = 'brks', paste0("c(",paste0(brks,collapse=","),")"))
+  default_source_hook(x, options)
+})
+```
+
+
+Question
+========
+
+```{r echo=F}
+write.csv(data.frame(i,x),file="make_freq_dist.csv",row.names = FALSE)
+```
+
+A random procedure generated many measurements: [download data](make_freq_dist.csv)
+
+Please complete the [frequency distribution](https://en.wikipedia.org/wiki/Frequency_distribution){target="blank"} using breaks `r brks`:
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r tab1, results="asis",echo=F}
+interval = paste(brks[1:length(counts)]," to ", brks[2:(length(counts)+1)])
+frequency = paste0("##ANSWER",1:length(counts),"##")
+knitr::kable(data.frame(interval,frequency),format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+
+Solution
+========
+
+You will want to use a computer to answer these questions. 
+
+### Spreadsheet
+
+[video (using a spreadsheet)](https://vimeo.com/531556006){target="_blank"}
+
+In a spreadsheet, open the data, add the breaks as a column; then, use the [``FREQUENCY function``](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_FREQUENCY_function){target="blank"}.
+
+
+
+### R
+
+[video (using R)](https://vimeo.com/531555988){target="blank"}
+
+In R, open the data and use the [``hist``](https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/hist) function. You supply the breaks and read the counts:
+
+```{r}
+mydata = read.csv("make_freq_dist.csv")
+```
+
+```{r}
+x = mydata$x
+```
+
+```{r fig.show="hide"}
+myhist = hist(x,breaks=brks)
+```
+
+```{r}
+myhist$counts
+```
+
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r tab2, results="asis", echo=F}
+interval = paste(brks[1:length(counts)]," to ", brks[2:(length(counts)+1)])
+frequency = counts
+knitr::kable(data.frame(interval,frequency),format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+
+
+Answerlist
+--------
+`r paste0("* ",counts,collapse="\n")`
+
+
+
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: `r paste0(rep("num",length(counts)),collapse="|")`
+exsolution: `r paste0(counts,collapse="|")`
+exname: make_frequency_distribution
+extol: 0
+exextra[numwidth,numeric]: 6

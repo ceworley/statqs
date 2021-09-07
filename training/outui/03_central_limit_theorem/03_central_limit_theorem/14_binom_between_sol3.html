@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>solution_03_central_limit_theorem/03_central_limit_theorem/14_binom_between_v3</i></small>
+<p><a href="https://vimeo.com/531944376" target="_blank">video</a></p>
+<p>We determine the mean and standard deviation of the binomial distribution. <span class="math display">\[\mu ~=~ np ~=~ (46)(0.36) ~=~ 16.56\]</span> <span class="math display">\[\sigma ~=~ \sqrt{np(1-p)} ~=~ \sqrt{(46)(0.36)(0.64)} ~=~ 3.2555184 \]</span></p>
+<p>We determine both <span class="math inline">\(z\)</span>-scores. (In the de Moivre-Laplace notes, I used <span class="math inline">\(\sum x\)</span> to emphasize that a binomial variable is a sum of Bernoulli trials. Here, I will just use <span class="math inline">\(x\)</span> as the boundary for number of successes, because this is the more common notation.) We get the first <span class="math inline">\(z\)</span>-score.</p>
+<p><span class="math display">\[\begin{aligned}
+z_1 &amp;= \frac{x_1 - \mu}{\sigma} \\\\
+&amp;= \frac{16.5-16.56}{3.2555184} \\\\
+&amp;= -0.0184302
+\end{aligned}\]</span></p>
+<p>We get the second <span class="math inline">\(z\)</span>-score.</p>
+<p><span class="math display">\[\begin{aligned}
+z_2 &amp;= \frac{x_2 - \mu}{\sigma} \\\\
+&amp;= \frac{18.5-16.56}{3.2555184} \\\\
+&amp;= 0.5959112
+\end{aligned}\]</span></p>
+<p>Then, find the standard normal probability.</p>
+<p><span class="math display">\[P(-0.0184302 &lt; Z &lt; 0.5959112) ~=~ 0.2317349 \]</span></p>
+<p>Of course, you could have rounded the <span class="math inline">\(z\)</span>-scores, so any of the following will also get credit. <span class="math display">\[P(-0.02 &lt; Z &lt; 0.59) ~=~ 0.2304 \]</span> <span class="math display">\[P(-0.01 &lt; Z &lt; 0.6) ~=~ 0.2297 \]</span> <span class="math display">\[P(-0.02 &lt; Z &lt; 0.6) ~=~ 0.2264 \]</span> <span class="math display">\[P(-0.01 &lt; Z &lt; 0.59) ~=~ 0.2337 \]</span></p>
+<br/>
+ANSWERS: 0.2317349<br>
+TOLERANCES: 0.00803
+
+
+</body>
+</html>

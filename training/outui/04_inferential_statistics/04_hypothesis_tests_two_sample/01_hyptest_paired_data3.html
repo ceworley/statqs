@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>04_inferential_statistics/04_hypothesis_tests_two_sample/01_hyptest_paired_data_v3</i></small>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>A study asked individuals to time a mile run (in seconds). After a month, the same individuals timed another mile run. You are asked to perform a paired-data <span class="math inline">\(t\)</span> test to investigate whether fitness changed.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:center;">
+x1
+</th>
+<th style="text-align:center;">
+x2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Aiyla
+</td>
+<td style="text-align:center;">
+594
+</td>
+<td style="text-align:center;">
+590
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Allyssa
+</td>
+<td style="text-align:center;">
+747
+</td>
+<td style="text-align:center;">
+749
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Arjunreddy
+</td>
+<td style="text-align:center;">
+422
+</td>
+<td style="text-align:center;">
+451
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Austin
+</td>
+<td style="text-align:center;">
+609
+</td>
+<td style="text-align:center;">
+635
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Castiel
+</td>
+<td style="text-align:center;">
+720
+</td>
+<td style="text-align:center;">
+766
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Daniel
+</td>
+<td style="text-align:center;">
+639
+</td>
+<td style="text-align:center;">
+661
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ella
+</td>
+<td style="text-align:center;">
+1134
+</td>
+<td style="text-align:center;">
+1130
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jacob
+</td>
+<td style="text-align:center;">
+459
+</td>
+<td style="text-align:center;">
+458
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jahsiah
+</td>
+<td style="text-align:center;">
+579
+</td>
+<td style="text-align:center;">
+593
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Julia
+</td>
+<td style="text-align:center;">
+751
+</td>
+<td style="text-align:center;">
+730
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kayleigh
+</td>
+<td style="text-align:center;">
+360
+</td>
+<td style="text-align:center;">
+359
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Levi
+</td>
+<td style="text-align:center;">
+455
+</td>
+<td style="text-align:center;">
+449
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Luca
+</td>
+<td style="text-align:center;">
+805
+</td>
+<td style="text-align:center;">
+810
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Malcolm
+</td>
+<td style="text-align:center;">
+1195
+</td>
+<td style="text-align:center;">
+1209
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Marlee
+</td>
+<td style="text-align:center;">
+641
+</td>
+<td style="text-align:center;">
+631
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Michael
+</td>
+<td style="text-align:center;">
+522
+</td>
+<td style="text-align:center;">
+533
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Natalia
+</td>
+<td style="text-align:center;">
+445
+</td>
+<td style="text-align:center;">
+476
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tulip
+</td>
+<td style="text-align:center;">
+277
+</td>
+<td style="text-align:center;">
+273
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zoey
+</td>
+<td style="text-align:center;">
+393
+</td>
+<td style="text-align:center;">
+407
+</td>
+</tr>
+</tbody>
+</table>
+<p>(<a href="data:text/csv;base64,Im5hbWUiLCJ4MSIsIngyIgoiQWl5bGEiLDU5NCw1OTAKIkFsbHlzc2EiLDc0Nyw3NDkKIkFyanVucmVkZHkiLDQyMiw0NTEKIkF1c3RpbiIsNjA5LDYzNQoiQ2FzdGllbCIsNzIwLDc2NgoiRGFuaWVsIiw2MzksNjYxCiJFbGxhIiwxMTM0LDExMzAKIkphY29iIiw0NTksNDU4CiJKYWhzaWFoIiw1NzksNTkzCiJKdWxpYSIsNzUxLDczMAoiS2F5bGVpZ2giLDM2MCwzNTkKIkxldmkiLDQ1NSw0NDkKIkx1Y2EiLDgwNSw4MTAKIk1hbGNvbG0iLDExOTUsMTIwOQoiTWFybGVlIiw2NDEsNjMxCiJNaWNoYWVsIiw1MjIsNTMzCiJOYXRhbGlhIiw0NDUsNDc2CiJUdWxpcCIsMjc3LDI3MwoiWm9leSIsMzkzLDQwNwo=" download="run_times.csv" target="blank">download as run_times.csv</a>)</p>
+<p>To do this, first determine the list of differences. For each individual, <span class="math inline">\(i\)</span>, determine their difference <span class="math inline">\(d_i\)</span>. <span class="math display">\[d_i = x_{2,i}-x_{1,i}\]</span></p>
+<p>Then, determine the mean (<span class="math inline">\(\bar{d}\)</span>) and standard deviation (<span class="math inline">\(s_d\)</span>) of the differences. The <span class="math inline">\(t\)</span> score is then calculated to determine the <span class="math inline">\(p\)</span>-value.</p>
+<p><span class="math display">\[p\text{-value} = P\left(|T|&gt;\frac{|\overline{d}-\mu_0|}{s_d/\sqrt{n}}\right) \]</span> The null hypothesis predicts there is no change in fitness, so <span class="math inline">\(\mu_0=0\)</span>. The alternative hypothesis predicts a change in fitness. The degree of freedom is one less than the number of individuals.</p>
+<p><div id='Q' style='background: #AAAAFF'> Calculate the <span class="math inline">\(p\)</span>-value. </div></p>
+<p>Using a significance level of <span class="math inline">\(\alpha=0.05\)</span>, is there a significant change in run times?</p>
+<p><div id='Q' style='background: #AAAAFF'> Yes / No </div></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+
+
+</body>
+</html>

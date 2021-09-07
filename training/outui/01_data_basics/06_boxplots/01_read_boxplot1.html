@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>01_data_basics/06_boxplots/01_read_boxplot_v1</i></small>
+<p>A sample was taken from an unknown population. The values were organized into a <a href="https://en.wikipedia.org/wiki/Box_plot" target="blank">boxplot</a>.</p>
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-1" /><br />
+</p>
+<p>For simplicity, assume no measurements lie on the hinges, median, or whisker tips (so we do not worry about inclusive vs. exclusive boundaries). This assumption is approximately true with a very large sample from a continuous distribution.</p>
+<br/>
+<ol type="a">
+<li>
+<div id='Q' style='background: #AAAAFF'> What proportion of measurements are below 48.6? <span class="math display">\[\text{prop}[\mathbf{x}&lt; 48.6] = \text{?}\]</span> </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What proportion of measurements are above 48.6? <span class="math display">\[\text{prop}[\mathbf{x}&gt; 48.6] = \text{?}\]</span> </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What proportion of measurements are between 35.3 and 46.8? <span class="math display">\[\text{prop}[35.3&lt; \mathbf{x} &lt; 46.8] = \text{?}\]</span> </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What proportion of measurements are closer than 9.3 units from 39.3? <span class="math display">\[\text{prop}[|\mathbf{x}-39.3|&lt;9.3] = \text{?}\]</span> </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> Determine boundary <span class="math inline">\(b\)</span> such that <span class="math inline">\(\text{prop}[\mathbf{x}&lt;b]=0.5\)</span>. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> Determine boundary <span class="math inline">\(b\)</span> such that <span class="math inline">\(\text{prop}[\mathbf{x}&gt;b]=0.5\)</span>. </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What is the range? </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What is the interquartile range (IQR)? </div>
+</li>
+<li>
+<div id='Q' style='background: #AAAAFF'> What is the median? </div>
+</li>
+</ol>
+<br/>
+
+
+</body>
+</html>

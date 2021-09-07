@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>statistics</title>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+
+<small><i>solution_01_data_basics/01_counting/03_list_counting_large_v3</i></small>
+<p>You will want to use a computer to answer these questions.</p>
+<p><br />
+</p>
+<h3 id="spreadsheet">Spreadsheet</h3>
+<p><a href="https://vimeo.com/531555960" target="_blank">video</a></p>
+<p>You need to learn about references and formulas: <a href="https://wiki.openoffice.org/wiki/Documentation/OOo3_User_Guides/Calc_Guide/Creating_formulas" target="_blank">https://wiki.openoffice.org/wiki/Documentation/OOo3_User_Guides/Calc_Guide/Creating_formulas</a></p>
+<p>You need to learn about the <code>IF</code> function: <a href="https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_IF_function" target="_blank">https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_IF_function</a></p>
+<p>You need to learn about the <code>SUM</code> function: <a href="https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_SUM_function" target="_blank">https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_SUM_function</a></p>
+<p>If you used a spreadsheet, you should end up with <a href="data:text/csv;base64,ImkiLCJ4IiwieDw3NyIsIng+NzguNyIsImFicyh4LTczLjcpPDMuNSIsImFicyh4LTc3KT4yLjUiCiIxIiwiNzguNTgiLCI9SUYoQjI8NzcsMSwwKSIsIj1JRihCMj43OC43LDEsMCkiLCI9SUYoQUJTKEIyLTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCMi03Nyk+Mi41LDEsMCkiCiIyIiwiNzEuNzMiLCI9SUYoQjM8NzcsMSwwKSIsIj1JRihCMz43OC43LDEsMCkiLCI9SUYoQUJTKEIzLTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCMy03Nyk+Mi41LDEsMCkiCiIzIiwiNzQuNTIiLCI9SUYoQjQ8NzcsMSwwKSIsIj1JRihCND43OC43LDEsMCkiLCI9SUYoQUJTKEI0LTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCNC03Nyk+Mi41LDEsMCkiCiI0IiwiNzAuNjgiLCI9SUYoQjU8NzcsMSwwKSIsIj1JRihCNT43OC43LDEsMCkiLCI9SUYoQUJTKEI1LTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCNS03Nyk+Mi41LDEsMCkiCiI1IiwiNzQuNzUiLCI9SUYoQjY8NzcsMSwwKSIsIj1JRihCNj43OC43LDEsMCkiLCI9SUYoQUJTKEI2LTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCNi03Nyk+Mi41LDEsMCkiCiI2IiwiNzUuNDUiLCI9SUYoQjc8NzcsMSwwKSIsIj1JRihCNz43OC43LDEsMCkiLCI9SUYoQUJTKEI3LTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCNy03Nyk+Mi41LDEsMCkiCiI3IiwiNzEuMzUiLCI9SUYoQjg8NzcsMSwwKSIsIj1JRihCOD43OC43LDEsMCkiLCI9SUYoQUJTKEI4LTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCOC03Nyk+Mi41LDEsMCkiCiI4IiwiNzAuOSIsIj1JRihCOTw3NywxLDApIiwiPUlGKEI5Pjc4LjcsMSwwKSIsIj1JRihBQlMoQjktNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEI5LTc3KT4yLjUsMSwwKSIKIjkiLCI3MC44MSIsIj1JRihCMTA8NzcsMSwwKSIsIj1JRihCMTA+NzguNywxLDApIiwiPUlGKEFCUyhCMTAtNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEIxMC03Nyk+Mi41LDEsMCkiCiIxMCIsIjczLjgiLCI9SUYoQjExPDc3LDEsMCkiLCI9SUYoQjExPjc4LjcsMSwwKSIsIj1JRihBQlMoQjExLTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCMTEtNzcpPjIuNSwxLDApIgoiMTEiLCI3OS43NyIsIj1JRihCMTI8NzcsMSwwKSIsIj1JRihCMTI+NzguNywxLDApIiwiPUlGKEFCUyhCMTItNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEIxMi03Nyk+Mi41LDEsMCkiCiIxMiIsIjcxLjIiLCI9SUYoQjEzPDc3LDEsMCkiLCI9SUYoQjEzPjc4LjcsMSwwKSIsIj1JRihBQlMoQjEzLTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCMTMtNzcpPjIuNSwxLDApIgoiMTMiLCI3Mi45MyIsIj1JRihCMTQ8NzcsMSwwKSIsIj1JRihCMTQ+NzguNywxLDApIiwiPUlGKEFCUyhCMTQtNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEIxNC03Nyk+Mi41LDEsMCkiCiIxNCIsIjc2LjE5IiwiPUlGKEIxNTw3NywxLDApIiwiPUlGKEIxNT43OC43LDEsMCkiLCI9SUYoQUJTKEIxNS03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjE1LTc3KT4yLjUsMSwwKSIKIjE1IiwiNzYuMTciLCI9SUYoQjE2PDc3LDEsMCkiLCI9SUYoQjE2Pjc4LjcsMSwwKSIsIj1JRihBQlMoQjE2LTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCMTYtNzcpPjIuNSwxLDApIgoiMTYiLCI3Mi4xNyIsIj1JRihCMTc8NzcsMSwwKSIsIj1JRihCMTc+NzguNywxLDApIiwiPUlGKEFCUyhCMTctNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEIxNy03Nyk+Mi41LDEsMCkiCiIxNyIsIjc5Ljk4IiwiPUlGKEIxODw3NywxLDApIiwiPUlGKEIxOD43OC43LDEsMCkiLCI9SUYoQUJTKEIxOC03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjE4LTc3KT4yLjUsMSwwKSIKIjE4IiwiNzQuMzEiLCI9SUYoQjE5PDc3LDEsMCkiLCI9SUYoQjE5Pjc4LjcsMSwwKSIsIj1JRihBQlMoQjE5LTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCMTktNzcpPjIuNSwxLDApIgoiMTkiLCI3Mi42OCIsIj1JRihCMjA8NzcsMSwwKSIsIj1JRihCMjA+NzguNywxLDApIiwiPUlGKEFCUyhCMjAtNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEIyMC03Nyk+Mi41LDEsMCkiCiIyMCIsIjc0LjM5IiwiPUlGKEIyMTw3NywxLDApIiwiPUlGKEIyMT43OC43LDEsMCkiLCI9SUYoQUJTKEIyMS03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjIxLTc3KT4yLjUsMSwwKSIKIjIxIiwiNzkuNjMiLCI9SUYoQjIyPDc3LDEsMCkiLCI9SUYoQjIyPjc4LjcsMSwwKSIsIj1JRihBQlMoQjIyLTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCMjItNzcpPjIuNSwxLDApIgoiMjIiLCI3MS41MSIsIj1JRihCMjM8NzcsMSwwKSIsIj1JRihCMjM+NzguNywxLDApIiwiPUlGKEFCUyhCMjMtNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEIyMy03Nyk+Mi41LDEsMCkiCiIyMyIsIjczLjEyIiwiPUlGKEIyNDw3NywxLDApIiwiPUlGKEIyND43OC43LDEsMCkiLCI9SUYoQUJTKEIyNC03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjI0LTc3KT4yLjUsMSwwKSIKIjI0IiwiNzAuNzEiLCI9SUYoQjI1PDc3LDEsMCkiLCI9SUYoQjI1Pjc4LjcsMSwwKSIsIj1JRihBQlMoQjI1LTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCMjUtNzcpPjIuNSwxLDApIgoiMjUiLCI3MS4yNiIsIj1JRihCMjY8NzcsMSwwKSIsIj1JRihCMjY+NzguNywxLDApIiwiPUlGKEFCUyhCMjYtNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEIyNi03Nyk+Mi41LDEsMCkiCiIyNiIsIjc4Ljg5IiwiPUlGKEIyNzw3NywxLDApIiwiPUlGKEIyNz43OC43LDEsMCkiLCI9SUYoQUJTKEIyNy03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjI3LTc3KT4yLjUsMSwwKSIKIjI3IiwiNzQuMjYiLCI9SUYoQjI4PDc3LDEsMCkiLCI9SUYoQjI4Pjc4LjcsMSwwKSIsIj1JRihBQlMoQjI4LTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCMjgtNzcpPjIuNSwxLDApIgoiMjgiLCI3MS43MyIsIj1JRihCMjk8NzcsMSwwKSIsIj1JRihCMjk+NzguNywxLDApIiwiPUlGKEFCUyhCMjktNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEIyOS03Nyk+Mi41LDEsMCkiCiIyOSIsIjc1LjA4IiwiPUlGKEIzMDw3NywxLDApIiwiPUlGKEIzMD43OC43LDEsMCkiLCI9SUYoQUJTKEIzMC03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjMwLTc3KT4yLjUsMSwwKSIKIjMwIiwiNzEuMDIiLCI9SUYoQjMxPDc3LDEsMCkiLCI9SUYoQjMxPjc4LjcsMSwwKSIsIj1JRihBQlMoQjMxLTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCMzEtNzcpPjIuNSwxLDApIgoiMzEiLCI3NS40MSIsIj1JRihCMzI8NzcsMSwwKSIsIj1JRihCMzI+NzguNywxLDApIiwiPUlGKEFCUyhCMzItNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEIzMi03Nyk+Mi41LDEsMCkiCiIzMiIsIjcyLjM1IiwiPUlGKEIzMzw3NywxLDApIiwiPUlGKEIzMz43OC43LDEsMCkiLCI9SUYoQUJTKEIzMy03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjMzLTc3KT4yLjUsMSwwKSIKIjMzIiwiNzQuMiIsIj1JRihCMzQ8NzcsMSwwKSIsIj1JRihCMzQ+NzguNywxLDApIiwiPUlGKEFCUyhCMzQtNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEIzNC03Nyk+Mi41LDEsMCkiCiIzNCIsIjc2LjMyIiwiPUlGKEIzNTw3NywxLDApIiwiPUlGKEIzNT43OC43LDEsMCkiLCI9SUYoQUJTKEIzNS03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjM1LTc3KT4yLjUsMSwwKSIKIjM1IiwiNzAuMzMiLCI9SUYoQjM2PDc3LDEsMCkiLCI9SUYoQjM2Pjc4LjcsMSwwKSIsIj1JRihBQlMoQjM2LTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCMzYtNzcpPjIuNSwxLDApIgoiMzYiLCI3Ni43OCIsIj1JRihCMzc8NzcsMSwwKSIsIj1JRihCMzc+NzguNywxLDApIiwiPUlGKEFCUyhCMzctNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEIzNy03Nyk+Mi41LDEsMCkiCiIzNyIsIjc5LjczIiwiPUlGKEIzODw3NywxLDApIiwiPUlGKEIzOD43OC43LDEsMCkiLCI9SUYoQUJTKEIzOC03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjM4LTc3KT4yLjUsMSwwKSIKIjM4IiwiNzUuODIiLCI9SUYoQjM5PDc3LDEsMCkiLCI9SUYoQjM5Pjc4LjcsMSwwKSIsIj1JRihBQlMoQjM5LTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCMzktNzcpPjIuNSwxLDApIgoiMzkiLCI3Ni42NSIsIj1JRihCNDA8NzcsMSwwKSIsIj1JRihCNDA+NzguNywxLDApIiwiPUlGKEFCUyhCNDAtNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEI0MC03Nyk+Mi41LDEsMCkiCiI0MCIsIjcwLjMxIiwiPUlGKEI0MTw3NywxLDApIiwiPUlGKEI0MT43OC43LDEsMCkiLCI9SUYoQUJTKEI0MS03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjQxLTc3KT4yLjUsMSwwKSIKIjQxIiwiNzAuODMiLCI9SUYoQjQyPDc3LDEsMCkiLCI9SUYoQjQyPjc4LjcsMSwwKSIsIj1JRihBQlMoQjQyLTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCNDItNzcpPjIuNSwxLDApIgoiNDIiLCI3NC4wMyIsIj1JRihCNDM8NzcsMSwwKSIsIj1JRihCNDM+NzguNywxLDApIiwiPUlGKEFCUyhCNDMtNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEI0My03Nyk+Mi41LDEsMCkiCiI0MyIsIjc5LjU5IiwiPUlGKEI0NDw3NywxLDApIiwiPUlGKEI0ND43OC43LDEsMCkiLCI9SUYoQUJTKEI0NC03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjQ0LTc3KT4yLjUsMSwwKSIKIjQ0IiwiNzcuODYiLCI9SUYoQjQ1PDc3LDEsMCkiLCI9SUYoQjQ1Pjc4LjcsMSwwKSIsIj1JRihBQlMoQjQ1LTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCNDUtNzcpPjIuNSwxLDApIgoiNDUiLCI3NS45NSIsIj1JRihCNDY8NzcsMSwwKSIsIj1JRihCNDY+NzguNywxLDApIiwiPUlGKEFCUyhCNDYtNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEI0Ni03Nyk+Mi41LDEsMCkiCiI0NiIsIjcyLjU5IiwiPUlGKEI0Nzw3NywxLDApIiwiPUlGKEI0Nz43OC43LDEsMCkiLCI9SUYoQUJTKEI0Ny03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjQ3LTc3KT4yLjUsMSwwKSIKIjQ3IiwiNzEuNCIsIj1JRihCNDg8NzcsMSwwKSIsIj1JRihCNDg+NzguNywxLDApIiwiPUlGKEFCUyhCNDgtNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEI0OC03Nyk+Mi41LDEsMCkiCiI0OCIsIjc5LjcyIiwiPUlGKEI0OTw3NywxLDApIiwiPUlGKEI0OT43OC43LDEsMCkiLCI9SUYoQUJTKEI0OS03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjQ5LTc3KT4yLjUsMSwwKSIKIjQ5IiwiNzYuMjMiLCI9SUYoQjUwPDc3LDEsMCkiLCI9SUYoQjUwPjc4LjcsMSwwKSIsIj1JRihBQlMoQjUwLTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCNTAtNzcpPjIuNSwxLDApIgoiNTAiLCI3My40NiIsIj1JRihCNTE8NzcsMSwwKSIsIj1JRihCNTE+NzguNywxLDApIiwiPUlGKEFCUyhCNTEtNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEI1MS03Nyk+Mi41LDEsMCkiCiI1MSIsIjcxLjY0IiwiPUlGKEI1Mjw3NywxLDApIiwiPUlGKEI1Mj43OC43LDEsMCkiLCI9SUYoQUJTKEI1Mi03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjUyLTc3KT4yLjUsMSwwKSIKIjUyIiwiNzcuMjYiLCI9SUYoQjUzPDc3LDEsMCkiLCI9SUYoQjUzPjc4LjcsMSwwKSIsIj1JRihBQlMoQjUzLTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCNTMtNzcpPjIuNSwxLDApIgoiNTMiLCI3Ny42MyIsIj1JRihCNTQ8NzcsMSwwKSIsIj1JRihCNTQ+NzguNywxLDApIiwiPUlGKEFCUyhCNTQtNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEI1NC03Nyk+Mi41LDEsMCkiCiI1NCIsIjcwLjQ3IiwiPUlGKEI1NTw3NywxLDApIiwiPUlGKEI1NT43OC43LDEsMCkiLCI9SUYoQUJTKEI1NS03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjU1LTc3KT4yLjUsMSwwKSIKIjU1IiwiNzcuNSIsIj1JRihCNTY8NzcsMSwwKSIsIj1JRihCNTY+NzguNywxLDApIiwiPUlGKEFCUyhCNTYtNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEI1Ni03Nyk+Mi41LDEsMCkiCiI1NiIsIjc4LjM4IiwiPUlGKEI1Nzw3NywxLDApIiwiPUlGKEI1Nz43OC43LDEsMCkiLCI9SUYoQUJTKEI1Ny03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjU3LTc3KT4yLjUsMSwwKSIKIjU3IiwiNzcuOTQiLCI9SUYoQjU4PDc3LDEsMCkiLCI9SUYoQjU4Pjc4LjcsMSwwKSIsIj1JRihBQlMoQjU4LTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCNTgtNzcpPjIuNSwxLDApIgoiNTgiLCI3NS44OCIsIj1JRihCNTk8NzcsMSwwKSIsIj1JRihCNTk+NzguNywxLDApIiwiPUlGKEFCUyhCNTktNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEI1OS03Nyk+Mi41LDEsMCkiCiI1OSIsIjc4LjUxIiwiPUlGKEI2MDw3NywxLDApIiwiPUlGKEI2MD43OC43LDEsMCkiLCI9SUYoQUJTKEI2MC03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjYwLTc3KT4yLjUsMSwwKSIKIjYwIiwiNzIuMTgiLCI9SUYoQjYxPDc3LDEsMCkiLCI9SUYoQjYxPjc4LjcsMSwwKSIsIj1JRihBQlMoQjYxLTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCNjEtNzcpPjIuNSwxLDApIgoiNjEiLCI3MS4wMyIsIj1JRihCNjI8NzcsMSwwKSIsIj1JRihCNjI+NzguNywxLDApIiwiPUlGKEFCUyhCNjItNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEI2Mi03Nyk+Mi41LDEsMCkiCiI2MiIsIjcxLjMyIiwiPUlGKEI2Mzw3NywxLDApIiwiPUlGKEI2Mz43OC43LDEsMCkiLCI9SUYoQUJTKEI2My03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjYzLTc3KT4yLjUsMSwwKSIKIjYzIiwiNzcuMjIiLCI9SUYoQjY0PDc3LDEsMCkiLCI9SUYoQjY0Pjc4LjcsMSwwKSIsIj1JRihBQlMoQjY0LTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCNjQtNzcpPjIuNSwxLDApIgoiNjQiLCI3OS4xMyIsIj1JRihCNjU8NzcsMSwwKSIsIj1JRihCNjU+NzguNywxLDApIiwiPUlGKEFCUyhCNjUtNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEI2NS03Nyk+Mi41LDEsMCkiCiI2NSIsIjcwLjg0IiwiPUlGKEI2Njw3NywxLDApIiwiPUlGKEI2Nj43OC43LDEsMCkiLCI9SUYoQUJTKEI2Ni03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjY2LTc3KT4yLjUsMSwwKSIKIjY2IiwiNzcuNjMiLCI9SUYoQjY3PDc3LDEsMCkiLCI9SUYoQjY3Pjc4LjcsMSwwKSIsIj1JRihBQlMoQjY3LTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCNjctNzcpPjIuNSwxLDApIgoiNjciLCI3OS41IiwiPUlGKEI2ODw3NywxLDApIiwiPUlGKEI2OD43OC43LDEsMCkiLCI9SUYoQUJTKEI2OC03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjY4LTc3KT4yLjUsMSwwKSIKIjY4IiwiNzUuNjkiLCI9SUYoQjY5PDc3LDEsMCkiLCI9SUYoQjY5Pjc4LjcsMSwwKSIsIj1JRihBQlMoQjY5LTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCNjktNzcpPjIuNSwxLDApIgoiNjkiLCI3Mi4xNSIsIj1JRihCNzA8NzcsMSwwKSIsIj1JRihCNzA+NzguNywxLDApIiwiPUlGKEFCUyhCNzAtNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEI3MC03Nyk+Mi41LDEsMCkiCiI3MCIsIjcwLjEyIiwiPUlGKEI3MTw3NywxLDApIiwiPUlGKEI3MT43OC43LDEsMCkiLCI9SUYoQUJTKEI3MS03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjcxLTc3KT4yLjUsMSwwKSIKIjcxIiwiNzQuMTUiLCI9SUYoQjcyPDc3LDEsMCkiLCI9SUYoQjcyPjc4LjcsMSwwKSIsIj1JRihBQlMoQjcyLTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCNzItNzcpPjIuNSwxLDApIgoiNzIiLCI3OS4zNSIsIj1JRihCNzM8NzcsMSwwKSIsIj1JRihCNzM+NzguNywxLDApIiwiPUlGKEFCUyhCNzMtNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEI3My03Nyk+Mi41LDEsMCkiCiI3MyIsIjcwLjg3IiwiPUlGKEI3NDw3NywxLDApIiwiPUlGKEI3ND43OC43LDEsMCkiLCI9SUYoQUJTKEI3NC03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjc0LTc3KT4yLjUsMSwwKSIKIjc0IiwiNzIiLCI9SUYoQjc1PDc3LDEsMCkiLCI9SUYoQjc1Pjc4LjcsMSwwKSIsIj1JRihBQlMoQjc1LTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCNzUtNzcpPjIuNSwxLDApIgoiNzUiLCI3Ni45MSIsIj1JRihCNzY8NzcsMSwwKSIsIj1JRihCNzY+NzguNywxLDApIiwiPUlGKEFCUyhCNzYtNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEI3Ni03Nyk+Mi41LDEsMCkiCiI3NiIsIjcxLjgzIiwiPUlGKEI3Nzw3NywxLDApIiwiPUlGKEI3Nz43OC43LDEsMCkiLCI9SUYoQUJTKEI3Ny03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjc3LTc3KT4yLjUsMSwwKSIKIjc3IiwiNzkuNDgiLCI9SUYoQjc4PDc3LDEsMCkiLCI9SUYoQjc4Pjc4LjcsMSwwKSIsIj1JRihBQlMoQjc4LTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCNzgtNzcpPjIuNSwxLDApIgoiNzgiLCI3NS41IiwiPUlGKEI3OTw3NywxLDApIiwiPUlGKEI3OT43OC43LDEsMCkiLCI9SUYoQUJTKEI3OS03My43KTwzLjUsMSwwKSIsIj1JRihBQlMoQjc5LTc3KT4yLjUsMSwwKSIKIjc5IiwiNzcuOTUiLCI9SUYoQjgwPDc3LDEsMCkiLCI9SUYoQjgwPjc4LjcsMSwwKSIsIj1JRihBQlMoQjgwLTczLjcpPDMuNSwxLDApIiwiPUlGKEFCUyhCODAtNzcpPjIuNSwxLDApIgoiODAiLCI3NS41MSIsIj1JRihCODE8NzcsMSwwKSIsIj1JRihCODE+NzguNywxLDApIiwiPUlGKEFCUyhCODEtNzMuNyk8My41LDEsMCkiLCI9SUYoQUJTKEI4MS03Nyk+Mi41LDEsMCkiCiIiLCIiLCI9U1VNKEMyOkM4MSkiLCI9U1VNKEQyOkQ4MSkiLCI9U1VNKEUyOkU4MSkiLCI9U1VNKEYyOkY4MSkiCg==" download="list_counting_large_solution.csv">this solution csv</a>. You can also see the solution spreadsheet here (with the middle rows removed).</p>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+    color: #88888888;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td:first-child{
+    color: #888888;
+}
+</style>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+A
+</th>
+<th style="text-align:center;">
+B
+</th>
+<th style="text-align:center;">
+C
+</th>
+<th style="text-align:center;">
+D
+</th>
+<th style="text-align:center;">
+E
+</th>
+<th style="text-align:center;">
+F
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+i
+</td>
+<td style="text-align:center;">
+x
+</td>
+<td style="text-align:center;">
+x&lt;77
+</td>
+<td style="text-align:center;">
+x&gt;78.7
+</td>
+<td style="text-align:center;">
+abs(x-73.7)&lt;3.5
+</td>
+<td style="text-align:center;">
+abs(x-77)&gt;2.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+78.58
+</td>
+<td style="text-align:center;">
+=IF(B2&lt;77,1,0)
+</td>
+<td style="text-align:center;">
+=IF(B2&gt;78.7,1,0)
+</td>
+<td style="text-align:center;">
+=IF(ABS(B2-73.7)&lt;3.5,1,0)
+</td>
+<td style="text-align:center;">
+=IF(ABS(B2-77)&gt;2.5,1,0)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+71.73
+</td>
+<td style="text-align:center;">
+=IF(B3&lt;77,1,0)
+</td>
+<td style="text-align:center;">
+=IF(B3&gt;78.7,1,0)
+</td>
+<td style="text-align:center;">
+=IF(ABS(B3-73.7)&lt;3.5,1,0)
+</td>
+<td style="text-align:center;">
+=IF(ABS(B3-77)&gt;2.5,1,0)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+74.52
+</td>
+<td style="text-align:center;">
+=IF(B4&lt;77,1,0)
+</td>
+<td style="text-align:center;">
+=IF(B4&gt;78.7,1,0)
+</td>
+<td style="text-align:center;">
+=IF(ABS(B4-73.7)&lt;3.5,1,0)
+</td>
+<td style="text-align:center;">
+=IF(ABS(B4-77)&gt;2.5,1,0)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+70.68
+</td>
+<td style="text-align:center;">
+=IF(B5&lt;77,1,0)
+</td>
+<td style="text-align:center;">
+=IF(B5&gt;78.7,1,0)
+</td>
+<td style="text-align:center;">
+=IF(ABS(B5-73.7)&lt;3.5,1,0)
+</td>
+<td style="text-align:center;">
+=IF(ABS(B5-77)&gt;2.5,1,0)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+79
+</td>
+<td style="text-align:center;">
+78
+</td>
+<td style="text-align:center;">
+75.5
+</td>
+<td style="text-align:center;">
+=IF(B79&lt;77,1,0)
+</td>
+<td style="text-align:center;">
+=IF(B79&gt;78.7,1,0)
+</td>
+<td style="text-align:center;">
+=IF(ABS(B79-73.7)&lt;3.5,1,0)
+</td>
+<td style="text-align:center;">
+=IF(ABS(B79-77)&gt;2.5,1,0)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+80
+</td>
+<td style="text-align:center;">
+79
+</td>
+<td style="text-align:center;">
+77.95
+</td>
+<td style="text-align:center;">
+=IF(B80&lt;77,1,0)
+</td>
+<td style="text-align:center;">
+=IF(B80&gt;78.7,1,0)
+</td>
+<td style="text-align:center;">
+=IF(ABS(B80-73.7)&lt;3.5,1,0)
+</td>
+<td style="text-align:center;">
+=IF(ABS(B80-77)&gt;2.5,1,0)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+81
+</td>
+<td style="text-align:center;">
+80
+</td>
+<td style="text-align:center;">
+75.51
+</td>
+<td style="text-align:center;">
+=IF(B81&lt;77,1,0)
+</td>
+<td style="text-align:center;">
+=IF(B81&gt;78.7,1,0)
+</td>
+<td style="text-align:center;">
+=IF(ABS(B81-73.7)&lt;3.5,1,0)
+</td>
+<td style="text-align:center;">
+=IF(ABS(B81-77)&gt;2.5,1,0)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+82
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+=SUM(C2:C81)
+</td>
+<td style="text-align:center;">
+=SUM(D2:D81)
+</td>
+<td style="text-align:center;">
+=SUM(E2:E81)
+</td>
+<td style="text-align:center;">
+=SUM(F2:F81)
+</td>
+</tr>
+</tbody>
+</table>
+<p>If you have the solution spreadsheet open in a spreadsheet program, you can display the functions by simultaneously pressing <code>ctrl</code> and <code>~</code> and then return to the outputs by pressing <code>ctrl</code> and <code>~</code> again. If you see ###, you can expand the cell-width until there is enough room to display the functions.</p>
+<h3 id="r">R</h3>
+<p><a href="https://vimeo.com/531555935" target="_blank">video</a></p>
+<p>To use R, the following commands would answer the questions.</p>
+<pre><code>x = c(78.58,71.73,74.52,70.68,74.75,75.45,71.35,70.9,70.81,73.8,79.77,71.2,72.93,76.19,76.17,72.17,79.98,74.31,72.68,74.39,79.63,71.51,73.12,70.71,71.26,78.89,74.26,71.73,75.08,71.02,75.41,72.35,74.2,76.32,70.33,76.78,79.73,75.82,76.65,70.31,70.83,74.03,79.59,77.86,75.95,72.59,71.4,79.72,76.23,73.46,71.64,77.26,77.63,70.47,77.5,78.38,77.94,75.88,78.51,72.18,71.03,71.32,77.22,79.13,70.84,77.63,79.5,75.69,72.15,70.12,74.15,79.35,70.87,72,76.91,71.83,79.48,75.5,77.95,75.51)</code></pre>
+<pre class="text"><code>length(x)</code></pre>
+<pre><code>## [1] 80</code></pre>
+<pre><code>sum(x&lt;77)</code></pre>
+<pre><code>## [1] 58</code></pre>
+<pre><code>sum(x&gt;78.7)</code></pre>
+<pre><code>## [1] 11</code></pre>
+<pre><code>sum(abs(x-73.7)&lt;3.5)</code></pre>
+<pre><code>## [1] 57</code></pre>
+<pre><code>sum(abs(x-77)&gt;2.5)</code></pre>
+<pre><code>## [1] 46</code></pre>
+<p>Notice that the standard output in R starts with “##” and then [1]. For now, just ignore these. If the [1] really bothers you, you could use the <a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/cat" target="_blank"><code>cat</code></a> function.</p>
+<br/>
+<ol type="a">
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=80) There are 80 measurements. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=58) There are 58 measurements less than 77. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=11) There are 11 measurements greater than 78.7. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=57) There are 57 measurements closer than 3.5 units from 73.7. You could also say there are 57 measurements inside 70.2 to 77.2. </div>
+</li>
+<li>
+<div id='A' style='background: #FFAAAA'> (ANS=46) There are 46 measurements farther than 2.5 units from 77. You could also say there are 46 measurements outside 74.5 to 79.5. </div>
+</li>
+</ol>
+<br/>
+ANSWERS: 80, 58, 11, 57, 46<br>
+TOLERANCES: 0, 0, 0, 0, 0
+
+
+</body>
+</html>

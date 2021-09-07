@@ -1,0 +1,228 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(knitr)
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+
+xbar = round(runif(1,10,100),1)
+sigma = round(runif(1,xbar/6,xbar/3),1)
+n = sample(40:300,1)
+gamma = sample(50:99/100,1)
+zstar = qnorm(gamma+(1-gamma)/2)
+zstar_rnd = round(zstar,2)
+ME = zstar*sigma/sqrt(n)
+zstar=round(zstar,2)
+LB = round(xbar-zstar*sigma/sqrt(n),1)
+UB = round(xbar+zstar*sigma/sqrt(n),1)
+tol = max(0.02*sigma/sqrt(n),0.1)
+
+xbar2 = xbar
+sigma2 = sigma
+n2 = n
+gamma2 = gamma
+default_source_hook <- knit_hooks$get('source')
+knit_hooks$set(source = function(x, options) {
+  x <- gsub('xbar2',paste0(xbar),x)
+  x <- gsub('sigma2',paste0(sigma),x)
+  x <- gsub('n2',paste0(n),x)
+  x <- gsub('gamma2',paste0(gamma),x)
+  default_source_hook(x, options)
+})
+```
+
+Question
+========
+
+A population's mean ($\mu$) is unknown, but its standard deviation is known: $\sigma=`r sigma`$. A sample of size $n=`r n`$ is taken, and the sample mean is calculated: $\bar{x}=`r xbar`$. You are tasked with determining a confidence interval using a given confidence level: $\gamma=`r gamma`$.
+
+To do this, you need to first determine $z^\star$ such that $P(|Z|<z^\star)=`r gamma`$. Then, the boundaries are determined by evaluating $\bar{x}\pm \frac{z^\star \sigma}{\sqrt{n}}$.
+
+(You can round $z^\star$ to the nearest hundredth and the boundaries to the nearest tenth.)
+
+Answerlist
+--------
+* Determine the lower boundary of the confidence interval by using $\bar{x}-\frac{z^\star \sigma}{\sqrt{n}}$.
+* Determine the upper boundary of the confidence interval by using $\bar{x}+\frac{z^\star \sigma}{\sqrt{n}}$.
+
+
+Solution
+========
+
+[video](https://vimeo.com/531948861){target="_blank"}
+
+First, determine $z^\star$ such that $P(|Z|<z^\star)=`r gamma`$. It can help to draw a sketch.
+
+```{r middle,fig.width=5,fig.height=3}
+library(latex2exp)
+zs = seq(-3,3,0.001)
+par(mar=c(2,0,0,0))
+plot(zs,dnorm(zs),type="l",lwd=2,axes=F,ann=F)
+abline(h=0)
+polygon(c(-zstar,zs[abs(zs)<=zstar],zstar),
+        c(0,dnorm(zs[abs(zs)<=zstar]),0),
+        col=rgb(1,0.5,0.5,0.5))
+axis(1,at=c(-3,-zstar,0,zstar,3),labels=c("-3",TeX("$$-z^{*}$$"),"0",TeX("$$z^{*}$$"),"3"))
+text(0,0.15,gamma,cex=2,col=rgb(0.5,0.2,0.2,1))
+```
+\
+
+The entire area under the density curve is 1. Thus, we can determine the areas of the tails (using symmetry).
+$$\text{area of each tail} = \frac{1-\gamma}{2} = \frac{1-`r gamma`}{2} = `r (1-gamma)/2`$$
+
+```{r allthree,fig.width=5,fig.height=3}
+library(latex2exp)
+zs = seq(-3,3,0.001)
+par(mar=c(2,0,0,0))
+plot(zs,dnorm(zs),type="l",lwd=2,axes=F,ann=F)
+abline(h=0)
+polygon(c(-zstar,zs[abs(zs)<=zstar],zstar),
+        c(0,dnorm(zs[abs(zs)<=zstar]),0),
+        col=rgb(1,0.5,0.5,0.5))
+axis(1,at=c(-3,-zstar,0,zstar,3),labels=c("-3",TeX("$$-z^{*}$$"),"0",TeX("$$z^{*}$$"),"3"))
+text(0,0.15,gamma,cex=2,col=rgb(0.5,0.2,0.2,1))
+polygon(c(-3,zs[zs<=-zstar],-zstar),
+        c(0,dnorm(zs[zs<=-zstar]),0),
+        col=rgb(0.5,1,0.5,0.5))
+text(-2.5,0.15,(1-gamma)/2,cex=2,col=rgb(0.2,0.5,0.2,1))
+polygon(c(zstar,zs[zs>=zstar],3),
+        c(0,dnorm(zs[zs>=zstar]),0),
+        col=rgb(0.5,0.5,1,0.5))
+text(2.5,0.15,(1-gamma)/2,cex=2,col=rgb(0.2,0.2,0.5,1))
+```
+\
+
+Determine a leftward area with boundary $z^\star$.
+$$P(Z<z^\star)=\gamma + \frac{1-\gamma}{2}= `r gamma`+`r (1-gamma)/2`=`r gamma+(1-gamma)/2`$$
+It should be mentioned the expression can be simplified.
+$$P(Z<z^\star)= \frac{1}{2}+\frac{\gamma}{2}= 0.5+`r gamma/2`=`r gamma+(1-gamma)/2`$$
+
+
+
+```{r left,fig.width=5,fig.height=3}
+library(latex2exp)
+zs = seq(-3,3,0.001)
+par(mar=c(2,0,0,0))
+plot(zs,dnorm(zs),type="l",lwd=2,axes=F,ann=F)
+abline(h=0)
+polygon(c(-3,zs[zs<=zstar],zstar),
+        c(0,dnorm(zs[zs<=zstar]),0),
+        col=rgb(1,1,0.5,0.5))
+axis(1,at=c(-3,0,zstar,3),labels=c("-3","0",TeX("$$z^{*}$$"),"3"))
+text(0,0.15,gamma+(1-gamma)/2,cex=2,col=rgb(0.5,0.5,0.2,1))
+```
+\
+
+We rephrase the puzzle. We wish to determine $z^\star$ such that $P(Z<z^\star)=`r gamma+(1-gamma)/2`$. This is easy to determine using a $z$-table, `qnorm` in R, `norm.inv` in spreadsheets, or other methods for evaluating the [quantile function](https://en.wikipedia.org/wiki/Normal_distribution#Quantile_function){target="blank"}.
+
+$$P(Z<`r zstar_rnd`)=`r gamma+(1-gamma)/2`$$
+In the original phrasing,
+
+$$P(|Z|<`r zstar_rnd`)=`r gamma`$$
+
+So, $z^\star = `r zstar_rnd`$. Now, use the given expressions.
+
+$$\text{Lower bound} = `r xbar`-(`r zstar_rnd`)(`r sigma`)/\sqrt{`r n`} ~=~ `r LB`$$
+$$\text{Upper bound} = `r xbar`+(`r zstar_rnd`)(`r sigma`)/\sqrt{`r n`} ~=~ `r UB`$$
+
+
+### Spreadsheet
+
+A spreadsheet can use the [`confidence.norm`](https://support.microsoft.com/en-us/office/confidence-norm-function-7cec58a6-85bb-488d-91c3-63828d4fbfd4){target="blank"} function. It takes three arguments:
+
+* Alpha ($\alpha$) is the two-tail area, $\alpha=1-\gamma=1-`r gamma`=`r 1-gamma`$
+* Population standard deviation, $\sigma=`r sigma`$
+* Sample size, $n=`r n`$
+
+The function returns the [margin of error](https://en.wikipedia.org/wiki/Margin_of_error){target="blank"}.
+$$\text{margin of error} = \frac{z^\star \sigma}{\sqrt{n}}$$
+
+So, in this case, if in a spreadsheet you typed ```=confidence.norm(1-`r gamma`,`r sigma`,`r n`)```, the result would be the margin of error, `r ME`. You then add/subtract the margin of error to/from the sample mean.
+$$\bar{x}-\text{ME} = `r xbar`-`r round(ME,3)` = `r round(xbar-ME,3)`$$
+$$\bar{x}+\text{ME} = `r xbar`+`r round(ME,3)` = `r round(xbar+ME,3)`$$
+
+```{r echo=F}
+labels = c("Conf_int when sigma is known",
+          "",
+          "xbar",
+          "sigma",
+          "n",
+          "gamma",
+          "",
+          "ME",
+          "LB",
+          "UB")
+formulas = c("","",paste0(xbar),
+          paste0(sigma),
+          paste0(n),
+          paste0(gamma),"",
+          "=CONFIDENCE.NORM(1-B6,B4,B5)",
+          "=B3-B8",
+          "=B3+B8")
+sol = data.frame(labels,formulas)
+write.table(sol,file="conf_int_z.csv", row.names=F, col.names=F)
+```
+
+You can do this with [a spreadsheet](conf_int_z.csv).
+
+```{r fig.height=5,fig.width=9,echo=F}
+draw_ss = function(df){
+  nrow = length(df[,1])
+  ncol = length(df[1,])
+  par(mar=c(0,0,0,0))
+  plot(0,0,type="n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+  hi = 1:((nrow+2)*2+1)
+  vi = 1:((ncol+1)*2+1)
+  hpos = seq(1,0,length.out=(nrow+1)*2+1)
+  vpos = seq(0,1,length.out=(ncol+1)*2+1)
+  hlin = hpos[hi%%2==1]
+  ytex = hpos[hi%%2==0]
+  vlin = vpos[vi%%2==1]
+  xtex = vpos[vi%%2==0]
+  abline(h=hlin)
+  abline(h=hlin[2],lwd=3)
+  abline(v=vlin)
+  abline(v=vlin[2],lwd=3)
+  for(i in 2:(ncol+1)){
+    text(xtex[i],ytex[1],LETTERS[i-1],col=rgb(0.5,0.5,0.5))
+  }    
+  for(i in 2:(nrow+1)){
+    text(xtex[1],ytex[i],i-1,col=rgb(0.5,0.5,0.5))
+  }
+  for(i in 1:nrow){
+    for(j in 1:ncol){
+      text(xtex[j+1],ytex[i+1],df[i,j])
+    }
+  }
+}
+draw_ss(sol)
+```
+\
+
+### R
+
+```{r echo=T}
+xbar = xbar2
+sigma = sigma2
+n = n2
+gamma = gamma2
+zstar = qnorm(gamma+(1-gamma)/2)
+ME = zstar*sigma/sqrt(n)
+LB = xbar-ME
+UB = xbar+ME
+cat(sprintf("The lower bound: %.4f\nThe upper bound: %.4f",LB,UB))
+```
+
+
+Answerlist
+--------
+* Lower bound = $~`r xbar`-(`r zstar_rnd`)(`r sigma`)/\sqrt{`r n`} ~=~ `r round(LB,1)`$
+* Upper bound = $~`r xbar`+(`r zstar_rnd`)(`r sigma`)/\sqrt{`r n`} ~=~ `r round(UB,1)`$
+
+
+Meta-information
+================
+extype: cloze
+exsolution: `r LB`|`r UB`
+exclozetype: num|num
+exname: confidence interval Z
+extol: `r tol`
+exextra[numwidth,numeric]: 6
