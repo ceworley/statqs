@@ -1,0 +1,51 @@
+Welcome
+
+no textbook (but there are some links to free ones on moodle site)
+examples (guides, videos)
+exercises (training)
+practice exams (unlimited tries, untimed)
+exams (3 tries, timed (but like 3 hours, will increase limit on request), must complete whole test for feedback, same as practice exams)
+
+3 projects
+
+33% hw: guides and training (collaboration okay)
+33% exams: practice and official (no collaboration on official exams)
+33% projects (each person writes own... because job applications require sole authorship)
+
+discussion forum (can post vids)
+screen capture... 
+
+FIREFOX or Safari for MathML (maybe extensions?)
+
+spreadsheets (Libreoffice, google sheets, excel... but sometimes small differences)
+first "killer app": https://en.wikipedia.org/wiki/Spreadsheet#VisiCalc
+tabulated data, 1800 BCE: https://en.wikipedia.org/wiki/Plimpton_322
+problems have csv download links, probably easiest if you install local software
+it is hard to show work with spreadsheets (ctrl + ~), kinda need videos
+hardest in the beginning (references, relative/absolute/partial)
+also, making a histogram is very challenging for some reason
+
+rstudio cloud / rstudio / r   (word calculator)
+the hardest parts will be the beginning... getting data into a variable, c(), assignment, working directory, scripts/console
+but later problems will be very easy with R!
+easy to read solution; no need to really watch videos...
+make one project for the whole class
+rmarkdown for projects
+
+try out both...
+
+discrete vs continuous (computers let us use "continuous data")
+binary
+
+R
+rgeom(10,0.4)
+rnorm(10)
+runif(10)>0.2
+
+spreadsheet
+=rand()
+=if(rand()>0.2,1,0)
+=floor(rand()*10+20)
+=floor(rand()*10+20)/2
+
+start on the exercises

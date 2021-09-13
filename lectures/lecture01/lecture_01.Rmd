@@ -2,15 +2,10 @@
 title: "Intro to Introductory Statistics"
 author: "Chad Worley"
 date: "9/13/2021"
-output: 
-  ioslides_presentation:
-    incremental: false
-    css: styles.css
+output:
+  slidy_presentation:
+    css: basic.css
 ---
-
-<style>
-.forceBreak { -webkit-column-break-after: always; break-after: column; }
-</style>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -30,9 +25,9 @@ knitr::opts_chunk$set(echo = FALSE)
 - How should someone use data to make predictions?
 
 
-## Inference, soup {.small}
+## Inference, soup 
 
-- In Statistics, our final goal is inference.
+- In Statistics, our final goal is inference (unit 4).
 - From a small **sample**, we infer about a larger **population**.
 - A chef tastes soup with a spoon:
   - The spoonful is a sample.
@@ -40,30 +35,22 @@ knitr::opts_chunk$set(echo = FALSE)
   - The chef infers the whole soup tastes delicious.
   - Hopefully the sample (spoon) was **representative** of the population (pot).
 
+## Archery example 
 
-<div class="centered">
-![](soup.jpg){width=250px,height=auto}
-</div>
-</div>
+![](640px-Korea_Olympic_KiBobae_05_(7730586140).jpg){width=100%; height=auto}
 
-## Archery example {.columns-2}
-
-![](320px-Korea_Olympic_KiBobae_05_(7730586140).jpg){width=100%; height=auto}
+<style>
+.footnote{
+  font-size: 50%;
+} 
+</style>
 
 <div class="footnote">
 Creative Commons Attribution-Share Alike 2.0 Generic license. 	
 Attribution: Korea.net / Korean Culture and Information Service
 </div>
 
-- sample = 12 shots
-- population = infinite potential shots under these conditions
-- inference = should this archer adjust her aim?
-
-
-<p class="forceBreak"></p>
-
-
-```{r 1samplearchery,fig.width=3,fig.height=3,fig.align="center"}
+```{r 1samplearchery,fig.width=3,fig.height=3}
 set.seed(1)
 while(T){
   sigma = round(2^runif(1,5,7),1)
@@ -116,35 +103,31 @@ for(i in 1:n){
 }
 points(x,y,pch=20,cex=0.5,col=rgb(0.2,1,0.2))
 ```
-\
 
-<div class="centered">
+- sample = 12 shots
+- population = infinite potential shots under these conditions
+- inference = should this archer adjust her aim?
 - statistics: $$\bar{x}=`r mean(x)`\text{ mm}$$  $$s_x=`r round(sd(x),1)`\text{ mm}$$
-</div>
 
 
-
-
-
-
-
-## Basketball freethrows example {.smaller}
+## Basketball freethrows example
 
 - In 2020-21 regular season, Chris Paul attempted 181 freethrows and made 169 of them (93.4%).
-
 - Damian Lillard attempted 483 and made 448 of them (92.8%).
-
 - Can we conclusively say Chris Paul is a better freethrow shooter?
 
+- 2 samples: the 181 attempts and the 483 attempts
+- 2 populations: the infinite potential attempts. 
 
-```{r}
+```{r proptest,echo=T}
 prop.test(c(169,448),c(181,483))
 ```
-2 samples: the attempts. 2 populations: the infinite potential attempts.  The inference: it is very plausible that chance accounts for the difference.
 
-## Correlation is not causation {.columns-2 }
+- The inference: it is very plausible that chance accounts for the difference.
 
-```{r cars,fig.width=4,fig.height=4}
+## Correlation is not causation 
+
+```{r cars}
 plot(mtcars$wt*1000,mtcars$hp,ylab="Horsepower",xlab="Weight (lbs)",main="Car horsepower is linked to weight",pch=20)
 wt = mtcars$wt*1000
 abline(lm(mtcars$hp~wt),col=rgb(1,0.4,0.4,0.8))
@@ -179,7 +162,7 @@ abline(lm(mtcars$hp~wt),col=rgb(1,0.4,0.4,0.8))
 
 
 
-## Binary spinner {.columns-2 .smaller}
+## Binary spinner
 
 ```{r, fig.width=3,fig.height=3}
 par(mar=c(0,0,0,0))
@@ -200,11 +183,9 @@ polygon(cos(theta)*0.02,sin(theta)*0.02,col="red")
 ```
 
 
-Population = the infinite potential spins
-Population parameters:
+- Population = the infinite potential spins
+- Population parameters:
 $$\text{population proportion} = p = 0.75$$
-
-
 
 ```{r}
 set.seed(123)
@@ -212,22 +193,25 @@ x = sample(c(0,1),10,T,c(0.25,0.75))
 ```
 
 
-<br class="forceBreak"></br>
+- As an example, imagine spinning 10 times.
+- Sample: `r x`
 
-As an example, imagine spinning 10 times.
-
-Sample: `r x`
-
-Sample statistics:
+- Sample statistics:
 $$\text{sample size} = n = `r length(x)`$$
 $$\text{sample success count} = `r sum(x)`$$
 $$\text{sample proportion} = \hat{p} = `r mean(x)` $$
 
-<p>
-<p>
+```{r binary_analysis,echo=T}
+x = c(1,0,1,0,0,1,1,0,1,1)
+n = length(x)
+success_count = sum(x)
+phat = success_count/n
+print(n)
+print(success_count)
+print(phat)
+```
 
-
-## Discrete spinner {.columns-2 .smaller}
+## Discrete spinner
 
 ```{r dicespinner, fig.width=3,fig.height=3}
 par(mar=c(0,0,0,0))
@@ -249,30 +233,27 @@ arrows(-0.8,-0.3,0.8,0.3,lwd=6,col="red")
 polygon(cos(theta)*0.02,sin(theta)*0.02,col="red")
 ```
 
-- population mean (unit 2)
-$$\mu = 3.5$$
-- population standard deviation (unit 2)
-$$\sigma = `r sqrt((36-1)/12)`$$
-
-<!-- `r sqrt(sum((1:6-3.5)^2)/6)` -->
-<!-- <br class="forceBreak"></br> -->
-
 ```{r dicerolls}
 set.seed(123)
 x = sample(1:6,10,T)
 ```
-* sample
+
+- population mean (unit 2)
+$$\mu = 3.5$$
+- population standard deviation (unit 2)
+$$\sigma = `r sqrt((36-1)/12)`$$
+- sample
 $$`r x`$$
-* sample size
+- sample size
 $$n=`r length(x)`$$
-* sample total (sample sum)
+- sample total (sample sum)
 $$\sum{x} = `r sum(x)`$$
-* sample mean
+- sample mean
 $$\bar{x} = `r mean(x)`$$
-* sample standard deviation
+- sample standard deviation
 $$s = `r round(sd(x),2)`$$
 
-## Continuous spinner {.columns-2 .smaller}
+## Continuous spinner 
 
 ```{r sns, fig.width=3.5,fig.height=3.5}
 par(mar=c(0,0,0,0))
@@ -304,32 +285,32 @@ polygon(cos(theta)*0.02,sin(theta)*0.02,col="red")
 text(0,0.4,"standard\nnormal\nspinner")
 ```
 
-- population mean (unit 3)
-$$\mu = 0$$
-- population standard deviation (unit 3)
-$$\sigma = 1$$
-
-<!-- `r sqrt(sum((1:6-3.5)^2)/6)` -->
-<!-- <br class="forceBreak"></br> -->
-
 ```{r normspins}
 set.seed(1234)
 x = rnorm(10)
 ```
-* sample: `r x`
-* sample size
+
+- population mean (unit 3)
+$$\mu = 0$$
+- population standard deviation (unit 3)
+$$\sigma = 1$$
+- sample: `r x`
+- sample size
 $$n=`r length(x)`$$
-* sample total (sample sum)
+- sample total (sample sum)
 $$\sum{x} = `r sum(x)`$$
-* sample mean
+- sample mean
 $$\bar{x} = `r mean(x)`$$
-* sample standard deviation
+- sample standard deviation
 $$s = `r round(sd(x),4)`$$
 
-## Histogram and frequency table {.smaller .flexbox}
+## Histogram and frequency table
 
-```{r histy,fig.width=6,fig.height=5}
+```{r setseed}
 set.seed(123)
+```
+
+```{r histy,echo=T,fig.width=6,fig.height=5}
 x = rnorm(1000)
 hist(x,main="Histogram of 1000 spins of standard normal spinner",xlab="spin value")
 rug(x,col=rgb(1,0.1,0.3,0.5))
@@ -364,18 +345,20 @@ interval = paste0(breaks[1:n]," to ",breaks[2:(n+1)],sep="")
 knitr::kable(data.frame(interval,frequency),format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
 ```
 
-## Dice hist and freq tab {.smaller .flexbox}
+## Dice hist and freq tab
 
-```{r dicehisty,fig.width=6,fig.height=5}
+```{r}
 set.seed(123)
+```
+
+```{r dicehisty,fig.width=6,fig.height=5,echo=T}
 x = sample(1:6,1000,T)
 b = seq(0.5,6.5,1)
-myhist = hist(x,main="Histogram of 1000 rolls of 6-sided dice",xlab="roll value",breaks=b)
+hist(x,main="Histogram of 1000 rolls of 6-sided dice",xlab="roll value",breaks=b)
 ```
 
 ```{r diceft}
-set.seed(123)
-x = rnorm(1000)
+myhist = hist(x,breaks=b,plot=F)
 breaks = myhist$breaks
 frequency = myhist$counts
 n = length(frequency)
@@ -383,8 +366,15 @@ interval = paste0(breaks[1:n]," to ",breaks[2:(n+1)],sep="")
 knitr::kable(data.frame(interval,frequency),format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
 ```
 
+<p>
 
-## Notation reference{.smaller}
+```{r diceft2}
+roll_value =  1:6
+knitr::kable(data.frame(roll_value,frequency),format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+
+## Notation reference
 
 $n$ = sample size, how many measurements
 

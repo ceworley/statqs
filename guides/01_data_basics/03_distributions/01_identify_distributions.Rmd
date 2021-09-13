@@ -13,8 +13,8 @@ left_skew = rbeta(n,beta1[5],beta2[5])
 
 data = data.frame(bell,uniform,bimodal,right_skew,left_skew)
 
-ord = sample(1:5)
-ord2 = sample(1:5)
+ord = c(5,2,3,1,4) #sample(1:5)
+ord2 = c(2,5,4,3,1) #sample(1:5)
 ```
 
 

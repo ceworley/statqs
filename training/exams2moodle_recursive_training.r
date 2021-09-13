@@ -1,7 +1,11 @@
 library("exams")
 set.seed(200)
 
-n = 1 #number of versions
+wdbu = getwd()
+setwd("~/Documents/statqs/training") #set to wd if ya want
+on.exit(setwd(wdbu))
+
+n = 50 #number of versions
 outdir = "outmoodle"
 fn = "statqs"
 s = gsub(".Rmd","",list.files(pattern=".Rmd",recursive = T))
@@ -25,10 +29,12 @@ for(fold2 in fold[1:length(fold)]){
   print(fold2)
   files = list.files(fold2,pattern=".Rmd",full.names = T)
   print(files)
-  name = paste0("guide__",paste0(unlist(strsplit(fold2,"/")),collapse="-"))
-  exams2moodle(files,n=n,dir=outdir,converter="pandoc-mathml",
-               name=name)
+  name = paste0("training__",paste0(unlist(strsplit(fold2,"/")),collapse="-"))
   fn2 = paste0(outdir,"/",name,".xml")
+  if(!file.exists(fn2)){
+    exams2moodle(files,n=n,dir=outdir,converter="pandoc-mathml",
+                 name=name)
+  }
   tx  <- readLines(fn2)
   tx  <- gsub(pattern = "𝐱", replace = "x", x = tx)
   tx  <- gsub(pattern = "𝙰𝙽𝙳", replace = "AND", x = tx)
@@ -36,7 +42,5 @@ for(fold2 in fold[1:length(fold)]){
   tx  <- gsub(pattern = "𝙾𝚁", replace = "OR", x = tx)
   writeLines(tx, con=fn2)
 }
-
-
 
 
