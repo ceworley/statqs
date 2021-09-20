@@ -300,7 +300,14 @@ median
 
 There are 6 common distribution shapes I want you to name.
 
-## Common Distributions: Binary
+- Binary
+- Uniform
+- Bell (Normal)
+- Bimodal
+- Right-skewed
+- Left-skewed
+
+## Common Distribution: Binary
 
 - Really, I just want to remind you that binary data exists. When the data are plotted in a histogram, there are just two bars.
 ```{r}
@@ -309,7 +316,7 @@ hist(x,breaks=c(-0.5,0.5,1.5),ann=F,axes=F)
 axis(1,at=c(0,1))
 ```
 
-## Common Distributions: Uniform
+## Common Distribution: Uniform
 
 - There is [discrete uniform](https://en.wikipedia.org/wiki/Discrete_uniform_distribution){target="_blank"} or [continuous uniform](https://en.wikipedia.org/wiki/Continuous_uniform_distribution){target="_blank"}.
 - A uniform histogram will have frequencies that are approximately equal.
@@ -367,7 +374,7 @@ x = runif(5000)
 hist(x,breaks=seq(0,1,0.1))
 ```
 
-## Common Distributions: Bell (Normal)
+## Common Distribution: Bell (Normal)
 
 - Technically, there are multiple bell-shaped distributions. The normal distribution is just one of them.
 - Symmetric
@@ -395,7 +402,7 @@ hist(x,
 
 
 
-## Common Distributions: Bimodal
+## Common Distribution: Bimodal
 
 - A bimodal distribution has two (approximately equally tall) hills.
 - Symmetric-ish
@@ -432,3 +439,169 @@ hist(x,main="Left-skew distribution")
 
 
 
+## Measures of spread
+
+We will discuss and use various measures of spread:
+
+- [mean absolute deviation](https://en.wikipedia.org/wiki/Average_absolute_deviation)
+- [range](https://en.wikipedia.org/wiki/Range_(statistics))
+- [variance](https://en.wikipedia.org/wiki/Variance)
+- [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation)
+- [interquartile range (IQR)](https://en.wikipedia.org/wiki/Interquartile_range)
+
+## Measures of spread: mean of absolute deviations
+
+A simple measure of spread is the average (mean) of absolute deviations from the sample mean.
+
+$$\text{mean absolute deviation} = \frac{\sum |\mathbf{x}-\bar{x}|}{n} $$
+If you prefer explicit limits...
+$$\text{mean absolute deviation} = \frac{\sum\limits_{i=1}^n |x_i-\bar{x}|}{n} $$
+
+### Example
+
+```{r}
+set.seed(111)
+while(T){
+  x = sample(1:9,8,T)+20
+  n = length(x)
+  xbar = mean(x)
+  if((xbar*10)%%1==0){break}
+}
+```
+
+$$x = `r x`$$
+
+Determine the mean absolute deviation.
+
+### Solution
+
+- Determine the sample size by counting.
+$$n=`r n`$$
+- Add up the values to find the total.
+$$\sum x = `r sum(x)`$$
+- Find the sample mean.
+$$\bar{x} = \frac{48}{8} = `r mean(x)`$$
+- Determine the absolute deviations.
+```{r}
+xbar = mean(x)
+deviation = x-xbar
+absolute_deviation = abs(x-xbar)
+mydf = data.frame(x,deviation,absolute_deviation)
+knitr::kable(mydf,format="html",table.attr='class="bordered-table"', align = "ccc",row.names=F)
+sad = sum(absolute_deviation)
+mad = mean(absolute_deviation)
+```
+- Add up the absolute deviations.
+$$\sum |\mathbf{x}-\bar{x}| = `r paste(absolute_deviation,collapse="+")` = `r sum(absolute_deviation)`$$
+- Divide the sum (of absolute deviations) by the sample size.
+$$\frac{\sum |\mathbf{x}-\bar{x}|}{n} = \frac{`r sum(absolute_deviation)`}{`r n`} = `r mad`$$
+
+### Solution using R
+
+```{r,echo=T}
+x = c(28,29,28,21,27,25,21,29)
+mean(abs(x-mean(x)))
+```
+
+### Visualization
+
+```{r}
+library(latex2exp)
+```
+
+```{r,fig.width=8,fig.height=8}
+par(mar=c(0,0,1.2,0))
+xbar = mean(x)
+n = length(x)
+i = 1:n
+ran = max(x)-min(x)
+tad = sum(abs(x-mean(x)))
+MAD = tad/n
+plot(x,n-i,axes=F,ann=F,ylim=c(-3,n),xlim=c(xbar-tad/2,xbar+tad/2),cex=3,lwd=3)
+lines(c(xbar,xbar),c(-0.5,n-0.5),lty=2,col=rgb(0.9,0.5,0),lwd=2)
+lines(c(xbar-MAD,xbar-MAD),c(-0.5,n-0.5),lty=2,col=rgb(0.2,0.2,0.2),lwd=2)
+lines(c(xbar+MAD,xbar+MAD),c(-0.5,n-0.5),lty=2,col=rgb(0.2,0.2,0.2),lwd=2)
+lines(c(rep(xbar,3),rep(xbar+MAD,3)),
+      c(n,n+0.2,n+0.1,n+0.1,n+0.2,n),
+      lwd=4,col=rgb(0.5,0,0.2))
+lines(c(rep(xbar,3),rep(xbar-MAD,3)),
+      c(n,n+0.2,n+0.1,n+0.1,n+0.2,n),
+      lwd=4,col=rgb(0.5,0,0.2))
+lines(c(min(x),max(x)),c(-0.5,-0.5))
+for(ii in min(x):max(x)){
+  lines(c(ii,ii),c(-0.5,-0.7))
+  text(ii,-1,ii)
+}
+mtext(TeX("$\\bar{x}$"),3,at=xbar,line=0,col=rgb(0.9,0.5,0),cex=1.3)
+mtext(TeX("$\\bar{x}+$MAD"),3,at=xbar+MAD,line=0,col=rgb(0.2,0.2,0.2),cex=1.3)
+mtext(TeX("$\\bar{x}-$MAD"),3,at=xbar-MAD,line=0,col=rgb(0.2,0.2,0.2),cex=1.3)
+cols = c(rgb(0,0,0),rgb(1,0,0),rgb(0,1,0),
+         rgb(0,0,1),rgb(0.6,0.6,0),rgb(0,0.6,0.6),
+         rgb(0.6,0,0.6),rgb(0.2,0.3,0.1))
+for(i in 1:n){
+  ln = n-i
+  lines(c(rep(mean(x),3),rep(x[i],3)),
+        c(ln-0.1,ln+0.1,ln,ln,ln+0.1,ln-0.1),
+        col=cols[i],lwd=5)
+}
+xxx = xbar-tad/2
+for(i in 1:n){
+  x1 = xxx
+  x2 = xxx+abs(x[i]-xbar)
+  lines(c(x1+0.02,x1+0.02,x1+0.02,x2-0.02,x2-0.02,x2-0.02),c(-2.1,-1.9,-2,-2,-1.9,-2.1),
+        col=cols[i],lwd=5)
+  xxx = x2
+}
+
+lines(c(xbar-tad/2,xbar+tad/2),c(-3,-3),lwd=4,col=rgb(0.5,0.2,0.2))
+for(i in 0:n){
+  lines(rep(xbar-tad/2+i*MAD,2),c(-3.1,-2.9),lwd=4,col=rgb(0.5,0,0.2))
+}
+
+```
+
+## Measures of spread: range
+
+- The range is simply the difference between the maximum and minimum.
+$$\text{range} = \max(\mathbf{x}) - \min(\mathbf{x})$$
+
+### Example
+
+```{r}
+set.seed(111)
+while(T){
+  x = sample(1:9,8,T)+20
+  n = length(x)
+  xbar = mean(x)
+  if((xbar*10)%%1==0){break}
+}
+```
+
+$$\mathbf{x}=`r x`$$
+
+- Find the range of $\mathbf{x}$.
+
+### Solution
+
+$$`r max(x)`-`r min(x)` = `r max(x)-min(x)` $$
+
+### Notes
+
+- The range of a sample is never larger than the range of the population.
+- The range of a sample is often smaller than the range of the population.
+- We say sample range is a biased estimator of population range.
+
+
+## Measures of spread: variance
+
+- variance without [Bessel correction](https://en.wikipedia.org/wiki/Bessel%27s_correction)
+$$\text{var(x)} = \frac{\sum(\mathbf{x}-\bar{x})^2}{n}$$
+- variance with [Bessel correction](https://en.wikipedia.org/wiki/Bessel%27s_correction)
+$$\text{var(x)} = \frac{\sum(\mathbf{x}-\bar{x})^2}{n-1}$$
+
+## Measures of spread: standard deviation
+
+- sample standard deviation without [Bessel correction](https://en.wikipedia.org/wiki/Bessel%27s_correction)
+$$s_n = \sqrt{\frac{\sum(\mathbf{x}-\bar{x})^2}{n}}$$
+- sample standard deviation with [Bessel correction](https://en.wikipedia.org/wiki/Bessel%27s_correction)
+$$s = \sqrt{\frac{\sum(\mathbf{x}-\bar{x})^2}{n-1}}$$
