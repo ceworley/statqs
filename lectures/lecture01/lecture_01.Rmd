@@ -25,7 +25,7 @@ knitr::opts_chunk$set(echo = FALSE)
 - How should someone use data to make predictions?
 
 
-## Inference, soup 
+## Inference, soup
 
 - In Statistics, our final goal is inference (unit 4).
 - From a small **sample**, we infer about a larger **population**.
@@ -35,7 +35,7 @@ knitr::opts_chunk$set(echo = FALSE)
   - The chef infers the whole soup tastes delicious.
   - Hopefully the sample (spoon) was **representative** of the population (pot).
 
-## Archery example 
+## Archery example
 
 ![](640px-Korea_Olympic_KiBobae_05_(7730586140).jpg){width=100%; height=auto}
 
@@ -149,7 +149,7 @@ abline(lm(mtcars$hp~wt),col=rgb(1,0.4,0.4,0.8))
 ## Types of data
 
 - **Binary**
-  * 2 options: yes/no, success/fail, 0/1, orange/not orange
+  * 2 options: yes/no, success/fail, 1/0, orange/not orange
 - **Discrete**
   * limited numerical options: dice rolls, # stairs between floors
   * [count noun](https://en.wikipedia.org/wiki/Count_noun){target="_blank"}, "how many"
@@ -158,9 +158,6 @@ abline(lm(mtcars$hp~wt),col=rgb(1,0.4,0.4,0.8))
   * [mass noun](https://en.wikipedia.org/wiki/Mass_noun){target="_blank"}, "how much"
 - **Categorical** (not examined much in introductory stats)
   * 2 or more nonnumeric options: favorite color
-
-
-
 
 ## Binary spinner
 
@@ -383,7 +380,7 @@ $\#(\ldots)$ = how many measurements satisfy $\ldots$ criterion. (nonstandard no
 - Binary
   * $p$ = population proportion
   * $\hat{p}$ = "p hat" = sample proportion
-- Discrete
+- Discrete and Continuous
   * $\mu$ = "mu" = population mean
   * $\sigma$ = "sigma" = population standard deviation
   * $\sum x$ = "sum of x" = sample total

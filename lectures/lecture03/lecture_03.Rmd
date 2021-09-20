@@ -1,0 +1,434 @@
+---
+title: "Proportion, histogram, mean, standard deviation, common distributions"
+author: "Chad Worley"
+date: "9/20/2021"
+output:
+  slidy_presentation:
+    css: basic.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Proportion, binary data
+
+When you have binary data, the proportion of success is the number of successes divided by the sample size.
+
+$$\hat{p} = \frac{n_\text{s}}{n}$$
+
+### Example
+
+```{r binary_example}
+set.seed(123)
+x = sample(0:1,8,T,prob=c(0.6,0.4))
+```
+$$\mathbf{x} = `r x`$$
+```{r showwork1,echo=T}
+x = c(0,1,0,1,1,0,0,1)
+n = length(x)
+ns = sum(x)
+phat = ns/n
+data.frame(n,ns,phat)
+```
+
+$$n = `r n`$$
+$$n_\text{s} = `r ns`$$
+$$\hat{p} = \frac{`r ns`}{`r n`} = `r phat` $$
+
+## Proportion, discrete or continuous data
+
+If you have discrete or continuous data, you can determine the proportion of measurements within an interval.
+
+$$\text{prop}[\cdots] = \frac{\#[\cdots]}{n}$$
+where $\cdots$ will describe an interval.
+
+### Example 
+
+```{r example2}
+set.seed(123)
+x = rgeom(10,0.1)
+```
+
+Determine the proportion of measurements that are greater than 10.5.
+
+$$\mathbf{x} = `r x`$$
+
+```{r showwork2,echo=T}
+x = c(10,16,29,1,3,30,25,4,4,5)
+n = length(x)
+ns = sum(x>10.5)
+phat = ns/n
+data.frame(n,ns,phat)
+```
+
+$$n = `r n`$$
+$$\#[x>10.5] = n_s = `r ns` $$
+$$\text{prop}[x>10.5] = \frac{\#[x>10.5]}{n} = \frac{`r ns`}{`r n`} = `r phat` $$
+
+## Proportion (within interval) from histogram
+
+```{r}
+set.seed(1)
+x = rexp(200,0.2)
+myhist = hist(x,plot=F)
+hist(x,labels=T,ylim=c(0,max(myhist$counts)*1.1))
+```
+
+- Let's assume $X$ is a continuous random variable, such that no measurements sit exactly on the breaks.
+  - Note: it is helpful to determine the width of bars. In this case, we see there are 5 barwidths between 0 and 10. $10/5=2$, so the barwidth is equal to 2.
+- How many measurements are less than 8?
+  - We add the appropriate frequencies. $57+46+34+25 = `r 57+46+34+25`$
+$$\#[x<8] = `r 57+46+34+25` $$
+  - notice we do NOT count how many bars have frequencies less than 8!
+- What proportion of the measurements are less than 8?
+  - We need to know the sample size. $57+46+34+25+12+13+5+3+2+1+1+1=200$
+  - We divide the count by the sample size.
+  $$\text{prop}[x<8] = \frac{162}{200} = `r 162/200` $$
+  
+
+## Sample mean (average)
+
+The sample mean is found by summing the measurements and dividing the sum by the sampe size.
+$$\bar{x} = \frac{\sum x}{n} $$
+In more technical situations, you may see more decorations to specify more precisely.
+
+$$\bar{x} = \cfrac{\sum\limits_{i=1}^nx_i}{n} $$
+Notice, with binary data, the sample mean is the sample proportion. (The sum of binary data equals the count of successes.)
+
+## Example of finding mean {.incremental}
+
+```{r findmeanexample}
+set.seed(111)
+x = rgeom(9,0.3)
+```
+### Problem
+
+$$\mathbf{x} = `r x`$$
+- Calculate the sample mean $\bar{x}$.
+
+### Solution
+
+$$\bar{x} = \frac{\sum x}{n} = \frac{`r paste(x,collapse="+")`}{`r length(x)`} = \frac{`r sum(x)`}{`r length(x)`} = `r round(sum(x)/length(x),4)` $$
+
+```{r showworkmean,echo=T}
+x = c(1,3,2,10,6,0,5,1,0)
+xbar = mean(x)
+print(xbar)
+```
+
+$$\bar{x}=`r round(mean(x),4)`$$
+
+## The mean is the center of mass
+
+```{r,fig.height=6,fig.width=8}
+set.seed(99)
+x = rgeom(30,0.4)
+myh = hist(x,breaks=(-1):max(x)+0.5,plot=F)
+plot(0,0,type="n",xlim=c(-0.5,max(x)+0.5),ylim=c(0,max(myh$counts)*1.2),axes=F,ann=F)
+for(i in 1:length(myh$counts)){
+  xx = i-1
+  yy = myh$counts[i]
+  if(yy>0){
+    for(y in 1:yy){
+      points(xx,y,pch=15,cex=5,col=rgb(0.8,0.9,0.9))
+      points(xx,y,pch=0,cex=5,lwd=2)
+    }
+  }
+}
+points(mean(x),0,pch=17,col=rgb(0.7,0.3,0.3),cex=3)
+abline(h=0.5)
+mtext("center of mass",1,at=mean(x))
+```
+
+- More boxes on the left
+- Boxes farther away on the right
+- The platform would balance on the center of mass
+
+## Median
+
+- The median is another measure of center.
+- To determine the median, first sort the data.
+- Also, determine $n$, the sample size.
+- If $n$ is odd (not a multiple of 2):
+  - Find the sorted datum with index = $\frac{n+1}{2}$
+- If $n$ is even (a multiple of 2):
+  - Find the MEAN of sorted data with indices $\frac{n}{2}$ and $\frac{n+2}{2}$.
+
+### Example 1
+
+```{r}
+set.seed(12)
+x = round(rnorm(11,500,4))
+n = length(x)
+i = (n+1)/2
+```
+
+#### Problem
+
+$$x=`r x`$$
+Find the median of $x$. (Find $\text{median}(x)$)
+
+#### Solution
+
+- First, sort the data.
+$$\text{sort}(x) = `r sort(x)` $$
+- Determine $n$.
+$$n = `r length(x)`$$
+- Since $n$ is **odd**, we calculate the single index $\frac{n+1}{2}$.
+$$i=\frac{n+1}{2}=\frac{`r length(x)`+1}{2}=`r (length(x)+1)/2`$$
+We find which sorted datum in the `r i`th position.
+
+$$\text{median}(x)=`r median(x)`$$
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r tab1, results="asis",echo=F}
+i = 1:n
+mydf = data.frame(i,sort(x))
+colnames(mydf) = c("$i$","sort($x$)")
+knitr::kable(mydf,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+#### Solution using R
+
+```{r,echo=T}
+x = c(494,506,496,496,492,499,499,497,500,502,497)
+median(x)
+```
+
+You could do it the long way.
+
+```{r,echo=T}
+x = c(494,506,496,496,492,499,499,497,500,502,497)
+sortedx = sort(x)
+n = length(x)
+if(n%%2==1){ ## this checks if n is odd
+  i = (n+1)/2
+  median = sortedx[i]
+} else { ## the only other option is n is even
+  i1 = n/2
+  i2 = (n+2)/2
+  median = (sortedx[i1]+sortedx[i2])/2
+}
+median
+```
+
+## Median cont...
+
+- The median is another measure of center.
+- To determine the median, first sort the data.
+- Also, determine $n$, the sample size.
+- If $n$ is odd (not a multiple of 2):
+  - Find the sorted datum with index = $\frac{n+1}{2}$
+- If $n$ is even (a multiple of 2):
+  - Find the MEAN of sorted data with indices $\frac{n}{2}$ and $\frac{n+2}{2}$.
+
+### Example 2
+
+```{r}
+set.seed(13)
+x = round(rnorm(14,750,7))
+n = length(x)
+i1 = n/2
+i2 = (n+2)/2
+```
+
+#### Problem
+
+$$x=`r x`$$
+Find $\text{median}(x)$.
+
+#### Solution
+
+- First, sort the data.
+$$\text{sort}(x) = `r sort(x)` $$
+- Determine $n$.
+$$n = `r length(x)`$$
+- Since $n$ is **even**, we calculate two indices.
+$$i_1=\frac{n}{2}=\frac{`r length(x)`}{2}=`r (length(x))/2`$$
+$$i_2=\frac{n+2}{2}=\frac{`r length(x)`+2}{2}=`r (length(x)+2)/2`$$
+We find the mean of the sorted data in the `r i1`th and `r i2`th positions.
+
+$$\text{median}(x)=\frac{`r sort(x)[i1]`+`r sort(x)[i2]`}{`r n`}=`r median(x)`$$
+
+```{r tab2, results="asis",echo=F}
+i = 1:n
+mydf = data.frame(i,sort(x))
+colnames(mydf) = c("$i$","sort($x$)")
+knitr::kable(mydf,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+#### Solution using R
+
+```{r,echo=T}
+x = c(754,748,762,751,758,753,759,752,747,758,742,753,740,737)
+median(x)
+```
+
+You could do it the long way.
+
+```{r,echo=T}
+x = c(754,748,762,751,758,753,759,752,747,758,742,753,740,737)
+sortedx = sort(x)
+n = length(x)
+if(n%%2==1){ ## this checks if n is odd
+  i = (n+1)/2
+  median = sortedx[i]
+} else { ## the only other option is n is even
+  i1 = n/2
+  i2 = (n+2)/2
+  median = (sortedx[i1]+sortedx[i2])/2
+}
+median
+```
+
+## Common Distributions
+
+There are 6 common distribution shapes I want you to name.
+
+## Common Distributions: Binary
+
+- Really, I just want to remind you that binary data exists. When the data are plotted in a histogram, there are just two bars.
+```{r}
+x = sample(0:1,100,T,c(0.4,0.6))
+hist(x,breaks=c(-0.5,0.5,1.5),ann=F,axes=F)
+axis(1,at=c(0,1))
+```
+
+## Common Distributions: Uniform
+
+- There is [discrete uniform](https://en.wikipedia.org/wiki/Discrete_uniform_distribution){target="_blank"} or [continuous uniform](https://en.wikipedia.org/wiki/Continuous_uniform_distribution){target="_blank"}.
+- A uniform histogram will have frequencies that are approximately equal.
+- Symmetric
+  - Standard dice rolled many times will produce a discrete uniform distribution.
+```{r,echo=T}
+x = sample(1:6,1000,T)
+hist(x,breaks=seq(0.5,6.5,1),main="A 6-sided die is rolled 1000 times")
+```
+
+- The standard uniform distribution is an important continuous uniform distribution. The following spinner would produce it when spun many times.
+
+```{r,fig.height=5,fig.width=5}
+par(mar=c(0,0,0,0))
+theta = seq(0,2*pi,length.out=360)
+plot(sin(theta),cos(theta),type="l",axes=F,ann=F,lwd=3)
+for(i in seq(1,99,1)){
+  pr = i/100
+  th = pr*2*pi
+  if(i%%10==0){
+    a = 0.9
+    b = 0.82
+    lwd = 2
+    cex = 1.1
+  } else if(i%%5==0) {
+    a = 0.93
+    b = 0.85
+    lwd = 1.5
+    cex = 0.8
+  } else {
+    a = 0.95
+    b = 0.9
+    lwd = 1
+    cex = 0.5
+  }
+  if(pr<=0.5){
+    srt = 90-pr*360
+  } else {
+    srt = 90-360*(pr-0.5)
+  }
+  lines(c(a*sin(th),sin(th)),c(a*cos(th),cos(th)),lwd=lwd)
+  text(b*sin(th),b*cos(th),pr,cex=cex,srt=srt)
+}
+lines(c(0,0),c(0.7,1),lwd=4)
+text(0,0.75,"1 | 0")
+col = rgb(0.5,0.9,0.4)
+polygon(0.08*cos(theta),0.08*sin(theta),lwd=2,col=col)
+arrows(-0.8,-0.2,0.8,0.2,lwd=10,col=rgb(0,0,0))
+arrows(-0.8,-0.2,0.8,0.2,lwd=5,col=col)
+polygon(0.01*cos(theta),0.01*sin(theta),lwd=1,col=col)
+```
+
+```{r,echo=T}
+x = runif(5000)
+hist(x,breaks=seq(0,1,0.1))
+```
+
+## Common Distributions: Bell (Normal)
+
+- Technically, there are multiple bell-shaped distributions. The normal distribution is just one of them.
+- Symmetric
+- However, we will use normal distributions A LOT.
+- Sample averages (when repeatedly sampled) and sample totals (when repreatedly sampled) will tend to be approximately normal!
+
+### Example: basketball practice
+
+Let's say Jessica practices freethrows by shooting 100 attempts every day and Jessica has a 80% chance of making each shot. If we track 365 days...
+
+```{r}
+set.seed(123)
+```
+
+```{r,echo=T}
+x = rbinom(365,100,0.8)
+hist(x,
+     main = "Histogram of totals from 365 days of practice",
+     xlab = "Total points made in a day",
+     breaks = seq(min(x)-0.5,
+                  max(x)+0.5,
+                  1)
+     )
+```
+
+
+
+## Common Distributions: Bimodal
+
+- A bimodal distribution has two (approximately equally tall) hills.
+- Symmetric-ish
+- Not many useful, realistic examples...
+```{r}
+x = rnorm(1000,10,2)*sample(c(-1,1),1000,T)+100
+hist(x,breaks=20,main="Bimodal distribution")
+```
+
+## Common Distribution: Skewed right
+
+- Data has a right-ward tail
+
+```{r}
+set.seed(123)
+x = rbeta(1000,0.6,2)*20+rnorm(1000)+10
+hist(x,main="Right-skew distribution")
+```
+
+- $\text{mean} > \text{median}$
+
+## Common Distribution: Skewed left
+
+- Data has a left-ward tail
+
+```{r}
+set.seed(1)
+x = rbeta(1000,2,0.6)*20+rnorm(1000)+10
+hist(x,main="Left-skew distribution")
+```
+
+- $\text{mean} < \text{median}$
+
+
+
+

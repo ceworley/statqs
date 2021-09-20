@@ -1,0 +1,236 @@
+---
+title: "Intervals, counting"
+author: "Chad Worley"
+date: "9/15/2021"
+output:
+  slidy_presentation:
+    css: basic.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Class discussion
+
+- To simplify class, I want to focus on a single tool during lecture.
+  - spreadsheets or Rstudio
+- I believe it will be easier for everyone if we pick Rstudio.
+
+## [Intervals](https://en.wikipedia.org/wiki/Interval_(mathematics)){target="_blank"} (review)
+
+- A half-bounded interval has 1 boundary.
+  - $x<10$ <p>
+```{r open1,fig.width=8,fig.height=2}
+par(mar=c(0,0,0,0))
+x = seq(-55,55,1)
+plot(x,rep(0,length(x)),ann=F,axes=F,type="l",lwd=3,ylim=c(-1,1))
+for(x in seq(-50,50,10)){
+  lines(c(x,x),c(-0.3,0.3))
+  text(x,0.5,x)
+}
+lines(c(-55,10),c(0,0),col=rgb(1,0.2,0.2,0.6),lwd=8)
+points(10,0,cex=3,pch=20,col=rgb(1,1,1))
+points(10,0,cex=2.5,col=rgb(1,0.2,0.2),lwd=5)
+```  
+  - $x\ge20$ <p>
+```{r greater,fig.width=8,fig.height=2}
+par(mar=c(0,0,0,0))
+x = seq(-55,55,1)
+plot(x,rep(0,length(x)),ann=F,axes=F,type="l",lwd=3,ylim=c(-1,1))
+for(x in seq(-50,50,10)){
+  lines(c(x,x),c(-0.3,0.3))
+  text(x,0.5,x)
+}
+lines(c(20,55),c(0,0),col=rgb(1,0.2,0.2,0.6),lwd=8)
+points(20,0,cex=4,col=rgb(1,0.2,0.2),pch=20)
+```
+- A bounded interval has 2 boundaries.
+  - $-25\le x ~~~\mathtt{AND}~~~ x<40$ <p>
+```{r boundedinterval,fig.width=8,fig.height=2}
+par(mar=c(0,0,0,0))
+x = seq(-55,55,1)
+plot(x,rep(0,length(x)),ann=F,axes=F,type="l",lwd=3,ylim=c(-1,1))
+for(x in seq(-50,50,10)){
+  lines(c(x,x),c(-0.3,0.3))
+  text(x,0.5,x)
+}
+lines(c(-25,40),c(0,0),col=rgb(1,0.2,0.2,0.6),lwd=8)
+points(-25,0,cex=4,col=rgb(1,0.2,0.2),pch=20)
+points(40,0,cex=3,pch=20,col=rgb(1,1,1))
+points(40,0,cex=2.5,col=rgb(1,0.2,0.2),lwd=5)
+```
+- In stats, we are also interested in two-tail "intervals".
+  - $x<15 ~~~\mathtt{OR}~~~ x>35$ <p>
+```{r twotail,fig.width=8,fig.height=2}
+par(mar=c(0,0,0,0))
+x = seq(-55,55,1)
+plot(x,rep(0,length(x)),ann=F,axes=F,type="l",lwd=3,ylim=c(-1,1))
+for(x in seq(-50,50,10)){
+  lines(c(x,x),c(-0.3,0.3))
+  text(x,0.5,x)
+}
+lines(c(-55,15),c(0,0),col=rgb(1,0.2,0.2,0.6),lwd=8)
+lines(c(35,55),c(0,0),col=rgb(1,0.2,0.2,0.6),lwd=8)
+points(15,0,cex=3,pch=20,col=rgb(1,1,1))
+points(15,0,cex=2.5,col=rgb(1,0.2,0.2),lwd=5)
+points(35,0,cex=3,pch=20,col=rgb(1,1,1))
+points(35,0,cex=2.5,col=rgb(1,0.2,0.2),lwd=5)
+```
+
+## Bounded intervals have a middle (center) and radius
+
+- In Statistics, we care about distance from center (like in archery, accuracy, error).
+- $3.5\le x ~~~\mathtt{AND}~~~ x\le 8.5$ <p>
+```{r boundedinterval2,fig.width=8,fig.height=2}
+par(mar=c(0,0,0,0))
+x = seq(0.5,10.5,1)
+plot(x,rep(0,length(x)),ann=F,axes=F,type="l",lwd=3,ylim=c(-1,1))
+for(x in 1:10){
+  lines(c(x,x),c(-0.3,0.3))
+  text(x,0.5,x)
+}
+lines(c(3.5,8.5),c(0,0),col=rgb(1,0.2,0.2,0.6),lwd=10)
+points(3.5,0,cex=4,col=rgb(1,0.2,0.2),pch=20)
+points(8.5,0,cex=4,col=rgb(1,0.2,0.2),pch=20)
+arrows(6,-0.6,6,-0.1,col=rgb(0.2,0.2,0.9),lwd=6)
+text(6,-0.8,"middle",col=rgb(0.2,0.2,0.9),cex=1.5)
+lines(c(6,6,6,8.5,8.5,8.5),c(0.9,0.7,0.8,0.8,0.7,0.9),lwd=6,col=rgb(0,0.5,0.5))
+text((6+8.5)/2,0.95,"radius",col=rgb(0,0.5,0.5),cex=1.5)
+```
+- Let's say the boundaries are $b_1$ and $b_2$, where $b_2>b_1$.
+$$m = \frac{b_1+b_2}{2}$$
+$$r=\frac{b_2-b_1}{2}$$
+- So, in this example...
+$$m = \frac{3.5+8.5}{2} = \frac{12}{2} = 6$$
+$$r = \frac{8.5-3.5}{2} = \frac{5}{2} = 2.5$$
+
+## It is helpful to define intervals using middle and radius.
+
+- $|x-6|\le 2.5$ <p>
+```{r ttint,fig.width=8,fig.height=2}
+par(mar=c(0,0,0,0))
+x = seq(0.5,10.5,1)
+plot(x,rep(0,length(x)),ann=F,axes=F,type="l",lwd=3,ylim=c(-1,1))
+for(x in 1:10){
+  lines(c(x,x),c(-0.3,0.3))
+  text(x,0.5,x)
+}
+lines(c(3.5,8.5),c(0,0),col=rgb(1,0.2,0.2,0.6),lwd=10)
+points(3.5,0,cex=4,col=rgb(1,0.2,0.2),pch=20)
+points(8.5,0,cex=4,col=rgb(1,0.2,0.2),pch=20)
+arrows(6,-0.6,6,-0.1,col=rgb(0.2,0.2,0.9),lwd=6)
+text(6,-0.8,"middle",col=rgb(0.2,0.2,0.9),cex=1.5)
+lines(c(6,6,6,8.5,8.5,8.5),c(0.9,0.7,0.8,0.8,0.7,0.9),lwd=6,col=rgb(0,0.5,0.5))
+text((6+8.5)/2,0.95,"radius",col=rgb(0,0.5,0.5),cex=1.5)
+```
+- $|x-6|\ge 2.5$ <p>
+```{r boundedinterval3,fig.width=8,fig.height=2}
+par(mar=c(0,0,0,0))
+x = seq(0.5,10.5,1)
+plot(x,rep(0,length(x)),ann=F,axes=F,type="l",lwd=3,ylim=c(-1,1))
+for(x in 1:10){
+  lines(c(x,x),c(-0.3,0.3))
+  text(x,0.5,x)
+}
+lines(c(0.5,3.5),c(0,0),col=rgb(1,0.2,0.2,0.6),lwd=10)
+lines(c(8.5,10.5),c(0,0),col=rgb(1,0.2,0.2,0.6),lwd=10)
+points(3.5,0,cex=4,col=rgb(1,0.2,0.2),pch=20)
+points(8.5,0,cex=4,col=rgb(1,0.2,0.2),pch=20)
+arrows(6,-0.6,6,-0.1,col=rgb(0.2,0.2,0.9),lwd=6)
+text(6,-0.8,"middle",col=rgb(0.2,0.2,0.9),cex=1.5)
+lines(c(6,6,6,8.5,8.5,8.5),c(0.9,0.7,0.8,0.8,0.7,0.9),lwd=6,col=rgb(0,0.5,0.5))
+text((6+8.5)/2,0.95,"radius",col=rgb(0,0.5,0.5),cex=1.5)
+```
+
+```{r absolutediffs,echo=T}
+x = 1:10
+ineq1 = abs(x-6)<=2.5
+ineq2 = abs(x-6)>=2.5
+data.frame(x,ineq1,ineq2)
+```
+
+## If you know the middle and radius, you can calculate the bounds
+
+- Doubly bounded interval: $$|x-m|<r$$
+- Two-tailed interval: $$|x-m|>r$$
+- Absolute difference is 1-dimensional distance.
+$$|x-m|=\text{distance between }x\text{ and }m $$
+- If you know the middle and radius, you can determine the boundaries.
+$$b_{1} = m-r $$
+$$b_{2} = m+r $$
+
+## Counting {.incremental}
+
+<style>
+.tiny{
+  font-size:60%;
+}
+</style>
+
+- An archer shoots 72 arrows each day. Each arrow scores between 0 and 10 points, depending on its location. The archer records her total score each day.
+```{r}
+# set.seed(1)
+# x = round(rnorm(50,72*8.5,17))
+x = c(601, 615, 598, 639, 618, 598, 620, 625, 622, 607, 638, 619, 601, 574, 631, 611, 612, 628, 626, 622, 628, 625, 613, 578, 623, 611, 609, 587, 604, 619, 635, 610, 619, 611, 589, 605, 605, 611, 631, 625, 609, 608, 624, 621, 600, 600, 618, 625, 610, 627)
+write.csv(x,file="data.csv")
+```
+<div class="tiny">
+- `r x`
+</div>
+- The [data can be downloaded](data.csv){target="_blank"}.
+
+```{r,fig.width=8,fig.height=2}
+par(mar=c(0,0,0,0))
+a = seq(560,660,10)
+plot(a,rep(0,length(a)),ann=F,axes=F,type="l",lwd=3,ylim=c(-0.6,0.6))
+for(a in 560:660){
+  if(a%%10==0){
+    lines(c(a,a),c(-0.1,0),lwd=3)
+    text(a,-0.2,a)
+  } else if(a%%5==0){
+    lines(c(a,a),c(-0.07,0),lwd=2)
+    # text(a,0.4,a,cex=0.8)
+  } else {
+    lines(c(a,a),c(-0.03,0))
+  }
+}
+mytab = table(x)
+for(i in 1:length(mytab)){
+  name = names(mytab)[i]
+  freq = as.vector(mytab)[i]
+  val = as.integer(name)
+  for(i in 1:freq){
+    points(val,(i-1)*0.05+0.03,pch=20,cex=1.3,col=rgb(0,0,0))
+    points(val,(i-1)*0.05+0.03,pch=20,cex=0.8,col=rgb(0.8,0,0))
+  }
+}
+```
+
+- Determine $n$, the sample size.
+
+```{r,echo=T}
+x = c(601, 615, 598, 639, 618, 598, 620, 625, 622, 607, 638, 619, 601, 574, 631, 611, 612, 628, 626, 622, 628, 625, 613, 578, 623, 611, 609, 587, 604, 619, 635, 610, 619, 611, 589, 605, 605, 611, 631, 625, 609, 608, 624, 621, 600, 600, 618, 625, 610, 627)
+n = length(x)
+print(n)
+```
+- Determine $\#(x=600)$
+```{r,echo=T}
+sum(x==600)
+```
+- Determine $\#(x<600)$
+```{r,echo=T}
+sum(x<600)
+```
+- Determine $\#(x>620)$
+```{r,echo=T}
+sum(x>620)
+```
+- Determine $\#(|x-610|<10)$
+```{r,echo=T}
+sum(abs(x-610)<10)
+```
+- Determine $\#(|x-610|>10)$
+```{r,echo=T}
+sum(abs(x-610)>10)
+```
