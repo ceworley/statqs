@@ -598,6 +598,7 @@ $$`r max(x)`-`r min(x)` = `r max(x)-min(x)` $$
 $$\text{var(x)} = \frac{\sum(\mathbf{x}-\bar{x})^2}{n}$$
 - variance with [Bessel correction](https://en.wikipedia.org/wiki/Bessel%27s_correction)
 $$\text{var(x)} = \frac{\sum(\mathbf{x}-\bar{x})^2}{n-1}$$
+- The Bessel correction makes an unbiased estimator.
 
 ## Measures of spread: standard deviation
 
@@ -605,3 +606,5 @@ $$\text{var(x)} = \frac{\sum(\mathbf{x}-\bar{x})^2}{n-1}$$
 $$s_n = \sqrt{\frac{\sum(\mathbf{x}-\bar{x})^2}{n}}$$
 - sample standard deviation with [Bessel correction](https://en.wikipedia.org/wiki/Bessel%27s_correction)
 $$s = \sqrt{\frac{\sum(\mathbf{x}-\bar{x})^2}{n-1}}$$
+
+- almost always you will use Bessel correction when you have a sample
