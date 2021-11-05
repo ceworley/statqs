@@ -2,10 +2,10 @@
 
 
 while(T){
-  n = sample(7:10,1)
-  p = round(runif(1,0.3,0.7),2)
-  x1 = sample(3:(n-3),1)
-  x2 = sample(c(1,2,n-2,n-1),1)
+  n = 7 #sample(7:10,1)
+  p = 0.46 #round(runif(1,0.3,0.7),2)
+  x1 = 3 #sample(3:(n-3),1)
+  x2 = 5 #sample(c(1,2,n-2,n-1),1)
   p1 = 1-pbinom(x2,n,p)
   p2 = 1-pbinom(x2-1,n,p)
   p3 = pbinom(x2-1,n,p)

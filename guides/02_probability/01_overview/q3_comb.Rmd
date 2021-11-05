@@ -1,14 +1,14 @@
 ```{r data generation, echo = FALSE, results = "hide"}
 while(T){
-  n = sample(8:25,1)
-  x = sample(3:6,1)
+  n = 24 #sample(8:25,1)
+  x = 5 #sample(3:6,1)
   ans = factorial(n)/factorial(n-x)/factorial(x)
   if(ans < 1e8){
     break
   }
 }
 
-qn = sample(1:13,1)
+qn = 3 #sample(1:13,1)
 
 lto = function(l){
   s = ''

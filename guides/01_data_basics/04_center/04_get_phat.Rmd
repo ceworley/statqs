@@ -1,7 +1,9 @@
 ```{r,data,generation,echo=FALSE,results="hide"}
-n = sample(11:17,1)
+# n = sample(11:17,1)
 p = 0.5
-x = sample(c(0,1),n,T)
+# x = sample(c(0,1),n,T)
+x = c(0,1,0,0,0,0,0,1,1,0,1,0,1,0,1,0,1)
+n = length(x)
 i = 1:n
 ```
 

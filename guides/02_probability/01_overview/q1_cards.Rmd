@@ -8,12 +8,12 @@ colors = c("red","orange","yellow","green","blue","indigo","violet","white",
 
 while(T)
 {
-    ni = sample(3:5,1)
-    nc = sample(3:5,1)
-    is = sort(sample(images,ni))
-    cs = sort(sample(colors,nc))
+    ni = 4 #sample(3:5,1)
+    nc = 4 #sample(3:5,1)
+    is = c("needle","pig","rug","wheel") #sort(sample(images,ni))
+    cs = c("red","orange","blue","black") #sort(sample(colors,nc))
 
-    nums = matrix(sample(10:50,ni*nc),ni)
+    nums = matrix(c(12,46,22,37,50,26,15,13,20,38,17,19,40,32,11,29),ni) #matrix(sample(10:50,ni*nc),ni)
     rownames(nums) = is
     colnames(nums) = cs
 
@@ -35,21 +35,21 @@ while(T)
 tot = sum(nums)
 
 #marginal image
-i1 = sample(1:ni,1)
+i1 = 2 #sample(1:ni,1)
 p1 = signif(sum(nums[i1,])/tot,3)
 t1 = paste0("What is the probability a random card is a ",is[i1],"?",sep="")
 ex1 = paste0("$\\mathbb{P}[\\text{",is[i1],"}]",sep="")
 s1 = paste("$\\mathbb{P}[\\text{",is[i1],"}]=\\frac{",sum(nums[i1,]),"}{",tot,"}=",p1,"$",sep="")
 
 #marginal color
-c2 = sample(1:nc,1)
+c2 = 1 #sample(1:nc,1)
 p2 = signif(sum(nums[,c2])/tot,3)
 t2 = paste0("What is the probability a random card is ",cs[c2],"?",sep="")
 s2 = paste0("$\\mathbb{P}[\\text{",cs[c2],"}]=\\frac{",sum(nums[,c2]),"}{",tot,"}=",p2,"$",sep="")
 
 #joint
-i3 = sample(1:ni,1)
-c3 = sample(1:nc,1)
+i3 = 4 #sample(1:ni,1)
+c3 = 1 #sample(1:nc,1)
 p3 = signif(nums[i3,c3]/tot,3)
 t3 = paste0("What is the probability a random card is both a ",
             is[i3]," and ",cs[c3],"?",sep="")
@@ -58,8 +58,8 @@ denom3 = paste(tot)
 s3 = paste0("$\\mathbb{P}[\\text{",is[i3]," and ",cs[c3],"}]=\\frac{",nums[i3,c3],"}{",tot,"}=",p3,"$",sep="")
 
 #disjoint
-i4 = sample(1:ni,1)
-c4 = sample(1:nc,1)
+i4 = 4 #sample(1:ni,1)
+c4 = 1 #sample(1:nc,1)
 p4 = signif((sum(nums[i4,])+sum(nums[,c4])-nums[i4,c4])/tot,3)
 t4 = paste0("What is the probability a random card is either a "
             ,is[i4]," or ",cs[c4]," (or both)?",sep="")
@@ -69,24 +69,24 @@ denom4 = paste(tot)
 s4 = paste0("$\\mathbb{P}[\\text{",is[i4]," or ",cs[c4],"}]=\\frac{",sum(nums[i4,]),"+",sum(nums[,c4]),"-",nums[i4,c4],"}{",tot,"}=",p4,"$",sep="")
 
 #conditioned on image
-i5 = sample(1:ni,1)
-c5 = sample(1:nc,1)
+i5 = 2 #sample(1:ni,1)
+c5 = 1 #sample(1:nc,1)
 p5 = signif(nums[i5,c5]/sum(nums[i5,]),3)
 t5 = paste0("What is the probability a random card is ",
             cs[c5]," given it is a ",is[i5],"?",sep="")
 s5 = paste0("$\\mathbb{P}[\\text{",cs[c5]," given ",is[i5],"}]=\\frac{",nums[i5,c5],"}{",sum(nums[i5,]),"}=",p5,"$",sep="")
 
 #conditioned on color
-i6 = sample(1:ni,1)
-c6 = sample(1:nc,1)
+i6 = 4 #sample(1:ni,1)
+c6 = 2 #sample(1:nc,1)
 p6 = signif(nums[i6,c6]/sum(nums[,c6]),3)
 t6 = paste0("What is the probability a random card is a ",
             is[i6]," given it is ",cs[c6],"?",sep="")
 s6 = paste0("$\\mathbb{P}[\\text{",is[i6]," given ",cs[c6],"}]=\\frac{",nums[i6,c6],"}{",sum(nums[,c6]),"}=",p6,"$",sep="")
 
 #compare 2 images for more likely to have color
-i7 = sort(sample(1:ni,2))
-c7 = sample(1:nc,1)
+i7 = c(1,2) #sort(sample(1:ni,2))
+c7 = 2 #sample(1:nc,1)
 
 p7a = signif(nums[i7[1],c7]/sum(nums[i7[1],]),3)
 p7b = signif(nums[i7[2],c7]/sum(nums[i7[2],]),3)
@@ -114,7 +114,7 @@ ts = list(t1,t2,t3,t4,t5,t6,t7)
 sss = list(s1,s2,s3,s4,s5,s6,s7)
 types = c(rep("num",6),"schoice")
 sols = list(p1,p2,p3,p4,p5,p6,sol7)
-ord = sample(1:7)
+ord = c(4,6,7,2,3,1,5) #sample(1:7)
 
 tt = ts[ord]
 ss = sss[ord]

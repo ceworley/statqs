@@ -1,7 +1,7 @@
 ```{r data generation, echo = FALSE, results = "hide"}
 while(T){
-  p1 = round(runif(1,0.2,0.8),2)
-  p2 = round(runif(1,0.2,0.8),2)
+  p1 = 0.75 #round(runif(1,0.2,0.8),2)
+  p2 = 0.41 #round(runif(1,0.2,0.8),2)
   if(abs(p1-p2)>0.2) {break}
 }
 ```

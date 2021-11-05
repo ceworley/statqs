@@ -5,16 +5,15 @@ date: "9/20/2021"
 output:
   slidy_presentation:
     css: basic.css
-    incremental: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Proportion, binary data {.incremental}
+## Proportion, binary data 
 
-When you have binary data, the proportion of success is the number of successes divided by the sample size.
+When you have binary data, the sample proportion is the number of successes (1s) divided by the sample size.
 
 $$\hat{p} = \frac{n_\text{s}}{n}$$
 
@@ -37,7 +36,7 @@ $$n = `r n`$$
 $$n_\text{s} = `r ns`$$
 $$\hat{p} = \frac{`r ns`}{`r n`} = `r phat` $$
 
-## Proportion, discrete or continuous data {.incremental}
+## Proportion, discrete or continuous data 
 
 If you have discrete or continuous data, you can determine the proportion of measurements within an interval.
 
@@ -67,7 +66,7 @@ $$n = `r n`$$
 $$\#[x>10.5] = n_s = `r ns` $$
 $$\text{prop}[x>10.5] = \frac{\#[x>10.5]}{n} = \frac{`r ns`}{`r n`} = `r phat` $$
 
-## Proportion (within interval) from histogram {.incremental}
+## Proportion (within interval) from histogram 
 
 ```{r}
 set.seed(1)
@@ -88,16 +87,16 @@ $$\#[x<8] = `r 57+46+34+25` $$
   $$\text{prop}[x<8] = \frac{162}{200} = `r 162/200` $$
   
 
-## Sample mean (average) {.incremental}
+## Sample mean (average) 
 
-The sample mean is found by summing the measurements and dividing the sum by the sampe size.
+The sample mean is found by summing the measurements and dividing the sum by the sample size.
 $$\bar{x} = \frac{\sum x}{n} $$
 In more technical situations, you may see more decorations to specify more precisely.
 
 $$\bar{x} = \cfrac{\sum\limits_{i=1}^nx_i}{n} $$
 Notice, with binary data, the sample mean is the sample proportion. (The sum of binary data equals the count of successes.)
 
-## Example of finding mean {.incremental}
+## Example of finding mean 
 
 ```{r findmeanexample}
 set.seed(111)
@@ -120,7 +119,7 @@ print(xbar)
 
 $$\bar{x}=`r round(mean(x),4)`$$
 
-## The mean is the center of mass {.incremental}
+## The mean is the center of mass 
 
 ```{r,fig.height=6,fig.width=8}
 set.seed(99)
@@ -146,7 +145,7 @@ mtext("center of mass",1,at=mean(x))
 - Boxes farther away on the right
 - The platform would balance on the center of mass
 
-## Median {.incremental}
+## Median 
 
 - The median is another measure of center.
 - To determine the median, first sort the data.
@@ -228,7 +227,7 @@ if(n%%2==1){ ## this checks if n is odd
 median
 ```
 
-## Median cont... {.incremental}
+## Median cont... 
 
 - The median is another measure of center.
 - To determine the median, first sort the data.
@@ -297,7 +296,7 @@ if(n%%2==1){ ## this checks if n is odd
 median
 ```
 
-## Common Distributions {.incremental}
+## Common Distributions 
 
 There are 6 common distribution shapes I want you to name.
 
@@ -308,7 +307,7 @@ There are 6 common distribution shapes I want you to name.
 - Right-skewed
 - Left-skewed
 
-## Common Distribution: Binary {.incremental}
+## Common Distribution: Binary 
 
 - Really, I just want to remind you that binary data exists. When the data are plotted in a histogram, there are just two bars.
 ```{r}
@@ -317,7 +316,7 @@ hist(x,breaks=c(-0.5,0.5,1.5),ann=F,axes=F)
 axis(1,at=c(0,1))
 ```
 
-## Common Distribution: Uniform {.incremental}
+## Common Distribution: Uniform 
 
 - There is [discrete uniform](https://en.wikipedia.org/wiki/Discrete_uniform_distribution){target="_blank"} or [continuous uniform](https://en.wikipedia.org/wiki/Continuous_uniform_distribution){target="_blank"}.
 - A uniform histogram will have frequencies that are approximately equal.
@@ -375,7 +374,7 @@ x = runif(5000)
 hist(x,breaks=seq(0,1,0.1))
 ```
 
-## Common Distribution: Bell (Normal) {.incremental}
+## Common Distribution: Bell (Normal) 
 
 - Technically, there are multiple bell-shaped distributions. The normal distribution is just one of them.
 - Symmetric
@@ -403,7 +402,7 @@ hist(x,
 
 
 
-## Common Distribution: Bimodal {.incremental}
+## Common Distribution: Bimodal 
 
 - A bimodal distribution has two (approximately equally tall) hills.
 - Symmetric-ish
@@ -413,7 +412,7 @@ x = rnorm(1000,10,2)*sample(c(-1,1),1000,T)+100
 hist(x,breaks=20,main="Bimodal distribution")
 ```
 
-## Common Distribution: Skewed right {.incremental}
+## Common Distribution: Skewed right 
 
 - Data has a right-ward tail
 
@@ -425,7 +424,7 @@ hist(x,main="Right-skew distribution")
 
 - $\text{mean} > \text{median}$
 
-## Common Distribution: Skewed left {.incremental}
+## Common Distribution: Skewed left 
 
 - Data has a left-ward tail
 
@@ -440,7 +439,7 @@ hist(x,main="Left-skew distribution")
 
 
 
-## Measures of spread {.incremental}
+## Measures of spread 
 
 We will discuss and use various measures of spread:
 
@@ -450,7 +449,7 @@ We will discuss and use various measures of spread:
 - [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation)
 - [interquartile range (IQR)](https://en.wikipedia.org/wiki/Interquartile_range)
 
-## Measures of spread: mean of absolute deviations {.incremental}
+## Measures of spread: mean of absolute deviations 
 
 A simple measure of spread is the average (mean) of absolute deviations from the sample mean.
 
@@ -561,7 +560,7 @@ for(i in 0:n){
 
 ```
 
-## Measures of spread: range {.incremental}
+## Measures of spread: range 
 
 - The range is simply the difference between the maximum and minimum.
 $$\text{range} = \max(\mathbf{x}) - \min(\mathbf{x})$$
@@ -593,7 +592,7 @@ $$`r max(x)`-`r min(x)` = `r max(x)-min(x)` $$
 - We say sample range is a biased estimator of population range.
 
 
-## Measures of spread: variance {.incremental}
+## Measures of spread: variance 
 
 - variance without [Bessel correction](https://en.wikipedia.org/wiki/Bessel%27s_correction)
 $$\text{var(x)} = \frac{\sum(\mathbf{x}-\bar{x})^2}{n}$$
@@ -601,7 +600,7 @@ $$\text{var(x)} = \frac{\sum(\mathbf{x}-\bar{x})^2}{n}$$
 $$\text{var(x)} = \frac{\sum(\mathbf{x}-\bar{x})^2}{n-1}$$
 - The Bessel correction makes an unbiased estimator.
 
-## Measures of spread: standard deviation {.incremental}
+## Measures of spread: standard deviation 
 
 - sample standard deviation without [Bessel correction](https://en.wikipedia.org/wiki/Bessel%27s_correction)
 $$s_n = \sqrt{\frac{\sum(\mathbf{x}-\bar{x})^2}{n}}$$

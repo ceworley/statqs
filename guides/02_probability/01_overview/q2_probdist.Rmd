@@ -1,8 +1,8 @@
 ```{r data generation, echo = FALSE, results = "hide"}
 while(T){
-    n = sample(5:8,1)
-    x = sort(sample(1:30,n))
-    l = sort(round(runif(n-1,0,1),2))
+    n = 8 #sample(5:8,1)
+    x = c(5,6,9,14,16,26,28,29) #sort(sample(1:30,n))
+    l = c(0.08, 0.32, 0.46, 0.53, 0.61, 0.79, 0.92, 1) #sort(round(runif(n-1,0,1),2))
     breaks = c(0,l,1)
     p = round(breaks[2:(n+1)]-breaks[1:n],2)
     mu = sum(p*x)
@@ -31,17 +31,17 @@ for(i in 1:n){
     }
 }
 
-exact = sample(1:n,1)
+exact = 2 #sample(1:n,1)
 xex = x[exact]
-two = sort(sample(1:n,2))
+two = c(4,8) #sort(sample(1:n,2))
 ptwo = sum(p[two])
 if(n==3){
   atlm = 2
 } else {
-  atlm = sample(2:(n-1),size=1)
+  atlm = 5 #sample(2:(n-1),size=1)
 }
 xatlm = x[atlm]
-atl = sample(c(T,F),1)
+atl = T #sample(c(T,F),1)
 if(atl){
   word = "least"
   patlm = sum(p[atlm:n])

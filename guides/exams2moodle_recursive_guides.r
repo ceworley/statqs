@@ -26,6 +26,7 @@ for(s2 in strsplit(s,"/")){
 }
 
 for(fold2 in fold[1:length(fold)]){
+  set.seed(123)
   print(fold2)
   files = list.files(fold2,pattern=".Rmd",full.names = T)
   print(files)

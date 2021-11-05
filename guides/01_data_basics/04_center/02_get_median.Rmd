@@ -1,12 +1,15 @@
 ```{r,data,generation,echo=FALSE,results="hide"}
-type = sample(1:5,1) #uniform, bell, bimodal, skewright, skewleft
-n = sample(7:15,1)
-beta1 = c(1,5,0.2,0.5,2)[type]
-beta2 = c(1,5,0.2,2,0.5)[type]
-bottom = sample(seq(20,70,5),1)
-width = sample(seq(5,30,5),1)
+# type = sample(1:5,1) #uniform, bell, bimodal, skewright, skewleft
+# n = sample(7:15,1)
+# beta1 = c(1,5,0.2,0.5,2)[type]
+# beta2 = c(1,5,0.2,2,0.5)[type]
+# bottom = sample(seq(20,70,5),1)
+# width = sample(seq(5,30,5),1)
+# i = 1:n
+# x = round(rbeta(n,beta1,beta2)*width+bottom,2)
+x = c(57.1,46.89,50.16,59.8,52.81,57.94,50.84,56.87,45.47,46.18,56.06,48.76,58.13,53.48,51.64)
+n = length(x)
 i = 1:n
-x = round(rbeta(n,beta1,beta2)*width+bottom,2)
 ```
 
 
