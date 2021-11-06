@@ -6,6 +6,9 @@
 </head>
 
 <script>
+const col1 = "#aa000055";
+const col2 = "#008888aa";
+
 function dnorm(z){
 	return(Math.exp(-(z**2)/2)/Math.sqrt(2*Math.PI));
 }
@@ -109,8 +112,6 @@ function reset(){
 <input type="radio" id="arbitrary" name="ptype" value="arbitrary"  onclick="makebap(this)">
 <label for="arbitrary">arbitrary bounded interval</label>
 
-
-
 <h4 id="h_bap"></h4>
 
 <div name="help" id="help"></div>
@@ -120,8 +121,9 @@ function reset(){
 
 <div name="calc" id="calc"></div> 
 
-<h4>Visualization</h4>
+<h4>Visualizations</h4>
 
+<h5>Density</h5>
 <script>
 
 function calcz1(){
@@ -148,7 +150,8 @@ function calcz1(){
 		c1 = document.getElementById("calc");
 		c1.innerHTML = "<h4>calculation</h4> P("+z1.value+" < Z < "+z2.value+") = "+PA.value;
 		erasefill();		
-		drawA(Number(z1v),Number(z2v));
+		drawA(Number(z1v),Number(z2v));		
+		drawB(Number(z1v),Number(z2v));
 		}
 }
 function calcz2(){
@@ -175,7 +178,8 @@ function calcz2(){
 		c1 = document.getElementById("calc");
 		c1.innerHTML = "<h4>calculation</h4> P("+z1.value+" < Z < "+z2.value+") = "+PA.value;
 		erasefill();		
-		drawA(Number(z1v),Number(z2v));
+		drawA(Number(z1v),Number(z2v));		
+		drawB(Number(z1v),Number(z2v));
 	}
 }
 function calcPA(){
@@ -193,6 +197,7 @@ function calcPA(){
 		c1.innerHTML = "<h4>calculation</h4> P("+z1.value+" < Z < "+z2.value+") = "+PA.value;
 		erasefill();		
 		drawA(Number(z1.value),Number(z2.value));
+		drawB(Number(z1.value),Number(z2.value));
 	}
 }
 
@@ -221,10 +226,27 @@ function erasefill(){
 	if(b2old != null){
 		b2old.parentNode.removeChild(b2old);
 	}
-	
+	arcold = document.getElementById("arc");
+	if(arcold != null){
+		arcold.parentNode.removeChild(arcold);
+	}
+	arcold = document.getElementById("arc");
+	if(arcold != null){
+		arcold.parentNode.removeChild(arcold);
+	}
+	gold = document.getElementById("cgroup");
+	if(gold != null){
+		gold.parentNode.removeChild(gold);
+	}
+	gold = document.getElementById("cgroup");
+	if(gold != null){
+		gold.parentNode.removeChild(gold);
+	}
 }
 
 function drawA(z1,z2){
+	z1 = Math.max(-3,z1);
+	z2 = Math.min(3,z2);
 	svg = document.getElementById("viz");
 	var w = 20;
 	var pl1 = document.createElementNS("http://www.w3.org/2000/svg","polyline");
@@ -244,28 +266,110 @@ function drawA(z1,z2){
 	pnts = pnts+x2+","+y2+" "+x2+","+y0;
  	pl1.setAttribute("points", pnts);
  	pl1.setAttribute("id","fil");
- 	pl1.setAttribute("fill", "#aa000055");
+ 	pl1.setAttribute("fill", col1);
  	pl1.setAttribute("stroke","none");
  	svg.appendChild(pl1);
  	pl2 = document.createElementNS("http://www.w3.org/2000/svg","polyline");
 	pnts = ""+x1+","+y0+" "+x1+","+y1;
 	pl2.setAttribute("points", pnts);
  	pl2.setAttribute("id","b1");
- 	pl2.setAttribute("stroke","#00aa00");
- 	pl2.setAttribute("stroke-width","3");
+ 	pl2.setAttribute("stroke",col2);
+ 	pl2.setAttribute("stroke-width","5");
  	svg.appendChild(pl2);
  	pl3 = document.createElementNS("http://www.w3.org/2000/svg","polyline");
 	pnts = ""+x2+","+y0+" "+x2+","+y2;
 	pl3.setAttribute("points", pnts);
  	pl3.setAttribute("id","b2");
- 	pl3.setAttribute("stroke","#0000aa");
- 	pl3.setAttribute("stroke-width","3");
+ 	pl3.setAttribute("stroke",col2);
+ 	pl3.setAttribute("stroke-width","5");
  	svg.appendChild(pl3);
 }
 
-
+function drawB(z1,z2){
+	var pp1 = pnorm(z1);
+	var pp2 = pnorm(z2);
+	var s = document.getElementById("spinner");
+	var pnts = "0,0 ";
+	var x = 0;
+	var y = 0;
+	for(var pp=pp1;pp<pp2;pp+=0.01){
+		x = Math.sin(pp*2*Math.PI);
+		y = -Math.cos(pp*2*Math.PI);
+		pnts = pnts+x+","+y+" ";	
+	}
+	x = Math.sin(pp2*2*Math.PI);
+	y = -Math.cos(pp2*2*Math.PI);
+	pnts = pnts+x+","+y+" 0,0";
+	pl1 = document.createElementNS("http://www.w3.org/2000/svg","polyline");
+	pl1.setAttribute("points", pnts);
+ 	pl1.setAttribute("id","arc");
+ 	pl1.setAttribute("fill",col1);
+ 	pl1.setAttribute("stroke","none");
+ 	s.appendChild(pl1);
+ 	
+ 	var c = document.getElementById("cumul");
+ 	var y1 = 550-pnorm(z1)*500;
+ 	var y2 = 550-pnorm(z2)*500;
+ 	z1 = Math.min(Math.max(-3,z1),3)
+ 	z2 = Math.max(Math.min(3,z2),-3)
+ 	var x1 = 50*z1+200;
+ 	var x2 = 50*z2+200;
+	var g = document.createElementNS("http://www.w3.org/2000/svg","g");
+	g.setAttribute("id","cgroup");
+	var pt1 = document.createElementNS("http://www.w3.org/2000/svg","circle");
+	var pt2 = document.createElementNS("http://www.w3.org/2000/svg","circle");
+	var ln1 = document.createElementNS("http://www.w3.org/2000/svg","line");
+	var ln2 = document.createElementNS("http://www.w3.org/2000/svg","line");
+	var ln3 = document.createElementNS("http://www.w3.org/2000/svg","line");
+	var ln4 = document.createElementNS("http://www.w3.org/2000/svg","line");
+	pt1.setAttribute("cx",x1);
+	pt1.setAttribute("cy",y1);
+	pt1.setAttribute("r",5);
+	pt1.setAttribute("fill","#00000088");
+	pt1.setAttribute("stroke","black");
+	pt1.setAttribute("stroke-width","1");
+	pt2.setAttribute("cx",x2);
+	pt2.setAttribute("cy",y2);
+	pt2.setAttribute("r",5);
+	pt2.setAttribute("fill","#00000088");
+	pt2.setAttribute("stroke","black");
+	pt2.setAttribute("stroke-width","0.5"); 
+	ln1.setAttribute("x1",x1);
+	ln1.setAttribute("x2",x2);
+	ln1.setAttribute("y1",560);
+	ln1.setAttribute("y2",560);
+	ln1.setAttribute("stroke",col2);
+	ln1.setAttribute("stroke-width",5);
+	ln2.setAttribute("x1",x1);
+	ln2.setAttribute("x2",x2);
+	ln2.setAttribute("y1",40);
+	ln2.setAttribute("y2",40);
+	ln2.setAttribute("stroke",col2);
+	ln2.setAttribute("stroke-width",5);
+	ln3.setAttribute("x1",45);
+	ln3.setAttribute("x2",45);
+	ln3.setAttribute("y1",y1);
+	ln3.setAttribute("y2",y2);
+	ln3.setAttribute("stroke",col1);
+	ln3.setAttribute("stroke-width",5);
+	ln4.setAttribute("x1",355);
+	ln4.setAttribute("x2",355);
+	ln4.setAttribute("y1",y1);
+	ln4.setAttribute("y2",y2);
+	ln4.setAttribute("stroke",col1);
+	ln4.setAttribute("stroke-width",5);
+	g.appendChild(pt1);
+	g.appendChild(pt2);
+	g.appendChild(ln1);
+	g.appendChild(ln2);
+	g.appendChild(ln3);
+	g.appendChild(ln4);
+	c.appendChild(g);
+}
 
 function makebap(rsel){
+	erasefill();
+	document.getElementById("calc").innerHTML = "";
 	var f1 = document.getElementById("bap");
 	while(f1.firstChild){
 		f1.removeChild(f1.firstChild);	
@@ -281,7 +385,7 @@ function makebap(rsel){
 		txt.value = "";
 		txt.setAttribute("onclick","this.select()")
 		txt.placeholder = "z1";
-		txt.setAttribute("style","background-color:#00aa0055");
+		txt.setAttribute("style","background-color:"+col2);
 		label.innerHTML = "z<sub>1</sub> = ";
 		label.appendChild(txt);
 		f1.appendChild(label);
@@ -300,7 +404,7 @@ function makebap(rsel){
 		txt.value = "";
 		txt.setAttribute("onclick","this.select()")
 		txt.placeholder = "z2";
-		txt.setAttribute("style","background-color:#0000aa55");
+		txt.setAttribute("style","background-color:"+col2);
 		label.innerHTML = "z<sub>2</sub> = ";
 		label.appendChild(txt);
 		f1.appendChild(label);
@@ -327,7 +431,7 @@ function makebap(rsel){
 		but1.value = "calcPA";
 		but1.onclick = calcPA;
 		but1.innerHTML = "calculate P(z<sub>1</sub> < Z < z<sub>2</sub>)";
-		txt.setAttribute("style","background-color:#aa000055");
+		txt.setAttribute("style","background-color:"+col1);
 		f1.appendChild(but1);
 	} else {
 		if(rsel.value=="left" || rsel.value=="right"){
@@ -344,10 +448,10 @@ function makebap(rsel){
 		txt.value = "";
 		txt.setAttribute("onclick","this.select()");
 		switch(rsel.value){
-			case "left": txt.setAttribute("style","background-color:#0000aa55");txt.setAttribute("onchange","calcP('left')");break;
-			case "right": txt.setAttribute("style","background-color:#00aa0055");txt.setAttribute("onchange","calcP('right')");break; 
-			case "center": txt.setAttribute("style","background-color:#0000aa55");txt.setAttribute("onchange","calcP('center')");break;
-			case "twotail": txt.setAttribute("style","background-color:#00aa0055");txt.setAttribute("onchange","calcP('twotail')");break; 
+			case "left": txt.setAttribute("style","background-color:"+col2);txt.setAttribute("onchange","calcP('left')");break;
+			case "right": txt.setAttribute("style","background-color:"+col2);txt.setAttribute("onchange","calcP('right')");break; 
+			case "center": txt.setAttribute("style","background-color:"+col2);txt.setAttribute("onchange","calcP('center')");break;
+			case "twotail": txt.setAttribute("style","background-color:"+col2);txt.setAttribute("onchange","calcP('twotail')");break; 
 		}		
 		txt.placeholder = "z";
 		label.innerHTML = "z = ";
@@ -368,7 +472,7 @@ function makebap(rsel){
 			case "twotail": txt.placeholder = "P(|Z| > z)";txt.setAttribute("onchange","calcz('twotail')");break; 
 		}		
 		label.innerHTML = txt.placeholder+" = ";
-		txt.setAttribute("style","background-color:#aa000055");
+		txt.setAttribute("style","background-color:"+col1);
 		label.appendChild(txt);
 		f1.appendChild(label);
 	}
@@ -392,21 +496,23 @@ function calcP(rsv){
 		Pe.value = P;
 		erasefill();
 		drawA(-3,z);
+		drawB(-6,z);
 	} else if (rsv == "right"){
 		P = Math.round((1-p)*10000)/100000;	
 		c1.innerHTML = "<h4>Calculation</h4> P(Z > "+z+") = "+P;
 		Pe.value = P;
 		erasefill();
 		drawA(z,3);
+		drawB(z,6);
 	} else if (rsv == "center"){
 		erasefill();
-		if(p<0.5){P=0;}	else {P=(p-0.5)*2;drawA(-z,z);}
+		if(p<0.5){P=0;}	else {P=(p-0.5)*2;drawA(-z,z);drawB(-z,z);}
 		P = Math.round(P*10000)/10000;
 		c1.innerHTML = "<h4>Calculation</h4> P(|Z| < "+z+") = "+P;
 		Pe.value = P;
 	} else if (rsv == "twotail"){
 		erasefill();
-		if(p<0.5){P=1;drawA(-3,3);}	else {P=(1-p)*2;drawA(-3,-Math.abs(z));drawA(Math.abs(z),3);}
+		if(p<0.5){P=1;drawA(-3,3);drawB(-6,6);}	else {P=(1-p)*2;drawA(-3,-Math.abs(z));drawB(-6,-Math.abs(z));drawA(Math.abs(z),3);drawB(Math.abs(z),6);}
 		P = Math.round(P*10000)/10000;
 		c1.innerHTML = "<h4>Calculation</h4> P(|Z| > "+z+") = "+P;
 		Pe.value = P;
@@ -434,6 +540,7 @@ function calcz(rsv){
 		c1.innerHTML = "<h4>Calculation</h4> P(Z < "+z+") = "+P;
 		erasefill();
 		drawA(-3,z);
+		drawB(-6,z);
 		ze.value = z;
 	} else if (rsv == "right"){
 		z = Math.round(qnorm(1-P)*10000)/100000;	
@@ -441,6 +548,7 @@ function calcz(rsv){
 		ze.value = z;
 		erasefill();
 		drawA(z,3);
+		drawB(z,6);
 	} else if (rsv == "center"){
 		erasefill();
 		z = qnorm(P/2+0.5);
@@ -448,6 +556,7 @@ function calcz(rsv){
 		c1.innerHTML = "<h4>Calculation</h4> P(|Z| < "+z+") = "+P;
 		ze.value = z;
 		drawA(-Math.abs(z),Math.abs(z));
+		drawB(-Math.abs(z),Math.abs(z));
 	} else if (rsv == "twotail"){
 		erasefill();
 		z = qnorm(1-P/2);		
@@ -456,15 +565,15 @@ function calcz(rsv){
 		ze.value = z;
 		drawA(-3,-Math.abs(z));
 		drawA(Math.abs(z),3);
+		drawB(-6,-Math.abs(z));
+		drawB(Math.abs(z),6);
 	}
 }
-
 
 </script>
 
 
 <div id="svg12345"></div>
-
 <script>
  const svg1 = document.createElementNS("http://www.w3.org/2000/svg", "svg");
  const w = 20;
@@ -516,11 +625,231 @@ svg1.id = "viz";
 document.getElementById("svg12345").appendChild(svg1);
 </script>
 
+<h5>Spinner</h5>
+<div id="svg_spin_147"></div>
 
-<!--<svg width="900" height="240">
-</svg>
--->
+<script>
+	var svg2 = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+	svg2.setAttribute("width", 500);
+	svg2.setAttribute("height", 500);
+	svg2.setAttribute("id","spinner");
+	svg2.setAttribute("viewBox","-1.2 -1.2 2.4 2.4");
+	svg2.setAttribute("stroke-width","0.005")
+	var cir = document.createElementNS("http://www.w3.org/2000/svg","circle");
+	cir.setAttribute("cx", 0);
+	cir.setAttribute("cy", 0);
+	cir.setAttribute("r", 1);
+	cir.setAttribute("fill","none");	
+	cir.setAttribute("stroke","#000000");
+	cir.setAttribute("stroke-width","0.005");
+	svg2.appendChild(cir);
+	for(var z=-3;z<=3.1;z++){
+		var x = Math.sin(pnorm(z)*2*Math.PI);
+		var y = -Math.cos(pnorm(z)*2*Math.PI);
+		var lin = document.createElementNS("http://www.w3.org/2000/svg","line");
+		lin.setAttribute("x1",x*0.8);
+		lin.setAttribute("y1",y*0.8);
+		lin.setAttribute("x2",x);
+		lin.setAttribute("y2",y);
+		lin.setAttribute("stroke-width","0.02");
+		lin.setAttribute("stroke","black");
+		svg2.appendChild(lin);
+		if(Math.abs(z)<3){
+			var tx = document.createElementNS("http://www.w3.org/2000/svg","text");
+			tx.setAttribute("x",x*0.7);
+			tx.setAttribute("y",y*0.7);
+			tx.setAttribute("text-anchor","middle");
+			tx.setAttribute("dominant-baseline","central");
+			tx.setAttribute("transform","rotate("+Math.atan(y/x)/Math.PI*180+","+x*0.7+","+y*0.7+")");
+			tx.appendChild(document.createTextNode(z));
+			tx.setAttribute("font-size",0.08);
+			svg2.appendChild(tx);
+		}
+	}
+	for(var z=-2.5;z<=2.6;z+=1){
+		var x = Math.sin(pnorm(z)*2*Math.PI);
+		var y = -Math.cos(pnorm(z)*2*Math.PI);
+		var lin = document.createElementNS("http://www.w3.org/2000/svg","line");
+		lin.setAttribute("x1",x*0.85);
+		lin.setAttribute("y1",y*0.85);
+		lin.setAttribute("x2",x);
+		lin.setAttribute("y2",y);
+		lin.setAttribute("stroke-width","0.005");
+		lin.setAttribute("stroke","black");
+		svg2.appendChild(lin);
+		if(Math.abs(z)<2){
+			var tx = document.createElementNS("http://www.w3.org/2000/svg","text");
+			tx.setAttribute("x",x*0.75);
+			tx.setAttribute("y",y*0.75);
+			tx.setAttribute("text-anchor","middle");
+			tx.setAttribute("dominant-baseline","central");
+			tx.setAttribute("transform","rotate("+Math.atan(y/x)/Math.PI*180+","+x*0.75+","+y*0.75+")");
+			tx.appendChild(document.createTextNode(z));
+			tx.setAttribute("font-size",0.07);
+			svg2.appendChild(tx);
+		}
+	}
+	for(var z=-3;z<=3.05;z+=0.1){
+		if(Math.abs(z%0.5)>0.05){
+		z = Math.round(z*100)/100
+		var x = Math.sin(pnorm(z)*2*Math.PI);
+		var y = -Math.cos(pnorm(z)*2*Math.PI);
+		var lin = document.createElementNS("http://www.w3.org/2000/svg","line");
+		lin.setAttribute("x1",x*0.9);
+		lin.setAttribute("y1",y*0.9);
+		lin.setAttribute("x2",x);
+		lin.setAttribute("y2",y);
+		lin.setAttribute("stroke-width","0.005");
+		lin.setAttribute("stroke","black");
+		svg2.appendChild(lin);
+		if(Math.abs(z)<2){
+			var tx = document.createElementNS("http://www.w3.org/2000/svg","text");
+			tx.setAttribute("x",x*0.85);
+			tx.setAttribute("y",y*0.85);
+			tx.setAttribute("text-anchor","middle");
+			tx.setAttribute("dominant-baseline","central");
+			tx.setAttribute("transform","rotate("+Math.atan(y/x)/Math.PI*180+","+x*0.85+","+y*0.85+")");
+			tx.appendChild(document.createTextNode(z));
+			tx.setAttribute("font-size",0.04);
+			svg2.appendChild(tx);
+		}
+	}
+	}
+	for(var z=-3;z<=3.05;z+=0.01){
+		if(Math.abs(z%0.1)>0.001){
+		z = Math.round(z*100)/100
+		var x = Math.sin(pnorm(z)*2*Math.PI);
+		var y = -Math.cos(pnorm(z)*2*Math.PI);
+		var lin = document.createElementNS("http://www.w3.org/2000/svg","line");
+		lin.setAttribute("x1",x*0.95);
+		lin.setAttribute("y1",y*0.95);
+		lin.setAttribute("x2",x);
+		lin.setAttribute("y2",y);
+		lin.setAttribute("stroke-width","0.002");
+		lin.setAttribute("stroke","black");
+		svg2.appendChild(lin);
+	}
+	}
+	for(var pp=1;pp<100;pp++){
+		var x = Math.sin(pp/100*2*Math.PI);
+		var y = -Math.cos(pp/100*2*Math.PI);
+		var lin = document.createElementNS("http://www.w3.org/2000/svg","line");
+		lin.setAttribute("x1",x*1.05);
+		lin.setAttribute("y1",y*1.05);
+		lin.setAttribute("x2",x);
+		lin.setAttribute("y2",y);
+		lin.setAttribute("stroke-width","0.004");
+		lin.setAttribute("stroke","black");
+		svg2.appendChild(lin);
+		var tx = document.createElementNS("http://www.w3.org/2000/svg","text");
+		tx.setAttribute("x",x*1.1);
+		tx.setAttribute("y",y*1.1);
+		tx.setAttribute("text-anchor","middle");
+		tx.setAttribute("dominant-baseline","central");
+		tx.setAttribute("transform","rotate("+Math.atan(y/x)/Math.PI*180+","+x*1.1+","+y*1.1+")");
+		tx.appendChild(document.createTextNode(pp/100));
+		tx.setAttribute("font-size",0.04);
+		svg2.appendChild(tx);
+	}
+	var lin = document.createElementNS("http://www.w3.org/2000/svg","line");
+	lin.setAttribute("x1",0);
+	lin.setAttribute("y1",-1.2);
+	lin.setAttribute("x2",0);
+	lin.setAttribute("y2",-1);
+	lin.setAttribute("stroke-width","0.01");
+	lin.setAttribute("stroke","black");
+	svg2.appendChild(lin);
+	var tx = document.createElementNS("http://www.w3.org/2000/svg","text");
+	tx.setAttribute("x",0);
+	tx.setAttribute("y",-1.15);
+	tx.setAttribute("text-anchor","middle");
+	tx.setAttribute("dominant-baseline","central");
+	tx.appendChild(document.createTextNode("1 0"));
+	tx.setAttribute("font-size",0.06);
+	svg2.appendChild(tx);
+	document.getElementById("svg_spin_147").appendChild(svg2);
+</script>
 
+<h5>Cumulative</h5>
+<div id="svg_cumulative"></div>
+
+<script>
+var svg2 = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+svg2.setAttribute("width", 400);
+svg2.setAttribute("height", 600);
+svg2.setAttribute("id","cumul");
+for(var pp=0;pp<=100.1;pp++){
+	var l = document.createElementNS("http://www.w3.org/2000/svg","line");
+	l.setAttribute("x1",50);
+	l.setAttribute("x2",350);
+	l.setAttribute("y1",pp*5+50);
+	l.setAttribute("y2",pp*5+50);
+	l.setAttribute("stroke","black");
+	if(pp%10<0.1){
+		l.setAttribute("stroke-width",0.8);
+		var t = document.createElementNS("http://www.w3.org/2000/svg","text");
+		t.setAttribute("x",25);
+		t.setAttribute("y",pp*5+50);
+		t.setAttribute("text-anchor","middle");
+		t.setAttribute("dominant-baseline","central");
+		t.appendChild(document.createTextNode(Math.round(100-pp)/100));
+		svg2.appendChild(t);
+		var t = document.createElementNS("http://www.w3.org/2000/svg","text");
+		t.setAttribute("x",375);
+		t.setAttribute("y",pp*5+50);
+		t.setAttribute("text-anchor","middle");
+		t.setAttribute("dominant-baseline","central");
+		t.appendChild(document.createTextNode(Math.round(100-pp)/100));
+		svg2.appendChild(t);	
+	} else if (pp%5<0.1) {
+		l.setAttribute("stroke-width",0.4);		
+	} else {
+		l.setAttribute("stroke-width",0.2);	
+	}
+	svg2.appendChild(l);
+}
+var pnts = "";
+for(var zz=-3;zz<=3.1;zz+=0.1){
+	var l = document.createElementNS("http://www.w3.org/2000/svg","line");
+	l.setAttribute("x1",zz*50+200);
+	l.setAttribute("x2",zz*50+200);
+	l.setAttribute("y1",50);
+	l.setAttribute("y2",550);
+	l.setAttribute("stroke","black");
+	var x = zz*50+200;
+	var y = 550-pnorm(zz)*500;	
+	pnts = pnts+x+","+y+" ";
+	if(Math.abs(0.5-Math.abs(zz)%1)>0.45){
+		l.setAttribute("stroke-width",0.8);	
+		var t = document.createElementNS("http://www.w3.org/2000/svg","text");	
+		t.setAttribute("x",zz*50+200);
+		t.setAttribute("y",575);
+		t.setAttribute("text-anchor","middle");
+		t.setAttribute("dominant-baseline","central");
+		t.appendChild(document.createTextNode(Math.round(zz)));
+		svg2.appendChild(t);
+		var t = document.createElementNS("http://www.w3.org/2000/svg","text");
+		t.setAttribute("x",zz*50+200);
+		t.setAttribute("y",25);
+		t.setAttribute("text-anchor","middle");
+		t.setAttribute("dominant-baseline","central");
+		t.appendChild(document.createTextNode(Math.round(zz)));
+		svg2.appendChild(t);
+	} else if (Math.abs(0.25-Math.abs(zz)%0.5)>0.20) {
+		l.setAttribute("stroke-width",0.4);		
+	} else {
+		l.setAttribute("stroke-width",0.2);	
+	}
+	svg2.appendChild(l);
+}
+var pl = document.createElementNS("http://www.w3.org/2000/svg","polyline");
+pl.setAttribute("points",pnts);
+pl.setAttribute("stroke","black");
+pl.setAttribute("stroke-width","3");
+pl.setAttribute("fill","none");
+svg2.appendChild(pl);
+document.getElementById("svg_cumulative").appendChild(svg2);
+</script>
 
 </body>
 </html>
