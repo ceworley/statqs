@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Standard Normal</title>
+<title>Standard Normal Calculator</title>
 <meta charset="utf-8">
 </head>
 
@@ -134,7 +134,7 @@ function calcz1(){
 		z2.value = "";
 		z2.placeholder = "z1, must be a number";
 		PA.value = "";
-		z2.placeholder = "P(z1<Z<z2), must be a number";	
+		PA.placeholder = "P(z1<Z<z2), must be a number";	
 	} else {
 		var z2v = Number(z2.value);
 		var PAv = Number(PA.value);

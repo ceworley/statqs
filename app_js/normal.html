@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Standard Normal</title>
+<title>Normal Calculator</title>
 <meta charset="utf-8">
 </head>
 
 <script>
+const col1 = "#aa000055";
+const col2 = "#008888aa";
+
 function dnorm(z){
 	return(Math.exp(-(z**2)/2)/Math.sqrt(2*Math.PI));
 }
@@ -76,37 +79,573 @@ function qnorm(p,mu=0,sigma=1) {
         q = Math.sqrt(-2 * Math.log(1 - p));
         retVal = -(((((c1 * q + c2) * q + c3) * q + c4) * q + c5) * q + c6) / ((((d1 * q + d2) * q + d3) * q + d4) * q + 1);
     }
-        return retVal*sigma+mu;
+    return retVal*sigma+mu;
+}
+
+function reset(){
+	document.getElementById("mu").value = 0;
+	document.getElementById("sigma").value = 1;
+	erasefill();
+}
+
+function numbs(){
+const w = 20;
+var mue = document.getElementById("mu");
+var sige = document.getElementById("sigma");
+if(isNaN(mue.value) || isNaN(sige.value)){
+	return;
+}
+var mu = Number(mue.value);
+var sig = Number(sige.value);
+var gg1 = document.createElementNS("http://www.w3.org/2000/svg","g");
+gg1.setAttribute("id","gg1");
+for(var z=-3;z<=3.1;z++){
+	var txt1 = document.createElementNS("http://www.w3.org/2000/svg","text");
+	txt1.setAttribute("x",z*5*w+15*w);
+	txt1.setAttribute("y",9.5*w);
+	txt1.setAttribute("text-anchor","middle")
+	txt1.appendChild(document.createTextNode(Math.round((z*sig+mu)*10000)/10000));
+	gg1.appendChild(txt1);
+ }
+var txt1 = document.createElementNS("http://www.w3.org/2000/svg","text");
+txt1.setAttribute("x",15*w);
+txt1.setAttribute("y",10.2*w);
+txt1.setAttribute("text-anchor","middle")
+txt1.appendChild(document.createTextNode("x"));
+gg1.appendChild(txt1);
+document.getElementById("svg12345").appendChild(gg1);
+}
+
+
+</script>
+
+<body onload="reset();">
+
+<h2>Normal Probability Calculator</h2>
+
+<h3>Population parameters</h3>
+<h4>Population mean</h4>
+<label for="mu">μ = </label>
+<input type="text" id="mu" placeholder="μ" value="0" onchange="numbs()"></input>
+<h4>Population standard deviation</h4>
+<label for="sigma">σ = </label>
+<input type="text" id="sigma" placeholder="σ" value="1" onchange="numbs()"></input>
+
+<h3>Type of interval</h3>
+<input type="radio" id="left" name="ptype" value="left" onclick="makebap(this)">
+<label for="left">left</label>
+<br/>
+<input type="radio" id="right" name="ptype" value="right"  onclick="makebap(this)">
+<label for="right">right</label>
+<br/>
+<input type="radio" id="center" name="ptype" value="center"  onclick="makebap(this)">
+<label for="center">center</label>
+<br/>
+<input type="radio" id="twotail" name="ptype" value="twotail"  onclick="makebap(this)">
+<label for="twotail">two-tail</label>
+<br/>
+<input type="radio" id="arbitrary" name="ptype" value="arbitrary"  onclick="makebap(this)">
+<label for="arbitrary">arbitrary bounded interval</label>
+
+<h4 id="h_bap"></h4>
+
+<div name="help" id="help"></div>
+
+<div name="bap" id="bap">
+</div>
+
+<div name="calc" id="calc"></div> 
+
+<h4>Visualizations</h4>
+
+<h5>Density</h5>
+<script>
+
+function showcalcA(){
+	var ba = Number(document.getElementById("b1").value);
+	var bb = Number(document.getElementById("b2").value);
+	var pa = Number(document.getElementById("PA").value);
+	var MU = Number(document.getElementById("mu").value);
+	var SIG = Number(document.getElementById("sigma").value);
+	var za = (ba-MU)/SIG;
+	var zb = (bb-MU)/SIG;
+	var retstr = "<h4>Calculations</h4>";
+	retstr+= "X~N("+MU+","+SIG+")<br>";
+	retstr+= "P("+ba+"< X <"+bb+")  =  P("+za+"< Z <"+zb+")  =  "+pa;
+	return retstr;
+}
+
+function calcb1(){
+	var b1 = document.getElementById("b1");
+	var b2 = document.getElementById("b2");
+	var PA = document.getElementById("PA");
+	var mue = document.getElementById("mu");
+	var sigmae = document.getElementById("sigma");
+	if (isNaN(mue.value) || isNaN(sigmae.value)){
+		alert("mu and sigma must be numbers!");
+		mue.value = "";
+		mue.placeholder = "must be a number";
+		sigmae.value = "";
+		sigmae.placeholder = "must be a number";	
+		return;
+	}
+	var mu = Number(mue.value);
+	var sigma = Number(sigmae.value);
+	if (isNaN(b2.value) || isNaN(PA.value)){
+		b2.value = "";
+		b2.placeholder = "b2, must be a number";
+		PA.value = "";
+		PA.placeholder = "P(b1<Z<b2), must be a number";	
+	} else {
+		var b2v = Number(b2.value);
+		var PAv = Number(PA.value);
+		var z2v = Math.round((b2v-mu)/sigma*10000)/10000;
+		var p2 = pnorm(z2v);
+		var p1 = p2-PAv;
+		if(p1<=1 && p1>=0){
+			var z1v = Math.round(qnorm(p1)*10000)/10000;
+		} else {
+			var z1v = -3;
+			PA.value = Math.round((pnorm(z2v)-pnorm(z1v))*10000)/10000;
+		}
+		b1.value = Math.round((mu+sigma*z1v)*10000)/10000;
+		c1 = document.getElementById("calc");
+		c1.innerHTML = showcalcA();
+		erasefill();
+		drawA(Number(z1v),Number(z2v));
+	}
+}
+function calcb2(){
+	var b1 = document.getElementById("b1");
+	var b2 = document.getElementById("b2");
+	var PA = document.getElementById("PA");
+	var mue = document.getElementById("mu");
+	var sigmae = document.getElementById("sigma");
+	if (isNaN(mue.value) || isNaN(sigmae.value)){
+		alert("mu and sigma must be numbers!");
+		mue.value = "";
+		mue.placeholder = "must be a number";
+		sigmae.value = "";
+		sigmae.placeholder = "must be a number";	
+		return;
+	}
+	var mu = Number(mue.value);
+	var sigma = Number(sigmae.value);
+	if (isNaN(b1.value) || isNaN(PA.value)){
+		b1.value = "";
+		b1.placeholder = "b1, must be a number";
+		PA.value = "";
+		PA.placeholder = "P(b1<X<b2), must be a number";	
+	} else {
+		var b1v = Number(b1.value);
+		var PAv = Number(PA.value);
+		var z1v = Math.round((b1v-mu)/sigma*10000)/10000;
+		var p1 = pnorm(z1v);
+		var p2 = p1+PAv;
+		if(p2<=1 && p2>=0){
+			var z2v = Math.round(qnorm(p2)*10000)/10000;
+		} else {
+			var z2v = 3;
+			PA.value = Math.round((pnorm(z2v)-pnorm(z1v))*10000)/10000;
+		}
+		b2.value = Math.round((mu+sigma*z2v)*10000)/10000;
+		c1 = document.getElementById("calc");
+		c1.innerHTML = showcalcA();
+		erasefill();
+		drawA(Number(z1v),Number(z2v));
+	}
+}
+function calcPA(){
+	var b1 = document.getElementById("b1");
+	var b2 = document.getElementById("b2");
+	var PA = document.getElementById("PA");
+	var mue = document.getElementById("mu");
+	var sigmae = document.getElementById("sigma");
+	if (isNaN(mue.value) || isNaN(sigmae.value)){
+		alert("mu and sigma must be numbers!");
+		mue.value = "";
+		mue.placeholder = "must be a number";
+		sigmae.value = "";
+		sigmae.placeholder = "must be a number";	
+		return;
+	}
+	var mu = Number(mue.value);
+	var sigma = Number(sigmae.value);
+	if (isNaN(b1.value) || isNaN(b2.value)){
+		b1.value = "";
+		b1.placeholder = "b1, must be a number";
+		b2.value = "";
+		b2.placeholder = "b2, must be a number";	
+	} else {
+		var z1v = (b1.value-mu)/sigma;
+		var z2v = (b2.value-mu)/sigma;
+		PA.value = Math.round((pnorm(z2v)-pnorm(z1v))*10000)/10000;
+		c1 = document.getElementById("calc");
+		c1.innerHTML = showcalcA();
+		erasefill();		
+		drawA(Number(z1v),Number(z2v));
+	}
+}
+
+function erasefill(){
+	plold = document.getElementById("fil");
+	b1old = document.getElementById("b1d");
+	b2old = document.getElementById("b2d");
+	if(plold != null){
+		plold.parentNode.removeChild(plold);
+	}
+	if(b1old != null){
+		b1old.parentNode.removeChild(b1old);
+	}
+	if(b2old != null){
+		b2old.parentNode.removeChild(b2old);
+	}
+	plold = document.getElementById("fil");
+	b1old = document.getElementById("b1d");
+	b2old = document.getElementById("b2d");
+	if(plold != null){
+		plold.parentNode.removeChild(plold);
+	}
+	if(b1old != null){
+		b1old.parentNode.removeChild(b1old);
+	}
+	if(b2old != null){
+		b2old.parentNode.removeChild(b2old);
+	}
+	arcold = document.getElementById("arc");
+	if(arcold != null){
+		arcold.parentNode.removeChild(arcold);
+	}
+	arcold = document.getElementById("arc");
+	if(arcold != null){
+		arcold.parentNode.removeChild(arcold);
+	}
+	gold = document.getElementById("cgroup");
+	if(gold != null){
+		gold.parentNode.removeChild(gold);
+	}
+	gold = document.getElementById("cgroup");
+	if(gold != null){
+		gold.parentNode.removeChild(gold);
+	}
+}
+
+function drawA(z1,z2){
+	z1 = Math.max(-3,z1);
+	z2 = Math.min(3,z2);
+	svg = document.getElementById("viz");
+	var w = 20;
+	var pl1 = document.createElementNS("http://www.w3.org/2000/svg","polyline");
+	var p1 = pnorm(z1);
+	var p2 = pnorm(z2);
+	var x1 = z1*5*w+15*w;
+	var x2 = z2*5*w+15*w;
+	var y0 = 8*w;
+	var y1 = 8*w-dnorm(z1)*20*w;
+	var y2 = 8*w-dnorm(z2)*20*w;
+	var pnts = ""+x1+","+y0+" ";
+	for(var zz=z1;zz<z2;zz+=0.1){
+		var x = zz*5*w+15*w;
+		var y = 8*w-dnorm(zz)*20*w;
+		pnts = pnts+x+","+y+" ";
+	}
+	pnts = pnts+x2+","+y2+" "+x2+","+y0;
+ 	pl1.setAttribute("points", pnts);
+ 	pl1.setAttribute("id","fil");
+ 	pl1.setAttribute("fill", col1);
+ 	pl1.setAttribute("stroke","none");
+ 	svg.appendChild(pl1);
+ 	pl2 = document.createElementNS("http://www.w3.org/2000/svg","polyline");
+	pnts = ""+x1+","+y0+" "+x1+","+y1;
+	pl2.setAttribute("points", pnts);
+ 	pl2.setAttribute("id","b1d");
+ 	pl2.setAttribute("stroke",col2);
+ 	pl2.setAttribute("stroke-width","5");
+ 	svg.appendChild(pl2);
+ 	pl3 = document.createElementNS("http://www.w3.org/2000/svg","polyline");
+	pnts = ""+x2+","+y0+" "+x2+","+y2;
+	pl3.setAttribute("points", pnts);
+ 	pl3.setAttribute("id","b2d");
+ 	pl3.setAttribute("stroke",col2);
+ 	pl3.setAttribute("stroke-width","5");
+ 	svg.appendChild(pl3);
+}
+
+function makebap(rsel){
+	erasefill();
+	document.getElementById("calc").innerHTML = "";
+	var f1 = document.getElementById("bap");
+	while(f1.firstChild){
+		f1.removeChild(f1.firstChild);	
+	}
+	if(rsel.value=="arbitrary"){
+		document.getElementById("h_bap").innerHTML = "Boundaries and probability";
+		document.getElementById("help").innerHTML = "<p>Fill in two quantities; calculate the third. The calculation assumes b<sub>1</sub> < b<sub>2</sub>.</p>";
+		var label = document.createElement("label");
+		var txt = document.createElement("input");
+		txt.type = "text";
+		txt.name = "b1";
+		txt.id = "b1";
+		txt.value = "";
+		txt.setAttribute("onclick","this.select()")
+		txt.placeholder = "b1";
+		txt.setAttribute("style","background-color:"+col2);
+		label.innerHTML = "b<sub>1</sub> = ";
+		label.appendChild(txt);
+		f1.appendChild(label);
+		var but1 = document.createElement("button");
+		but1.name = "calcb1";
+		but1.value = "calcb1";	
+		but1.onclick = calcb1;
+		but1.innerHTML = "calculate b<sub>1</sub>";
+		f1.appendChild(but1);
+		f1.appendChild(document.createElement("br"));
+		var label = document.createElement("label");
+		var txt = document.createElement("input");
+		txt.type = "text";
+		txt.name = "b2";
+		txt.id = "b2";
+		txt.value = "";
+		txt.setAttribute("onclick","this.select()")
+		txt.placeholder = "b2";
+		txt.setAttribute("style","background-color:"+col2);
+		label.innerHTML = "b<sub>2</sub> = ";
+		label.appendChild(txt);
+		f1.appendChild(label);
+		var but1 = document.createElement("button");
+		but1.name = "calcb2";
+		but1.value = "calcb2";
+		but1.onclick = calcb2;
+		but1.innerHTML = "calculate b<sub>2</sub>"
+		f1.appendChild(but1);
+		f1.appendChild(document.createElement("br"));
+		var label = document.createElement("label");
+		var txt = document.createElement("input");
+		txt.type = "text";
+		txt.name = "PA";
+		txt.id = "PA";
+		txt.setAttribute("onclick","this.select()")
+		txt.value = "";
+		txt.placeholder = "P(b1<X<b2)";		
+		label.innerHTML = "P(b<sub>1</sub> < X < b<sub>2</sub>) = ";
+		label.appendChild(txt);
+		f1.appendChild(label);
+		var but1 = document.createElement("button");
+		but1.name = "calcPA";
+		but1.value = "calcPA";
+		but1.onclick = calcPA;
+		but1.innerHTML = "calculate P(b<sub>1</sub> < X < b<sub>2</sub>)";
+		txt.setAttribute("style","background-color:"+col1);
+		f1.appendChild(but1);
+	} else {
+		if(rsel.value=="left" || rsel.value=="right"){
+			document.getElementById("h_bap").innerHTML = "Boundary and probability";
+		} else {
+			document.getElementById("h_bap").innerHTML = "Radius and probability";
+		}
+		document.getElementById("help").innerHTML = "";
+		var label = document.createElement("label");
+		var txt = document.createElement("input");
+		txt.type = "text";
+		txt.value = "";
+		txt.setAttribute("onclick","this.select()");
+		switch(rsel.value){
+			case "left": txt.setAttribute("style","background-color:"+col2);txt.setAttribute("onchange","calcP('left')");break;
+			case "right": txt.setAttribute("style","background-color:"+col2);txt.setAttribute("onchange","calcP('right')");break; 
+			case "center": txt.setAttribute("style","background-color:"+col2);txt.setAttribute("onchange","calcP('center')");break;
+			case "twotail": txt.setAttribute("style","background-color:"+col2);txt.setAttribute("onchange","calcP('twotail')");break; 
+		}
+		if(rsel.value=="left" || rsel.value=="right"){
+			txt.name = "b";
+			txt.id = "b";
+			txt.placeholder = "b";
+			label.innerHTML = "b = ";
+		} else {
+			txt.name = "r";
+			txt.id = "r";
+			txt.placeholder = "r";
+			label.innerHTML = "r = ";
+		}
+		label.appendChild(txt);
+		f1.appendChild(label);
+		f1.appendChild(document.createElement("br"));
+		var label = document.createElement("label");
+		var txt = document.createElement("input");
+		txt.type = "text";
+		txt.name = "P";
+		txt.id = "P";
+		txt.setAttribute("onclick","this.select()");
+		txt.value = "";
+		switch(rsel.value){
+			case "left": txt.placeholder = "P(X < b)";txt.setAttribute("onchange","calcb('left')");break;
+			case "right": txt.placeholder = "P(X > b)";txt.setAttribute("onchange","calcb('right')");break; 
+			case "center": txt.placeholder = "P(|X-μ| < r)";txt.setAttribute("onchange","calcr('center')");break;
+			case "twotail": txt.placeholder = "P(|X-μ| > r)";txt.setAttribute("onchange","calcr('twotail')");break; 
+		}		
+		label.innerHTML = txt.placeholder+" = ";
+		txt.setAttribute("style","background-color:"+col1);
+		label.appendChild(txt);
+		f1.appendChild(label);
+	}
+}
+
+function calcP(rsv){
+	var mue = document.getElementById("mu");
+	var sigmae = document.getElementById("sigma");
+	if(isNaN(mue.value) || isNaN(sigmae.value)){
+		alert("Mu and sigma must be numbers!");
+		mue.value = "";
+		mue.placeholder = "must be a number";
+		sigmae.value = "";
+		sigmae.placeholder = "must be a number";
+		return;
+	}
+	var mu = Number(mue.value);
+	var sigma = Number(sigmae.value);
+	var Pe = document.getElementById("P");
+	var c1 = document.getElementById("calc");
+	if(rsv == "left"){
+		var be = document.getElementById("b");
+		if(isNaN(be.value)){
+			be.value="";
+			be.placeholder="b, must be a number";
+			return;
+		}
+		var b = Number(be.value);
+		var z = (b-mu)/sigma;
+		var p = pnorm(z);
+		var P = Math.round(p*10000)/10000;
+		c1.innerHTML = "<h4>Calculations</h4> X~N("+mu+","+sigma+")<br> z = ("+b+
+							"-μ)/σ = "+z+"<br> P(X < "+b+") = P(Z < "+z+") = "+P;
+		Pe.value = P;
+		erasefill();
+		drawA(-3,z);
+	} else if (rsv == "right"){
+		P = Math.round((1-p)*10000)/100000;	
+		c1.innerHTML = "<h4>Calculation</h4> P(Z > "+z+") = "+P;
+		Pe.value = P;
+		erasefill();
+		drawA(z,3);
+		drawB(z,6);
+	} else if (rsv == "center"){
+		erasefill();
+		if(p<0.5){P=0;}	else {P=(p-0.5)*2;drawA(-z,z);drawB(-z,z);}
+		P = Math.round(P*10000)/10000;
+		c1.innerHTML = "<h4>Calculation</h4> P(|Z| < "+z+") = "+P;
+		Pe.value = P;
+	} else if (rsv == "twotail"){
+		erasefill();
+		if(p<0.5){P=1;drawA(-3,3);drawB(-6,6);}	else {P=(1-p)*2;drawA(-3,-Math.abs(z));drawB(-6,-Math.abs(z));drawA(Math.abs(z),3);drawB(Math.abs(z),6);}
+		P = Math.round(P*10000)/10000;
+		c1.innerHTML = "<h4>Calculation</h4> P(|Z| > "+z+") = "+P;
+		Pe.value = P;
+	}
+}
+
+function calcz(rsv){
+	var ze = document.getElementById("z");
+	var Pe = document.getElementById("P");
+	if(isNaN(Pe.value)){
+		Pe.value="";
+		Pe.placeholder="must be a number";
+		return;
+	}
+	if(Pe.value<0 || Pe.value>1){
+		Pe.value="";
+		Pe.placeholder="must be between 0 and 1";
+		return;
+	}
+	var c1 = document.getElementById("calc");
+	var P = Number(Pe.value);
+	var z = 0;
+	if(rsv == "left"){
+		z = Math.round(qnorm(P)*10000)/10000;
+		c1.innerHTML = "<h4>Calculation</h4> P(Z < "+z+") = "+P;
+		erasefill();
+		drawA(-3,z);
+		drawB(-6,z);
+		ze.value = z;
+	} else if (rsv == "right"){
+		z = Math.round(qnorm(1-P)*10000)/100000;	
+		c1.innerHTML = "<h4>Calculation</h4> P(Z > "+z+") = "+P;
+		ze.value = z;
+		erasefill();
+		drawA(z,3);
+		drawB(z,6);
+	} else if (rsv == "center"){
+		erasefill();
+		z = qnorm(P/2+0.5);
+		z = Math.round(z*10000)/10000;
+		c1.innerHTML = "<h4>Calculation</h4> P(|Z| < "+z+") = "+P;
+		ze.value = z;
+		drawA(-Math.abs(z),Math.abs(z));
+		drawB(-Math.abs(z),Math.abs(z));
+	} else if (rsv == "twotail"){
+		erasefill();
+		z = qnorm(1-P/2);		
+		z = Math.round(z*10000)/10000;
+		c1.innerHTML = "<h4>Calculation</h4> P(|Z| > "+z+") = "+P;
+		ze.value = z;
+		drawA(-3,-Math.abs(z));
+		drawA(Math.abs(z),3);
+		drawB(-6,-Math.abs(z));
+		drawB(Math.abs(z),6);
+	}
 }
 
 </script>
 
-<body>
-
-<h2>Normal Probability Calculator</h2>
-
-
-<h4>Normal parameters (population mean and standard deviation)</h4>
-<label for="mu">μ = </label>
-<input type="text" id="mu" value="0"> 
-<br>
-<label for="sigma">σ = </label>
-<input type="text" id="sigma" value="1">
-<br>
-<h4>Type of interval</h4>
-<input type="radio" id="left" name="ptype" value="left">
-<label for="left">left</label><br>
-<input type="radio" id="right" name="ptype" value="right">
-<label for="right">right</label><br>
-<input type="radio" id="center" name="ptype" value="center">
-<label for="center">center</label><br>
-<input type="radio" id="twotail" name="ptype" value="twotail">
-<label for="twotail">two-tail</label><br>
-<input type="radio" id="arbitrary" name="ptype" value="arbitrary">
-<label for="arbitrary">arbitrary bounded interval</label><br>
-
-
-
+<div id="svg12345"></div>
+<script>
+ const svg1 = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+ const w = 20;
+ svg1.setAttribute("width", 32*w);
+ svg1.setAttribute("height", 8*w+5*w);
+ svg1.setAttribute("viewBox","-"+w+" 0 "+32*w+" "+13*w)
+ for(var z=-3;z<=3.1;z+=0.2){
+	var x = z*5*w+15*w;
+	var ply = document.createElementNS("http://www.w3.org/2000/svg","polyline");
+	ply.setAttribute("points",""+x+",0 "+x+","+8*w);
+	ply.setAttribute("fill","none");
+	ply.setAttribute("stroke","#aaaaaa");
+	svg1.appendChild(ply);
+ }
+  for(var y=0;y<=0.4;y+=0.05){
+	var ply = document.createElementNS("http://www.w3.org/2000/svg","polyline");
+	ply.setAttribute("points","0,"+y*w*20+" "+30*w+","+y*w*20);
+	ply.setAttribute("fill","none");
+	ply.setAttribute("stroke","#aaaaaa");
+	svg1.appendChild(ply);
+ }
+  const pol1 = document.createElementNS("http://www.w3.org/2000/svg","polyline");
+ var pnts = ""
+ for(z=-3;z<=3.05;z+=0.1){
+	var x = z*5*w+15*w;
+	var y = 8*w-dnorm(z)*20*w;
+	pnts = pnts+x+","+y+" ";
+}
+ pol1.setAttribute("points", pnts);
+ pol1.setAttribute("fill", "none");
+ pol1.setAttribute("stroke","black");
+ pol1.setAttribute("stroke-width","2");
+ svg1.appendChild(pol1);
+ for(z=-3;z<=3.1;z++){
+	var txt1 = document.createElementNS("http://www.w3.org/2000/svg","text");
+	txt1.setAttribute("x",z*5*w+15*w);
+	txt1.setAttribute("y",11.5*w);
+	txt1.setAttribute("text-anchor","middle")
+	txt1.appendChild(document.createTextNode(z));
+ 	svg1.appendChild(txt1);
+ }
+var txt1 = document.createElementNS("http://www.w3.org/2000/svg","text");
+txt1.setAttribute("x",15*w);
+txt1.setAttribute("y",12.2*w);
+txt1.setAttribute("text-anchor","middle")
+txt1.appendChild(document.createTextNode("z"));
+svg1.appendChild(txt1);
+svg1.id = "viz";
+document.getElementById("svg12345").appendChild(svg1);
+</script>
 
 </body>
 </html>
