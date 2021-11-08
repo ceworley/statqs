@@ -1,0 +1,53 @@
+```{r data generation, echo = FALSE, results = "hide"}
+p1 = round(runif(1,0.2,0.8),2)
+p2 = round(runif(1,0.4,0.9),2)
+p3 = round(runif(1,0.1,p2-0.1),2)
+
+pwh = p1*p2
+plh = (1-p1)*p3
+ph = pwh+plh
+pwgh = pwh/ph
+```
+
+Question
+========
+Bob has a `r p1` chance of winning a game. If Bob wins, he has a `r p2` chance of being happy after the game. If Bob loses, he has a `r p3` chance of being happy after the game. 
+
+After the game, you notice Bob is happy. What is the probability that Bob won his game? (Do not answer as a percentage; answer as a decimal.)
+
+
+Solution
+========
+
+(ANS=`r pwgh`)
+
+[video](https://vimeo.com/531918707){target="_blank"}
+
+Use the definition of [conditional probability](https://en.wikipedia.org/wiki/Conditional_probability){target="blank"}.
+$$P(\text{win given happy}) = \frac{P(\text{win and happy})}{P(\text{happy})}$$
+We can first determine all the joint probabilities.
+$$P(A\text{ and }B) = P(A)\cdot P(B\text{ given } A) $$
+$$\begin{aligned}
+P(\text{win and happy}) &= `r p1`\times`r p2` = `r p1*p2`\\
+P(\text{win and sad}) &= `r p1`\times(1-`r p2`) = `r p1*(1-p2)`\\
+P(\text{lose and happy}) &= (1-`r p1`)\times`r p3` = `r (1-p1)*p3`\\
+P(\text{lose and sad}) &= (1-`r p1`)\times(1-`r p3`) = `r (1-p1)*(1-p3)`\\
+\end{aligned}$$
+
+Notice there are two disjoint ways Bob could be happy.
+$$\begin{aligned}
+P(\text{happy}) &= P\left(\text{[win and happy] OR [lose and happy]}\right) \\
+&= P(\text{win and happy}) + P(\text{lose and happy}) \\
+&= `r pwh`+`r plh` \\
+&= `r ph`
+\end{aligned}$$
+So, back to the conditional probability.
+$$P(\text{win given happy}) = \frac{`r pwh`}{`r ph`} = `r signif(pwgh,3)`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r pwgh`
+exname: bobHappy
+extol: 0.01

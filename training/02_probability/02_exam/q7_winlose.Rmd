@@ -1,0 +1,47 @@
+```{r data generation, echo = FALSE, results = "hide"}
+while(T){
+  p1 = round(runif(1,0.2,0.8),2)
+  p2 = round(runif(1,0.2,0.8),2)
+  if(abs(p1-p2)>0.2) {break}
+}
+```
+
+Question
+========
+Cindy has two games today. Each game she will either win or lose. She has a `r p1` chance of winning the first game and a `r p2` chance of winning the second game.
+
+Answerlist
+--------
+* What is the chance Cindy wins both games?
+* What is the chance Cindy loses both games?
+* What is the chance Cindy wins once and loses once (in either order)?
+
+
+Solution
+========
+
+
+[video](https://vimeo.com/531918967){target="_blank"}
+
+$$P(WW) = `r p1` \times `r p2` = `r p1*p2` $$
+$$P(LL) = `r (1-p1)` \times `r (1-p2)` = `r (1-p1)*(1-p2)` $$
+$$P(WL) = `r p1`\times `r 1-p2` = `r p1*(1-p2)` $$
+$$P(LW) = `r (1-p1)`\times `r p2` = `r (1-p1)*p2`$$
+
+Answerlist
+--------
+* Win,win: `r p1` * `r p2` =  **`r p1*p2`**
+* Lose,lose: (1-`r p1`) * (1-`r p2`) =  **`r (1-p1)*(1-p2)`**
+* WL or LW: 1-`r p1*p2`-`r (1-p1)*(1-p2)` = **`r 1-p1*p2-(1-p1)*(1-p2)`**
+
+
+
+
+Meta-information
+============
+extype: cloze
+exsolution: `r p1*p2`|`r (1-p1)*(1-p2)`|`r 1-p1*p2-(1-p1)*(1-p2)`
+exclozetype: num|num|num
+exname: winlose
+extol: 0.01
+exextra[numwidth,logical]: TRUE

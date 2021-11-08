@@ -6,7 +6,7 @@
 </head>
 
 <script>
-const col1 = "#aa000055";
+const col1 = "#aa000077";
 const col2 = "#008888aa";
 
 function dnorm(z){
@@ -512,7 +512,7 @@ function calcP(rsv){
 		Pe.value = P;
 	} else if (rsv == "twotail"){
 		erasefill();
-		if(p<0.5){P=1;drawA(-3,3);drawB(-6,6);}	else {P=(1-p)*2;drawA(-3,-Math.abs(z));drawB(-6,-Math.abs(z));drawA(Math.abs(z),3);drawB(Math.abs(z),6);}
+		if(p<0.5){P=1;drawA(-3,3);drawB(-6,6);} else {P=(1-p)*2;drawA(-3,-Math.abs(z));drawB(-6,-Math.abs(z));drawA(Math.abs(z),3);drawB(Math.abs(z),6);}
 		P = Math.round(P*10000)/10000;
 		c1.innerHTML = "<h4>Calculation</h4> P(|Z| > "+z+") = "+P;
 		Pe.value = P;
