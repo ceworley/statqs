@@ -92,32 +92,32 @@ function reset(){
 }
 
 function numbs(){
-const w = 20;
-var mue = document.getElementById("mu");
-var sige = document.getElementById("sigma");
-if(isNaN(mue.value) || isNaN(sige.value)){
-	return;
-}
-var mu = Number(mue.value);
-var sig = Number(sige.value);
-var gg1 = document.createElementNS("http://www.w3.org/2000/svg","g");
-gg1.setAttribute("id","gg1");
-for(var z=-3;z<=3.1;z++){
+	const w = 20;
+	var mue = document.getElementById("mu");
+	var sige = document.getElementById("sigma");
+	if(isNaN(mue.value) || isNaN(sige.value)){
+		return;
+	}
+	var mu = Number(mue.value);
+	var sig = Number(sige.value);
+	var gg1 = document.createElementNS("http://www.w3.org/2000/svg","g");
+	gg1.setAttribute("id","gg1");
+	for(var z=-3;z<=3.1;z++){
+		var txt1 = document.createElementNS("http://www.w3.org/2000/svg","text");
+		txt1.setAttribute("x",z*5*w+15*w);
+		txt1.setAttribute("y",9.5*w);
+		txt1.setAttribute("text-anchor","middle")
+		txt1.appendChild(document.createTextNode(Math.round((z*sig+mu)*10000)/10000));
+		gg1.appendChild(txt1);
+	 }
 	var txt1 = document.createElementNS("http://www.w3.org/2000/svg","text");
-	txt1.setAttribute("x",z*5*w+15*w);
-	txt1.setAttribute("y",9.5*w);
+	txt1.setAttribute("x",15*w);
+	txt1.setAttribute("y",10.2*w);
 	txt1.setAttribute("text-anchor","middle")
-	txt1.appendChild(document.createTextNode(Math.round((z*sig+mu)*10000)/10000));
+	txt1.appendChild(document.createTextNode("x"));
 	gg1.appendChild(txt1);
- }
-var txt1 = document.createElementNS("http://www.w3.org/2000/svg","text");
-txt1.setAttribute("x",15*w);
-txt1.setAttribute("y",10.2*w);
-txt1.setAttribute("text-anchor","middle")
-txt1.appendChild(document.createTextNode("x"));
-gg1.appendChild(txt1);
-eraseXvals();
-document.getElementById("viz").appendChild(gg1);
+	eraseXvals();
+	document.getElementById("viz").appendChild(gg1);
 }
 
 
@@ -303,7 +303,7 @@ function eraseXvals(){
 		gg1.parentNode.removeChild(gg1);
 	}
 	gg1 = document.getElementById("gg1");
-	if(gold != null){
+	if(gg1 != null){
 		gg1.parentNode.removeChild(gg1);
 	}
 }

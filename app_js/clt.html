@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Central Limit calculator</title>
+<script>
+var mu = 0;
+var sigma = 1;
+var n = 25;
+var evm = mu;
+var evs = mu*n;
+var sem = sigma/Math.sqrt(n);
+var ses = sigma*Math.sqrt(n);
+var z;
+var za;
+var z1;
+var z2;
+var ev;
+var se;
+var sym = "";
+
+function load(){
+	document.getElementById("mu").value = "";
+	document.getElementById("sigma").value = "";
+	document.getElementById("n").value = "";
+	document.getElementById("mean").checked = true;
+	document.getElementById("mean").checked = false;
+	document.getElementById("left").checked = true;
+	document.getElementById("left").checked = false;
+	document.getElementById("b").value = "";
+	document.getElementById("r").value = "";
+	document.getElementById("b1").value = "";
+	document.getElementById("b2").value = "";
+	calc();
+	document.getElementById("binput").style.display = "none";
+	document.getElementById("rinput").style.display = "none";
+	document.getElementById("b1b2input").style.display = "none";
+	document.getElementById("outty").style.visibility = "hidden";
+}
+
+function isnan(xx){
+	if(isNaN(xx.value) || xx.value.trim()==""){
+		return true;	
+	} else {
+		return false;	
+	}
+}
+function dnorm(x, mu=0, sigma=1){
+	var z = (x-mu)/sigma;
+	return(Math.exp(-(z**2)/2)/Math.sqrt(2*Math.PI));
+}
+function pnorm(x, mu=0, sigma=1) {
+    return Math.round(stdNormal((x-mu)/sigma)*1e6)/1e6;
+}
+function stdNormal(z) {
+    var j, k, kMax, m, values, total, subtotal, item, z2, z4, a, b;
+    if (z < -6) { return 0; }
+    if (z >  6) { return 1; }
+    m      = 1;        // m(k) == (2**k)/factorial(k)
+    b      = z;        // b(k) == z ** (2*k + 1)
+    z2     = z * z;    // cache of z squared
+    z4     = z2 * z2;  // cache of z to the 4th
+    values = [];
+    for (k=0; k<100; k+=2) {
+        a = 2*k + 1;
+        item = b / (a*m);
+        item *= (1 - (a*z2)/((a+1)*(a+2)));
+        values.push(item);
+        m *= (4*(k+1)*(k+2));
+        b *= z4;
+    }
+    total = 0;
+    for (k=49; k>=0; k--) {
+        total += values[k];
+    }
+    return 0.5 + 0.3989422804014327 * total;
+}
+function eraseXvals(){
+	var gg1 = document.getElementById("gg1");
+	if(gg1 != null){
+		gg1.parentNode.removeChild(gg1);
+	}
+	gg1 = document.getElementById("gg1");
+	if(gg1 != null){
+		gg1.parentNode.removeChild(gg1);
+	}
+}
+
+function drawA(z1,z2){
+	z1 = Math.max(-3,z1);
+	z2 = Math.min(3,z2);
+	svg = document.getElementById("viz");
+	var w = 20;
+	var pl1 = document.createElementNS("http://www.w3.org/2000/svg","polyline");
+	var p1 = pnorm(z1);
+	var p2 = pnorm(z2);
+	var x1 = z1*5*w+15*w;
+	var x2 = z2*5*w+15*w;
+	var y0 = 8*w;
+	var y1 = 8*w-dnorm(z1)*20*w;
+	var y2 = 8*w-dnorm(z2)*20*w;
+	var pnts = ""+x1+","+y0+" ";
+	for(var zz=z1;zz<z2;zz+=0.1){
+		var x = zz*5*w+15*w;
+		var y = 8*w-dnorm(zz)*20*w;
+		pnts = pnts+x+","+y+" ";
+	}
+	pnts = pnts+x2+","+y2+" "+x2+","+y0;
+ 	pl1.setAttribute("points", pnts);
+ 	pl1.setAttribute("id","fil");
+ 	pl1.setAttribute("fill", "#bb000088");
+ 	pl1.setAttribute("stroke","none");
+ 	svg.appendChild(pl1);
+}
+
+function erasefill(){
+	plold = document.getElementById("fil");
+	if(plold != null){
+		plold.parentNode.removeChild(plold);
+	}
+	plold = document.getElementById("fil");
+	if(plold != null){
+		plold.parentNode.removeChild(plold);
+	}
+}
+</script>
+
+</head>
+<body onload="load()">
+<h1>Central Limit Theorem Probability Calculator</h1>
+
+<div style="color:#999999"><p>"Totals and averages are normally distributed." - Informal statement of <a href="https://en.wikipedia.org/wiki/Central_limit_theorem">central limit theorem</a>.
+</p>
+
+<p>
+This calculator calculates <a href="https://en.wikipedia.org/wiki/Sampling_distribution">sampling-distribution</a> parameters (expected value and <a href="https://en.wikipedia.org/wiki/Standard_error">standard error</a>) from the <a href="https://en.wikipedia.org/wiki/Statistical_population">population</a> parameters (population mean and <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>). Those sampling-distribution parameters are used to calculate <a href="https://en.wikipedia.org/wiki/Normal_distribution">normal</a> probabilities. Notice the population does NOT need to be normal, but then the probabilities are approximations (better with larger <i>n</i>). If the population is discrete, you should consider <a href="https://en.wikipedia.org/wiki/Continuity_correction">continuity corrections</a> to the boundaries.
+</p>
+</div>
+
+<h3>Input population parameters</h3>
+<label for="mu">μ = </label>
+<input id="mu" type="text" value="" placeholder="population mean" onclick="select(this)" onchange="calc()"></input>
+<br>
+<label for="sigma">σ = </label>
+<input id="sigma" type="text" value="" min="0" placeholder="population standard deviation" onclick="select(this)" onchange="calc()"></input>
+<h3>Input sampling-distribution parameters</h3>
+<label for="n"><i>n</i> = </label>
+<input id="n" type="text" value="" placeholder="sample size" onclick="select(this)" onchange="calc()"></input>
+<br>
+<label for="ss">Sampling statistic = </label>
+<span style="background-color:#dddddd">
+<input id="mean" name="ss" type="radio" value="mean" onchange="calc()"></input>
+<label for="mean">mean</label>
+<input id="sum" name="ss" type="radio" value="sum" onchange="calc()"></input>
+<label for="sum">sum</label>
+</span>
+
+<div id="csp">
+<h3>Calculated Sampling Parameters</h3>
+<span id="EV">Expected value = </span>
+<br>
+<span id="SE">Standard error = </span>
+</div>
+
+<script type="text/javascript">
+function calc(){
+	var mue = document.getElementById("mu");
+	var sigmae = document.getElementById("sigma");
+	var ne = document.getElementById("n");
+	var ssm = document.getElementById("mean");
+	var sss = document.getElementById("sum");
+	if(isnan(mue) || isnan(sigmae) || isnan(ne)){
+		document.getElementById("csp").style.visibility = "hidden";
+		document.getElementById("interval").style.visibility = "hidden";
+		document.getElementById("outty").style.visibility = "hidden";
+		eraseXvals();
+		return;
+	}
+	if(Number(sigmae.value)<0){
+		sigmae.value = -Number(sigmae.value);
+	}
+	if(Number(ne.value)<0){
+		ne.value = -Number(ne.value);
+	}
+	ne.value = Math.round(Number(ne.value));
+	mu = Number(mue.value);
+	sigma = Number(sigmae.value);
+	n = Number(ne.value);
+	evm = mu;
+	evs = mu*n;
+	sem = sigma/Math.sqrt(n);
+	ses = sigma*Math.sqrt(n);
+	sem = Number(sem.toPrecision(6))
+	ses = Number(ses.toPrecision(6))
+	if(ssm.checked){
+		document.getElementById("EV").innerHTML = "Expected Value of mean = μ = "+evm;
+		document.getElementById("SE").innerHTML = "Standard Error of mean = σ/√<span style='text-decoration:overline'><i>n</i></span> = "+sem;
+		ev = evm;
+		se = sem;
+		sym = "<span style='text-decoration:overline'><i>X</i></span>";
+	} else if(sss.checked) {
+		document.getElementById("EV").innerHTML = "Expected Value of sum = <i>n</i>μ = "+evs;
+		document.getElementById("SE").innerHTML = "Standard Error of sum = σ√<span style='text-decoration:overline'><i>n</i></span> = "+ses;
+		ev = evs;
+		se = ses;
+		sym = "Σ<i>X</i>";
+	} else {
+		document.getElementById("EV").innerHTML = "Expected Value = ";
+		document.getElementById("SE").innerHTML = "Standard Error = ";	
+		return;
+	}
+	document.getElementById("csp").style.visibility = "visible";
+	document.getElementById("interval").style.visibility = "visible";
+	document.getElementById("outty").style.visibility = "visible";
+	numbs();
+	showresult();
+}
+</script>
+
+<div id="interval">
+<h3>Input interval</h3>
+<label for="toi">Type of interval = </label>
+<span style="background-color:#dddddd; width:200px;">
+<input id="left" name="toi" type="radio" value="left" onclick="getb()"></input>
+<label for="left">left</label>
+<input id="right" name="toi" type="radio" value="right" onclick="getb()"></input>
+<label for="right">right</label> 
+<input id="center" name="toi" type="radio" value="center" onclick="getr()"></input>
+<label for="center">center</label> 
+<input id="twotail" name="toi" type="radio" value="twotail" onclick="getr()"></input>
+<label for="twotail">twotail</label> 
+<input id="arbitrary" name="toi" type="radio" value="arbitrary" onclick="getb1b2()"></input>
+<label for="arbitrary">doubly-bounded</label>
+</span>
+
+<script type="text/javascript">
+function getb(){
+	document.getElementById("binput").style.display = "block";
+	document.getElementById("rinput").style.display = "none";
+	document.getElementById("b1b2input").style.display = "none";
+	showresult();
+}
+function getr(){
+	document.getElementById("binput").style.display = "none";
+	document.getElementById("rinput").style.display = "block";
+	document.getElementById("b1b2input").style.display = "none";
+	showresult();
+}
+function getb1b2(){
+	document.getElementById("binput").style.display = "none";
+	document.getElementById("rinput").style.display = "none";
+	document.getElementById("b1b2input").style.display = "block";
+	showresult();
+}
+</script>
+
+
+<div id="binput">
+<label for="b">b = </label>
+<input id="b" type="text" value="" placeholder="boundary" onclick="select(this)" onchange="showresult()"></input>
+</div>
+
+<div id="rinput">
+<label for="r">r = </label>
+<input id="r" type="text" value="" placeholder="radius" onclick="select(this)" onchange="showresult()"></input>
+</div>
+
+<div id="b1b2input">
+<label for="b1">b<sub>1</sub> = </label>
+<input id="b1" type="text" value="" placeholder="lower boundary" onclick="select(this)" onchange="showresult()"></input>
+<br>
+<label for="b2">b<sub>2</sub> = </label>
+<input id="b2" type="text" value="" placeholder="upper boundary" onclick="select(this)" onchange="showresult()"></input>
+</div>
+</div>
+
+
+<div id="outty">
+<h2>Output</h2>
+<span id="statement">P(Z< 0)=0.5</span>
+<br>
+<br>
+<div id="svg12345"></div>
+</div>
+
+
+<script type="text/javascript">
+function showresult(){
+	var mue = document.getElementById("mu");
+	var sigmae = document.getElementById("sigma");
+	var ne = document.getElementById("n");
+	var ssm = document.getElementById("mean");
+	var sss = document.getElementById("sum");
+	var toil = document.getElementById("left");
+	var toir = document.getElementById("right");
+	var toic = document.getElementById("center");
+	var toit = document.getElementById("twotail");
+	var toia = document.getElementById("arbitrary");
+	var be = document.getElementById("b");
+	var re = document.getElementById("r");
+	var b1e = document.getElementById("b1");
+	var b2e = document.getElementById("b2");
+	if(isnan(mue) || isnan(sigmae) || isnan(ne) || !(ssm.checked || sss.checked)){
+		document.getElementById("outty").style.visibility = "hidden";
+		return;
+	}
+	mu = Number(mue.value);
+	sigma = Number(sigmae.value);
+	n = Number(ne.value);
+	var evd = Number(ev.toPrecision(4));
+	var sed = Number(se.toPrecision(4));
+	var P = 666;
+	var z = 0;
+	if(toil.checked && !(isnan(be))){
+		b = Number(be.value);
+		z = (b-ev)/se;
+		P = Number(pnorm(z).toPrecision(4));
+		erasefill();
+		drawA(-3,z);
+		z = Number(z.toPrecision(5));
+		st = document.getElementById("statement");
+		st.innerHTML = "<i>z</i> = (b-EV)/SE = ("+b+"-"+evd+")/"+sed+" = "+z+"<br>"+"P("+sym+"<"+b+") = P(Z<"+z+") = "+P;
+		if(evd<0){
+			st.innerHTML = "<i>z</i> = (b-EV)/SE = ("+b+"-("+evd+"))/"+sed+" = "+z+"<br>"+"P("+sym+"<"+b+") = P(Z<"+z+") = "+P;
+		}
+		document.getElementById("outty").style.visibility = "visible";
+	} else if(toir.checked && !(isnan(be))){
+		b = Number(be.value);
+		z = (b-ev)/se;
+		P = Number((1-pnorm(z)).toPrecision(4));
+		erasefill();
+		drawA(z,3);
+		z = Number((z).toPrecision(5));
+		st = document.getElementById("statement");
+		st.innerHTML = "<i>z</i> = (b-EV)/SE = ("+b+"-"+evd+")/"+sed+" = "+z+"<br>"+"P("+sym+">"+b+") = P(Z>"+z+") = "+P;
+		if(evd<0){
+			st.innerHTML = "<i>z</i> = (b-EV)/SE = ("+b+"-("+evd+"))/"+sed+" = "+z+"<br>"+"P("+sym+">"+b+") = P(Z>"+z+") = "+P;
+		}
+		document.getElementById("outty").style.visibility = "visible";
+	} else if(toic.checked && !(isnan(re))){
+		if(Number(re.value) < 0){
+			re.value = -Number(re.value);	
+		}
+		var r = re.value;
+		z = r/se;
+		P = Number((2*(pnorm(z)-0.5)).toPrecision(4));
+		erasefill();
+		drawA(-z,z);
+		z = Number((z).toPrecision(5));
+		st = document.getElementById("statement");
+		st.innerHTML = "<i>z</i> = r/SE = "+r+"/"+sed+" = "+z+"<br>"+"P(|"+sym+"-"+evd+"|<"+r+") = P(|Z|<"+z+") = "+P;
+		if(evd<0){
+			st.innerHTML = "<i>z</i> = r/SE = "+r+"/"+sed+" = "+z+"<br>"+"P(|"+sym+"-("+evd+")|<"+r+") = P(|Z|<"+z+") = "+P;
+		}
+		document.getElementById("outty").style.visibility = "visible";
+	} else if(toit.checked && !(isnan(re))){
+		if(Number(re.value) < 0){
+			re.value = -Number(re.value);	
+		}
+		var r = re.value;
+		z = r/se;
+		P = Number((1-2*(pnorm(z)-0.5)).toPrecision(4));
+		erasefill();
+		drawA(-3,-z);
+		drawA(z,3);
+		z = Number((z).toPrecision(5));
+		st = document.getElementById("statement");
+		st.innerHTML = "<i>z</i> = r/SE = "+r+"/"+sed+" = "+z+"<br>"+"P(|"+sym+"-"+evd+"|>"+r+") = P(|Z|>"+z+") = "+P;
+		if(evd<0){
+			st.innerHTML = "<i>z</i> = r/SE = "+r+"/"+sed+" = "+z+"<br>"+"P(|"+sym+"-("+evd+")|>"+r+") = P(|Z|>"+z+") = "+P;
+		}
+		document.getElementById("outty").style.visibility = "visible"; 
+		} else if(toia.checked && !(isnan(b1e)) && !(isnan(b2e))) {
+		if(Number(b2e.value) < Number(b1e.value)) {
+			var b2temp = Number(b2e.value);
+			b2e.value = Number(b1e.value);
+			b1e.value = b2temp;
+		}
+		var b1 = b1e.value;
+		var b2 = b2e.value;
+		var z1 = (b1-ev)/se;
+		var z2 = (b2-ev)/se;
+		P = Number((pnorm(z2)-pnorm(z1)).toPrecision(4));
+		erasefill();
+		drawA(z1,z2);
+		z1 = Number((z1).toPrecision(5));
+		z2 = Number((z2).toPrecision(5));
+		st = document.getElementById("statement");
+		st.innerHTML = "<i>z</i><sub>1</sub> = (b<sub>1</sub>-EV)/SE = ("+b1+"-"+evd+")/"+sed+" = "+z1+"<br><i>z</i><sub>2</sub> = (b<sub>2</sub>-EV)/SE = ("+b2+"-"+evd+")/"+sed+" = "+z2+"<br>"+"P("+b1+"&lt;"+sym+"<"+b2+") = P("+z1+"&lt;"+"Z<"+z2+") = "+P;
+		if(evd<0){
+			st.innerHTML = "<i>z</i><sub>1</sub> = (b<sub>1</sub>-EV)/SE = ("+b1+"-("+evd+"))/"+sed+" = "+z1+"<br><i>z</i><sub>2</sub> = (b<sub>2</sub>-EV)/SE = ("+b2+"-("+evd+"))/"+sed+" = "+z2+"<br>"+"P("+b1+"&lt;"+sym+"<"+b2+") = P("+z1+"&lt;"+"Z<"+z2+") = "+P;
+		}
+		document.getElementById("outty").style.visibility = "visible"; 
+		} else {
+		document.getElementById("outty").style.visibility = "hidden";
+		return;	
+	}
+}
+ const svg1 = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+ const w = 20;
+ svg1.setAttribute("width", 36*w);
+ svg1.setAttribute("height", 8*w+5*w);
+ svg1.setAttribute("viewBox","-"+3*w+" 0 "+36*w+" "+13*w)
+ for(var z=-3;z<=3.1;z+=0.2){
+	var x = z*5*w+15*w;
+	var ply = document.createElementNS("http://www.w3.org/2000/svg","polyline");
+	ply.setAttribute("points",""+x+",0 "+x+","+8*w);
+	ply.setAttribute("fill","none");
+	ply.setAttribute("stroke","#aaaaaa");
+	svg1.appendChild(ply);
+ }
+  for(var y=0;y<=0.4;y+=0.05){
+	var ply = document.createElementNS("http://www.w3.org/2000/svg","polyline");
+	ply.setAttribute("points","0,"+y*w*20+" "+30*w+","+y*w*20);
+	ply.setAttribute("fill","none");
+	ply.setAttribute("stroke","#aaaaaa");
+	svg1.appendChild(ply);
+ }
+  const pol1 = document.createElementNS("http://www.w3.org/2000/svg","polyline");
+ var pnts = ""
+ for(z=-3;z<=3.05;z+=0.1){
+	var x = z*5*w+15*w;
+	var y = 8*w-dnorm(z)*20*w;
+	pnts = pnts+x+","+y+" ";
+}
+ pol1.setAttribute("points", pnts);
+ pol1.setAttribute("fill", "none");
+ pol1.setAttribute("stroke","black");
+ pol1.setAttribute("stroke-width","2");
+ svg1.appendChild(pol1);
+ for(var z=-3;z<=3.1;z++){
+	var txt1 = document.createElementNS("http://www.w3.org/2000/svg","text");
+	txt1.setAttribute("x",z*5*w+15*w);
+	txt1.setAttribute("y",11.5*w);
+	txt1.setAttribute("text-anchor","middle")
+	txt1.appendChild(document.createTextNode(z));
+ 	svg1.appendChild(txt1);
+ 	var ply = document.createElementNS("http://www.w3.org/2000/svg","polyline");
+	ply.setAttribute("points",""+(z*5*w+15*w)+","+8.4*w+" "+(z*5*w+15*w)+","+8*w);
+	ply.setAttribute("fill","none");
+	ply.setAttribute("stroke","#000000");
+ pol1.setAttribute("stroke-width","1");
+	svg1.appendChild(ply);
+ }
+var txt1 = document.createElementNS("http://www.w3.org/2000/svg","text");
+txt1.setAttribute("x",15*w);
+txt1.setAttribute("y",12.2*w);
+txt1.setAttribute("text-anchor","middle")
+txt1.appendChild(document.createTextNode("z"));
+svg1.appendChild(txt1);
+svg1.id = "viz";
+document.getElementById("svg12345").appendChild(svg1);
+
+function numbs(){
+	const w = 20;
+	var mue = document.getElementById("mu");
+	var sige = document.getElementById("sigma");
+	var ne = document.getElementById("n");
+	if(isnan(mue) || isnan(sige) || isnan(ne)){
+		eraseXvals();
+		return;
+	}
+	var mu = Number(mue.value);
+	var sig = Number(sige.value);
+	var n = Number(ne.value);
+	if(document.getElementById("mean").checked){
+		sig = sig/Math.sqrt(n);
+	}
+	if(document.getElementById("sum").checked){
+		mu = n*mu;		
+		sig = sig*Math.sqrt(n);
+	}
+	var gg1 = document.createElementNS("http://www.w3.org/2000/svg","g");
+	gg1.setAttribute("id","gg1");
+	for(var z=-3;z<=3.1;z++){
+		var txt1 = document.createElementNS("http://www.w3.org/2000/svg","text");
+		txt1.setAttribute("x",z*5*w+15*w);
+		txt1.setAttribute("y",9.5*w);
+		txt1.setAttribute("text-anchor","middle")
+		txt1.appendChild(document.createTextNode(Math.round(Number((z*sig+mu).toPrecision(4))*10000)/10000));
+		gg1.appendChild(txt1);
+	 }
+	var txt1 = document.createElementNS("http://www.w3.org/2000/svg","text");
+	txt1.setAttribute("x",15*w);
+	txt1.setAttribute("y",10.2*w);
+	txt1.setAttribute("text-anchor","middle");
+	if(document.getElementById("mean").checked){
+		txt1.appendChild(document.createTextNode("mean"));
+	} else {
+		txt1.appendChild(document.createTextNode("sum"));
+	}
+	gg1.appendChild(txt1);
+	eraseXvals();
+	document.getElementById("viz").appendChild(gg1);
+}
+
+
+</script>
+
+
+</div>
+</body>
+</html>
