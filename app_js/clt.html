@@ -138,12 +138,15 @@ This calculator calculates <a href="https://en.wikipedia.org/wiki/Sampling_distr
 </div>
 
 <h3>Input population parameters</h3>
+<div id="poppams">
 <label for="mu">μ = </label>
 <input id="mu" type="text" value="" placeholder="population mean" onclick="select(this)" onchange="calc()"></input>
 <br>
 <label for="sigma">σ = </label>
 <input id="sigma" type="text" value="" min="0" placeholder="population standard deviation" onclick="select(this)" onchange="calc()"></input>
+</div>
 <h3>Input sampling-distribution parameters</h3>
+<div id="sdp">
 <label for="n"><i>n</i> = </label>
 <input id="n" type="text" value="" placeholder="sample size" onclick="select(this)" onchange="calc()"></input>
 <br>
@@ -154,6 +157,7 @@ This calculator calculates <a href="https://en.wikipedia.org/wiki/Sampling_distr
 <input id="sum" name="ss" type="radio" value="sum" onchange="calc()"></input>
 <label for="sum">sum</label>
 </span>
+</div>
 
 <div id="csp">
 <h3>Calculated Sampling Parameters</h3>
