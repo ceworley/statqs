@@ -612,6 +612,7 @@ function calcbr(rsv){
 	var mu = Number(mue.value);
 	var sigma = Number(sigmae.value);
 	var Pe = document.getElementById("P");
+	var z = 0;
 	if(isNaN(Pe.value)){
 		Pe.value="";
 		Pe.placeholder="must be a number";
@@ -627,17 +628,20 @@ function calcbr(rsv){
 	var z = 0;
 	if(rsv == "left"){
 		var be = document.getElementById("b");
-		z = Math.round(qnorm(P)*10000)/10000;
+		var z = Math.round(qnorm(P)*10000)/10000;		
+		var b = z*sigma+mu;
 		erasefill();
 		drawA(-3,z);
 		drawB(-6,z);
-		var b = z*sigma+mu;
 		b = Math.round(b*10000)/10000;
 		be.value = b;
 		c1.innerHTML = "<h4>Calculations</h4> X~N("+mu+","+sigma+")<br> z = (b-μ)/σ = "+z+"<br> P(X < "+b+")  =  P(Z < "+z+")  =  "+P;
 	} else if (rsv == "right"){
 		var be = document.getElementById("b");
-		z = Math.round(qnorm(1-P)*10000)/100000;	
+		console.log(P);
+		console.log(1-P);
+		console.log(qnorm(1-P));
+		var z = Math.round(qnorm(1-P)*10000)/10000;	
 		erasefill();
 		var b = z*sigma+mu;
 		b = Math.round(b*10000)/10000;
@@ -648,7 +652,7 @@ function calcbr(rsv){
 	} else if (rsv == "center"){
 		var re = document.getElementById("r");
 		erasefill();
-		z = qnorm(P/2+0.5);
+		var z = qnorm(P/2+0.5);
 		z = Math.round(z*10000)/10000;
 		var r = z*sigma;
 		r = Math.round(r*10000)/10000;
@@ -659,7 +663,7 @@ function calcbr(rsv){
 	} else if (rsv == "twotail"){
 		var re = document.getElementById("r");
 		erasefill();
-		z = qnorm(1-P/2);		
+		var z = qnorm(1-P/2);		
 		z = Math.round(z*10000)/10000;
 		var r = z*sigma;
 		r = Math.round(r*10000)/10000;

@@ -498,7 +498,7 @@ function calcP(rsv){
 		drawA(-3,z);
 		drawB(-6,z);
 	} else if (rsv == "right"){
-		P = Math.round((1-p)*10000)/100000;	
+		P = Math.round((1-p)*10000)/10000;	
 		c1.innerHTML = "<h4>Calculation</h4> P(Z > "+z+") = "+P;
 		Pe.value = P;
 		erasefill();
@@ -543,7 +543,7 @@ function calcz(rsv){
 		drawB(-6,z);
 		ze.value = z;
 	} else if (rsv == "right"){
-		z = Math.round(qnorm(1-P)*10000)/100000;	
+		z = Math.round(qnorm(1-P)*10000)/10000;	
 		c1.innerHTML = "<h4>Calculation</h4> P(Z > "+z+") = "+P;
 		ze.value = z;
 		erasefill();

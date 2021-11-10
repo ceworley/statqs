@@ -1,10 +1,10 @@
 library("exams")
 
-folder = "03_central_limit_theorem/02_normal/"
+folder = "03_central_limit_theorem/03_central_limit_theorem/"
 n = 50
 outdir = "outmoodle"
 files = list.files(folder,pattern=".Rmd")
-name = "03_02_normal"
+name = "03_03_clt"
 fn2 = paste0(outdir,"/",name,".xml")
 exams2moodle(paste0(folder,files),n=n,dir=outdir,converter="pandoc-mathml",
              name=name)

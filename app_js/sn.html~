@@ -6,7 +6,7 @@
 </head>
 
 <script>
-const col1 = "#aa000055";
+const col1 = "#aa000077";
 const col2 = "#008888aa";
 
 function dnorm(z){
@@ -498,7 +498,7 @@ function calcP(rsv){
 		drawA(-3,z);
 		drawB(-6,z);
 	} else if (rsv == "right"){
-		P = Math.round((1-p)*10000)/100000;	
+		P = Math.round((1-p)*10000)/10000;	
 		c1.innerHTML = "<h4>Calculation</h4> P(Z > "+z+") = "+P;
 		Pe.value = P;
 		erasefill();
